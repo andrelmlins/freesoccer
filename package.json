@@ -1,0 +1,43 @@
+{
+  "name": "mais-futebol",
+  "version": "1.0.0",
+  "description": "Scraping de dados de futebol dos campeonatos mais famosos do mundo",
+  "main": "index.js",
+  "scripts": {
+    "lite": "lite-server",
+    "start": "tsc --outDir dist src\\index.ts --lib es2015 && nodemon dist\\index.js",
+    "test": "yarn test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/paulomenezes/my-reads-server.git"
+  },
+  "author": "Paulo Menezes",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/paulomenezes/my-reads-server/issues"
+  },
+  "homepage": "https://github.com/paulomenezes/my-reads-server#readme",
+  "dependencies": {
+    "@types/express": "^4.11.1",
+    "@types/mongodb": "^3.0.15",
+    "@types/mongoose": "^5.0.10",
+    "bcrypt": "^2.0.1",
+    "body-parser": "^1.18.2",
+    "cheerio": "^1.0.0-rc.2",
+    "cors": "^2.8.5",
+    "express": "^4.16.3",
+    "md5": "^2.2.1",
+    "moment": "^2.22.2",
+    "mongoose": "^5.0.16",
+    "morgan": "^1.9.0",
+    "q": "^1.5.1",
+    "request": "^2.88.0",
+    "request-promise-any": "^1.0.5",
+    "typescript": "^2.8.3"
+  },
+  "devDependencies": {
+    "@types/md5": "^2.1.33",
+    "lite-server": "^2.4.0"
+  }
+}
