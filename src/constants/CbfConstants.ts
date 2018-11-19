@@ -13,6 +13,7 @@ class CbfConstants {
         {
             type:CompetitionType.LEAGUE,
             code:CompetitionsCbf.MALE_B,
+            number:2,
             name:"Campeonato Brasileiro De Futebol - Série B",
             years:["2012","2013","2014","2015","2016","2017","2018"]
         }

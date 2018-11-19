@@ -1,11 +1,14 @@
 import {Request, Response} from "express";
 import CbfController from '../controllers/scraping/CbfController';
+import RfefController from "../controllers/scraping/RfefController";
 
 export class Routes { 
     public cbfController: CbfController;
+    public rfefController: RfefController;
 
     constructor() {
         this.cbfController = new CbfController;
+        this.rfefController = new RfefController;
     }
     
     public routes(app:any): void {   
@@ -18,6 +21,7 @@ export class Routes {
         })    
 
         app.route('/scraping/cbf').get(this.cbfController.load)
+        app.route('/scraping/rfef').get(this.rfefController.load)
 
     }
 }

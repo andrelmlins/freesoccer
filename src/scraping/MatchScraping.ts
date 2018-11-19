@@ -13,6 +13,8 @@ class MatchScraping {
         match.teamHome = new TeamResult;
         match.teamGuest = new TeamResult;
 
+        matchHtml.find(".partida-desc").eq(0).find(".partida-desc").remove();
+
         let result = matchHtml.find(".partida-horario").children("span").text().split(" x ");
         let location = matchHtml.find(".partida-desc").eq(1).text().trim().replace(" Como foi o jogo","").split(" - ");
         let date = matchHtml.find(".partida-desc").eq(0).text().trim().split(" - ")[0].split(",")[1].trim();
@@ -31,6 +33,31 @@ class MatchScraping {
         match.teamGuest.name = matchHtml.find(".time.pull-right").find("img").attr("alt");
         match.teamGuest.flag = matchHtml.find(".time.pull-right").find("img").attr("src");
         match.teamGuest.goals = result[1]=="" ? undefined : parseInt(result[1]);
+
+        return match;
+    }
+
+    public async runRfef(matchHtml:any, date:string): Promise<IMatch> {
+        let childrens = matchHtml.children();
+        
+        let match = new Match;
+        match.teamHome = new TeamResult;
+        match.teamGuest = new TeamResult;
+
+        match.name = "";
+        match.date = date;
+        match.stadium = "";
+        match.location = "";
+
+        match.teamHome.initials = "";
+        match.teamHome.name = childrens.eq(0).text().replace("SAD","").trim();
+        match.teamHome.flag = "";
+        match.teamHome.goals = parseInt(childrens.eq(1).text().trim());
+
+        match.teamGuest.initials = "";
+        match.teamGuest.name = childrens.eq(3).text().replace("SAD","").trim();
+        match.teamGuest.flag = "";
+        match.teamGuest.goals = parseInt(childrens.eq(2).text().trim());
 
         return match;
     }
