@@ -1,25 +1,31 @@
-import CompetitionsRfef from '../enum/CompetitionsRfef';
-import CompetitionType from '../enum/CompetitionType';
+import ICompetitionDefault from '../interfaces/ICompetitionDefault';
+
+import CompetitionCode from '../enums/CompetitionCode';
+import CompetitionType from '../enums/CompetitionType';
 
 class RfefConstants {
     public static URL_DEFAULT = "http://www.rfef.es/competiciones";
     public static COUNTRY = "Spain";
-    public static COMPETITIONS = [
+    public static COMPETITIONS: Array<ICompetitionDefault> = [
         {
             type:CompetitionType.LEAGUE,
-            code:CompetitionsRfef.MALE_A,
-            url:"/futbol-masculino",
-            number:1,
+            code:CompetitionCode.RFEF_MALE_A,
             name:"La Liga - Primera División",
-            years:["2014","2015","2016","2017","2018","2019"]
+            years:["2014","2015","2016","2017","2018","2019"],
+            aux:{
+                url:"/futbol-masculino",
+                number:1
+            },
         },
         {
             type:CompetitionType.LEAGUE,
-            code:CompetitionsRfef.MALE_B,
-            url:"/futbol-masculino",
-            number:2,
+            code:CompetitionCode.RFEF_MALE_B,
             name:"La Liga - Segunda División",
-            years:["2014","2015","2016","2017","2018","2019"]
+            years:["2014","2015","2016","2017","2018","2019"],
+            aux:{
+                url:"/futbol-masculino",
+                number:2
+            },
         }
     ];
 }

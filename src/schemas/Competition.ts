@@ -2,13 +2,13 @@ import { Document, Schema, Model, model } from 'mongoose';
 
 import { IRound } from './Round';
 
-import CompetitionsCbf from '../enum/CompetitionsCbf';
-import CompetitionType from '../enum/CompetitionType';
+import CompetitionType from '../enums/CompetitionType';
+import CompetitionCode from '../enums/CompetitionCode';
 
 export interface ICompetition extends Document {
     name: string;
     year: string;
-    code: CompetitionsCbf;
+    code: CompetitionCode;
     type: CompetitionType;
     country: string;
     rounds: IRound[];

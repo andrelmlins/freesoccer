@@ -2,7 +2,7 @@
   "name": "mais-futebol",
   "version": "1.0.0",
   "description": "Scraping de dados de futebol dos campeonatos mais famosos do mundo",
-  "main": "index.js",
+  "main": "dist\\index",
   "scripts": {
     "lite": "lite-server",
     "start": "tsc --outDir dist src\\index.ts --lib es2015 && nodemon dist\\index.js",

@@ -23,8 +23,8 @@ export class Routes {
             })
         })    
 
-        app.route('/scraping/cbf').get(this.cbfController.load);
-        app.route('/scraping/rfef').get(this.rfefController.load);
-        app.route('/scraping/fff').get(this.fffController.load);
+        app.route('/scraping/cbf/:competition').get(this.cbfController.load);
+        app.route('/scraping/rfef/:competition').get(this.rfefController.load);
+        app.route('/scraping/fff/:competition').get(this.fffController.load);
     }
 }

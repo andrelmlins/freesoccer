@@ -4,9 +4,6 @@ import { Routes } from "./Routes";
 import * as mongoose from 'mongoose';
 import * as morgan from 'morgan';
 import * as cors from 'cors';
-import * as https from 'https';
-import * as fs from 'fs';
-import * as process from 'process';
 
 class App {
 

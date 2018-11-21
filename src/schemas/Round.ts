@@ -1,6 +1,6 @@
 import { Document, Schema, Model, model } from 'mongoose';
 
-import { IMatch } from './Match';
+import Match from './Match';
 import { ICompetition } from './Competition';
 
 export interface IRound extends Document {
@@ -9,7 +9,7 @@ export interface IRound extends Document {
     goals: number;
     goalsHome: number;
     goalsGuest: number;
-    matchs: IMatch[];
+    matchs: Match[];
     competition: ICompetition;
 }
 
