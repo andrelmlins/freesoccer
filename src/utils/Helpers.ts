@@ -18,8 +18,10 @@ class Helpers {
             let roundAux:any = round.toObject();
             delete roundAux._id;
             
-            let roundResult = await Round.updateOne({"_id":roundOld._id},roundAux);
-            return roundResult
+            await Round.updateOne({"_id":roundOld._id},roundAux);
+            
+            let roundResult = await Round.findOne({"hash":round.hash});
+            return roundResult;
         } else {
             let roundResult = await Round.create(round);
             return roundResult;

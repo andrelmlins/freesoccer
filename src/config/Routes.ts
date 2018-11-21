@@ -2,16 +2,19 @@ import {Request, Response} from "express";
 import CbfController from '../controllers/scraping/CbfController';
 import RfefController from "../controllers/scraping/RfefController";
 import FffController from "../controllers/scraping/FffController";
+import FigcController from "../controllers/scraping/FigcController";
 
 export class Routes { 
     public cbfController: CbfController;
     public rfefController: RfefController;
     public fffController: FffController;
+    public figcController: FigcController;
 
     constructor() {
         this.cbfController = new CbfController;
         this.rfefController = new RfefController;
         this.fffController = new FffController;
+        this.figcController = new FigcController;
     }
     
     public routes(app:any): void {   
@@ -26,5 +29,6 @@ export class Routes {
         app.route('/scraping/cbf/:competition').get(this.cbfController.load);
         app.route('/scraping/rfef/:competition').get(this.rfefController.load);
         app.route('/scraping/fff/:competition').get(this.fffController.load);
+        app.route('/scraping/figc/:competition').get(this.figcController.load);
     }
 }
