@@ -3,7 +3,7 @@ import CompetitionType from '../enum/CompetitionType';
 
 class RfefConstants {
     public static URL_DEFAULT = "http://www.rfef.es/competiciones";
-    public static TEMPORADAS = ["2014","2015","2016","2017","2018","2019"]
+    public static COUNTRY = "Spain";
     public static COMPETITIONS = [
         {
             type:CompetitionType.LEAGUE,

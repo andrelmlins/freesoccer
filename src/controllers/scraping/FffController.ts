@@ -1,19 +1,21 @@
-import RfefScraping from "../../scraping/RfefScraping";
+import FffScraping from "../../scraping/FffScraping";
 import { Response, Request } from "express";
 
-class RfefController {
+class FffController {
 
     public async load (req: Request, res: Response) {
         try {
-            let rfefScraping: RfefScraping = new RfefScraping;
-            await rfefScraping.run();
+            let fffScraping: FffScraping = new FffScraping;
+            await fffScraping.run();
 
             res.send({message:"Success"});
         } catch (error) {
+
+            console.log(error);
             res.status(500).send({error:error+""});
         }
     }
 
 }
 
-export default RfefController;
+export default FffController;

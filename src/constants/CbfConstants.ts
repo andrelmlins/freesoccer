@@ -3,6 +3,7 @@ import CompetitionType from '../enum/CompetitionType';
 
 class CbfConstants {
     public static URL_DEFAULT = "https://www.cbf.com.br/futebol-brasileiro/competicoes";
+    public static COUNTRY = "Brazil";
     public static COMPETITIONS = [
         {
             type:CompetitionType.LEAGUE,
@@ -13,7 +14,6 @@ class CbfConstants {
         {
             type:CompetitionType.LEAGUE,
             code:CompetitionsCbf.MALE_B,
-            number:2,
             name:"Campeonato Brasileiro De Futebol - Série B",
             years:["2012","2013","2014","2015","2016","2017","2018"]
         }

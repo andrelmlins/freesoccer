@@ -2,9 +2,11 @@ import * as request from 'request-promise-any';
 import * as cheerio from 'cheerio';
 
 import CbfConstants from '../constants/CbfConstants';
+import RfefConstants from '../constants/RfefConstants';
+import FffConstants from '../constants/FffConstants';
+
 import { Competition, ICompetition } from '../schemas/Competition';
 import RoundScraping from './RoundScraping';
-import RfefConstants from '../constants/RfefConstants';
 
 class CompetitionScraping {
     private roundScraping: RoundScraping;
@@ -35,6 +37,7 @@ class CompetitionScraping {
             competition.code = competitionDefault.code;
             competition.type = competitionDefault.type;
             competition.year = competitionDefault.years[i];
+            competition.country = CbfConstants.COUNTRY;
             competition.rounds = [];
 
             let page = await request(CbfConstants.URL_DEFAULT+"/"+competition.code+"/"+competition.year);
@@ -64,6 +67,7 @@ class CompetitionScraping {
             competition.code = competitionDefault.code;
             competition.type = competitionDefault.type;
             competition.year = competitionDefault.years[i];
+            competition.country = RfefConstants.COUNTRY;
             competition.rounds = [];
 
             let page = await request(RfefConstants.URL_DEFAULT+competitionDefault.url+"/resultados?t="+competition.year);
@@ -78,6 +82,53 @@ class CompetitionScraping {
             }
 
             await this.replaceCompetition(competition);
+        }
+    }
+
+    public async runFff(competitionDefault:any) {
+        console.log("\t-> "+competitionDefault.name);
+
+        let pageSeason = await request({
+            url: FffConstants.URL_DEFAULT+"/"+competitionDefault.code+"/calendrier_resultat",
+            rejectUnauthorized: false
+        });
+        
+        let $ = cheerio.load(pageSeason);
+        let seasons = $("select[name='saison']").children();
+
+        for(let i = 0; i <= seasons.length; i++) {
+            let numberSeason = parseInt(seasons.eq(i).attr("value"));
+            
+            if(numberSeason>=FffConstants.START_SEASON) {
+                let year = parseInt(seasons.eq(i).text().split("/")[1]);
+                
+                console.log("\t\t-> "+year);
+
+                let competition = new Competition;
+                competition.name = competitionDefault.name;
+                competition.code = competitionDefault.code;
+                competition.type = competitionDefault.type;
+                competition.year = year+"";
+                competition.country = FffConstants.COUNTRY;
+                competition.rounds = [];
+                
+                let page = await request({
+                    url: FffConstants.URL_DEFAULT+"/"+competitionDefault.code+"/calendrier_resultat?sai="+numberSeason,
+                    rejectUnauthorized: false
+                });
+                
+                let $ = cheerio.load(page);
+                let rounds = $("select[name='journee']").children();
+                
+                for(let j = 0; j < rounds.length; j++){
+                    if(rounds.eq(j).text().includes("Week")) {
+                        let roundResult = await this.roundScraping.runFff(rounds.eq(j),competition,competitionDefault,numberSeason);
+                        competition.rounds.push(roundResult._id);
+                    }
+                }
+                
+                await this.replaceCompetition(competition);
+            }
         }
     }
 }

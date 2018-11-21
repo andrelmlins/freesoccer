@@ -8,6 +8,7 @@ import MatchScraping from './MatchScraping';
 import { Round, IRound } from '../schemas/Round';
 import { ICompetition } from '../schemas/Competition';
 import RfefConstants from '../constants/RfefConstants';
+import FffConstants from '../constants/FffConstants';
 
 class RoundScraping {
     private matchScraping: MatchScraping;
@@ -94,6 +95,47 @@ class RoundScraping {
             }
 
             round.matchs.push(matchResult);
+        }
+
+        return await this.replaceRound(round);
+    }
+
+    public async runFff(roundHtml:any, competition:ICompetition, competitionDefault:any, codeyear:number) {
+        let number = parseInt(roundHtml.attr("value"));
+
+        let round = new Round;
+        round.goals = 0;
+        round.goalsHome = 0;
+        round.goalsGuest = 0;
+        round.number =  number+"";
+        round.matchs = [];
+        round.competition = competition._id;
+        round.hash = md5(competition.code+competition.year+round.number);
+        console.log("\t\t\t-> Round "+round.number);
+        
+        let page = await request({
+            url: FffConstants.URL_DEFAULT+"/"+competitionDefault.code+"/calendrier_resultat?sai="+codeyear+"&jour="+number,
+            rejectUnauthorized: false
+        });
+
+        let $ = cheerio.load(page);
+        let data = $("#tableaux_rencontres").children("div").find("table");
+
+        for(let i = 0; i < data.length; i++){
+            let date = data.eq(i).children("caption").text().replace("Fixtures of ","").trim();
+            let matchs = data.eq(i).children("tbody").children();
+
+            for(let i = 0; i < matchs.length; i++){
+                let matchResult = await this.matchScraping.runFff(matchs.eq(i),date);
+
+                if(matchResult.teamGuest.goals && matchResult.teamHome.goals) {
+                    round.goals += (matchResult.teamGuest.goals + matchResult.teamHome.goals);
+                    round.goalsGuest += matchResult.teamGuest.goals;
+                    round.goalsHome += matchResult.teamHome.goals;
+                }
+    
+                round.matchs.push(matchResult);
+            }
         }
 
         return await this.replaceRound(round);
