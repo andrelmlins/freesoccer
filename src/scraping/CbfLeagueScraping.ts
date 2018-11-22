@@ -20,7 +20,7 @@ export default class CbfLeagueScraping {
     public async run(competition: ICompetitionDefault) {
         console.log("-> CBF LEAGUE SCRAPING");
 
-        await this.runCompetition(competition)
+        await this.runCompetition(competition);
     }
 
     public async runCompetition(competitionDefault: ICompetitionDefault) {

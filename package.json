@@ -2,18 +2,17 @@
   "name": "mais-futebol",
   "version": "1.0.0",
   "description": "Scraping de dados de futebol dos campeonatos mais famosos do mundo",
-  "main": "dist\\index",
+  "main": "dist/index",
   "scripts": {
     "lite": "lite-server",
-    "start": "tsc --outDir dist src\\index.ts --lib es2015 && nodemon dist\\index.js",
+    "start": "tsc --outDir dist src/index.ts --lib es2015 && nodemon dist/index.js",
     "test": "yarn test"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/andrelmlins/freesoccer.git"
   },
-  "author": "Paulo Menezes",
-  "license": "MIT",
+  "author": "André Lins",
   "bugs": {
     "url": "https://github.com/andrelmlins/freesoccer/issues"
   },

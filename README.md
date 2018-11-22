@@ -15,8 +15,8 @@
 
 Name | Country | Year | Results | Table
 ------------ | ------------- | ------------- | ------------- | -------------
-Série A | Brazil | 2012 - 2018 | :heavy_check_mark: | :x:
-Série B | Brazil | 2012 - 2018 | :heavy_check_mark: | :x:
+Série A | Brazil | 2012 - 2018 | :heavy_check_mark: | :heavy_check_mark:
+Série B | Brazil | 2012 - 2018 | :heavy_check_mark: | :heavy_check_mark:
 La Liga | Spain | 2014/2015 - 2018/2019 | :heavy_check_mark: | :x:
 La Liga Segunda División | Spain | 2014/2015 - 2018/2019 | :heavy_check_mark: | :x:
 League 1 | France | 2000/2001 - 2018/2019 | :heavy_check_mark: | :x:

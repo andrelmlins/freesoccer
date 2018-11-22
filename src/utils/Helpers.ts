@@ -2,6 +2,7 @@ import ICompetitionDefault from "../interfaces/ICompetitionDefault";
 
 import { IRound, Round } from "../schemas/Round";
 import { ICompetition, Competition } from "../schemas/Competition";
+import { ITable, Table } from "../schemas/Table";
 
 class Helpers {
 
@@ -37,6 +38,18 @@ class Helpers {
             await Competition.updateOne({"_id":competitionOld._id},competitionAux);
         }
         else await competition.save();
+    }
+
+    public static async replaceTable(table:ITable){
+        let tableOld = await Table.findOne({"competition":table.competition});
+
+        if(tableOld) {
+            let tableAux:any = table.toObject();
+            delete tableAux._id;
+            
+            await Table.updateOne({"competition":table.competition},tableAux);
+        }
+        else await table.save();
     }
 }
 

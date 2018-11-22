@@ -32,7 +32,9 @@ export class Routes {
             })
         })    
 
-        app.route('/scraping/cbf/:competition').get(this.cbfController.load);
+        app.route('/scraping/cbf/:competition/results').get(this.cbfController.loadResults);
+        app.route('/scraping/cbf/:competition/table').get(this.cbfController.loadTable);
+
         app.route('/scraping/rfef/:competition').get(this.rfefController.load);
         app.route('/scraping/fff/:competition').get(this.fffController.load);
         app.route('/scraping/figc/:competition').get(this.figcController.load);
