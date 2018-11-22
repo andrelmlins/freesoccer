@@ -12,17 +12,17 @@ Free API with results from national football competitions
 
 ## Competitions
 
-Name | Country | Year 
------------- | ------------- | -------------
-Série A | Brazil | 2012 - 2018
-Série B | Brazil | 2012 - 2018
-La Liga | Spain | 2014/2015 - 2018/2019
-La Liga Segunda División | Spain | 2014/2015 - 2018/2019
-League 1 | France | 2000/2001 - 2018/2019
-League 2 | France | 2000/2001 - 2018/2019
-Serie A | Italy | 2004/2005 - 2018/2019
-Bundesliga | Germany | 2000/2001 - 2018/2019
-2 Bundesliga | Germany | 2000/2001 - 2018/2019
+Name | Country | Year | Results | Table
+------------ | ------------- | ------------- | ------------- | -------------
+Série A | Brazil | 2012 - 2018 | :heavy_check_mark: | :x:
+Série B | Brazil | 2012 - 2018 | :heavy_check_mark: | :x:
+La Liga | Spain | 2014/2015 - 2018/2019 | :heavy_check_mark: | :x:
+La Liga Segunda División | Spain | 2014/2015 - 2018/2019 | :heavy_check_mark: | :x:
+League 1 | France | 2000/2001 - 2018/2019 | :heavy_check_mark: | :x:
+League 2 | France | 2000/2001 - 2018/2019 | :heavy_check_mark: | :x:
+Serie A | Italy | 2004/2005 - 2018/2019 | :heavy_check_mark: | :x:
+Bundesliga | Germany | 2000/2001 - 2018/2019 | :heavy_check_mark: | :x:
+2 Bundesliga | Germany | 2000/2001 - 2018/2019 | :heavy_check_mark: | :x:
 
 ## Data Sources
 
