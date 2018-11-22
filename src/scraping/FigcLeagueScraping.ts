@@ -18,7 +18,7 @@ export default class FigcLeagueScraping {
     }
 
     public async run(competition: ICompetitionDefault) {
-        console.log("-> FFF LEAGUE SCRAPING");
+        console.log("-> FIGC LEAGUE SCRAPING");
 
         await this.runCompetition(competition)
     }
@@ -55,7 +55,7 @@ export default class FigcLeagueScraping {
 
                 for(let k = 1; k < rounds.length; k++){
                     let roundResult = await this.runRound(rounds.eq(k),competition, competitionDefault, year);
-                    competition.rounds.push(roundResult._id);
+                    competition.rounds.push(roundResult!._id);
                 }
             }
 
@@ -63,7 +63,7 @@ export default class FigcLeagueScraping {
         }
     }
 
-    public async runRound(roundHtml:any, competition:ICompetition, competitionDefault:any, year:string) {
+    public async runRound(roundHtml:any, competition:ICompetition, competitionDefault:any, year:string): Promise<IRound | null> {
         let number = parseInt(roundHtml.text().trim());
 
         let round = new Round;

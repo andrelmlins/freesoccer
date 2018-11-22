@@ -8,7 +8,10 @@ enum CompetitionCode {
     RFEF_MALE_A = "la-liga-a",
     RFEF_MALE_B = "la-liga-b",
 
-    FIGC_MALE_A = "serie-a"
+    FIGC_MALE_A = "serie-a",
+    
+    DBC_MALE_A = "bundesliga",
+    DBC_MALE_B = "2-bundesliga"
 }
 
 export default CompetitionCode;

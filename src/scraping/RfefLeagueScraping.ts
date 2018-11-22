@@ -45,14 +45,14 @@ export default class RfefLeagueScraping {
 
             for(let j = 0; j < rounds.length; j++){
                 let roundResult = await this.runRound(rounds.eq(j),competition,competitionDefault.aux.url);
-                competition.rounds.push(roundResult._id);
+                competition.rounds.push(roundResult!._id);
             }
 
             await Helpers.replaceCompetition(competition);
         }
     }
     
-    public async runRound(roundHtml:any, competition:ICompetition, url:String) {
+    public async runRound(roundHtml:any, competition:ICompetition, url:String): Promise<IRound | null> {
         let route = roundHtml.children("a").attr("href");
 
         let round = new Round;

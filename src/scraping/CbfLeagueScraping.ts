@@ -46,14 +46,14 @@ export default class CbfLeagueScraping {
 
             for(let j = 0; j < rounds.length; j++){
                 let roundResult = await this.runRound(rounds.eq(j),competition);
-                competition.rounds.push(roundResult._id);
+                competition.rounds.push(roundResult!._id);
             }
 
             await Helpers.replaceCompetition(competition);
         }
     }
     
-    public async runRound(roundHtml:any, competition:ICompetition): Promise<IRound> {
+    public async runRound(roundHtml:any, competition:ICompetition): Promise<IRound | null> {
         let round = new Round;
         round.goals = 0;
         round.goalsHome = 0;

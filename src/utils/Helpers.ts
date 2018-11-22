@@ -12,7 +12,7 @@ class Helpers {
         throw new Error("Competition does not exist");
     }
 
-    public static async replaceRound(round:IRound){
+    public static async replaceRound(round:IRound): Promise<IRound | null>{
         let roundOld = await Round.findOne({"hash":round.hash});
         if(roundOld) {
             let roundAux:any = round.toObject();
