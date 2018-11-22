@@ -4,6 +4,7 @@ import RfefController from "../controllers/scraping/RfefController";
 import FffController from "../controllers/scraping/FffController";
 import FigcController from "../controllers/scraping/FigcController";
 import DfbController from "../controllers/scraping/DfbController";
+import FpfController from "../controllers/scraping/FpfController";
 
 export class Routes { 
     public cbfController: CbfController;
@@ -11,6 +12,7 @@ export class Routes {
     public fffController: FffController;
     public figcController: FigcController;
     public dfbController: DfbController;
+    public fpfController: FpfController;
 
     constructor() {
         this.cbfController = new CbfController;
@@ -18,6 +20,7 @@ export class Routes {
         this.fffController = new FffController;
         this.figcController = new FigcController;
         this.dfbController = new DfbController;
+        this.fpfController = new FpfController;
     }
     
     public routes(app:any): void {   
@@ -34,5 +37,6 @@ export class Routes {
         app.route('/scraping/fff/:competition').get(this.fffController.load);
         app.route('/scraping/figc/:competition').get(this.figcController.load);
         app.route('/scraping/dfb/:competition').get(this.dfbController.load);
+        app.route('/scraping/fpf/:competition').get(this.fpfController.load);
     }
 }

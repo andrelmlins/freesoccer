@@ -3,7 +3,7 @@ import ICompetitionDefault from '../interfaces/ICompetitionDefault';
 import CompetitionCode from '../enums/CompetitionCode';
 import CompetitionType from '../enums/CompetitionType';
 
-class FigcConstants {
+export default class FigcConstants {
     public static URL_DEFAULT = "http://www.legaseriea.it";
     public static COUNTRY = "Italy";
     public static COMPETITIONS: Array<ICompetitionDefault> = [
@@ -18,5 +18,3 @@ class FigcConstants {
         }
     ];
 }
-
-export default FigcConstants;

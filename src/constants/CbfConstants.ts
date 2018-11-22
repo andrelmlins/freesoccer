@@ -3,7 +3,7 @@ import ICompetitionDefault from '../interfaces/ICompetitionDefault';
 import CompetitionCode from '../enums/CompetitionCode';
 import CompetitionType from '../enums/CompetitionType';
 
-class CbfConstants {
+export default class CbfConstants {
     public static URL_DEFAULT = "https://www.cbf.com.br/futebol-brasileiro/competicoes";
     public static COUNTRY = "Brazil";
     public static COMPETITIONS: Array<ICompetitionDefault> = [
@@ -21,5 +21,3 @@ class CbfConstants {
         }
     ];
 }
-
-export default CbfConstants;

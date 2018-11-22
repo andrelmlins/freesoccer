@@ -11,7 +11,10 @@ enum CompetitionCode {
     FIGC_MALE_A = "serie-a",
     
     DBC_MALE_A = "bundesliga",
-    DBC_MALE_B = "2-bundesliga"
+    DBC_MALE_B = "2-bundesliga",
+    
+    FPF_MALE_A = "liga-nos",
+    FPF_MALE_B = "ledman-ligapro"
 }
 
 export default CompetitionCode;

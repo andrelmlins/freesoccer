@@ -3,7 +3,7 @@ import ICompetitionDefault from '../interfaces/ICompetitionDefault';
 import CompetitionCode from '../enums/CompetitionCode';
 import CompetitionType from '../enums/CompetitionType';
 
-class DfbConstants {
+export default class DfbConstants {
     public static URL_DEFAULT = "https://www.dfb.de";
     public static COUNTRY = "Germany";
     public static COMPETITIONS: Array<ICompetitionDefault> = [
@@ -25,5 +25,3 @@ class DfbConstants {
         }
     ];
 }
-
-export default DfbConstants;

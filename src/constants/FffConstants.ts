@@ -3,7 +3,7 @@ import ICompetitionDefault from '../interfaces/ICompetitionDefault';
 import CompetitionCode from '../enums/CompetitionCode';
 import CompetitionType from '../enums/CompetitionType';
 
-class FffConstants {
+export default class FffConstants {
     public static URL_DEFAULT = "https://www.ligue1.com";
     public static COUNTRY = "France";
     public static START_SEASON = 69;
@@ -21,5 +21,3 @@ class FffConstants {
         }
     ];
 }
-
-export default FffConstants;

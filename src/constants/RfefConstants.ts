@@ -3,7 +3,7 @@ import ICompetitionDefault from '../interfaces/ICompetitionDefault';
 import CompetitionCode from '../enums/CompetitionCode';
 import CompetitionType from '../enums/CompetitionType';
 
-class RfefConstants {
+export default class RfefConstants {
     public static URL_DEFAULT = "http://www.rfef.es/competiciones";
     public static COUNTRY = "Spain";
     public static COMPETITIONS: Array<ICompetitionDefault> = [
@@ -29,5 +29,3 @@ class RfefConstants {
         }
     ];
 }
-
-export default RfefConstants;
