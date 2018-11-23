@@ -13,19 +13,19 @@
 
 ## Competitions
 
-Name | Country | Year | Results | Table
------------- | ------------- | ------------- | ------------- | -------------
-Série A | Brazil | 2012 - 2018 | :heavy_check_mark: | :heavy_check_mark:
-Série B | Brazil | 2012 - 2018 | :heavy_check_mark: | :heavy_check_mark:
-La Liga | Spain | 2014/2015 - 2018/2019 | :heavy_check_mark: | :x:
-La Liga Segunda División | Spain | 2014/2015 - 2018/2019 | :heavy_check_mark: | :x:
-League 1 | France | 2000/2001 - 2018/2019 | :heavy_check_mark: | :heavy_check_mark:
-League 2 | France | 2000/2001 - 2018/2019 | :heavy_check_mark: | :heavy_check_mark:
-Serie A | Italy | 2004/2005 - 2018/2019 | :heavy_check_mark: | :heavy_check_mark:
-Bundesliga | Germany | 2000/2001 - 2018/2019 | :heavy_check_mark: | :heavy_check_mark:
-2 Bundesliga | Germany | 2000/2001 - 2018/2019 | :heavy_check_mark: | :heavy_check_mark:
-Liga NOS | Portugal | 2009/2010 - 2018/2019 | :heavy_check_mark: | :heavy_check_mark:
-Ledman LigaPro | Portugal | 2009/2010 - 2018/2019 | :heavy_check_mark: | :heavy_check_mark:
+Name | Country | Year | Results | Table | Statistics | Flags
+------------ | ------------- | ------------- | ------------- | ------------- | ------------- | -------------
+Série A | Brazil | 2012 - 2018 | :heavy_check_mark: | :heavy_check_mark: | :x: | :heavy_check_mark:
+Série B | Brazil | 2012 - 2018 | :heavy_check_mark: | :heavy_check_mark: | :x: | :heavy_check_mark:
+La Liga | Spain | 2014/2015 - 2018/2019 | :heavy_check_mark: | :x: | :x: | :x:
+La Liga Segunda División | Spain | 2014/2015 - 2018/2019 | :heavy_check_mark: | :x: | :x: | :x:
+League 1 | France | 2000/2001 - 2018/2019 | :heavy_check_mark: | :heavy_check_mark: | :x: | :heavy_check_mark:
+League 2 | France | 2000/2001 - 2018/2019 | :heavy_check_mark: | :heavy_check_mark: | :x: | :heavy_check_mark:
+Serie A | Italy | 2004/2005 - 2018/2019 | :heavy_check_mark: | :heavy_check_mark: | :x: | :heavy_check_mark:
+Bundesliga | Germany | 2000/2001 - 2018/2019 | :heavy_check_mark: | :heavy_check_mark: | :x: | :heavy_check_mark:
+2 Bundesliga | Germany | 2000/2001 - 2018/2019 | :heavy_check_mark: | :heavy_check_mark: | :x: | :heavy_check_mark:
+Liga NOS | Portugal | 2009/2010 - 2018/2019 | :heavy_check_mark: | :heavy_check_mark: | :x: | :x:
+Ledman LigaPro | Portugal | 2009/2010 - 2018/2019 | :heavy_check_mark: | :heavy_check_mark: | :x: | :x:
 
 ## Data Sources
 
