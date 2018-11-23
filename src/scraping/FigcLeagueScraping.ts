@@ -43,7 +43,7 @@ export default class FigcLeagueScraping {
             let year = competition.year + "-" + newYear;
             
             let page = await request({
-                url: competitionDefault.aux.url+"/"+year+"/UNICO/UNI/1",
+                url: competitionDefault.aux.url+"/calendario-e-risultati/"+year+"/UNICO/UNI/1",
                 rejectUnauthorized: false
             });
             
@@ -77,7 +77,7 @@ export default class FigcLeagueScraping {
         console.log("\t\t\t-> Round "+round.number);
 
         let page = await request({
-            url: competitionDefault.aux.url+"/"+year+"/UNICO/UNI/"+number,
+            url: competitionDefault.aux.url+"/calendario-e-risultati/"+year+"/UNICO/UNI/"+number,
             rejectUnauthorized: false
         });
         

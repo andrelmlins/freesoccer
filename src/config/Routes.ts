@@ -39,8 +39,12 @@ export class Routes {
         app.route('/scraping/fff/:competition/table').get(this.fffController.loadTable);
 
         app.route('/scraping/rfef/:competition').get(this.rfefController.load);
-        app.route('/scraping/figc/:competition').get(this.figcController.load);
-        app.route('/scraping/dfb/:competition').get(this.dfbController.load);
+
+        app.route('/scraping/dfb/:competition/results').get(this.dfbController.loadResults);
+        app.route('/scraping/dfb/:competition/table').get(this.dfbController.loadTable);
+        
+        app.route('/scraping/figc/:competition/results').get(this.figcController.loadResults);
+        app.route('/scraping/figc/:competition/table').get(this.figcController.loadTable);
 
         app.route('/scraping/fpf/:competition/results').get(this.fpfController.loadResults);
         app.route('/scraping/fpf/:competition/table').get(this.fpfController.loadTable);
