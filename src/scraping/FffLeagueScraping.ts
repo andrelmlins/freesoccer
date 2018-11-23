@@ -42,13 +42,7 @@ export default class FffLeagueScraping {
                 
                 console.log("\t\t-> "+year);
 
-                let competition = new Competition;
-                competition.name = competitionDefault.name;
-                competition.code = competitionDefault.code;
-                competition.type = competitionDefault.type;
-                competition.year = year+"";
-                competition.country = FffConstants.COUNTRY;
-                competition.rounds = [];
+                let competition = Helpers.createCompetition(competitionDefault,year+"",FffConstants);
                 
                 let page = await request({
                     url: FffConstants.URL_DEFAULT+"/"+competitionDefault.code+"/calendrier_resultat?sai="+numberSeason,

@@ -6,6 +6,7 @@ import CompetitionType from '../enums/CompetitionType';
 export default class FigcConstants {
     public static URL_DEFAULT = "http://www.legaseriea.it";
     public static COUNTRY = "Italy";
+    public static FEDERATION = "FIGC - Federazione Italiana Giuoco Calcio";
     public static COMPETITIONS: Array<ICompetitionDefault> = [
         {
             type:CompetitionType.LEAGUE,

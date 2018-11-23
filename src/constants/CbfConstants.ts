@@ -6,6 +6,7 @@ import CompetitionType from '../enums/CompetitionType';
 export default class CbfConstants {
     public static URL_DEFAULT = "https://www.cbf.com.br/futebol-brasileiro/competicoes";
     public static COUNTRY = "Brazil";
+    public static FEDERATION = "CBF - Confederação Brasileira de Futebol";
     public static COMPETITIONS: Array<ICompetitionDefault> = [
         {
             type:CompetitionType.LEAGUE,
@@ -17,6 +18,12 @@ export default class CbfConstants {
             type:CompetitionType.LEAGUE,
             code:CompetitionCode.CBF_MALE_B,
             name:"Campeonato Brasileiro De Futebol - Série B",
+            years:["2012","2013","2014","2015","2016","2017","2018"]
+        },
+        {
+            type:CompetitionType.ELIMINATORY,
+            code:CompetitionCode.CBF_CUP_MALE,
+            name:"Copa Do Brasil De Futebol",
             years:["2012","2013","2014","2015","2016","2017","2018"]
         }
     ];

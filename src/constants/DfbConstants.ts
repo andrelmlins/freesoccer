@@ -6,6 +6,7 @@ import CompetitionType from '../enums/CompetitionType';
 export default class DfbConstants {
     public static URL_DEFAULT = "https://www.dfb.de";
     public static COUNTRY = "Germany";
+    public static FEDERATION = "DFB - Deutscher Fussball-Bund";
     public static COMPETITIONS: Array<ICompetitionDefault> = [
         {
             type:CompetitionType.LEAGUE,

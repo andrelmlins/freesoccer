@@ -6,6 +6,7 @@ import CompetitionType from '../enums/CompetitionType';
 export default class RfefConstants {
     public static URL_DEFAULT = "http://www.rfef.es/competiciones";
     public static COUNTRY = "Spain";
+    public static FEDERATION = "RFEF - Real Federación Española de Fútbol";
     public static COMPETITIONS: Array<ICompetitionDefault> = [
         {
             type:CompetitionType.LEAGUE,

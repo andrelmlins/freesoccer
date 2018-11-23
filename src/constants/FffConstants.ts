@@ -6,6 +6,7 @@ import CompetitionType from '../enums/CompetitionType';
 export default class FffConstants {
     public static URL_DEFAULT = "https://www.ligue1.com";
     public static COUNTRY = "France";
+    public static FEDERATION = "DFB - Deutscher Fussball-Bund";
     public static START_SEASON = 69;
     public static COMPETITIONS: Array<ICompetitionDefault> = [
         {

@@ -6,6 +6,8 @@ import FigcController from "../controllers/scraping/FigcController";
 import DfbController from "../controllers/scraping/DfbController";
 import FpfController from "../controllers/scraping/FpfController";
 
+import CompetitionController from "../controllers/CompetitionController";
+
 export class Routes { 
     public cbfController: CbfController;
     public rfefController: RfefController;
@@ -14,6 +16,8 @@ export class Routes {
     public dfbController: DfbController;
     public fpfController: FpfController;
 
+    public competitionController: CompetitionController;
+
     constructor() {
         this.cbfController = new CbfController;
         this.rfefController = new RfefController;
@@ -21,6 +25,8 @@ export class Routes {
         this.figcController = new FigcController;
         this.dfbController = new DfbController;
         this.fpfController = new FpfController;
+
+        this.competitionController = new CompetitionController
     }
     
     public routes(app:any): void {   
@@ -48,5 +54,8 @@ export class Routes {
 
         app.route('/scraping/fpf/:competition/results').get(this.fpfController.loadResults);
         app.route('/scraping/fpf/:competition/table').get(this.fpfController.loadTable);
+
+        app.route('/api/competitions').get(this.competitionController.all);
+        app.route('/api/competitions/:competition').get(this.competitionController.get);
     }
 }

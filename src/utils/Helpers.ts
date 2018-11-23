@@ -51,6 +51,18 @@ class Helpers {
         }
         else await table.save();
     }
+
+    public static createCompetition(competitionDefault:ICompetitionDefault, year:string, constants: any): ICompetition{
+        let competition = new Competition;
+        competition.name = competitionDefault.name;
+        competition.code = competitionDefault.code;
+        competition.type = competitionDefault.type;
+        competition.year = year;
+        competition.country = constants.COUNTRY;
+        competition.federation = constants.FEDERATION;
+        competition.rounds = [];
+        return competition;
+    }
 }
 
 export default Helpers;

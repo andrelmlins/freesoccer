@@ -11,6 +11,7 @@ export interface ICompetition extends Document {
     code: CompetitionCode;
     type: CompetitionType;
     country: string;
+    federation: string;
     rounds: IRound[];
 }
 
@@ -20,6 +21,7 @@ export var CompetitionSchema: Schema = new Schema({
     code: String,
     type: String,
     country: String,
+    federation: String,
     rounds: [{ type: Schema.Types.ObjectId, ref: 'Round' }]
 });
 
