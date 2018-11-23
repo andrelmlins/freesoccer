@@ -1,15 +1,11 @@
 import * as request from 'request-promise-any';
 import * as cheerio from 'cheerio';
-import * as md5 from 'md5';
-import * as moment from 'moment';
 
 import CbfConstants from '../constants/CbfConstants';
 import Helpers from '../utils/Helpers';
 import ICompetitionDefault from '../interfaces/ICompetitionDefault';
 
-import { Competition, ICompetition } from '../schemas/Competition';
-import Match from '../schemas/Match';
-import TeamResult from '../schemas/TeamResult';
+import { Competition } from '../schemas/Competition';
 import { Table } from '../schemas/Table';
 import ItemTable from '../schemas/ItemTable';
 

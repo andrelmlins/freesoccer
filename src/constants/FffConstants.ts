@@ -7,7 +7,6 @@ export default class FffConstants {
     public static URL_DEFAULT = "https://www.ligue1.com";
     public static COUNTRY = "France";
     public static START_SEASON = 69;
-    public static END_SEASON = 102;
     public static COMPETITIONS: Array<ICompetitionDefault> = [
         {
             type:CompetitionType.LEAGUE,
