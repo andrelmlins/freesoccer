@@ -34,4 +34,4 @@ Ledman LigaPro | Portugal | 2009/2010 - 2018/2019 | :heavy_check_mark: | :heavy_
 * [Ligue 1](https://www.ligue1.com/)
 * [Serie A](http://www.legaseriea.it/)
 * [DFB](https://www.dfb.de/)
-* [Liga Portugals](http://ligaportugal.pt/)
+* [Liga Portugal](http://ligaportugal.pt/)
