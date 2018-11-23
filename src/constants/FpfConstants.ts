@@ -4,7 +4,7 @@ import CompetitionCode from '../enums/CompetitionCode';
 import CompetitionType from '../enums/CompetitionType';
 
 export default class FpfConstants {
-    public static URL_DEFAULT = "http://ligaportugal.pt/en/liga/jornada";
+    public static URL_DEFAULT = "http://ligaportugal.pt/en/liga";
     public static COUNTRY = "Portugal";
     public static COMPETITIONS: Array<ICompetitionDefault> = [
         {

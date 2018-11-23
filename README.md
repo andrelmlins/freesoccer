@@ -24,8 +24,8 @@ League 2 | France | 2000/2001 - 2018/2019 | :heavy_check_mark: | :heavy_check_ma
 Serie A | Italy | 2004/2005 - 2018/2019 | :heavy_check_mark: | :x:
 Bundesliga | Germany | 2000/2001 - 2018/2019 | :heavy_check_mark: | :x:
 2 Bundesliga | Germany | 2000/2001 - 2018/2019 | :heavy_check_mark: | :x:
-Liga NOS | Portugal | 2009/2010 - 2018/2019 | :heavy_check_mark: | :x:
-Ledman LigaPro | Portugal | 2009/2010 - 2018/2019 | :heavy_check_mark: | :x:
+Liga NOS | Portugal | 2009/2010 - 2018/2019 | :heavy_check_mark: | :heavy_check_mark:
+Ledman LigaPro | Portugal | 2009/2010 - 2018/2019 | :heavy_check_mark: | :heavy_check_mark:
 
 ## Data Sources
 

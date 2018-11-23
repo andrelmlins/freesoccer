@@ -41,6 +41,8 @@ export class Routes {
         app.route('/scraping/rfef/:competition').get(this.rfefController.load);
         app.route('/scraping/figc/:competition').get(this.figcController.load);
         app.route('/scraping/dfb/:competition').get(this.dfbController.load);
-        app.route('/scraping/fpf/:competition').get(this.fpfController.load);
+
+        app.route('/scraping/fpf/:competition/results').get(this.fpfController.loadResults);
+        app.route('/scraping/fpf/:competition/table').get(this.fpfController.loadTable);
     }
 }

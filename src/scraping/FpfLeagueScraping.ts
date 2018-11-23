@@ -42,7 +42,7 @@ export default class FffLeagueScraping {
             competition.rounds = [];
             
             let page = await request({
-                url: FpfConstants.URL_DEFAULT+"/"+codeYear+"/"+url,
+                url: FpfConstants.URL_DEFAULT+"/jornada/"+codeYear+"/"+url,
                 rejectUnauthorized: false
             });
             
@@ -74,7 +74,7 @@ export default class FffLeagueScraping {
         console.log("\t\t\t-> Round "+round.number);
         
         let page = await request({
-            url: FpfConstants.URL_DEFAULT+"/"+codeYear+"/"+url+"/"+number,
+            url: FpfConstants.URL_DEFAULT+"/jornada/"+codeYear+"/"+url+"/"+number,
             rejectUnauthorized: false
         });
 
