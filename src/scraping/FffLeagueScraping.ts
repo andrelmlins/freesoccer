@@ -114,7 +114,6 @@ export default class FffLeagueScraping {
         let result = data.eq(3).children("a").text().trim().split(" - ");
         date = date+" "+data.eq(0).children("a").text().trim();
 
-        match.name = "";
         match.date = moment.utc(date, 'DD MMMM YYYY HH:mm').format();
         match.stadium = "";
         match.location = "";

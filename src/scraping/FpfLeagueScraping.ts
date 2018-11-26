@@ -111,8 +111,6 @@ export default class FffLeagueScraping {
             date = date.split(", ")[1]+" "+matchHtml.children("div").children().eq(0).children(".time").text().trim().replace("H",":");
         }
 
-        
-        match.name = "";
         match.date = moment.utc(date, 'DD MMMM YYYY HH:mm').format();
         match.stadium = "";
         match.location = "";

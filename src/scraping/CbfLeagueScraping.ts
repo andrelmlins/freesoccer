@@ -87,7 +87,6 @@ export default class CbfLeagueScraping {
         let location = matchHtml.find(".partida-desc").eq(1).text().trim().replace(" Como foi o jogo","").split(" - ");
         let date = matchHtml.find(".partida-desc").eq(0).text().trim().split(" - ")[0].split(",")[1].trim();
 
-        match.name = matchHtml.find(".partida-desc").eq(0).text().trim().split(" - ")[1].trim();
         match.date = moment.utc(date, 'DD/MM/YYYY HH:mm').format();
         match.stadium = location[0];
         match.location = location[1]+"/"+location[2];

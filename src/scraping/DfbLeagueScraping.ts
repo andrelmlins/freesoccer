@@ -116,7 +116,6 @@ export default class DfbLeagueScraping {
             date = date[1].trim()+" "+date[2].split(" ")[0].trim();
         }
 
-        match.name = "";
         match.date = moment.utc(date, 'DD.MM.YYYY HH:mm').format();
         match.stadium = "";
         match.location = "";

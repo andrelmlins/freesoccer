@@ -12,7 +12,6 @@ export default class RoundController {
             if (competition==null) {
                 throw new Error("Competition does not exist")
             } else {
-                console.log(competition._id);
                 let rounds = await Round.aggregate([
                     {
                         $match: {"competition":competition._id},
@@ -24,7 +23,8 @@ export default class RoundController {
                             goals: 1,
                             goalsHome: 1,
                             goalsGuest: 1,
-                            url: {$concat:[Helpers.getUrl(req, req.url),"/","$number"]},
+                            hash: 1,
+                            url: {$concat:[Helpers.getUrl(req,"/api/rounds"),"/","$hash"]},
                             matches: { $size: "$matchs" }
                         }
                     }
@@ -33,7 +33,36 @@ export default class RoundController {
                 res.send({ rounds });
             }
         } catch (error) {
-            console.log(error);
+            res.status(404).send({error:true});
+        }
+    }
+
+    public async get(req: Request, res: Response) {
+        try {
+            let rounds = await Round.aggregate([
+                {
+                    $match: {"hash":req.params.round},
+                },
+                { 
+                    $project : {
+                        _id : 0,
+                        number: 1,
+                        goals: 1,
+                        goalsHome: 1,
+                        goalsGuest: 1,
+                        hash: 1,
+                        matches: { $size: "$matchs" },
+                        url: {$concat:[Helpers.getUrl(req, req.url),"/","$hash"]},
+                        urls: {
+                            matches: Helpers.getUrl(req, req.url)+"/matches",
+                            statistics: Helpers.getUrl(req, req.url)+"/statistics",
+                        },
+                    }
+                }
+            ]);
+
+            res.send({ round:rounds[0] });
+        } catch (error) {
             res.status(404).send({error:true});
         }
     }

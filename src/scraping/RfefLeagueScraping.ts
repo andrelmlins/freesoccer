@@ -91,7 +91,6 @@ export default class RfefLeagueScraping {
         match.teamHome = new TeamResult;
         match.teamGuest = new TeamResult;
 
-        match.name = "";
         match.date = date;
         match.stadium = "";
         match.location = "";

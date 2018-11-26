@@ -105,7 +105,6 @@ export default class FigcLeagueScraping {
         let location = data.eq(0).children("p").html().split("</span>")[1].split("<br>")[1].replace("Stadium: ","").trim();
         location = location.split("(");
 
-        match.name = "";
         match.date = moment.utc(date, 'DD/MM/YYYY HH:mm').format();
         match.stadium = location[0].trim();
         match.location = location[1] ? location[1].replace(")","").trim() : "";

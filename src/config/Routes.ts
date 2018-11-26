@@ -10,6 +10,7 @@ import FpfController from "../controllers/scraping/FpfController";
 import CompetitionController from "../controllers/CompetitionController";
 import RoundController from "../controllers/RoundController";
 import TableController from "../controllers/TableController";
+import MatchController from "../controllers/MatchController";
 
 export class Routes { 
     public cbfController: CbfController;
@@ -22,6 +23,7 @@ export class Routes {
     public competitionController: CompetitionController;
     public roundController: RoundController;
     public tableController: TableController;
+    public matchController: MatchController;
 
     constructor() {
         this.cbfController = new CbfController;
@@ -34,6 +36,7 @@ export class Routes {
         this.competitionController = new CompetitionController;
         this.roundController = new RoundController;
         this.tableController = new TableController;
+        this.matchController = new MatchController;
     }
     
     public routes(app:any): void {   
@@ -67,7 +70,13 @@ export class Routes {
         app.route('/api/competitions/:competition/:year').get(this.competitionController.getYear);
 
         app.route('/api/competitions/:competition/:year/rounds').get(this.roundController.all);
+        app.route('/api/rounds/:round').get(this.roundController.get);
 
         app.route('/api/competitions/:competition/:year/table').get(this.tableController.get);
+        app.route('/api/competitions/:competition/:year/table/:position').get(this.tableController.getPosition);
+
+        
+        app.route('/api/rounds/:round/matches').get(this.matchController.getRound);
+        app.route('/api/competitions/:competition/:year/matches').get(this.matchController.getCompetition);
     }
 }
