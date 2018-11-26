@@ -116,7 +116,7 @@ export default class CompetitionController {
                         rounds : 1,
                         url: Helpers.getUrl(req.url),
                         urls: {
-                            rounds: Helpers.getUrl(req.url)+"/rounds",
+                            rounds: req.originalUrl+"/rounds",
                             matches: Helpers.getUrl(req.url)+"/matches",
                             statistics: Helpers.getUrl(req.url)+"/statistics",
                             table: Helpers.getUrl(req.url)+"/table"
