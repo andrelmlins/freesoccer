@@ -33,7 +33,7 @@ export default class FffLeagueScraping {
                 
             console.log("\t\t-> "+year);
 
-            let competition = Helpers.createCompetition(competitionDefault,year+"",FpfConstants);
+            let competition = await Helpers.createCompetition(competitionDefault,year+"",FpfConstants);
             
             let page = await request({
                 url: FpfConstants.URL_DEFAULT+"/jornada/"+codeYear+"/"+url,

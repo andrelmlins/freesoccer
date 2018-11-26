@@ -9,6 +9,7 @@ import FpfController from "../controllers/scraping/FpfController";
 
 import CompetitionController from "../controllers/CompetitionController";
 import RoundController from "../controllers/RoundController";
+import TableController from "../controllers/TableController";
 
 export class Routes { 
     public cbfController: CbfController;
@@ -20,6 +21,7 @@ export class Routes {
 
     public competitionController: CompetitionController;
     public roundController: RoundController;
+    public tableController: TableController;
 
     constructor() {
         this.cbfController = new CbfController;
@@ -31,6 +33,7 @@ export class Routes {
 
         this.competitionController = new CompetitionController;
         this.roundController = new RoundController;
+        this.tableController = new TableController;
     }
     
     public routes(app:any): void {   
@@ -64,5 +67,7 @@ export class Routes {
         app.route('/api/competitions/:competition/:year').get(this.competitionController.getYear);
 
         app.route('/api/competitions/:competition/:year/rounds').get(this.roundController.all);
+
+        app.route('/api/competitions/:competition/:year/table').get(this.tableController.get);
     }
 }

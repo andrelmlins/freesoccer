@@ -29,7 +29,7 @@ export default class CbfLeagueScraping {
         for(let i = 0 ; i < competitionDefault.years![i]; i++) {
             console.log("\t\t-> "+competitionDefault.years![i]);
 
-            let competition = Helpers.createCompetition(competitionDefault,competitionDefault.years![i],CbfConstants);
+            let competition = await Helpers.createCompetition(competitionDefault,competitionDefault.years![i],CbfConstants);
 
             let page = await request(CbfConstants.URL_DEFAULT+"/"+competition.code+"/"+competition.year);
             

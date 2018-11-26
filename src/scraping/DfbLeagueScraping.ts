@@ -40,7 +40,7 @@ export default class DfbLeagueScraping {
             
             if(year>=2000) {
                 console.log("\t\t-> "+year);
-                let competition = Helpers.createCompetition(competitionDefault,year+"",DfbConstants);
+                let competition = await Helpers.createCompetition(competitionDefault,year+"",DfbConstants);
                 
                 let page = await request({
                     url: DfbConstants.URL_DEFAULT+"/"+competitionDefault.code+"/spieltagtabelle?spieledb_path=%2Fcompetitions%2F"+competitionDefault.aux.number+"%2Fseasons%2F"+numberSeason+"%2Fmatchday",

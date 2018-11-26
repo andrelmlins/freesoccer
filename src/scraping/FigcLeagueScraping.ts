@@ -29,7 +29,7 @@ export default class FigcLeagueScraping {
         for(let i = 0 ; i < competitionDefault.years!.length; i++) {
             console.log("\t\t-> "+competitionDefault.years![i]);
 
-            let competition = Helpers.createCompetition(competitionDefault,competitionDefault.years![i],FigcConstants);
+            let competition = await Helpers.createCompetition(competitionDefault,competitionDefault.years![i],FigcConstants);
 
             let newYear = (parseInt(competition.year.substring(2,4))+1)+"";
             if(newYear.length==1) newYear = "0"+newYear;

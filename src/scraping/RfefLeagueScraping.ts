@@ -29,7 +29,7 @@ export default class RfefLeagueScraping {
         for(let i = 0 ; i < competitionDefault.years!.length; i++) {
             console.log("\t\t-> "+competitionDefault.years![i]);
 
-            let competition = Helpers.createCompetition(competitionDefault,competitionDefault.years![i],RfefConstants);
+            let competition = await Helpers.createCompetition(competitionDefault,competitionDefault.years![i],RfefConstants);
 
             let page = await request(RfefConstants.URL_DEFAULT+competitionDefault.aux.url+"/resultados?t="+competition.year);
 
