@@ -26,7 +26,7 @@ export default class CbfLeagueScraping {
     public async runCompetition(competitionDefault: ICompetitionDefault) {
         console.log("\t-> "+competitionDefault.name);
 
-        for(let i = 0 ; i < competitionDefault.years!.length; i++) {
+        for(let i = 0 ; i < 1; i++) {
             console.log("\t\t-> "+competitionDefault.years![i]);
 
             let competition = Helpers.createCompetition(competitionDefault,competitionDefault.years![i],CbfConstants);
@@ -37,7 +37,7 @@ export default class CbfLeagueScraping {
 
             let section = $(".container section");
             let rounds = section.children().eq(1).children('aside').children('div').children();
-
+            
             for(let j = 0; j < rounds.length; j++){
                 let roundResult = await this.runRound(rounds.eq(j),competition);
                 competition.rounds.push(roundResult!._id);
@@ -58,8 +58,6 @@ export default class CbfLeagueScraping {
         round.hash = md5(competition.code+competition.year+round.number);
 
         console.log("\t\t\t-> Round "+round.number);
-
-        competition.rounds.push(round._id);
 
         let matchsHtml = roundHtml.find(".list-unstyled").children();
         

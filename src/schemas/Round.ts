@@ -20,7 +20,7 @@ export var RoundSchema: Schema = new Schema({
     goalsHome: Number,
     goalsGuest: Number,
     matchs: [Object],
-    rounds: { type: Schema.Types.ObjectId, ref: 'Competition' }
+    competition: { type: Schema.Types.ObjectId, ref: 'Competition' }
 });
 
 export const Round: Model<IRound> = model<IRound>('Round', RoundSchema);

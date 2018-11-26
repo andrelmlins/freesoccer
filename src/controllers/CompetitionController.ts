@@ -1,6 +1,7 @@
 import { Response, Request } from "express";
 
 import { Competition } from "../schemas/Competition";
+import Helpers from "../utils/Helpers";
 
 export default class CompetitionController {
     public async all(req: Request, res: Response) {
@@ -13,7 +14,7 @@ export default class CompetitionController {
                     $group: { 
                         _id:"$code",
                         name: {$first: "$name"},
-                        id: {$first: "$code"},
+                        code: {$first: "$code"},
                         type: {$first: "$type"},
                         country: {$first: "$country"},
                         federation: {$first: "$federation"},
@@ -24,11 +25,12 @@ export default class CompetitionController {
                     $project : {
                         _id : 0,
                         type: 1,
-                        id: 1,
+                        code: 1,
                         name: 1,
                         country: 1,
                         federation: 1,
-                        years : 1,
+                        url:{$concat:[Helpers.getUrl(req.url),"/","$code"]},
+                        years : "$years",
                     }
                 }
             ]);
@@ -48,15 +50,18 @@ export default class CompetitionController {
                 },
                 {
                     $group: { 
-                        _id:"$code",
+                        _id: "$code",
                         name: {$first: "$name"},
-                        id: {$first: "$code"},
+                        code: {$first: "$code"},
                         type: {$first: "$type"},
                         country: {$first: "$country"},
                         federation: {$first: "$federation"},
-                        years: {
-                            year: {$push: "$year"},
-                            rounds: {$sum: "$rounds"}
+                        years:  {
+                            $push: {
+                                year: "$year",
+                                rounds: {$sum: { $size: "$rounds" } },
+                                url:{$concat:[Helpers.getUrl(req.url),"/","$year"]}
+                            }
                         }
                     },
                 },
@@ -64,16 +69,63 @@ export default class CompetitionController {
                     $project : {
                         _id : 0,
                         type: 1,
-                        id: 1,
+                        code: 1,
                         name: 1,
                         country: 1,
                         federation: 1,
-                        years : 1,
+                        url: Helpers.getUrl(req.url),
+                        years : "$years"
                     }
                 }
             ]);
-            
-            res.send({competition:competitions[0]});
+
+            res.send({ competition: competitions[0] });
+        } catch (error) {
+            console.log(error);
+            res.status(404).send({error:true});
+        }
+    }
+
+    public async getYear(req: Request, res: Response) {
+        try {
+            let competitions = await Competition.aggregate([
+                {
+                    $match: {"code":req.params.competition,"year":req.params.year},
+                },
+                {
+                    $group: { 
+                        _id: "$code",
+                        name: {$first: "$name"},
+                        code: {$first: "$code"},
+                        type: {$first: "$type"},
+                        country: {$first: "$country"},
+                        federation: {$first: "$federation"},
+                        year: {$first: "$year"},
+                        rounds: {$sum: { $size: "$rounds" } }
+                    },
+                },
+                { 
+                    $project : {
+                        _id : 0,
+                        type: 1,
+                        code: 1,
+                        name: 1,
+                        country: 1,
+                        federation: 1,
+                        year : 1,
+                        rounds : 1,
+                        url: Helpers.getUrl(req.url),
+                        urls: {
+                            rounds: Helpers.getUrl(req.url)+"/rounds",
+                            matches: Helpers.getUrl(req.url)+"/matches",
+                            statistics: Helpers.getUrl(req.url)+"/statistics",
+                            table: Helpers.getUrl(req.url)+"/table"
+                        }
+                    }
+                }
+            ]);
+
+            res.send({ competition: competitions[0] });
         } catch (error) {
             console.log(error);
             res.status(404).send({error:true});

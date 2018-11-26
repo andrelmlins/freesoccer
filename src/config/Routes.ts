@@ -57,5 +57,6 @@ export class Routes {
 
         app.route('/api/competitions').get(this.competitionController.all);
         app.route('/api/competitions/:competition').get(this.competitionController.get);
+        app.route('/api/competitions/:competition/:year').get(this.competitionController.getYear);
     }
 }

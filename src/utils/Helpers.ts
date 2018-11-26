@@ -63,6 +63,12 @@ class Helpers {
         competition.rounds = [];
         return competition;
     }
+
+    public static getUrl(url: string): string {
+        let baseUrl = "http://localhost:8080";
+      
+        return baseUrl+url;
+      }
 }
 
 export default Helpers;
