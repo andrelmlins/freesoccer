@@ -4,6 +4,8 @@ import { Routes } from "./Routes";
 import * as mongoose from 'mongoose';
 import * as morgan from 'morgan';
 import * as cors from 'cors';
+import * as swaggerUi from 'swagger-ui-express';
+var swaggerDocument = require('../../assets/swagger.json');
 
 class App {
 
@@ -13,7 +15,11 @@ class App {
     constructor() {
         this.routes = new Routes;
         this.app = express();
-        this.config();        
+        this.config(); 
+
+        this.app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument,{
+            customCss: '.swagger-ui .topbar { display: none }'
+        }));       
         this.routes.routes(this.app);
     }
 

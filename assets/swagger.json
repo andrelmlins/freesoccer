@@ -1,0 +1,232 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "Free API with results from national football competitions",
+    "version" : "1.0.0",
+    "title" : "⚽️ Free Soccer ⚽️",
+    "contact" : {
+      "email" : "andrelucas01@hotmail.com"
+    },
+    "license" : {
+      "name" : "Apache 2.0",
+      "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "tags" : [ {
+    "name" : "competitions",
+    "description" : "Competitions"
+  } ],
+  "paths" : {
+    "/competitions" : {
+      "get" : {
+        "tags" : [ "competitions" ],
+        "summary" : "list of competitions",
+        "description" : "This route returns the list of competitions\n",
+        "operationId" : "competitions",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "400" : {
+            "description" : "Bad Request"
+          },
+          "200" : {
+            "description" : "success",
+            "schema" : {
+              "type" : "object",
+              "required" : [ "competitions" ],
+              "properties" : {
+                "competitions" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "object",
+                    "properties" : {
+                      "name" : {
+                        "type" : "string"
+                      },
+                      "code" : {
+                        "type" : "string"
+                      },
+                      "type" : {
+                        "type" : "string"
+                      },
+                      "country" : {
+                        "type" : "string"
+                      },
+                      "federation" : {
+                        "type" : "string"
+                      },
+                      "url" : {
+                        "type" : "string"
+                      },
+                      "years" : {
+                        "type" : "array",
+                        "items" : {
+                          "type" : "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/competitions/{competition}" : {
+      "get" : {
+        "tags" : [ "competitions" ],
+        "summary" : "competition details",
+        "description" : "This route returns the competition details\n",
+        "operationId" : "competition",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "competition",
+          "in" : "path",
+          "description" : "Code of competition",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "400" : {
+            "description" : "Bad Request"
+          },
+          "200" : {
+            "description" : "success",
+            "schema" : {
+              "type" : "object",
+              "properties" : {
+                "competition" : {
+                  "required" : [ "name", "code", "type", "country", "federation", "url", "years" ],
+                  "properties" : {
+                    "name" : {
+                      "type" : "string"
+                    },
+                    "code" : {
+                      "type" : "string"
+                    },
+                    "type" : {
+                      "type" : "string"
+                    },
+                    "country" : {
+                      "type" : "string"
+                    },
+                    "federation" : {
+                      "type" : "string"
+                    },
+                    "url" : {
+                      "type" : "string"
+                    },
+                    "years" : {
+                      "type" : "array",
+                      "items" : {
+                        "type" : "object",
+                        "properties" : {
+                          "year" : {
+                            "type" : "string"
+                          },
+                          "rounds" : {
+                            "type" : "number"
+                          },
+                          "url" : {
+                            "type" : "string"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "type" : "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/competitions/{competition}/{year}" : {
+      "get" : {
+        "tags" : [ "competitions" ],
+        "summary" : "details competition one season",
+        "description" : "This route returns the details of the competition one season\n",
+        "operationId" : "competitionyear",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "competition",
+          "in" : "path",
+          "description" : "Code of competition",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "year",
+          "in" : "path",
+          "description" : "Year of competition",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "400" : {
+            "description" : "Bad Request"
+          },
+          "200" : {
+            "description" : "success",
+            "schema" : {
+              "type" : "object",
+              "properties" : {
+                "competition" : {
+                  "required" : [ "name", "code", "type", "country", "federation", "year", "rounds", "url", "urls" ],
+                  "properties" : {
+                    "name" : {
+                      "type" : "string"
+                    },
+                    "code" : {
+                      "type" : "string"
+                    },
+                    "type" : {
+                      "type" : "string"
+                    },
+                    "country" : {
+                      "type" : "string"
+                    },
+                    "federation" : {
+                      "type" : "string"
+                    },
+                    "year" : {
+                      "type" : "string"
+                    },
+                    "rounds" : {
+                      "type" : "number"
+                    },
+                    "url" : {
+                      "type" : "string"
+                    },
+                    "urls" : {
+                      "required" : [ "rounds", "matches", "statistics", "table" ],
+                      "properties" : {
+                        "rounds" : {
+                          "type" : "string"
+                        },
+                        "matches" : {
+                          "type" : "string"
+                        },
+                        "statistics" : {
+                          "type" : "string"
+                        },
+                        "table" : {
+                          "type" : "string"
+                        }
+                      },
+                      "type" : "object"
+                    }
+                  },
+                  "type" : "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "host" : "virtserver.swaggerhub.com",
+  "basePath" : "/andrelmlins/freesoccer/1.0.0",
+  "schemes" : [ "https", "http" ]
+}

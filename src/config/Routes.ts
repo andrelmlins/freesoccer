@@ -1,4 +1,5 @@
 import {Request, Response} from "express";
+
 import CbfController from '../controllers/scraping/CbfController';
 import RfefController from "../controllers/scraping/RfefController";
 import FffController from "../controllers/scraping/FffController";
@@ -7,6 +8,7 @@ import DfbController from "../controllers/scraping/DfbController";
 import FpfController from "../controllers/scraping/FpfController";
 
 import CompetitionController from "../controllers/CompetitionController";
+import RoundController from "../controllers/RoundController";
 
 export class Routes { 
     public cbfController: CbfController;
@@ -17,6 +19,7 @@ export class Routes {
     public fpfController: FpfController;
 
     public competitionController: CompetitionController;
+    public roundController: RoundController;
 
     constructor() {
         this.cbfController = new CbfController;
@@ -26,7 +29,8 @@ export class Routes {
         this.dfbController = new DfbController;
         this.fpfController = new FpfController;
 
-        this.competitionController = new CompetitionController
+        this.competitionController = new CompetitionController;
+        this.roundController = new RoundController;
     }
     
     public routes(app:any): void {   
@@ -36,7 +40,7 @@ export class Routes {
             res.status(200).send({
                 message: 'GET request successfulll!!!!'
             })
-        })    
+        }) 
 
         app.route('/scraping/cbf/:competition/results').get(this.cbfController.loadResults);
         app.route('/scraping/cbf/:competition/table').get(this.cbfController.loadTable);
@@ -58,5 +62,7 @@ export class Routes {
         app.route('/api/competitions').get(this.competitionController.all);
         app.route('/api/competitions/:competition').get(this.competitionController.get);
         app.route('/api/competitions/:competition/:year').get(this.competitionController.getYear);
+
+        app.route('/api/competitions/:competition/:year/rounds').get(this.roundController.all);
     }
 }

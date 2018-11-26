@@ -10,7 +10,7 @@ export default class DfbConstants {
     public static COMPETITIONS: Array<ICompetitionDefault> = [
         {
             type:CompetitionType.LEAGUE,
-            code:CompetitionCode.DBC_MALE_A,
+            code:CompetitionCode.DFB_MALE_A,
             name:"Bundesliga",
             aux: {
                 number:"12"
@@ -18,7 +18,7 @@ export default class DfbConstants {
         },
         {
             type:CompetitionType.LEAGUE,
-            code:CompetitionCode.DBC_MALE_B,
+            code:CompetitionCode.DFB_MALE_B,
             name:"2. Bundesliga",
             aux: {
                 number:"3"

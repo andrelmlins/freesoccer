@@ -11,8 +11,8 @@ enum CompetitionCode {
 
     FIGC_MALE_A = "serie-a",
     
-    DBC_MALE_A = "bundesliga",
-    DBC_MALE_B = "2-bundesliga",
+    DFB_MALE_A = "bundesliga",
+    DFB_MALE_B = "2-bundesliga",
     
     FPF_MALE_A = "liga-nos",
     FPF_MALE_B = "ledman-ligapro"

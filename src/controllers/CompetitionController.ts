@@ -37,7 +37,6 @@ export default class CompetitionController {
             
             res.send({competitions:competitions});
         } catch (error) {
-            console.log(error);
             res.status(404).send({error:true});
         }
     }
@@ -81,7 +80,6 @@ export default class CompetitionController {
 
             res.send({ competition: competitions[0] });
         } catch (error) {
-            console.log(error);
             res.status(404).send({error:true});
         }
     }
@@ -127,7 +125,6 @@ export default class CompetitionController {
 
             res.send({ competition: competitions[0] });
         } catch (error) {
-            console.log(error);
             res.status(404).send({error:true});
         }
     }
