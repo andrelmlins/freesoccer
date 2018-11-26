@@ -3,6 +3,7 @@ import ICompetitionDefault from "../interfaces/ICompetitionDefault";
 import { IRound, Round } from "../schemas/Round";
 import { ICompetition, Competition } from "../schemas/Competition";
 import { ITable, Table } from "../schemas/Table";
+import { Request } from "express";
 
 class Helpers {
 
@@ -64,10 +65,8 @@ class Helpers {
         return competition;
     }
 
-    public static getUrl(url: string): string {
-        let baseUrl = "http://localhost:8080";
-      
-        return baseUrl+url;
+    public static getUrl(req:Request, url: string): string {
+        return req.protocol + '://' + req.get('host')+ url;
       }
 }
 

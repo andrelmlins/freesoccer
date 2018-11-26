@@ -29,7 +29,7 @@ export default class CompetitionController {
                         name: 1,
                         country: 1,
                         federation: 1,
-                        url:{$concat:[Helpers.getUrl(req.url),"/","$code"]},
+                        url:{$concat:[Helpers.getUrl(req, req.url),"/","$code"]},
                         years : "$years",
                     }
                 }
@@ -60,7 +60,7 @@ export default class CompetitionController {
                             $push: {
                                 year: "$year",
                                 rounds: {$sum: { $size: "$rounds" } },
-                                url:{$concat:[Helpers.getUrl(req.url),"/","$year"]}
+                                url:{$concat:[Helpers.getUrl(req, req.url),"/","$year"]}
                             }
                         }
                     },
@@ -73,7 +73,7 @@ export default class CompetitionController {
                         name: 1,
                         country: 1,
                         federation: 1,
-                        url: Helpers.getUrl(req.url),
+                        url: Helpers.getUrl(req, req.url),
                         years : "$years"
                     }
                 }
@@ -114,12 +114,12 @@ export default class CompetitionController {
                         federation: 1,
                         year : 1,
                         rounds : 1,
-                        url: Helpers.getUrl(req.url),
+                        url: Helpers.getUrl(req, req.url),
                         urls: {
-                            rounds: req.baseUrl+req.originalUrl+"/rounds",
-                            matches: Helpers.getUrl(req.url)+"/matches",
-                            statistics: Helpers.getUrl(req.url)+"/statistics",
-                            table: Helpers.getUrl(req.url)+"/table"
+                            rounds: Helpers.getUrl(req, req.url)+"/rounds",
+                            matches: Helpers.getUrl(req, req.url)+"/matches",
+                            statistics: Helpers.getUrl(req, req.url)+"/statistics",
+                            table: Helpers.getUrl(req, req.url)+"/table"
                         }
                     }
                 }
