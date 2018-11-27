@@ -7,6 +7,7 @@ enum CompetitionCode {
 
     FFF_MALE_A = "ligue1",
     FFF_MALE_B = "ligue2",
+    FFF_CUP_MALE = "coupe-ligue",
     
     RFEF_MALE_A = "la-liga-a",
     RFEF_MALE_B = "la-liga-b",

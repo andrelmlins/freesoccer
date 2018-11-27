@@ -18,6 +18,14 @@ export default class FffConstants {
             type:CompetitionType.LEAGUE,
             code:CompetitionCode.FFF_MALE_B,
             name:"Ligue 2"
+        },
+        {
+            type:CompetitionType.ELIMINATION,
+            code:CompetitionCode.FFF_CUP_MALE,
+            name:"Coupe de La Ligue",
+            aux: {
+                url:"coupeLigue"
+            }
         }
     ];
 }

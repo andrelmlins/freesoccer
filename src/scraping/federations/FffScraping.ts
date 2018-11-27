@@ -3,14 +3,17 @@ import IFederationScraping from '../../interfaces/IFederationScraping';
 import CompetitionType from '../../enums/CompetitionType';
 import FffLeagueScraping from '../FffLeagueScraping';
 import FffTableScraping from '../tables/FffTableScraping';
+import FffEliminationScraping from '../elimination/FffEliminationScraping';
 
 export default class FffScraping implements IFederationScraping {
     private fffLeagueScraping: FffLeagueScraping;
     private fffTableScraping: FffTableScraping;
+    private fffEliminationScraping: FffEliminationScraping;
 
     constructor() {
         this.fffLeagueScraping = new FffLeagueScraping;
         this.fffTableScraping = new FffTableScraping;
+        this.fffEliminationScraping = new FffEliminationScraping;
     }
 
     public async run(competition: ICompetitionDefault) {
@@ -19,6 +22,8 @@ export default class FffScraping implements IFederationScraping {
         switch(competition.type){
             case CompetitionType.LEAGUE:
                 await this.runLeague(competition);
+            case CompetitionType.ELIMINATION:
+                await this.runElimination(competition);
         }
     }
 
@@ -34,5 +39,9 @@ export default class FffScraping implements IFederationScraping {
 
     public async runLeague(competition: ICompetitionDefault) {
         await this.fffLeagueScraping.run(competition);
+    }
+
+    public async runElimination(competition: ICompetitionDefault) {
+        await this.fffEliminationScraping.run(competition);
     }
 }
