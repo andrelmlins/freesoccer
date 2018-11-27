@@ -1,13 +1,13 @@
 import * as request from 'request-promise-any';
 import * as cheerio from 'cheerio';
 
-import FpfConstants from '../constants/FpfConstants';
-import Helpers from '../utils/Helpers';
-import ICompetitionDefault from '../interfaces/ICompetitionDefault';
+import FpfConstants from '../../constants/FpfConstants';
+import Helpers from '../../utils/Helpers';
+import ICompetitionDefault from '../../interfaces/ICompetitionDefault';
 
-import { Competition } from '../schemas/Competition';
-import { Table } from '../schemas/Table';
-import ItemTable from '../schemas/ItemTable';
+import { Competition } from '../../schemas/Competition';
+import { Table } from '../../schemas/Table';
+import ItemTable from '../../schemas/ItemTable';
 
 export default class FpfTableScraping {
     constructor() {
@@ -15,7 +15,7 @@ export default class FpfTableScraping {
     }
 
     public async run(competition: ICompetitionDefault) {
-        console.log("-> FFF TABLE LEAGUE SCRAPING");
+        console.log("-> FPF TABLE LEAGUE SCRAPING");
 
         await this.runCompetition(competition)
     }

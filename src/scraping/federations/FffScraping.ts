@@ -2,7 +2,7 @@ import ICompetitionDefault from '../../interfaces/ICompetitionDefault';
 import IFederationScraping from '../../interfaces/IFederationScraping';
 import CompetitionType from '../../enums/CompetitionType';
 import FffLeagueScraping from '../FffLeagueScraping';
-import FffTableScraping from '../FffTableScraping';
+import FffTableScraping from '../tables/FffTableScraping';
 
 export default class FffScraping implements IFederationScraping {
     private fffLeagueScraping: FffLeagueScraping;

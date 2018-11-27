@@ -1,13 +1,13 @@
 import * as request from 'request-promise-any';
 import * as cheerio from 'cheerio';
 
-import DfbConstants from '../constants/DfbConstants';
-import Helpers from '../utils/Helpers';
-import ICompetitionDefault from '../interfaces/ICompetitionDefault';
+import DfbConstants from '../../constants/DfbConstants';
+import Helpers from '../../utils/Helpers';
+import ICompetitionDefault from '../../interfaces/ICompetitionDefault';
 
-import { Competition } from '../schemas/Competition';
-import { Table } from '../schemas/Table';
-import ItemTable from '../schemas/ItemTable';
+import { Competition } from '../../schemas/Competition';
+import { Table } from '../../schemas/Table';
+import ItemTable from '../../schemas/ItemTable';
 
 export default class DfbTableScraping {
     constructor() {

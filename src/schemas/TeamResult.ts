@@ -3,4 +3,5 @@ export default class TeamResult {
     public initials: string = "";
     public flag: string = "";
     public goals?: number = undefined;
+    public goalsPenalty?: number = undefined;
 }

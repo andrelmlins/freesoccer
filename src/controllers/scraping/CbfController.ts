@@ -16,6 +16,7 @@ export default class CbfController {
 
             res.send({message:"Success"});
         } catch (error) {
+            console.log(error);
             res.status(404).send({error:error+""});
         }
     }
@@ -29,7 +30,6 @@ export default class CbfController {
 
             res.send({message:"Success"});
         } catch (error) {
-            console.log(error);
             res.status(404).send({error:error+""});
         }
     }

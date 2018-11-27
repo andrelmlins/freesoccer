@@ -1,9 +1,11 @@
+import { Request } from "express";
+
 import ICompetitionDefault from "../interfaces/ICompetitionDefault";
 
 import { IRound, Round } from "../schemas/Round";
 import { ICompetition, Competition } from "../schemas/Competition";
 import { ITable, Table } from "../schemas/Table";
-import { Request } from "express";
+import { IStage, Stage } from "../schemas/Stage";
 
 class Helpers {
 
@@ -27,6 +29,22 @@ class Helpers {
         } else {
             let roundResult = await Round.create(round);
             return roundResult;
+        }
+    }
+
+    public static async replaceStage(stage:IStage): Promise<IStage | null>{
+        let stageOld = await Stage.findOne({"hash":stage.hash});
+        if(stageOld) {
+            let stageAux:any = stage.toObject();
+            delete stageAux._id;
+            
+            await Stage.updateOne({"_id":stageOld._id},stageAux);
+            
+            let stageResult = await Stage.findOne({"hash":stage.hash});
+            return stageResult;
+        } else {
+            let stageResult = await Stage.create(stage);
+            return stageResult;
         }
     }
 
@@ -66,6 +84,7 @@ class Helpers {
             competition.country = constants.COUNTRY;
             competition.federation = constants.FEDERATION;
             competition.rounds = [];
+            competition.stages = [];
         }
 
         return competition;

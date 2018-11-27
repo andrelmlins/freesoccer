@@ -7,7 +7,7 @@ import FpfConstants from '../constants/FpfConstants';
 import Helpers from '../utils/Helpers';
 import ICompetitionDefault from '../interfaces/ICompetitionDefault';
 
-import { Competition, ICompetition } from '../schemas/Competition';
+import { ICompetition } from '../schemas/Competition';
 import { Round, IRound } from '../schemas/Round';
 import Match from '../schemas/Match';
 import TeamResult from '../schemas/TeamResult';

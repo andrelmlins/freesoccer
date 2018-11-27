@@ -1,6 +1,7 @@
 import { Document, Schema, Model, model } from 'mongoose';
 
 import { IRound } from './Round';
+import { IStage } from './Stage';
 
 import CompetitionType from '../enums/CompetitionType';
 import CompetitionCode from '../enums/CompetitionCode';
@@ -13,6 +14,7 @@ export interface ICompetition extends Document {
     country: string;
     federation: string;
     rounds: IRound[];
+    stages: IStage[];
 }
 
 export var CompetitionSchema: Schema = new Schema({
@@ -22,7 +24,8 @@ export var CompetitionSchema: Schema = new Schema({
     type: String,
     country: String,
     federation: String,
-    rounds: [{ type: Schema.Types.ObjectId, ref: 'Round' }]
+    rounds: [{ type: Schema.Types.ObjectId, ref: 'Round', required:false }],
+    stages: [{ type: Schema.Types.ObjectId, ref: 'Stage', required:false }]
 });
 
 export const Competition: Model<ICompetition> = model<ICompetition>('Competition', CompetitionSchema);

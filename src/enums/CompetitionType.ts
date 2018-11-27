@@ -1,7 +1,7 @@
 enum CompetitionType {
     LEAGUE = "league",
     CUP = "cup",
-    ELIMINATORY = "eliminatory",
+    ELIMINATION = "elimination",
 }
 
 export default CompetitionType;

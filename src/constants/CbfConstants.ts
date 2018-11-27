@@ -21,10 +21,22 @@ export default class CbfConstants {
             years:["2012","2013","2014","2015","2016","2017","2018"]
         },
         {
-            type:CompetitionType.ELIMINATORY,
+            type:CompetitionType.ELIMINATION,
             code:CompetitionCode.CBF_CUP_MALE,
             name:"Copa Do Brasil De Futebol",
             years:["2012","2013","2014","2015","2016","2017","2018"]
+        },
+        {
+            type:CompetitionType.ELIMINATION,
+            code:CompetitionCode.CBF_CUP_MALE_SUB20,
+            name:"Copa do Brasil de Futebol Sub-20",
+            years:["2012","2013","2014","2015","2016","2017","2018"]
+        },
+        {
+            type:CompetitionType.ELIMINATION,
+            code:CompetitionCode.CBF_CUP_MALE_SUB17,
+            name:"Copa do Brasil de Futebol Sub-17",
+            years:["2013","2014","2015","2016","2017","2018"]
         }
     ];
 }

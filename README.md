@@ -15,8 +15,11 @@
 
 Name | Country | Year | Results | Table | Statistics | Flags
 ------------ | ------------- | ------------- | ------------- | ------------- | ------------- | -------------
-Série A | Brazil | 2012 - 2018 | :heavy_check_mark: | :heavy_check_mark: | :x: | :heavy_check_mark:
-Série B | Brazil | 2012 - 2018 | :heavy_check_mark: | :heavy_check_mark: | :x: | :heavy_check_mark:
+Brasileirão Série A | Brazil | 2012 - 2018 | :heavy_check_mark: | :heavy_check_mark: | :x: | :heavy_check_mark:
+Brasileirão Série B | Brazil | 2012 - 2018 | :heavy_check_mark: | :heavy_check_mark: | :x: | :heavy_check_mark:
+Brazilian Cup | Brazil | 2012 - 2018 | :heavy_check_mark: | :wavy_dash: | :x: | :heavy_check_mark:
+Brazilian Cup Sub-20 | Brazil | 2012 - 2018 | :heavy_check_mark: | :wavy_dash: | :x: | :heavy_check_mark:
+Brazilian Cup Sub-17 | Brazil | 2013 - 2018 | :heavy_check_mark: | :wavy_dash: | :x: | :heavy_check_mark:
 La Liga | Spain | 2014/2015 - 2018/2019 | :heavy_check_mark: | :x: | :x: | :x:
 La Liga Segunda División | Spain | 2014/2015 - 2018/2019 | :heavy_check_mark: | :x: | :x: | :x:
 League 1 | France | 2000/2001 - 2018/2019 | :heavy_check_mark: | :heavy_check_mark: | :x: | :heavy_check_mark:
