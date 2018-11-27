@@ -735,7 +735,7 @@
       }
     }
   },
-  "host" : "virtserver.swaggerhub.com",
-  "basePath" : "/andrelmlins/freesoccer/1.0.0",
-  "schemes" : [ "https", "http" ]
+  "host" : "35.237.112.205",
+  "basePath" : "/api",
+  "schemes" : [ "http" ]
 }

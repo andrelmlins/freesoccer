@@ -1,11 +1,13 @@
 import * as express from "express";
 import * as bodyParser from "body-parser";
-import { Routes } from "./Routes";
 import * as mongoose from 'mongoose';
 import * as morgan from 'morgan';
 import * as cors from 'cors';
 import * as swaggerUi from 'swagger-ui-express';
 var swaggerDocument = require('../../assets/swagger.json');
+
+import { Routes } from "./Routes";
+import CronJobs from "./CronJobs";
 
 class App {
 
