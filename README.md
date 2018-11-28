@@ -13,23 +13,25 @@
 
 ## Competitions
 
-Name | Country | Year | Results | Table | Statistics | Flags
------------- | ------------- | ------------- | ------------- | ------------- | ------------- | -------------
-Brasileirão Série A | Brazil | 2012 - 2018 | :heavy_check_mark: | :heavy_check_mark: | :x: | :heavy_check_mark:
-Brasileirão Série B | Brazil | 2012 - 2018 | :heavy_check_mark: | :heavy_check_mark: | :x: | :heavy_check_mark:
-Brazilian Cup | Brazil | 2012 - 2018 | :heavy_check_mark: | :wavy_dash: | :x: | :heavy_check_mark:
-Brazilian Cup Sub-20 | Brazil | 2012 - 2018 | :heavy_check_mark: | :wavy_dash: | :x: | :heavy_check_mark:
-Brazilian Cup Sub-17 | Brazil | 2013 - 2018 | :heavy_check_mark: | :wavy_dash: | :x: | :heavy_check_mark:
-La Liga | Spain | 2014/2015 - 2018/2019 | :heavy_check_mark: | :x: | :x: | :x:
-La Liga Segunda División | Spain | 2014/2015 - 2018/2019 | :heavy_check_mark: | :x: | :x: | :x:
-Ligue 1 | France | 2000/2001 - 2018/2019 | :heavy_check_mark: | :heavy_check_mark: | :x: | :heavy_check_mark:
-Ligue 2 | France | 2000/2001 - 2018/2019 | :heavy_check_mark: | :heavy_check_mark: | :x: | :heavy_check_mark:
-Coupe Ligue | France | 2000/2001 - 2018/2019 | :heavy_check_mark: | :wavy_dash: | :x: | :heavy_check_mark:
-Serie A | Italy | 2004/2005 - 2018/2019 | :heavy_check_mark: | :heavy_check_mark: | :x: | :heavy_check_mark:
-Bundesliga | Germany | 2000/2001 - 2018/2019 | :heavy_check_mark: | :heavy_check_mark: | :x: | :heavy_check_mark:
-2 Bundesliga | Germany | 2000/2001 - 2018/2019 | :heavy_check_mark: | :heavy_check_mark: | :x: | :heavy_check_mark:
-Liga NOS | Portugal | 2009/2010 - 2018/2019 | :heavy_check_mark: | :heavy_check_mark: | :x: | :x:
-Ledman LigaPro | Portugal | 2009/2010 - 2018/2019 | :heavy_check_mark: | :heavy_check_mark: | :x: | :x:
+Name | Country | Sex | Year | Results | Table | Statistics | Flags
+------------ | ------------ | ------------- | ------------- | ------------- | ------------- | ------------- | -------------
+Brasileirão Série A | Brazil | M | 2012 - 2018 | :heavy_check_mark: | :heavy_check_mark: | :x: | :heavy_check_mark:
+Brasileirão Série B | Brazil | M | 2012 - 2018 | :heavy_check_mark: | :heavy_check_mark: | :x: | :heavy_check_mark:
+Brazilian Cup | Brazil | M | 2012 - 2018 | :heavy_check_mark: | :wavy_dash: | :x: | :heavy_check_mark:
+Brazilian Cup Sub-20 | Brazil | M | 2012 - 2018 | :heavy_check_mark: | :wavy_dash: | :x: | :heavy_check_mark:
+Brazilian Cup Sub-17 | Brazil | M | 2013 - 2018 | :heavy_check_mark: | :wavy_dash: | :x: | :heavy_check_mark:
+La Liga | Spain | M | 2014/2015 - 2018/2019 | :heavy_check_mark: | :x: | :x: | :x:
+La Liga Segunda División | Spain | M | 2014/2015 - 2018/2019 | :heavy_check_mark: | :x: | :x: | :x:
+Ligue 1 | France | M | 2000/2001 - 2018/2019 | :heavy_check_mark: | :heavy_check_mark: | :x: | :heavy_check_mark:
+Ligue 2 | France | M | 2000/2001 - 2018/2019 | :heavy_check_mark: | :heavy_check_mark: | :x: | :heavy_check_mark:
+Coupe Ligue | France | M | 2000/2001 - 2018/2019 | :heavy_check_mark: | :wavy_dash: | :x: | :heavy_check_mark:
+Serie A | Italy | M | 2004/2005 - 2018/2019 | :heavy_check_mark: | :heavy_check_mark: | :x: | :heavy_check_mark:
+Bundesliga | Germany | M | 2000/2001 - 2018/2019 | :heavy_check_mark: | :heavy_check_mark: | :x: | :heavy_check_mark:
+2 Bundesliga | Germany | M | 2000/2001 - 2018/2019 | :heavy_check_mark: | :heavy_check_mark: | :x: | :heavy_check_mark:
+3 Liga | Germany | M | 2008/2009 - 2018/2019 | :heavy_check_mark: | :heavy_check_mark: | :x: | :heavy_check_mark:
+Allianz Frauen-Bundesliga | F | Germany | 2000/2001 - 2018/2019 | :heavy_check_mark: | :heavy_check_mark: | :x: | :heavy_check_mark:
+Liga NOS | Portugal | M | 2009/2010 - 2018/2019 | :heavy_check_mark: | :heavy_check_mark: | :x: | :x:
+Ledman LigaPro | Portugal | M | 2009/2010 - 2018/2019 | :heavy_check_mark: | :heavy_check_mark: | :x: | :x:
 
 ## Data Sources
 

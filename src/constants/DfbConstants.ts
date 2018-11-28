@@ -23,6 +23,22 @@ export default class DfbConstants {
             aux: {
                 number:"3"
             }
+        },
+        {
+            type:CompetitionType.LEAGUE,
+            code:CompetitionCode.DFB_MALE_C,
+            name:"3. Liga",
+            aux: {
+                number:"4"
+            }
+        },
+        {
+            type:CompetitionType.LEAGUE,
+            code:CompetitionCode.DFB_FEMALE_A,
+            name:"Allianz Frauen-Bundesliga",
+            aux: {
+                number:"14"
+            }
         }
     ];
 }

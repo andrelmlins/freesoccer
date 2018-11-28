@@ -16,6 +16,8 @@ enum CompetitionCode {
     
     DFB_MALE_A = "bundesliga",
     DFB_MALE_B = "2-bundesliga",
+    DFB_MALE_C = "3-liga",
+    DFB_FEMALE_A = "allianz-frauen-bundesliga",
     
     FPF_MALE_A = "liga-nos",
     FPF_MALE_B = "ledman-ligapro"

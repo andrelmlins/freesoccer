@@ -46,7 +46,7 @@ export default class DfbTableScraping {
                 });
                 
                 let $ = cheerio.load(page);
-                let tableHtml = $("table.data-table tbody").children();
+                let tableHtml = $("#tabular table tbody").children();
                 
                 let table = new Table;
                 table.competition = competition!._id;
