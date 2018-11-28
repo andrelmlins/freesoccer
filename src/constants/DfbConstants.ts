@@ -39,6 +39,14 @@ export default class DfbConstants {
             aux: {
                 number:"14"
             }
+        },
+        {
+            type:CompetitionType.LEAGUE,
+            code:CompetitionCode.DFB_FEMALE_B,
+            name:"2. Frauen-Bundesliga",
+            aux: {
+                number:"2648"
+            }
         }
     ];
 }

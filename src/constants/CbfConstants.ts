@@ -37,6 +37,12 @@ export default class CbfConstants {
             code:CompetitionCode.CBF_CUP_MALE_SUB17,
             name:"Copa do Brasil de Futebol Sub-17",
             years:["2013","2014","2015","2016","2017","2018"]
+        },
+        {
+            type:CompetitionType.ELIMINATION,
+            code:CompetitionCode.CBF_CUP_GREEN,
+            name:"Copa Verde",
+            years:["2014","2015","2016","2017","2018"]
         }
     ];
 }

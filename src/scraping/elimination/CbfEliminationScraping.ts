@@ -25,8 +25,8 @@ export default class CbfEliminationScraping {
 
     public async runCompetition(competitionDefault: ICompetitionDefault) {
         console.log("\t-> "+competitionDefault.name);
-
-        for(let i = 5 ; i < competitionDefault.years![i]; i++) {
+        
+        for(let i = 0 ; i < competitionDefault.years!.length; i++) {
             console.log("\t\t-> "+competitionDefault.years![i]);
 
             let competition = await Helpers.createCompetition(competitionDefault,competitionDefault.years![i],CbfConstants);

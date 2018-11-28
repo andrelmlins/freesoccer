@@ -4,6 +4,7 @@ enum CompetitionCode {
     CBF_CUP_MALE = "copa-brasil-masculino",
     CBF_CUP_MALE_SUB20 = "copa-brasil-sub20",
     CBF_CUP_MALE_SUB17 = "copa-brasil-sub17",
+    CBF_CUP_GREEN = "copa-verde",
 
     FFF_MALE_A = "ligue1",
     FFF_MALE_B = "ligue2",
@@ -18,6 +19,7 @@ enum CompetitionCode {
     DFB_MALE_B = "2-bundesliga",
     DFB_MALE_C = "3-liga",
     DFB_FEMALE_A = "allianz-frauen-bundesliga",
+    DFB_FEMALE_B = "2-frauen-bundesliga",
     
     FPF_MALE_A = "liga-nos",
     FPF_MALE_B = "ledman-ligapro"
