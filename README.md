@@ -29,7 +29,7 @@ Serie A | Italy | M | 2004/2005 - 2018/2019 | :heavy_check_mark: | :heavy_check_
 Bundesliga | Germany | M | 2000/2001 - 2018/2019 | :heavy_check_mark: | :heavy_check_mark: | :x: | :heavy_check_mark:
 2 Bundesliga | Germany | M | 2000/2001 - 2018/2019 | :heavy_check_mark: | :heavy_check_mark: | :x: | :heavy_check_mark:
 3 Liga | Germany | M | 2008/2009 - 2018/2019 | :heavy_check_mark: | :heavy_check_mark: | :x: | :heavy_check_mark:
-Allianz Frauen-Bundesliga | F | Germany | 2000/2001 - 2018/2019 | :heavy_check_mark: | :heavy_check_mark: | :x: | :heavy_check_mark:
+Allianz Frauen-Bundesliga | Germany | F | 2000/2001 - 2018/2019 | :heavy_check_mark: | :heavy_check_mark: | :x: | :heavy_check_mark:
 Liga NOS | Portugal | M | 2009/2010 - 2018/2019 | :heavy_check_mark: | :heavy_check_mark: | :x: | :x:
 Ledman LigaPro | Portugal | M | 2009/2010 - 2018/2019 | :heavy_check_mark: | :heavy_check_mark: | :x: | :x:
 
