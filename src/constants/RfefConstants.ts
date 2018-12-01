@@ -15,7 +15,7 @@ export default class RfefConstants {
             years:["2014","2015","2016","2017","2018","2019"],
             aux:{
                 url:"/futbol-masculino",
-                number:1
+                name:"Campeonato Nacional de Liga de Primera División"
             },
         },
         {
@@ -25,7 +25,7 @@ export default class RfefConstants {
             years:["2014","2015","2016","2017","2018","2019"],
             aux:{
                 url:"/futbol-masculino",
-                number:2
+                name:"Campeonato Nacional de Liga de Segunda División"
             },
         }
     ];

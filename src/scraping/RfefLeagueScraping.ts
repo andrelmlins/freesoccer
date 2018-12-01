@@ -29,17 +29,26 @@ export default class RfefLeagueScraping {
         for(let i = 0 ; i < competitionDefault.years!.length; i++) {
             console.log("\t\t-> "+competitionDefault.years![i]);
 
-            let competition = await Helpers.createCompetition(competitionDefault,competitionDefault.years![i],RfefConstants);
+            let year = (parseInt(competitionDefault.years![i])-1).toString();
 
-            let page = await request(RfefConstants.URL_DEFAULT+competitionDefault.aux.url+"/resultados?t="+competition.year);
+            let competition = await Helpers.createCompetition(competitionDefault,year,RfefConstants);
+
+            let page = await request(RfefConstants.URL_DEFAULT+competitionDefault.aux.url+"/resultados?t="+competitionDefault.years![i]);
 
             let $ = cheerio.load(page);
-            let data = $(".postcontent").find(".content").children(".container-fluid").eq(competitionDefault.aux.number);
-            let rounds = data.children("div").children().eq(1).children("div").children("ul").children();
+            let list = $(".postcontent").find(".content").children(".container-fluid");
 
-            for(let j = 0; j < rounds.length; j++){
-                let roundResult = await this.runRound(rounds.eq(j),competition,competitionDefault.aux.url);
-                competition.rounds.push(roundResult!._id);
+            for(let j = 0; j < list.length; j++){
+                if(list.eq(j).children("div").children().eq(0).text().trim() == competitionDefault.aux.name){
+                    let rounds = list.eq(j).children("div").children().eq(1).children("div").children("ul").children();
+            
+                    for(let k = 0; k < rounds.length; k++){
+                        let roundResult = await this.runRound(rounds.eq(k),competition,competitionDefault.aux.url);
+                        competition.rounds.push(roundResult!._id);
+                    }
+                    
+                    break;
+                }
             }
 
             await Helpers.replaceCompetition(competition);

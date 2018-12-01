@@ -16,6 +16,16 @@ export default class FigcConstants {
             aux: {
                 url:"http://www.legaseriea.it/en/serie-a"
             }
+        },
+        
+        {
+            type:CompetitionType.ELIMINATION,
+            code:CompetitionCode.FIGC_CUP_MALE,
+            name:"Serie A - Italiano",
+            years:["2015","2016","2017","2018"],
+            aux: {
+                url:"http://www.legaseriea.it/it/coppa-italia"
+            }
         }
     ];
 }

@@ -14,6 +14,7 @@ enum CompetitionCode {
     RFEF_MALE_B = "la-liga-b",
 
     FIGC_MALE_A = "serie-a",
+    FIGC_CUP_MALE = "coppa-italia",
     
     DFB_MALE_A = "bundesliga",
     DFB_MALE_B = "2-bundesliga",
