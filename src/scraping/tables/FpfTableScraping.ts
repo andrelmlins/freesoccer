@@ -1,5 +1,6 @@
 import * as request from 'request-promise-any';
 import * as cheerio from 'cheerio';
+import { Request } from 'express';
 
 import FpfConstants from '../../constants/FpfConstants';
 import Helpers from '../../utils/Helpers';
@@ -10,8 +11,10 @@ import { Table } from '../../schemas/Table';
 import ItemTable from '../../schemas/ItemTable';
 
 export default class FpfTableScraping {
-    constructor() {
-        
+    private request: Request;
+
+    constructor(request: Request) {
+        this.request = request;    
     }
 
     public async run(competition: ICompetitionDefault) {

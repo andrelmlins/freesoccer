@@ -11,11 +11,12 @@ export default class FpfController {
         try {
             let competition: ICompetitionDefault = Helpers.getCompetition(FpfConstants.COMPETITIONS,req.params.competition);
 
-            let fpfScraping: FpfScraping = new FpfScraping;
+            let fpfScraping: FpfScraping = new FpfScraping(req);
             await fpfScraping.run(competition);
 
             res.send({message:"Success"});
         } catch (error) {
+            console.log(error);
             res.status(404).send({error:error+""});
         }
     }
@@ -24,12 +25,11 @@ export default class FpfController {
         try {
             let competition: ICompetitionDefault = Helpers.getCompetition(FpfConstants.COMPETITIONS,req.params.competition);
 
-            let fpfScraping: FpfScraping = new FpfScraping;
+            let fpfScraping: FpfScraping = new FpfScraping(req);
             await fpfScraping.runTable(competition);
 
             res.send({message:"Success"});
         } catch (error) {
-            console.log(error);
             res.status(404).send({error:error+""});
         }
     }

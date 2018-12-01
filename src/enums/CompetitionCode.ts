@@ -12,6 +12,7 @@ enum CompetitionCode {
     
     RFEF_MALE_A = "la-liga-a",
     RFEF_MALE_B = "la-liga-b",
+    RFEF_FEMALE_A = "primera-division-feminina",
 
     FIGC_MALE_A = "serie-a",
     FIGC_CUP_MALE = "coppa-italia",

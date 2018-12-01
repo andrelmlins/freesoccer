@@ -3,14 +3,15 @@ import IFederationScraping from '../../interfaces/IFederationScraping';
 import CompetitionType from '../../enums/CompetitionType';
 import FpfLeagueScraping from '../FpfLeagueScraping';
 import FpfTableScraping from '../tables/FpfTableScraping';
+import { Request } from 'express';
 
 export default class FpfScraping implements IFederationScraping {
     private fpfLeagueScraping: FpfLeagueScraping;
     private fpfTableScraping: FpfTableScraping;
 
-    constructor() {
-        this.fpfLeagueScraping = new FpfLeagueScraping;
-        this.fpfTableScraping = new FpfTableScraping;
+    constructor(request: Request) {
+        this.fpfLeagueScraping = new FpfLeagueScraping(request);
+        this.fpfTableScraping = new FpfTableScraping(request);
     }
 
     public async run(competition: ICompetitionDefault) {

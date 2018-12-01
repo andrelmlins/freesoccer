@@ -27,6 +27,16 @@ export default class RfefConstants {
                 url:"/futbol-masculino",
                 name:"Campeonato Nacional de Liga de Segunda División"
             },
+        },
+        {
+            type:CompetitionType.LEAGUE,
+            code:CompetitionCode.RFEF_FEMALE_A,
+            name:"Primera División Femenina",
+            years:["2014","2015","2016","2017","2018","2019"],
+            aux:{
+                url:"/futbol-femenino",
+                name:"Primera División Femenina"
+            },
         }
     ];
 }

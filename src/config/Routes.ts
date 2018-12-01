@@ -40,7 +40,6 @@ export class Routes {
     }
     
     public routes(app:any): void {   
-        
         app.route('/')
         .get((req: Request, res: Response) => {            
             res.status(200).send({
@@ -75,7 +74,6 @@ export class Routes {
 
         app.route('/api/competitions/:competition/:year/table').get(this.tableController.get);
         app.route('/api/competitions/:competition/:year/table/:position').get(this.tableController.getPosition);
-
         
         app.route('/api/rounds/:round/matches').get(this.matchController.getRound);
         app.route('/api/competitions/:competition/:year/matches').get(this.matchController.getCompetition);

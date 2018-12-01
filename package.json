@@ -1,7 +1,7 @@
 {
-  "name": "mais-futebol",
+  "name": "free-soccer",
   "version": "1.0.0",
-  "description": "Scraping de dados de futebol dos campeonatos mais famosos do mundo",
+  "description": "Free API with results from national football competitions",
   "main": "dist/index",
   "scripts": {
     "lite": "lite-server",
@@ -31,6 +31,7 @@
     "moment": "^2.22.2",
     "mongoose": "^5.0.16",
     "morgan": "^1.9.0",
+    "path": "^0.12.7",
     "q": "^1.5.1",
     "request": "^2.88.0",
     "request-promise-any": "^1.0.5",

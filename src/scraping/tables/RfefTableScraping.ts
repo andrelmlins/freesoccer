@@ -35,7 +35,7 @@ export default class RfefTableScraping {
             let list = $(".postcontent").find(".content").children(".container-fluid");
 
             for(let j = 0; j < list.length; j++){
-                if(list.eq(j).children("div").children().eq(0).text().trim() == competitionDefault.aux.name){
+                if(list.eq(j).children("div").children().eq(0).text().trim().includes(competitionDefault.aux.name)){
                     let rounds = list.eq(j).children("div").children().eq(1).children("div").children("ul").children();
                     
                     await this.runTable(rounds.eq(0),competition!,competitionDefault.aux.url);

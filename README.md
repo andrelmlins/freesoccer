@@ -21,8 +21,9 @@ Copa do Brasil | Brazil | M | 2012 - 2018 | :heavy_check_mark: | :wavy_dash: | :
 Copa do Brasil Sub-20 | Brazil | M | 2012 - 2018 | :heavy_check_mark: | :wavy_dash: | :x: | :heavy_check_mark:
 Copa do Brasil Sub-17 | Brazil | M | 2013 - 2018 | :heavy_check_mark: | :wavy_dash: | :x: | :heavy_check_mark:
 Copa Verde | Brazil | M | 2014 - 2018 | :heavy_check_mark: | :wavy_dash: | :x: | :heavy_check_mark:
-La Liga | Spain | M | 2014/2015 - 2018/2019 | :heavy_check_mark: | :heavy_check_mark: | :x: | :x:
-La Liga Segunda División | Spain | M | 2014/2015 - 2018/2019 | :heavy_check_mark: | :heavy_check_mark: | :x: | :x:
+La Liga | Spain | M | 2013/2014 - 2018/2019 | :heavy_check_mark: | :heavy_check_mark: | :x: | :x:
+La Liga Segunda División | Spain | M | 2013/2014 - 2018/2019 | :heavy_check_mark: | :heavy_check_mark: | :x: | :x:
+Primera División Femenina | Spain | F | 2013/2014 - 2018/2019 | :heavy_check_mark: | :heavy_check_mark: | :x: | :x:
 Ligue 1 | France | M | 2000/2001 - 2018/2019 | :heavy_check_mark: | :heavy_check_mark: | :x: | :heavy_check_mark:
 Ligue 2 | France | M | 2000/2001 - 2018/2019 | :heavy_check_mark: | :heavy_check_mark: | :x: | :heavy_check_mark:
 Coupe Ligue | France | M | 2000/2001 - 2018/2019 | :heavy_check_mark: | :wavy_dash: | :x: | :heavy_check_mark:

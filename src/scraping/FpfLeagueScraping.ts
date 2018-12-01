@@ -2,6 +2,7 @@ import * as request from 'request-promise-any';
 import * as cheerio from 'cheerio';
 import * as md5 from 'md5';
 import * as moment from 'moment';
+import { Request } from 'express';
 
 import FpfConstants from '../constants/FpfConstants';
 import Helpers from '../utils/Helpers';
@@ -13,8 +14,10 @@ import Match from '../schemas/Match';
 import TeamResult from '../schemas/TeamResult';
 
 export default class FffLeagueScraping {
-    constructor() {
-        
+    private request: Request;
+
+    constructor(request: Request) {
+        this.request = request;    
     }
 
     public async run(competition: ICompetitionDefault) {
@@ -115,8 +118,17 @@ export default class FffLeagueScraping {
         match.stadium = "";
         match.location = "";
         
+        // let positions = data.eq(0).children(".teams-logo").css("background-position").split(" ");
+        // let height = parseInt(data.eq(0).children(".teams-logo").css("height").replace("px",""));
+
+        // let x = parseInt(positions[0].replace("px",""))/height;
+        // let y = parseInt(positions[1].replace("px",""))/height;
+        
+        // let position = x*y; 
+        
         match.teamHome.initials = "";
         match.teamHome.name = data.eq(0).children(".teams-name").text().trim();
+        //match.teamHome.flag = Helpers.getUrl(this.request, "/assets/flags/fpf/image_part_"+('000'+position).slice(-3));
         match.teamHome.flag = "";
         match.teamHome.goals = result==null ? undefined : parseInt(result[0]);
 

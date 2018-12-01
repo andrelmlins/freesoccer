@@ -32,14 +32,14 @@ export default class RfefLeagueScraping {
             let year = (parseInt(competitionDefault.years![i])-1).toString();
 
             let competition = await Helpers.createCompetition(competitionDefault,year,RfefConstants);
-
+            
             let page = await request(RfefConstants.URL_DEFAULT+competitionDefault.aux.url+"/resultados?t="+competitionDefault.years![i]);
 
             let $ = cheerio.load(page);
             let list = $(".postcontent").find(".content").children(".container-fluid");
 
             for(let j = 0; j < list.length; j++){
-                if(list.eq(j).children("div").children().eq(0).text().trim() == competitionDefault.aux.name){
+                if(list.eq(j).children("div").children().eq(0).text().trim().includes(competitionDefault.aux.name)){
                     let rounds = list.eq(j).children("div").children().eq(1).children("div").children("ul").children();
             
                     for(let k = 0; k < rounds.length; k++){
