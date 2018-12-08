@@ -1,6 +1,5 @@
 import * as request from 'request-promise-any';
 import * as cheerio from 'cheerio';
-import { Request } from 'express';
 
 import FpfConstants from '../../constants/FpfConstants';
 import Helpers from '../../utils/Helpers';
@@ -11,10 +10,10 @@ import { Table } from '../../schemas/Table';
 import ItemTable from '../../schemas/ItemTable';
 
 export default class FpfTableScraping {
-    private request: Request;
+    public lastYear: boolean;
 
-    constructor(request: Request) {
-        this.request = request;    
+    constructor(lastYear: boolean) {
+        this.lastYear = lastYear;    
     }
 
     public async run(competition: ICompetitionDefault) {
@@ -26,7 +25,10 @@ export default class FpfTableScraping {
     public async runCompetition(competitionDefault: ICompetitionDefault) {
         console.log("\t-> "+competitionDefault.name);
 
-        for(let i = 0; i < competitionDefault.years!.length; i++) {
+        let initial = 0;
+        if(this.lastYear) initial = competitionDefault.years!.length-1; 
+
+        for(let i = initial; i < competitionDefault.years!.length; i++) {
             let year = competitionDefault.years![i];
             let codeYear = year+(parseInt(year)+1);
             let url = competitionDefault.aux.urls[i];

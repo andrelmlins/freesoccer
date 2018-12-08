@@ -11,7 +11,7 @@ export default class FpfController {
         try {
             let competition: ICompetitionDefault = Helpers.getCompetition(FpfConstants.COMPETITIONS,req.params.competition);
 
-            let fpfScraping: FpfScraping = new FpfScraping(req);
+            let fpfScraping: FpfScraping = new FpfScraping();
             await fpfScraping.run(competition);
 
             res.send({message:"Success"});
@@ -25,7 +25,7 @@ export default class FpfController {
         try {
             let competition: ICompetitionDefault = Helpers.getCompetition(FpfConstants.COMPETITIONS,req.params.competition);
 
-            let fpfScraping: FpfScraping = new FpfScraping(req);
+            let fpfScraping: FpfScraping = new FpfScraping();
             await fpfScraping.runTable(competition);
 
             res.send({message:"Success"});

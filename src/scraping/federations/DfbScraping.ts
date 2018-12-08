@@ -5,12 +5,15 @@ import DfbLeagueScraping from '../DfbLeagueScraping';
 import DfbTableScraping from '../tables/DfbTableScraping';
 
 export default class DfbScraping implements IFederationScraping {
+    public lastYear: boolean;
     private dbcLeagueScraping: DfbLeagueScraping;
     private dfbTableScraping: DfbTableScraping;
 
-    constructor() {
-        this.dbcLeagueScraping = new DfbLeagueScraping;
-        this.dfbTableScraping = new DfbTableScraping;
+    constructor(lastYear: boolean = false) {
+        this.lastYear = lastYear;
+
+        this.dbcLeagueScraping = new DfbLeagueScraping(this.lastYear);
+        this.dfbTableScraping = new DfbTableScraping(this.lastYear);
     }
 
     public async run(competition: ICompetitionDefault) {
@@ -19,6 +22,7 @@ export default class DfbScraping implements IFederationScraping {
         switch(competition.type){
             case CompetitionType.LEAGUE:
                 await this.runLeague(competition);
+                break;
         }
     }
 

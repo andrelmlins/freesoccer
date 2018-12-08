@@ -7,14 +7,16 @@ import RfefConstants from '../constants/RfefConstants';
 import Helpers from '../utils/Helpers';
 import ICompetitionDefault from '../interfaces/ICompetitionDefault';
 
-import { Competition, ICompetition } from '../schemas/Competition';
+import { ICompetition } from '../schemas/Competition';
 import { Round, IRound } from '../schemas/Round';
 import Match from '../schemas/Match';
 import TeamResult from '../schemas/TeamResult';
 
 export default class RfefLeagueScraping {
-    constructor() {
-        
+    public lastYear: boolean;
+
+    constructor(lastYear: boolean) {
+        this.lastYear = lastYear;    
     }
 
     public async run(competition: ICompetitionDefault) {
@@ -26,7 +28,10 @@ export default class RfefLeagueScraping {
     public async runCompetition(competitionDefault:ICompetitionDefault) {
         console.log("\t-> "+competitionDefault.name);
 
-        for(let i = 0 ; i < competitionDefault.years!.length; i++) {
+        let initial = 0;
+        if(this.lastYear) initial = competitionDefault.years!.length-1; 
+
+        for(let i = initial ; i < competitionDefault.years!.length; i++) {
             console.log("\t\t-> "+competitionDefault.years![i]);
 
             let year = (parseInt(competitionDefault.years![i])-1).toString();

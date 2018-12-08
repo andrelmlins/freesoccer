@@ -8,24 +8,30 @@ import CbfTableScraping from '../tables/CbfTableScraping';
 import CbfEliminationScraping from '../elimination/CbfEliminationScraping';
 
 export default class CbfScraping implements IFederationScraping {
+    public lastYear: boolean;
     private cbfLeagueScraping: CbfLeagueScraping;
     private cbfTableScraping: CbfTableScraping;
     private cbfEliminationScraping: CbfEliminationScraping;
 
-    constructor() {
-        this.cbfLeagueScraping = new CbfLeagueScraping;
-        this.cbfTableScraping = new CbfTableScraping;
-        this.cbfEliminationScraping = new CbfEliminationScraping;
+    constructor(lastYear: boolean = false) {
+        this.lastYear = lastYear;
+
+        this.cbfLeagueScraping = new CbfLeagueScraping(this.lastYear);
+        this.cbfTableScraping = new CbfTableScraping(this.lastYear);
+        this.cbfEliminationScraping = new CbfEliminationScraping(this.lastYear);
     }
 
     public async run(competition: ICompetitionDefault) {
         console.log("-> CBF SCRAPING");
+        this.lastYear = true;
 
         switch(competition.type){
             case CompetitionType.LEAGUE:
                 await this.runLeague(competition);
+                break;
             case CompetitionType.ELIMINATION:
                 await this.runElimination(competition);
+                break;
         }
     }
 

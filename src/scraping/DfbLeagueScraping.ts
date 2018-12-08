@@ -7,14 +7,16 @@ import DfbConstants from '../constants/DfbConstants';
 import Helpers from '../utils/Helpers';
 import ICompetitionDefault from '../interfaces/ICompetitionDefault';
 
-import { Competition, ICompetition } from '../schemas/Competition';
+import { ICompetition } from '../schemas/Competition';
 import { Round, IRound } from '../schemas/Round';
 import Match from '../schemas/Match';
 import TeamResult from '../schemas/TeamResult';
 
 export default class DfbLeagueScraping {
-    constructor() {
-        
+    public lastYear: boolean;
+
+    constructor(lastYear: boolean) {
+        this.lastYear = lastYear;    
     }
 
     public async run(competition: ICompetitionDefault) {
@@ -34,7 +36,10 @@ export default class DfbLeagueScraping {
         let $ = cheerio.load(pageSeason);
         let seasons = $("select[name='seasons']").children();
 
-        for(let i = 0; i <= seasons.length; i++) {
+        let end = seasons.length;
+        if(this.lastYear) end = 1; 
+
+        for(let i = 0; i < end; i++) {
             let numberSeason = seasons.eq(i).attr("value");
             let year = parseInt(seasons.eq(i).text().split("/")[0]);
             
@@ -113,10 +118,16 @@ export default class DfbLeagueScraping {
             date = date.split(" ~ ")[0]+date.split(" ~ ")[1].split(".")[2]+" 00:00";
         } else {
             date = data.eq(0).html().split("<br>");
-            date = date[1].trim()+" "+date[2].split(" ")[0].trim();
+            
+            if(date.length > 2){
+                date = date[1].trim()+" "+date[2].split(" ")[0].trim();
+                match.date = moment.utc(date, 'DD.MM.YYYY HH:mm').format();
+            } else {
+                date = date[1].trim();
+                match.date = moment.utc(date, 'DD.MM.YYYY').format();
+            }
         }
 
-        match.date = moment.utc(date, 'DD.MM.YYYY HH:mm').format();
         match.stadium = "";
         match.location = "";
         

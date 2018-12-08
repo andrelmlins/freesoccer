@@ -6,12 +6,14 @@ import Helpers from '../../utils/Helpers';
 import ICompetitionDefault from '../../interfaces/ICompetitionDefault';
 
 import { Competition, ICompetition } from '../../schemas/Competition';
-import { Table, ITable } from '../../schemas/Table';
+import { Table } from '../../schemas/Table';
 import ItemTable from '../../schemas/ItemTable';
 
 export default class RfefTableScraping {
-    constructor() {
-        
+    public lastYear: boolean;
+
+    constructor(lastYear: boolean) {
+        this.lastYear = lastYear;    
     }
 
     public async run(competition: ICompetitionDefault) {
@@ -23,7 +25,10 @@ export default class RfefTableScraping {
     public async runCompetition(competitionDefault: ICompetitionDefault) {
         console.log("\t-> "+competitionDefault.name);
 
-        for(let i = 0 ; i < competitionDefault.years!.length; i++) {
+        let initial = 0;
+        if(this.lastYear) initial = competitionDefault.years!.length-1; 
+
+        for(let i = initial ; i < competitionDefault.years!.length; i++) {
             console.log("\t\t-> "+competitionDefault.years![i]);
 
             let year = (parseInt(competitionDefault.years![i])-1).toString();
@@ -42,7 +47,6 @@ export default class RfefTableScraping {
                     break;
                 }
             }
-            
         }
     }
 

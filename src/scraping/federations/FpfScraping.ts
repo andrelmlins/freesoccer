@@ -6,12 +6,15 @@ import FpfTableScraping from '../tables/FpfTableScraping';
 import { Request } from 'express';
 
 export default class FpfScraping implements IFederationScraping {
+    public lastYear: boolean;
     private fpfLeagueScraping: FpfLeagueScraping;
     private fpfTableScraping: FpfTableScraping;
 
-    constructor(request: Request) {
-        this.fpfLeagueScraping = new FpfLeagueScraping(request);
-        this.fpfTableScraping = new FpfTableScraping(request);
+    constructor(lastYear: boolean = false) {
+        this.lastYear = lastYear;
+
+        this.fpfLeagueScraping = new FpfLeagueScraping(this.lastYear);
+        this.fpfTableScraping = new FpfTableScraping(this.lastYear);
     }
 
     public async run(competition: ICompetitionDefault) {
@@ -20,6 +23,7 @@ export default class FpfScraping implements IFederationScraping {
         switch(competition.type){
             case CompetitionType.LEAGUE:
                 await this.runLeague(competition);
+                break;
         }
     }
 

@@ -14,9 +14,12 @@ class App {
 
     public app: express.Application;
     public routes: Routes;
+    public cronJobs : CronJobs;
 
     constructor() {
         this.routes = new Routes;
+        this.cronJobs = new CronJobs;
+
         this.app = express();
         this.config(); 
 
@@ -24,7 +27,9 @@ class App {
         this.app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument,{
             customCss: '.swagger-ui .topbar { display: none }'
         }));       
+
         this.routes.routes(this.app);
+        this.cronJobs.crons()
     }
 
     private config(): void{

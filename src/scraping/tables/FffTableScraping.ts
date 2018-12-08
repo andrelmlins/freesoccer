@@ -10,8 +10,10 @@ import { Table } from '../../schemas/Table';
 import ItemTable from '../../schemas/ItemTable';
 
 export default class FffTableScraping {
-    constructor() {
-        
+    public lastYear: boolean;
+
+    constructor(lastYear: boolean) {
+        this.lastYear = lastYear;    
     }
 
     public async run(competition: ICompetitionDefault) {
@@ -31,7 +33,10 @@ export default class FffTableScraping {
         let $ = cheerio.load(pageSeason);
         let seasons = $("select[name='saison']").children();
 
-        for(let i = 0; i <= seasons.length; i++) {
+        let end = seasons.length;
+        if(this.lastYear) end = 1; 
+
+        for(let i = 0; i < end; i++) {
             let numberSeason = parseInt(seasons.eq(i).attr("value"));
             
             if(numberSeason>=FffConstants.START_SEASON) {

@@ -5,12 +5,15 @@ import FigcLeagueScraping from '../FigcLeagueScraping';
 import FigcTableScraping from '../tables/FigcTableScraping';
 
 export default class FigcScraping implements IFederationScraping {
+    public lastYear: boolean;
     private figcLeagueScraping: FigcLeagueScraping;
     private figcTableScraping: FigcTableScraping;
 
-    constructor() {
-        this.figcLeagueScraping = new FigcLeagueScraping;
-        this.figcTableScraping = new FigcTableScraping;
+    constructor(lastYear: boolean = false) {
+        this.lastYear = lastYear;
+
+        this.figcLeagueScraping = new FigcLeagueScraping(this.lastYear);
+        this.figcTableScraping = new FigcTableScraping(this.lastYear);
     }
 
     public async run(competition: ICompetitionDefault) {
@@ -19,6 +22,7 @@ export default class FigcScraping implements IFederationScraping {
         switch(competition.type){
             case CompetitionType.LEAGUE:
                 await this.runLeague(competition);
+                break;
         }
     }
 

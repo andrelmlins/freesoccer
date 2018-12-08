@@ -5,12 +5,15 @@ import RfefLeagueScraping from '../RfefLeagueScraping';
 import RfefTableScraping from '../tables/RfefTableScraping';
 
 export default class RfefScraping implements IFederationScraping {
+    public lastYear: boolean;
     private rfefLeagueScraping: RfefLeagueScraping;
     private rfefTableScraping: RfefTableScraping;
 
-    constructor() {
-        this.rfefLeagueScraping = new RfefLeagueScraping;
-        this.rfefTableScraping = new RfefTableScraping;
+    constructor(lastYear: boolean = false) {
+        this.lastYear = lastYear;
+
+        this.rfefLeagueScraping = new RfefLeagueScraping(this.lastYear);
+        this.rfefTableScraping = new RfefTableScraping(this.lastYear);
     }
 
     public async run(competition: ICompetitionDefault) {
@@ -19,6 +22,7 @@ export default class RfefScraping implements IFederationScraping {
         switch(competition.type){
             case CompetitionType.LEAGUE:
                 await this.runLeague(competition);
+                break;
         }
     }
 

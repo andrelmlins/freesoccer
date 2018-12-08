@@ -13,8 +13,10 @@ import Match from '../schemas/Match';
 import TeamResult from '../schemas/TeamResult';
 
 export default class FffLeagueScraping {
-    constructor() {
-        
+    public lastYear: boolean;
+
+    constructor(lastYear: boolean) {
+        this.lastYear = lastYear;    
     }
 
     public async run(competition: ICompetitionDefault) {
@@ -34,7 +36,10 @@ export default class FffLeagueScraping {
         let $ = cheerio.load(pageSeason);
         let seasons = $("select[name='saison']").children();
 
-        for(let i = 0; i <= seasons.length; i++) {
+        let end = seasons.length;
+        if(this.lastYear) end = 1; 
+
+        for(let i = 0; i < end; i++) {
             let numberSeason = parseInt(seasons.eq(i).attr("value"));
             
             if(numberSeason>=FffConstants.START_SEASON) {

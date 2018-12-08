@@ -13,8 +13,10 @@ import Match from '../../schemas/Match';
 import TeamResult from '../../schemas/TeamResult';
 
 export default class CbfEliminationScraping {
-    constructor() {
-        
+    public lastYear: boolean;
+
+    constructor(lastYear: boolean) {
+        this.lastYear = lastYear;    
     }
 
     public async run(competition: ICompetitionDefault) {
@@ -25,8 +27,11 @@ export default class CbfEliminationScraping {
 
     public async runCompetition(competitionDefault: ICompetitionDefault) {
         console.log("\t-> "+competitionDefault.name);
+
+        let initial = 0;
+        if(this.lastYear) initial = competitionDefault.years!.length-1; 
         
-        for(let i = 0 ; i < competitionDefault.years!.length; i++) {
+        for(let i = initial ; i < competitionDefault.years!.length; i++) {
             console.log("\t\t-> "+competitionDefault.years![i]);
 
             let competition = await Helpers.createCompetition(competitionDefault,competitionDefault.years![i],CbfConstants);

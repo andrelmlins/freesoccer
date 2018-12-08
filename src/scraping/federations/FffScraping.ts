@@ -6,14 +6,17 @@ import FffTableScraping from '../tables/FffTableScraping';
 import FffEliminationScraping from '../elimination/FffEliminationScraping';
 
 export default class FffScraping implements IFederationScraping {
+    public lastYear: boolean;
     private fffLeagueScraping: FffLeagueScraping;
     private fffTableScraping: FffTableScraping;
     private fffEliminationScraping: FffEliminationScraping;
 
-    constructor() {
-        this.fffLeagueScraping = new FffLeagueScraping;
-        this.fffTableScraping = new FffTableScraping;
-        this.fffEliminationScraping = new FffEliminationScraping;
+    constructor(lastYear: boolean = false) {
+        this.lastYear = lastYear;
+
+        this.fffLeagueScraping = new FffLeagueScraping(this.lastYear);
+        this.fffTableScraping = new FffTableScraping(this.lastYear);
+        this.fffEliminationScraping = new FffEliminationScraping(this.lastYear);
     }
 
     public async run(competition: ICompetitionDefault) {
@@ -22,8 +25,10 @@ export default class FffScraping implements IFederationScraping {
         switch(competition.type){
             case CompetitionType.LEAGUE:
                 await this.runLeague(competition);
+                break;
             case CompetitionType.ELIMINATION:
                 await this.runElimination(competition);
+                break;
         }
     }
 

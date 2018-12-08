@@ -2,7 +2,6 @@ import * as request from 'request-promise-any';
 import * as cheerio from 'cheerio';
 import * as md5 from 'md5';
 import * as moment from 'moment';
-import { Request } from 'express';
 
 import FpfConstants from '../constants/FpfConstants';
 import Helpers from '../utils/Helpers';
@@ -14,10 +13,10 @@ import Match from '../schemas/Match';
 import TeamResult from '../schemas/TeamResult';
 
 export default class FffLeagueScraping {
-    private request: Request;
+    public lastYear: boolean;
 
-    constructor(request: Request) {
-        this.request = request;    
+    constructor(lastYear: boolean) {
+        this.lastYear = lastYear;    
     }
 
     public async run(competition: ICompetitionDefault) {
@@ -29,7 +28,10 @@ export default class FffLeagueScraping {
     public async runCompetition(competitionDefault: ICompetitionDefault) {
         console.log("\t-> "+competitionDefault.name);
 
-        for(let i = 0; i < competitionDefault.years!.length; i++) {
+        let initial = 0;
+        if(this.lastYear) initial = competitionDefault.years!.length-1; 
+
+        for(let i = initial; i < competitionDefault.years!.length; i++) {
             let year = competitionDefault.years![i];
             let codeYear = year+(parseInt(year)+1);
             let url = competitionDefault.aux.urls[i];
