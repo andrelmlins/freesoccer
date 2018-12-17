@@ -25,7 +25,7 @@ class App {
 
         this.app.use(express.static(path.join(__dirname + '../../../public')));
         this.app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument,{
-            customCss: '.swagger-ui .topbar { display: none }'
+            customCss: 'body { background-color: rgb(255, 255, 255) !important } .swagger-ui .topbar { display: none } .swagger-ui .information-container { display: none }'
         }));       
 
         this.routes.routes(this.app);

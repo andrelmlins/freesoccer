@@ -1,0 +1,31 @@
+.content {
+  margin-left: 240px;
+  padding: 40px;
+  padding-top:104px;
+}
+
+.container {
+  z-index: -20;
+}
+
+.header {
+  position: fixed !important;
+  z-index: 2 !important;
+}
+
+.grow {
+  flex-grow: 1;
+}
+
+.drawer{
+  padding-top: 64px;
+  z-index: 1 !important;
+}
+
+.language-sh{
+  padding: 20px;
+  margin: 20px 0px;
+  background-color: #DEDEDE;
+  display: block;
+  border-radius: 5px;
+}
