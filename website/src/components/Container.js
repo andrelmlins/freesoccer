@@ -108,8 +108,8 @@ export default class Container extends Component {
                                     <Typography variant="title" color="inherit" noWrap>
                                         <span role="img" aria-label="icon">⚽️</span> Free Soccer <span role="img" aria-label="icon">⚽️</span>
                                     </Typography>
+                                    <div className="grow" />
                                     <Hidden xsDown implementation="css">
-                                        <div className="grow" />
                                         <Button color="inherit" component="a" href="/login">Login</Button>
                                         <Button color="inherit" component="a" href="/register">Register</Button>
                                     </Hidden>

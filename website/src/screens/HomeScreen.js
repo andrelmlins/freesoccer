@@ -15,7 +15,7 @@ class HomeScreen extends Component {
                     Free API with results from national soccer competitions
                 </Typography>
                 <br /><br />
-                <Typography variant="body" color="inherit">
+                <Typography variant="body1" color="inherit">
                     Free Soccer is an open source API.
                 </Typography>
             </div>

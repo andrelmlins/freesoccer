@@ -18,6 +18,8 @@ class RegisterScreen extends Component {
         super(props);
 
         this.state = {
+            name: "",
+            username: "",
             email: "",
             password: "",
             showPassword: false,
@@ -37,13 +39,39 @@ class RegisterScreen extends Component {
     render() {
         return (
             <div className="card-center">
-                <Card>
+                <Card classes={{ root: "card" }}>
                     <CardContent classes={{ root: "card-content" }} className="text-center p-15">
-                        <Typography variant="h3" color="inherit">
-                            <span role="img" aria-label="icon">⚽️</span> Free Soccer <span role="img" aria-label="icon">⚽️</span>
+                        <Typography variant="h4" color="inherit">
+                            <span role="img" aria-label="icon">⚽️</span>Free Soccer<span role="img" aria-label="icon">⚽️</span>
                         </Typography>
                         <br /><br />
                         <Grid container spacing={24}>
+                            <Grid item xs={12}>
+                                <TextField
+                                    id="outlined-name"
+                                    label="Name"
+                                    type="name"
+                                    autoComplete="name"
+                                    className="input-block"
+                                    value={this.state.name}
+                                    onChange={this.handleChange('name')}
+                                    margin="normal"
+                                    variant="outlined"
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    id="outlined-username"
+                                    label="Username"
+                                    type="username"
+                                    autoComplete="username"
+                                    className="input-block"
+                                    value={this.state.username}
+                                    onChange={this.handleChange('username')}
+                                    margin="normal"
+                                    variant="outlined"
+                                />
+                            </Grid>
                             <Grid item xs={12}>
                                 <TextField
                                     id="outlined-email"

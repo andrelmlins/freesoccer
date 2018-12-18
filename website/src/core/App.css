@@ -34,6 +34,7 @@ html, body, #root {
   justify-content: center;
   align-items: center;
   height: 100%;
+  background-color: #2E7D32;
 }
 
 .input-block{
@@ -44,6 +45,10 @@ html, body, #root {
 
 .text-center{
   text-align: center;
+}
+
+.card {
+  margin: 0px 30px;
 }
 
 .card-content{

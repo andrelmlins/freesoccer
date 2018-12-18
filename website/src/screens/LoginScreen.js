@@ -37,10 +37,10 @@ class LoginScreen extends Component {
     render() {
         return (
             <div className="card-center">
-                <Card>
+                <Card classes={{ root: "card" }}>
                     <CardContent classes={{ root: "card-content" }} className="text-center p-15">
-                        <Typography variant="h3" color="inherit">
-                            <span role="img" aria-label="icon">⚽️</span> Free Soccer <span role="img" aria-label="icon">⚽️</span>
+                        <Typography variant="h4" color="inherit">
+                            <span role="img" aria-label="icon">⚽️</span>Free Soccer<span role="img" aria-label="icon">⚽️</span>
                         </Typography>
                         <br /><br />
                         <Grid container spacing={24}>
