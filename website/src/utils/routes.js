@@ -35,14 +35,16 @@ export default [
         name: "Login",
         component: LoginScreen,
         exact: true,
-        showMenu: false
+        showMenu: false,
+        icon: "input"
     },
     {
         path: "/register",
         name: "Register",
         component: RegisterScreen,
         exact: true,
-        showMenu: false
+        showMenu: false,
+        icon: "person_add"
     },
     {
         path: "/about",

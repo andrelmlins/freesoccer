@@ -7,7 +7,7 @@ class DocumentaionScreen extends Component {
     render() {
         return (
             <div>
-                <Typography variant="h2" color="inherit">
+                <Typography variant="h2" color="inherit" noWrap>
                     Documentation
                 </Typography>
                 <br /><br />

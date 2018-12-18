@@ -15,7 +15,7 @@ class GettingStartedScreen extends Component {
                     Sign-Up
                 </Typography>
                 <br />
-                <Typography variant="body" color="inherit">
+                <Typography variant="body1" color="inherit">
                     To access the API's, it's necessary to  sign-up. <br />
                 </Typography>
                 <br /><br />
@@ -23,7 +23,7 @@ class GettingStartedScreen extends Component {
                     Get API key
                 </Typography>
                 <br />
-                <Typography variant="body" color="inherit">
+                <Typography variant="body1" color="inherit">
                     After registering you will receive a token. <br />
                 </Typography>
                 <br /><br />
@@ -38,7 +38,7 @@ class GettingStartedScreen extends Component {
                 <Typography variant="h4">
                     Clone to Github
                 </Typography>
-                <code class="language-sh">
+                <code className="language-sh">
                     git clone https://github.com/andrelmlins/freesoccer
                 </code>
                 <br />
@@ -46,24 +46,24 @@ class GettingStartedScreen extends Component {
                    NPM
                 </Typography>
                 <br />
-                <Typography variant="body" color="inherit">
+                <Typography variant="body1" color="inherit">
                     Move to the project folder
                 </Typography>
-                <code class="language-sh">
+                <code className="language-sh">
                     cd ./freesoccer
                 </code>
                 <br />
-                <Typography variant="body" color="inherit">
+                <Typography variant="body1" color="inherit">
                     Install npm dependencies
                 </Typography>
-                <code class="language-sh">
+                <code className="language-sh">
                     npm install
                 </code>
                 <br />
-                <Typography variant="body" color="inherit">
+                <Typography variant="body1" color="inherit">
                     Start the Project
                 </Typography>
-                <code class="language-sh">
+                <code className="language-sh">
                     npm start
                 </code>
                 <br />
@@ -71,10 +71,10 @@ class GettingStartedScreen extends Component {
                    Create branch
                 </Typography>
                 <br />
-                <Typography variant="body" color="inherit">
+                <Typography variant="body1" color="inherit">
                     Create new Branch and make your changes.
                 </Typography>
-                <code class="language-sh">
+                <code className="language-sh">
                     git checkout -b new-branch
                 </code>
             </div>

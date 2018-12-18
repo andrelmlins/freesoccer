@@ -3,9 +3,14 @@ html, body, #root {
 }
 
 .content {
-  margin-left: 240px;
   padding: 40px;
   padding-top:104px;
+}
+
+@media (min-width: 600px) {
+  .content {
+    margin-left: 240px;
+  }
 }
 
 .grow {
