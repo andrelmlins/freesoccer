@@ -1,16 +1,11 @@
+html, body, #root {
+  height: 100%;
+}
+
 .content {
   margin-left: 240px;
   padding: 40px;
   padding-top:104px;
-}
-
-.container {
-  z-index: -20;
-}
-
-.header {
-  position: fixed !important;
-  z-index: 2 !important;
 }
 
 .grow {
@@ -19,7 +14,6 @@
 
 .drawer{
   padding-top: 64px;
-  z-index: 1 !important;
 }
 
 .language-sh{
@@ -28,4 +22,35 @@
   background-color: #DEDEDE;
   display: block;
   border-radius: 5px;
+}
+
+.card-center{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.input-block{
+  width: 100%;
+  margin-top: 10px !important;
+  margin-bottom: 5spx !important;
+}
+
+.text-center{
+  text-align: center;
+}
+
+.card-content{
+  padding: 40px 30px !important;
+  padding-bottom: 15px !important;
+}
+
+.card-actions {
+  padding: 40px 30px !important;
+  padding-top: 15px !important;
+}
+
+.button-block {
+  width: 100%;
 }
