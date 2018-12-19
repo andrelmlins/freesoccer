@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Icon from "@material-ui/core/Icon";
+import ScrollableAnchor, { configureAnchors } from "react-scrollable-anchor";
 
 import { withRouter } from "react-router-dom";
 
@@ -16,6 +17,7 @@ class GettingStartedScreen extends Component {
   }
 
   componentDidMount() {
+    configureAnchors({ offset: -80, keepLastAnchorHash: true });
     let token = localStorage.getItem("token");
     if (token) {
       this.setState({ token, login: true });
@@ -30,7 +32,9 @@ class GettingStartedScreen extends Component {
         </Typography>
         <br />
         <br />
-        <Typography variant="h4">Sign-Up</Typography>
+        <ScrollableAnchor id={"signup"}>
+          <Typography variant="h4">Sign-Up</Typography>
+        </ScrollableAnchor>
         <br />
         <Typography variant="body1" color="inherit">
           To access the API's, it's necessary to sign-up. <br />
@@ -48,7 +52,9 @@ class GettingStartedScreen extends Component {
         )}
         <br />
         <br />
-        <Typography variant="h4">Get API key</Typography>
+        <ScrollableAnchor id={"api-key"}>
+          <Typography variant="h4">Get API key</Typography>
+        </ScrollableAnchor>
         <br />
         <Typography variant="body1" color="inherit">
           After registering you will receive a token. <br />
@@ -58,22 +64,30 @@ class GettingStartedScreen extends Component {
         </Typography>
         <code className="language-sh">{this.state.token}</code>
         <br />
-        <Typography variant="h4">Know the API</Typography>
+        <ScrollableAnchor id={"know-api"}>
+          <Typography variant="h4">Know the API</Typography>
+        </ScrollableAnchor>
         <br />
         <code className="language-sh">
           curl -H "x-access-token: [YOUR_TOKEN];Content-Type: application/json" -X GET http://www.apifreesoccer.com/data
         </code>
         <br />
         <br />
-        <Typography variant="h2" color="inherit">
-          Getting Started to Contribute
-        </Typography>
+        <ScrollableAnchor id={"contribute"}>
+          <Typography variant="h2" color="inherit">
+            Getting Started to Contribute
+          </Typography>
+        </ScrollableAnchor>
         <br />
         <br />
-        <Typography variant="h4">Clone to Github</Typography>
+        <ScrollableAnchor id={"clone-github"}>
+          <Typography variant="h4">Clone to Github</Typography>
+        </ScrollableAnchor>
         <code className="language-sh">git clone https://github.com/andrelmlins/freesoccer</code>
         <br />
-        <Typography variant="h4">NPM</Typography>
+        <ScrollableAnchor id={"npm"}>
+          <Typography variant="h4">NPM</Typography>
+        </ScrollableAnchor>
         <br />
         <Typography variant="body1" color="inherit">
           Move to the project folder
@@ -90,7 +104,9 @@ class GettingStartedScreen extends Component {
         </Typography>
         <code className="language-sh">npm start</code>
         <br />
-        <Typography variant="h4">Create branch</Typography>
+        <ScrollableAnchor id={"branch-request"}>
+          <Typography variant="h4">Create branch</Typography>
+        </ScrollableAnchor>
         <br />
         <Typography variant="body1" color="inherit">
           Create new Branch and make your changes.
