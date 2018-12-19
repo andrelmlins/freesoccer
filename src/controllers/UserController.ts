@@ -24,7 +24,9 @@ export default class UserController {
 
         await user.save();
 
-        res.status(200).send({ error: false, user: user });
+        const token = jwt.sign(user.toJSON(), "shhhhh");
+
+        res.status(200).send({ error: false, user: user, token });
       } else {
         res.status(404).send({
           error: true,

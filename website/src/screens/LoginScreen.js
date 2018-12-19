@@ -49,7 +49,7 @@ class LoginScreen extends Component {
       this.setState({ messsageErrorRegister: result.message });
     } else {
       localStorage.setItem("token", result.token);
-      this.props.history.push("/getting-started");
+      window.location.href = "/getting-started";
     }
   };
 
