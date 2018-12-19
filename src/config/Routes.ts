@@ -1,6 +1,6 @@
-import {Request, Response} from "express";
+import { Request, Response } from "express";
 
-import CbfController from '../controllers/scraping/CbfController';
+import CbfController from "../controllers/scraping/CbfController";
 import RfefController from "../controllers/scraping/RfefController";
 import FffController from "../controllers/scraping/FffController";
 import FigcController from "../controllers/scraping/FigcController";
@@ -11,71 +11,77 @@ import CompetitionController from "../controllers/CompetitionController";
 import RoundController from "../controllers/RoundController";
 import TableController from "../controllers/TableController";
 import MatchController from "../controllers/MatchController";
+import UserController from "../controllers/UserController";
 
-export class Routes { 
-    public cbfController: CbfController;
-    public rfefController: RfefController;
-    public fffController: FffController;
-    public figcController: FigcController;
-    public dfbController: DfbController;
-    public fpfController: FpfController;
+export class Routes {
+  public cbfController: CbfController;
+  public rfefController: RfefController;
+  public fffController: FffController;
+  public figcController: FigcController;
+  public dfbController: DfbController;
+  public fpfController: FpfController;
 
-    public competitionController: CompetitionController;
-    public roundController: RoundController;
-    public tableController: TableController;
-    public matchController: MatchController;
+  public competitionController: CompetitionController;
+  public roundController: RoundController;
+  public tableController: TableController;
+  public matchController: MatchController;
+  public userController: UserController;
 
-    constructor() {
-        this.cbfController = new CbfController;
-        this.rfefController = new RfefController;
-        this.fffController = new FffController;
-        this.figcController = new FigcController;
-        this.dfbController = new DfbController;
-        this.fpfController = new FpfController;
+  constructor() {
+    this.cbfController = new CbfController();
+    this.rfefController = new RfefController();
+    this.fffController = new FffController();
+    this.figcController = new FigcController();
+    this.dfbController = new DfbController();
+    this.fpfController = new FpfController();
 
-        this.competitionController = new CompetitionController;
-        this.roundController = new RoundController;
-        this.tableController = new TableController;
-        this.matchController = new MatchController;
-    }
-    
-    public routes(app:any): void {   
-        app.route('/')
-        .get((req: Request, res: Response) => {            
-            res.status(200).send({
-                message: 'GET request successfulll!!!!'
-            })
-        }) 
+    this.competitionController = new CompetitionController();
+    this.roundController = new RoundController();
+    this.tableController = new TableController();
+    this.matchController = new MatchController();
+    this.userController = new UserController();
+  }
 
-        app.route('/scraping/cbf/:competition/results').get(this.cbfController.loadResults);
-        app.route('/scraping/cbf/:competition/table').get(this.cbfController.loadTable);
+  public routes(app: any): void {
+    app.route("/").get((req: Request, res: Response) => {
+      res.status(200).send({
+        message: "GET request successfulll!!!!"
+      });
+    });
 
-        app.route('/scraping/fff/:competition/results').get(this.fffController.loadResults);
-        app.route('/scraping/fff/:competition/table').get(this.fffController.loadTable);
+    app.route("/scraping/cbf/:competition/results").get(this.cbfController.loadResults);
+    app.route("/scraping/cbf/:competition/table").get(this.cbfController.loadTable);
 
-        app.route('/scraping/rfef/:competition/results').get(this.rfefController.loadResults);
-        app.route('/scraping/rfef/:competition/table').get(this.rfefController.loadTable);
+    app.route("/scraping/fff/:competition/results").get(this.fffController.loadResults);
+    app.route("/scraping/fff/:competition/table").get(this.fffController.loadTable);
 
-        app.route('/scraping/dfb/:competition/results').get(this.dfbController.loadResults);
-        app.route('/scraping/dfb/:competition/table').get(this.dfbController.loadTable);
-        
-        app.route('/scraping/figc/:competition/results').get(this.figcController.loadResults);
-        app.route('/scraping/figc/:competition/table').get(this.figcController.loadTable);
+    app.route("/scraping/rfef/:competition/results").get(this.rfefController.loadResults);
+    app.route("/scraping/rfef/:competition/table").get(this.rfefController.loadTable);
 
-        app.route('/scraping/fpf/:competition/results').get(this.fpfController.loadResults);
-        app.route('/scraping/fpf/:competition/table').get(this.fpfController.loadTable);
+    app.route("/scraping/dfb/:competition/results").get(this.dfbController.loadResults);
+    app.route("/scraping/dfb/:competition/table").get(this.dfbController.loadTable);
 
-        app.route('/api/competitions').get(this.competitionController.all);
-        app.route('/api/competitions/:competition').get(this.competitionController.get);
-        app.route('/api/competitions/:competition/:year').get(this.competitionController.getYear);
+    app.route("/scraping/figc/:competition/results").get(this.figcController.loadResults);
+    app.route("/scraping/figc/:competition/table").get(this.figcController.loadTable);
 
-        app.route('/api/competitions/:competition/:year/rounds').get(this.roundController.all);
-        app.route('/api/rounds/:round').get(this.roundController.get);
+    app.route("/scraping/fpf/:competition/results").get(this.fpfController.loadResults);
+    app.route("/scraping/fpf/:competition/table").get(this.fpfController.loadTable);
 
-        app.route('/api/competitions/:competition/:year/table').get(this.tableController.get);
-        app.route('/api/competitions/:competition/:year/table/:position').get(this.tableController.getPosition);
-        
-        app.route('/api/rounds/:round/matches').get(this.matchController.getRound);
-        app.route('/api/competitions/:competition/:year/matches').get(this.matchController.getCompetition);
-    }
+    app.route("/api/register").post(this.userController.register);
+    app.route("/api/login").post(this.userController.login);
+    app.use(this.userController.validateToken);
+
+    app.route("/api/competitions").get(this.competitionController.all);
+    app.route("/api/competitions/:competition").get(this.competitionController.get);
+    app.route("/api/competitions/:competition/:year").get(this.competitionController.getYear);
+
+    app.route("/api/competitions/:competition/:year/rounds").get(this.roundController.all);
+    app.route("/api/rounds/:round").get(this.roundController.get);
+
+    app.route("/api/competitions/:competition/:year/table").get(this.tableController.get);
+    app.route("/api/competitions/:competition/:year/table/:position").get(this.tableController.getPosition);
+
+    app.route("/api/rounds/:round/matches").get(this.matchController.getRound);
+    app.route("/api/competitions/:competition/:year/matches").get(this.matchController.getCompetition);
+  }
 }

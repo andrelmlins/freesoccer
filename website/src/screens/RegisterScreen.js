@@ -113,7 +113,7 @@ class RegisterScreen extends Component {
                     </CardContent>
                     <CardActions  classes={{ root: "card-actions" }}>
                         <Button className="button-block" variant="contained" color="primary">
-                            Login
+                            Register
                         </Button>
                     </CardActions>
                 </Card>

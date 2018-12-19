@@ -1,0 +1,741 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "Free API with results from national football competitions",
+    "version" : "1.0.0",
+    "title" : "⚽️ Free Soccer ⚽️",
+    "contact" : {
+      "email" : "andrelucas01@hotmail.com"
+    },
+    "license" : {
+      "name" : "Apache 2.0",
+      "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "tags" : [ {
+    "name" : "competitions",
+    "description" : "Competitions"
+  }, {
+    "name" : "rounds",
+    "description" : "Rounds"
+  }, {
+    "name" : "tables",
+    "description" : "Tables"
+  }, {
+    "name" : "matches",
+    "description" : "Matches"
+  } ],
+  "paths" : {
+    "/competitions" : {
+      "get" : {
+        "tags" : [ "competitions" ],
+        "summary" : "list of competitions",
+        "description" : "This route returns the list of competitions\n",
+        "operationId" : "competitions",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "400" : {
+            "description" : "Bad Request"
+          },
+          "200" : {
+            "description" : "success",
+            "schema" : {
+              "type" : "object",
+              "required" : [ "competitions" ],
+              "properties" : {
+                "competitions" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "object",
+                    "properties" : {
+                      "name" : {
+                        "type" : "string"
+                      },
+                      "code" : {
+                        "type" : "string"
+                      },
+                      "type" : {
+                        "type" : "string"
+                      },
+                      "country" : {
+                        "type" : "string"
+                      },
+                      "federation" : {
+                        "type" : "string"
+                      },
+                      "url" : {
+                        "type" : "string"
+                      },
+                      "years" : {
+                        "type" : "array",
+                        "items" : {
+                          "type" : "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/competitions/{competition}" : {
+      "get" : {
+        "tags" : [ "competitions" ],
+        "summary" : "competition details",
+        "description" : "This route returns the competition details\n",
+        "operationId" : "competition",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "competition",
+          "in" : "path",
+          "description" : "Code of competition",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "400" : {
+            "description" : "Bad Request"
+          },
+          "200" : {
+            "description" : "success",
+            "schema" : {
+              "type" : "object",
+              "properties" : {
+                "competition" : {
+                  "required" : [ "name", "code", "type", "country", "federation", "url", "years" ],
+                  "properties" : {
+                    "name" : {
+                      "type" : "string"
+                    },
+                    "code" : {
+                      "type" : "string"
+                    },
+                    "type" : {
+                      "type" : "string"
+                    },
+                    "country" : {
+                      "type" : "string"
+                    },
+                    "federation" : {
+                      "type" : "string"
+                    },
+                    "url" : {
+                      "type" : "string"
+                    },
+                    "years" : {
+                      "type" : "array",
+                      "items" : {
+                        "type" : "object",
+                        "properties" : {
+                          "year" : {
+                            "type" : "string"
+                          },
+                          "rounds" : {
+                            "type" : "number"
+                          },
+                          "url" : {
+                            "type" : "string"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "type" : "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/competitions/{competition}/{year}" : {
+      "get" : {
+        "tags" : [ "competitions" ],
+        "summary" : "details competition one season",
+        "description" : "This route returns the details of the competition one season\n",
+        "operationId" : "competitionyear",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "competition",
+          "in" : "path",
+          "description" : "Code of competition",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "year",
+          "in" : "path",
+          "description" : "Year of competition",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "400" : {
+            "description" : "Bad Request"
+          },
+          "200" : {
+            "description" : "success",
+            "schema" : {
+              "type" : "object",
+              "properties" : {
+                "competition" : {
+                  "required" : [ "name", "code", "type", "country", "federation", "year", "rounds", "url", "urls" ],
+                  "properties" : {
+                    "name" : {
+                      "type" : "string"
+                    },
+                    "code" : {
+                      "type" : "string"
+                    },
+                    "type" : {
+                      "type" : "string"
+                    },
+                    "country" : {
+                      "type" : "string"
+                    },
+                    "federation" : {
+                      "type" : "string"
+                    },
+                    "year" : {
+                      "type" : "string"
+                    },
+                    "rounds" : {
+                      "type" : "number"
+                    },
+                    "url" : {
+                      "type" : "string"
+                    },
+                    "urls" : {
+                      "required" : [ "rounds", "matches", "statistics", "table" ],
+                      "properties" : {
+                        "rounds" : {
+                          "type" : "string"
+                        },
+                        "matches" : {
+                          "type" : "string"
+                        },
+                        "statistics" : {
+                          "type" : "string"
+                        },
+                        "table" : {
+                          "type" : "string"
+                        }
+                      },
+                      "type" : "object"
+                    }
+                  },
+                  "type" : "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/competitions/{competition}/{year}/rounds" : {
+      "get" : {
+        "tags" : [ "rounds" ],
+        "summary" : "list of rounds",
+        "description" : "This route returns the list of rounds of the competition one season\n",
+        "operationId" : "rounds",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "competition",
+          "in" : "path",
+          "description" : "Code of competition",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "year",
+          "in" : "path",
+          "description" : "Year of competition",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "400" : {
+            "description" : "Bad Request"
+          },
+          "200" : {
+            "description" : "success",
+            "schema" : {
+              "type" : "object",
+              "properties" : {
+                "rounds" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "object",
+                    "properties" : {
+                      "goals" : {
+                        "type" : "number"
+                      },
+                      "goalsHome" : {
+                        "type" : "number"
+                      },
+                      "goalsGuest" : {
+                        "type" : "number"
+                      },
+                      "hash" : {
+                        "type" : "string"
+                      },
+                      "number" : {
+                        "type" : "string"
+                      },
+                      "url" : {
+                        "type" : "string"
+                      },
+                      "matches" : {
+                        "type" : "number"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rounds/{round}" : {
+      "get" : {
+        "tags" : [ "rounds" ],
+        "summary" : "round details",
+        "description" : "This route returns the details of the round\n",
+        "operationId" : "round",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "round",
+          "in" : "path",
+          "description" : "Hash of round",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "400" : {
+            "description" : "Bad Request"
+          },
+          "200" : {
+            "description" : "success",
+            "schema" : {
+              "type" : "object",
+              "properties" : {
+                "round" : {
+                  "required" : [ "goals", "goalsHome", "goalsGuest", "number", "hash", "matches", "url", "urls" ],
+                  "properties" : {
+                    "goals" : {
+                      "type" : "number"
+                    },
+                    "goalsHome" : {
+                      "type" : "number"
+                    },
+                    "goalsGuest" : {
+                      "type" : "number"
+                    },
+                    "number" : {
+                      "type" : "string"
+                    },
+                    "hash" : {
+                      "type" : "string"
+                    },
+                    "matches" : {
+                      "type" : "number"
+                    },
+                    "url" : {
+                      "type" : "string"
+                    },
+                    "urls" : {
+                      "required" : [ "matches", "statistics" ],
+                      "properties" : {
+                        "matches" : {
+                          "type" : "string"
+                        },
+                        "statistics" : {
+                          "type" : "string"
+                        }
+                      },
+                      "type" : "object"
+                    }
+                  },
+                  "type" : "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/competitions/{competition}/{year}/table" : {
+      "get" : {
+        "tags" : [ "tables" ],
+        "summary" : "competition table",
+        "description" : "This route returns the table of the competition one season\n",
+        "operationId" : "table",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "competition",
+          "in" : "path",
+          "description" : "Code of competition",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "year",
+          "in" : "path",
+          "description" : "Year of competition",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "400" : {
+            "description" : "Bad Request"
+          },
+          "200" : {
+            "description" : "success",
+            "schema" : {
+              "type" : "object",
+              "properties" : {
+                "table" : {
+                  "required" : [ "url", "list" ],
+                  "properties" : {
+                    "url" : {
+                      "type" : "string"
+                    },
+                    "positions" : {
+                      "type" : "array",
+                      "items" : {
+                        "type" : "object",
+                        "properties" : {
+                          "position" : {
+                            "type" : "number"
+                          },
+                          "name" : {
+                            "type" : "string"
+                          },
+                          "flag" : {
+                            "type" : "string"
+                          },
+                          "points" : {
+                            "type" : "number"
+                          },
+                          "matches" : {
+                            "type" : "number"
+                          },
+                          "win" : {
+                            "type" : "number"
+                          },
+                          "draw" : {
+                            "type" : "number"
+                          },
+                          "lose" : {
+                            "type" : "number"
+                          },
+                          "goalsScored" : {
+                            "type" : "number"
+                          },
+                          "goalsAgainst" : {
+                            "type" : "number"
+                          },
+                          "goalsDifference" : {
+                            "type" : "number"
+                          },
+                          "yellowCard" : {
+                            "type" : "number"
+                          },
+                          "redCard" : {
+                            "type" : "number"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "type" : "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/competitions/{competition}/{year}/table/{position}" : {
+      "get" : {
+        "tags" : [ "tables" ],
+        "summary" : "competition table",
+        "description" : "This route returns the table of the competition one season\n",
+        "operationId" : "tablePosition",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "competition",
+          "in" : "path",
+          "description" : "Code of competition",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "year",
+          "in" : "path",
+          "description" : "Year of competition",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "position",
+          "in" : "path",
+          "description" : "Position in table",
+          "required" : true,
+          "type" : "number"
+        } ],
+        "responses" : {
+          "400" : {
+            "description" : "Bad Request"
+          },
+          "200" : {
+            "description" : "success",
+            "schema" : {
+              "type" : "object",
+              "properties" : {
+                "positionTable" : {
+                  "required" : [ "url", "position", "name", "flag", "points", "matches", "win", "draw", "lose", "goalsScored", "goalsAgainst", "goalsDifference", "yellowCard", "redCard" ],
+                  "properties" : {
+                    "url" : {
+                      "type" : "string"
+                    },
+                    "position" : {
+                      "type" : "number"
+                    },
+                    "name" : {
+                      "type" : "string"
+                    },
+                    "flag" : {
+                      "type" : "string"
+                    },
+                    "points" : {
+                      "type" : "number"
+                    },
+                    "matches" : {
+                      "type" : "number"
+                    },
+                    "win" : {
+                      "type" : "number"
+                    },
+                    "draw" : {
+                      "type" : "number"
+                    },
+                    "lose" : {
+                      "type" : "number"
+                    },
+                    "goalsScored" : {
+                      "type" : "number"
+                    },
+                    "goalsAgainst" : {
+                      "type" : "number"
+                    },
+                    "goalsDifference" : {
+                      "type" : "number"
+                    },
+                    "yellowCard" : {
+                      "type" : "number"
+                    },
+                    "redCard" : {
+                      "type" : "number"
+                    }
+                  },
+                  "type" : "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/competitions/{competition}/{year}/matches" : {
+      "get" : {
+        "tags" : [ "matches" ],
+        "summary" : "list of matches per competition",
+        "description" : "This route returns the list of matches of the competition one season\n",
+        "operationId" : "matchesCompetition",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "competition",
+          "in" : "path",
+          "description" : "Code of competition",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "year",
+          "in" : "path",
+          "description" : "Year of competition",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "400" : {
+            "description" : "Bad Request"
+          },
+          "200" : {
+            "description" : "success",
+            "schema" : {
+              "type" : "object",
+              "properties" : {
+                "matches" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "object",
+                    "properties" : {
+                      "round" : {
+                        "required" : [ "number", "hash", "url" ],
+                        "properties" : {
+                          "number" : {
+                            "type" : "string"
+                          },
+                          "hash" : {
+                            "type" : "string"
+                          },
+                          "url" : {
+                            "type" : "string"
+                          }
+                        },
+                        "type" : "object"
+                      },
+                      "date" : {
+                        "type" : "string"
+                      },
+                      "stadium" : {
+                        "type" : "string"
+                      },
+                      "location" : {
+                        "type" : "string"
+                      },
+                      "teamHome" : {
+                        "required" : [ "name", "initials", "flag", "goals" ],
+                        "properties" : {
+                          "name" : {
+                            "type" : "string"
+                          },
+                          "initials" : {
+                            "type" : "string"
+                          },
+                          "flag" : {
+                            "type" : "string"
+                          },
+                          "goals" : {
+                            "type" : "number"
+                          }
+                        },
+                        "type" : "object"
+                      },
+                      "teamGuest" : {
+                        "required" : [ "name", "initials", "flag", "goals" ],
+                        "properties" : {
+                          "name" : {
+                            "type" : "string"
+                          },
+                          "initials" : {
+                            "type" : "string"
+                          },
+                          "flag" : {
+                            "type" : "string"
+                          },
+                          "goals" : {
+                            "type" : "number"
+                          }
+                        },
+                        "type" : "object"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rounds/{round}/matches" : {
+      "get" : {
+        "tags" : [ "matches" ],
+        "summary" : "list of matches per round",
+        "description" : "This route returns the list of matches of the round\n",
+        "operationId" : "matchesRound",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "round",
+          "in" : "path",
+          "description" : "Hash of round",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "400" : {
+            "description" : "Bad Request"
+          },
+          "200" : {
+            "description" : "success",
+            "schema" : {
+              "type" : "object",
+              "properties" : {
+                "matches" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "object",
+                    "properties" : {
+                      "name" : {
+                        "type" : "string"
+                      },
+                      "date" : {
+                        "type" : "string"
+                      },
+                      "stadium" : {
+                        "type" : "string"
+                      },
+                      "location" : {
+                        "type" : "string"
+                      },
+                      "teamHome" : {
+                        "required" : [ "name", "initials", "flag", "goals" ],
+                        "properties" : {
+                          "name" : {
+                            "type" : "string"
+                          },
+                          "initials" : {
+                            "type" : "string"
+                          },
+                          "flag" : {
+                            "type" : "string"
+                          },
+                          "goals" : {
+                            "type" : "number"
+                          }
+                        },
+                        "type" : "object"
+                      },
+                      "teamGuest" : {
+                        "required" : [ "name", "initials", "flag", "goals" ],
+                        "properties" : {
+                          "name" : {
+                            "type" : "string"
+                          },
+                          "initials" : {
+                            "type" : "string"
+                          },
+                          "flag" : {
+                            "type" : "string"
+                          },
+                          "goals" : {
+                            "type" : "number"
+                          }
+                        },
+                        "type" : "object"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "host" : "35.237.112.205",
+  "basePath" : "/api",
+  "schemes" : [ "http" ]
+}
