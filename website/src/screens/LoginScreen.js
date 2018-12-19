@@ -15,7 +15,8 @@ class LoginScreen extends Component {
     super(props);
 
     this.state = {
-      messsageError: ""
+      messsageErrorLogin: "",
+      messsageErrorRegister: ""
     };
   }
 
@@ -45,9 +46,24 @@ class LoginScreen extends Component {
     });
 
     if (result.error) {
-      this.setState({ messsageError: result.message });
+      this.setState({ messsageErrorRegister: result.message });
     } else {
-      this.props.history.push("/");
+      localStorage.setItem("token", result.token);
+      this.props.history.push("/getting-started");
+    }
+  };
+
+  login = async data => {
+    let result = await FreeSoccerService.login({
+      user: data.user,
+      password: data.password
+    });
+
+    if (result.error) {
+      this.setState({ messsageErrorLogin: result.message });
+    } else {
+      localStorage.setItem("token", result.token);
+      window.location.href = "/getting-started";
     }
   };
 
@@ -69,10 +85,10 @@ class LoginScreen extends Component {
             <br />
             <Grid container spacing={24}>
               <Grid item lg={6} sm={12}>
-                <Login login={this.login} messsageError={this.state.messsageError} />
+                <Login login={this.login} messsageError={this.state.messsageErrorLogin} />
               </Grid>
               <Grid item lg={6} sm={12} className="line">
-                <Register register={this.register} messsageError={this.state.messsageError} />
+                <Register register={this.register} messsageError={this.state.messsageErrorRegister} />
               </Grid>
             </Grid>
           </CardContent>

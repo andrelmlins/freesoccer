@@ -67,6 +67,10 @@ body,
   padding: 20px;
 }
 
+code {
+  word-wrap: break-word;
+}
+
 .line {
   margin-bottom: 20px !important;
 }

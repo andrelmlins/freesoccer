@@ -6,7 +6,7 @@ export default class FreeSoccerService {
   static async login(user) {
     try {
       let result = await axios.post(URL + "/login", user);
-      return result;
+      return result.data;
     } catch (error) {
       return error.response.data;
     }
@@ -15,7 +15,7 @@ export default class FreeSoccerService {
   static async register(user) {
     try {
       let result = await axios.post(URL + "/register", user);
-      return result;
+      return result.data;
     } catch (error) {
       return error.response.data;
     }

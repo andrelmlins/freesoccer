@@ -39,20 +39,20 @@ export default class Login extends Component {
 
   render() {
     return (
-      <div class="signin-padding">
+      <div className="signin-padding">
         <Typography variant="h5" color="inherit">
           Login
         </Typography>
         <br />
         {this.props.messsageError !== "" && (
-          <Typography variant="h6" color="error">
+          <Typography variant="body1" color="error">
             {this.props.messsageError}
           </Typography>
         )}
         <Grid container spacing={24}>
           <Grid item xs={12}>
             <TextField
-              id="outlined-email"
+              id="outlined-email-login"
               label="Email or Username"
               type="user"
               autoComplete="email"
@@ -66,7 +66,7 @@ export default class Login extends Component {
           </Grid>
           <Grid item xs={12}>
             <TextField
-              id="outlined-password"
+              id="outlined-password-login"
               label="Password"
               type={this.state.showPassword ? "text" : "password"}
               className="input-block"
