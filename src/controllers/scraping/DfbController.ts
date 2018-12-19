@@ -6,32 +6,31 @@ import Helpers from "../../utils/Helpers";
 import ICompetitionDefault from "../../interfaces/ICompetitionDefault";
 
 export default class DfbController {
+  public async loadResults(req: Request, res: Response) {
+    try {
+      let competition: ICompetitionDefault = Helpers.getCompetition(DbcConstants.COMPETITIONS, req.params.competition);
 
-    public async loadResults (req: Request, res: Response) {
-        try {
-            let competition: ICompetitionDefault = Helpers.getCompetition(DbcConstants.COMPETITIONS,req.params.competition);
-            
-            let dfbScraping: DfbScraping = new DfbScraping;
-            await dfbScraping.run(competition);
+      let dfbScraping: DfbScraping = new DfbScraping();
+      await dfbScraping.run(competition);
 
-            res.send({message:"Success"});
-        } catch (error) {
-            console.log(error);
-            res.status(404).send({error:error+""});
-        }
+      res.send({ message: "Success" });
+    } catch (error) {
+      console.log(error);
+      res.status(404).send({ error: error + "" });
     }
+  }
 
-    public async loadTable (req: Request, res: Response) {
-        try {
-            let competition: ICompetitionDefault = Helpers.getCompetition(DbcConstants.COMPETITIONS,req.params.competition);
-            
-            let dfbScraping: DfbScraping = new DfbScraping;
-            await dfbScraping.runTable(competition);
+  public async loadTable(req: Request, res: Response) {
+    try {
+      let competition: ICompetitionDefault = Helpers.getCompetition(DbcConstants.COMPETITIONS, req.params.competition);
 
-            res.send({message:"Success"});
-        } catch (error) {
-            console.log(error);
-            res.status(404).send({error:error+""});
-        }
+      let dfbScraping: DfbScraping = new DfbScraping();
+      await dfbScraping.runTable(competition);
+
+      res.send({ message: "Success" });
+    } catch (error) {
+      console.log(error);
+      res.status(404).send({ error: error + "" });
     }
+  }
 }
