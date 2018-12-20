@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const URL = "http://www.apifreesoccer.com/api";
+const URL = "https://www.apifreesoccer.com/api";
 
 export default class FreeSoccerService {
   static async login(user) {
