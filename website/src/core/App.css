@@ -90,3 +90,100 @@ code {
     border-left: 1px solid #cdcdcd;
   }
 }
+
+.swagger-ui .topbar {
+  display: none;
+}
+.swagger-ui .information-container {
+  display: none;
+}
+
+.swagger-ui .opblock-summary {
+  word-wrap: break-word !important;
+  overflow: hidden;
+}
+
+.swagger-ui .wrapper {
+  padding: 0px;
+  max-width: none;
+}
+
+.swagger-ui .scheme-container section {
+  display: block !important;
+}
+
+.swagger-ui .responses-wrapper .opblock-section-header {
+  display: block !important;
+}
+
+.swagger-ui .responses-wrapper .opblock-section-header label {
+  display: block !important;
+}
+
+.swagger-ui .auth-wrapper button {
+  display: block !important;
+  width: 100%;
+  margin: 10px;
+  margin-bottom: 0px;
+}
+
+.swagger-ui .schemes label {
+  margin: 10px !important;
+  margin-top: 0px;
+}
+
+.swagger-ui .scheme-container {
+  padding: 10px 0px;
+}
+
+.swagger-ui .opblock-body .try-out {
+  justify-content: flex-end;
+  display: flex;
+  flex: 1;
+}
+
+.opblock-tag-section h4 {
+  border-bottom: none !important;
+}
+
+.swagger-ui .opblock.opblock-get .opblock-summary-method {
+  background: #2e7d32;
+}
+
+.swagger-ui .btn.authorize {
+  color: #2e7d32;
+  border-color: #2e7d32;
+}
+
+.swagger-ui .btn.authorize svg {
+  fill: #2e7d32;
+}
+
+.swagger-ui .execute-wrapper {
+  display: flex;
+}
+
+@media (min-width: 600px) {
+  .swagger-ui .scheme-container section {
+    display: flex !important;
+  }
+
+  .swagger-ui .responses-wrapper .opblock-section-header {
+    display: flex !important;
+  }
+
+  .swagger-ui .responses-wrapper .opblock-section-header label {
+    display: flex !important;
+  }
+
+  .swagger-ui .auth-wrapper button {
+    display: block !important;
+    width: auto;
+    margin: 0px;
+    margin-right: 10px;
+  }
+
+  .swagger-ui .schemes label {
+    margin: -20px 15px 0 0;
+  }
+}

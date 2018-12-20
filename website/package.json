@@ -10,7 +10,9 @@
     "react-dom": "^16.6.3",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.1",
-    "react-scrollable-anchor": "^0.6.1"
+    "react-scrollable-anchor": "^0.6.1",
+    "swagger-ui": "^3.20.3",
+    "swagger-ui-themes": "^3.0.0"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -37,7 +37,6 @@
     "request": "^2.88.0",
     "request-promise-any": "^1.0.5",
     "ssl-root-cas": "^1.2.5",
-    "swagger-ui-express": "^4.0.1",
     "translate": "^1.0.3",
     "typescript": "^2.8.3"
   },

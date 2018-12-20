@@ -12,6 +12,7 @@ import RoundController from "../controllers/RoundController";
 import TableController from "../controllers/TableController";
 import MatchController from "../controllers/MatchController";
 import UserController from "../controllers/UserController";
+import Controller from "../controllers/Controller";
 
 export class Routes {
   public cbfController: CbfController;
@@ -26,6 +27,7 @@ export class Routes {
   public tableController: TableController;
   public matchController: MatchController;
   public userController: UserController;
+  public controller: Controller;
 
   constructor() {
     this.cbfController = new CbfController();
@@ -40,6 +42,7 @@ export class Routes {
     this.tableController = new TableController();
     this.matchController = new MatchController();
     this.userController = new UserController();
+    this.controller = new Controller();
   }
 
   public routes(app: any): void {
@@ -69,7 +72,8 @@ export class Routes {
 
     app.route("/api/register").post(this.userController.register);
     app.route("/api/login").post(this.userController.login);
-    app.use(this.userController.validateToken);
+    app.route("/api/documentation").get(this.controller.getSwagger);
+    app.use(this.controller.validateToken);
 
     app.route("/api/competitions").get(this.competitionController.all);
     app.route("/api/competitions/:competition").get(this.competitionController.get);

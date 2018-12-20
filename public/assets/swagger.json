@@ -55,6 +55,16 @@
           "400": {
             "description": "Bad Request"
           },
+          "403": {
+            "description": "Invalid Token",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": { "type": "string" },
+                "message": { "type": "string" }
+              }
+            }
+          },
           "200": {
             "description": "success",
             "schema": {
@@ -66,29 +76,15 @@
                   "items": {
                     "type": "object",
                     "properties": {
-                      "name": {
-                        "type": "string"
-                      },
-                      "code": {
-                        "type": "string"
-                      },
-                      "type": {
-                        "type": "string"
-                      },
-                      "country": {
-                        "type": "string"
-                      },
-                      "federation": {
-                        "type": "string"
-                      },
-                      "url": {
-                        "type": "string"
-                      },
+                      "name": { "type": "string" },
+                      "code": { "type": "string" },
+                      "type": { "type": "string" },
+                      "country": { "type": "string" },
+                      "federation": { "type": "string" },
+                      "url": { "type": "string" },
                       "years": {
                         "type": "array",
-                        "items": {
-                          "type": "string"
-                        }
+                        "items": { "type": "string" }
                       }
                     }
                   }
@@ -119,6 +115,16 @@
           "400": {
             "description": "Bad Request"
           },
+          "403": {
+            "description": "Invalid Token",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": { "type": "string" },
+                "message": { "type": "string" }
+              }
+            }
+          },
           "200": {
             "description": "success",
             "schema": {
@@ -127,38 +133,20 @@
                 "competition": {
                   "required": ["name", "code", "type", "country", "federation", "url", "years"],
                   "properties": {
-                    "name": {
-                      "type": "string"
-                    },
-                    "code": {
-                      "type": "string"
-                    },
-                    "type": {
-                      "type": "string"
-                    },
-                    "country": {
-                      "type": "string"
-                    },
-                    "federation": {
-                      "type": "string"
-                    },
-                    "url": {
-                      "type": "string"
-                    },
+                    "name": { "type": "string" },
+                    "code": { "type": "string" },
+                    "type": { "type": "string" },
+                    "country": { "type": "string" },
+                    "federation": { "type": "string" },
+                    "url": { "type": "string" },
                     "years": {
                       "type": "array",
                       "items": {
                         "type": "object",
                         "properties": {
-                          "year": {
-                            "type": "string"
-                          },
-                          "rounds": {
-                            "type": "number"
-                          },
-                          "url": {
-                            "type": "string"
-                          }
+                          "year": { "type": "string" },
+                          "rounds": { "type": "number" },
+                          "url": { "type": "string" }
                         }
                       }
                     }
@@ -198,6 +186,16 @@
           "400": {
             "description": "Bad Request"
           },
+          "403": {
+            "description": "Invalid Token",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": { "type": "string" },
+                "message": { "type": "string" }
+              }
+            }
+          },
           "200": {
             "description": "success",
             "schema": {
@@ -206,45 +204,21 @@
                 "competition": {
                   "required": ["name", "code", "type", "country", "federation", "year", "rounds", "url", "urls"],
                   "properties": {
-                    "name": {
-                      "type": "string"
-                    },
-                    "code": {
-                      "type": "string"
-                    },
-                    "type": {
-                      "type": "string"
-                    },
-                    "country": {
-                      "type": "string"
-                    },
-                    "federation": {
-                      "type": "string"
-                    },
-                    "year": {
-                      "type": "string"
-                    },
-                    "rounds": {
-                      "type": "number"
-                    },
-                    "url": {
-                      "type": "string"
-                    },
+                    "name": { "type": "string" },
+                    "code": { "type": "string" },
+                    "type": { "type": "string" },
+                    "country": { "type": "string" },
+                    "federation": { "type": "string" },
+                    "year": { "type": "string" },
+                    "rounds": { "type": "number" },
+                    "url": { "type": "string" },
                     "urls": {
                       "required": ["rounds", "matches", "statistics", "table"],
                       "properties": {
-                        "rounds": {
-                          "type": "string"
-                        },
-                        "matches": {
-                          "type": "string"
-                        },
-                        "statistics": {
-                          "type": "string"
-                        },
-                        "table": {
-                          "type": "string"
-                        }
+                        "rounds": { "type": "string" },
+                        "matches": { "type": "string" },
+                        "statistics": { "type": "string" },
+                        "table": { "type": "string" }
                       },
                       "type": "object"
                     }
@@ -284,6 +258,16 @@
           "400": {
             "description": "Bad Request"
           },
+          "403": {
+            "description": "Invalid Token",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": { "type": "string" },
+                "message": { "type": "string" }
+              }
+            }
+          },
           "200": {
             "description": "success",
             "schema": {
@@ -294,27 +278,13 @@
                   "items": {
                     "type": "object",
                     "properties": {
-                      "goals": {
-                        "type": "number"
-                      },
-                      "goalsHome": {
-                        "type": "number"
-                      },
-                      "goalsGuest": {
-                        "type": "number"
-                      },
-                      "hash": {
-                        "type": "string"
-                      },
-                      "number": {
-                        "type": "string"
-                      },
-                      "url": {
-                        "type": "string"
-                      },
-                      "matches": {
-                        "type": "number"
-                      }
+                      "goals": { "type": "number" },
+                      "goalsHome": { "type": "number" },
+                      "goalsGuest": { "type": "number" },
+                      "hash": { "type": "string" },
+                      "number": { "type": "string" },
+                      "url": { "type": "string" },
+                      "matches": { "type": "number" }
                     }
                   }
                 }
@@ -344,6 +314,16 @@
           "400": {
             "description": "Bad Request"
           },
+          "403": {
+            "description": "Invalid Token",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": { "type": "string" },
+                "message": { "type": "string" }
+              }
+            }
+          },
           "200": {
             "description": "success",
             "schema": {
@@ -352,36 +332,18 @@
                 "round": {
                   "required": ["goals", "goalsHome", "goalsGuest", "number", "hash", "matches", "url", "urls"],
                   "properties": {
-                    "goals": {
-                      "type": "number"
-                    },
-                    "goalsHome": {
-                      "type": "number"
-                    },
-                    "goalsGuest": {
-                      "type": "number"
-                    },
-                    "number": {
-                      "type": "string"
-                    },
-                    "hash": {
-                      "type": "string"
-                    },
-                    "matches": {
-                      "type": "number"
-                    },
-                    "url": {
-                      "type": "string"
-                    },
+                    "goals": { "type": "number" },
+                    "goalsHome": { "type": "number" },
+                    "goalsGuest": { "type": "number" },
+                    "number": { "type": "string" },
+                    "hash": { "type": "string" },
+                    "matches": { "type": "number" },
+                    "url": { "type": "string" },
                     "urls": {
                       "required": ["matches", "statistics"],
                       "properties": {
-                        "matches": {
-                          "type": "string"
-                        },
-                        "statistics": {
-                          "type": "string"
-                        }
+                        "matches": { "type": "string" },
+                        "statistics": { "type": "string" }
                       },
                       "type": "object"
                     }
@@ -421,6 +383,16 @@
           "400": {
             "description": "Bad Request"
           },
+          "403": {
+            "description": "Invalid Token",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": { "type": "string" },
+                "message": { "type": "string" }
+              }
+            }
+          },
           "200": {
             "description": "success",
             "schema": {
@@ -437,45 +409,19 @@
                       "items": {
                         "type": "object",
                         "properties": {
-                          "position": {
-                            "type": "number"
-                          },
-                          "name": {
-                            "type": "string"
-                          },
-                          "flag": {
-                            "type": "string"
-                          },
-                          "points": {
-                            "type": "number"
-                          },
-                          "matches": {
-                            "type": "number"
-                          },
-                          "win": {
-                            "type": "number"
-                          },
-                          "draw": {
-                            "type": "number"
-                          },
-                          "lose": {
-                            "type": "number"
-                          },
-                          "goalsScored": {
-                            "type": "number"
-                          },
-                          "goalsAgainst": {
-                            "type": "number"
-                          },
-                          "goalsDifference": {
-                            "type": "number"
-                          },
-                          "yellowCard": {
-                            "type": "number"
-                          },
-                          "redCard": {
-                            "type": "number"
-                          }
+                          "position": { "type": "number" },
+                          "name": { "type": "string" },
+                          "flag": { "type": "string" },
+                          "points": { "type": "number" },
+                          "matches": { "type": "number" },
+                          "win": { "type": "number" },
+                          "draw": { "type": "number" },
+                          "lose": { "type": "number" },
+                          "goalsScored": { "type": "number" },
+                          "goalsAgainst": { "type": "number" },
+                          "goalsDifference": { "type": "number" },
+                          "yellowCard": { "type": "number" },
+                          "redCard": { "type": "number" }
                         }
                       }
                     }
@@ -522,6 +468,16 @@
           "400": {
             "description": "Bad Request"
           },
+          "403": {
+            "description": "Invalid Token",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": { "type": "string" },
+                "message": { "type": "string" }
+              }
+            }
+          },
           "200": {
             "description": "success",
             "schema": {
@@ -545,48 +501,20 @@
                     "redCard"
                   ],
                   "properties": {
-                    "url": {
-                      "type": "string"
-                    },
-                    "position": {
-                      "type": "number"
-                    },
-                    "name": {
-                      "type": "string"
-                    },
-                    "flag": {
-                      "type": "string"
-                    },
-                    "points": {
-                      "type": "number"
-                    },
-                    "matches": {
-                      "type": "number"
-                    },
-                    "win": {
-                      "type": "number"
-                    },
-                    "draw": {
-                      "type": "number"
-                    },
-                    "lose": {
-                      "type": "number"
-                    },
-                    "goalsScored": {
-                      "type": "number"
-                    },
-                    "goalsAgainst": {
-                      "type": "number"
-                    },
-                    "goalsDifference": {
-                      "type": "number"
-                    },
-                    "yellowCard": {
-                      "type": "number"
-                    },
-                    "redCard": {
-                      "type": "number"
-                    }
+                    "url": { "type": "string" },
+                    "position": { "type": "number" },
+                    "name": { "type": "string" },
+                    "flag": { "type": "string" },
+                    "points": { "type": "number" },
+                    "matches": { "type": "number" },
+                    "win": { "type": "number" },
+                    "draw": { "type": "number" },
+                    "lose": { "type": "number" },
+                    "goalsScored": { "type": "number" },
+                    "goalsAgainst": { "type": "number" },
+                    "goalsDifference": { "type": "number" },
+                    "yellowCard": { "type": "number" },
+                    "redCard": { "type": "number" }
                   },
                   "type": "object"
                 }
@@ -623,6 +551,16 @@
           "400": {
             "description": "Bad Request"
           },
+          "403": {
+            "description": "Invalid Token",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": { "type": "string" },
+                "message": { "type": "string" }
+              }
+            }
+          },
           "200": {
             "description": "success",
             "schema": {
@@ -636,60 +574,32 @@
                       "round": {
                         "required": ["number", "hash", "url"],
                         "properties": {
-                          "number": {
-                            "type": "string"
-                          },
-                          "hash": {
-                            "type": "string"
-                          },
-                          "url": {
-                            "type": "string"
-                          }
+                          "number": { "type": "string" },
+                          "hash": { "type": "string" },
+                          "url": { "type": "string" }
                         },
                         "type": "object"
                       },
-                      "date": {
-                        "type": "string"
-                      },
-                      "stadium": {
-                        "type": "string"
-                      },
-                      "location": {
-                        "type": "string"
-                      },
+                      "date": { "type": "string" },
+                      "stadium": { "type": "string" },
+                      "location": { "type": "string" },
                       "teamHome": {
                         "required": ["name", "initials", "flag", "goals"],
                         "properties": {
-                          "name": {
-                            "type": "string"
-                          },
-                          "initials": {
-                            "type": "string"
-                          },
-                          "flag": {
-                            "type": "string"
-                          },
-                          "goals": {
-                            "type": "number"
-                          }
+                          "name": { "type": "string" },
+                          "initials": { "type": "string" },
+                          "flag": { "type": "string" },
+                          "goals": { "type": "number" }
                         },
                         "type": "object"
                       },
                       "teamGuest": {
                         "required": ["name", "initials", "flag", "goals"],
                         "properties": {
-                          "name": {
-                            "type": "string"
-                          },
-                          "initials": {
-                            "type": "string"
-                          },
-                          "flag": {
-                            "type": "string"
-                          },
-                          "goals": {
-                            "type": "number"
-                          }
+                          "name": { "type": "string" },
+                          "initials": { "type": "string" },
+                          "flag": { "type": "string" },
+                          "goals": { "type": "number" }
                         },
                         "type": "object"
                       }
@@ -722,6 +632,16 @@
           "400": {
             "description": "Bad Request"
           },
+          "403": {
+            "description": "Invalid Token",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": { "type": "string" },
+                "message": { "type": "string" }
+              }
+            }
+          },
           "200": {
             "description": "success",
             "schema": {
@@ -732,51 +652,27 @@
                   "items": {
                     "type": "object",
                     "properties": {
-                      "name": {
-                        "type": "string"
-                      },
-                      "date": {
-                        "type": "string"
-                      },
-                      "stadium": {
-                        "type": "string"
-                      },
-                      "location": {
-                        "type": "string"
-                      },
+                      "name": { "type": "string" },
+                      "date": { "type": "string" },
+                      "stadium": { "type": "string" },
+                      "location": { "type": "string" },
                       "teamHome": {
                         "required": ["name", "initials", "flag", "goals"],
                         "properties": {
-                          "name": {
-                            "type": "string"
-                          },
-                          "initials": {
-                            "type": "string"
-                          },
-                          "flag": {
-                            "type": "string"
-                          },
-                          "goals": {
-                            "type": "number"
-                          }
+                          "name": { "type": "string" },
+                          "initials": { "type": "string" },
+                          "flag": { "type": "string" },
+                          "goals": { "type": "number" }
                         },
                         "type": "object"
                       },
                       "teamGuest": {
                         "required": ["name", "initials", "flag", "goals"],
                         "properties": {
-                          "name": {
-                            "type": "string"
-                          },
-                          "initials": {
-                            "type": "string"
-                          },
-                          "flag": {
-                            "type": "string"
-                          },
-                          "goals": {
-                            "type": "number"
-                          }
+                          "name": { "type": "string" },
+                          "initials": { "type": "string" },
+                          "flag": { "type": "string" },
+                          "goals": { "type": "number" }
                         },
                         "type": "object"
                       }

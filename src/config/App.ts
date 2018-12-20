@@ -4,8 +4,6 @@ import * as mongoose from "mongoose";
 import * as morgan from "morgan";
 import * as cors from "cors";
 import * as path from "path";
-import * as swaggerUi from "swagger-ui-express";
-var swaggerDocument = require("../../public/assets/swagger.json");
 
 import { Routes } from "./Routes";
 import CronJobs from "./CronJobs";
@@ -23,14 +21,6 @@ class App {
     this.config();
 
     this.app.use(express.static(path.join(__dirname + "../../../public")));
-    this.app.use(
-      "/docs",
-      swaggerUi.serve,
-      swaggerUi.setup(swaggerDocument, {
-        customCss:
-          "body { background-color: rgb(255, 255, 255) !important } .swagger-ui .topbar { display: none } .swagger-ui .information-container { display: none }"
-      })
-    );
 
     this.routes.routes(this.app);
     this.cronJobs.crons();
