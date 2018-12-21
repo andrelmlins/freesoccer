@@ -21,22 +21,22 @@ export default class CronJobs {
   constructor() {}
 
   public crons(): void {
-    new cron.CronJob(
-      "0 */30 * * * *",
-      async () => {
-        console.log("START CRAWLER YEAR CURRENT");
+    // new cron.CronJob(
+    //   "0 */30 * * * *",
+    //   async () => {
+    //     console.log("START CRAWLER YEAR CURRENT");
 
-        this.loopGeneric(CbfConstants.COMPETITIONS, new CbfScraping(true));
-        this.loopGeneric(DfbConstants.COMPETITIONS, new DfbScraping(true));
-        this.loopGeneric(FffConstants.COMPETITIONS, new FffScraping(true));
-        this.loopGeneric(FigcConstants.COMPETITIONS, new FigcScraping(true));
-        this.loopGeneric(FpfConstants.COMPETITIONS, new FpfScraping(true));
-        this.loopGeneric(RfefConstants.COMPETITIONS, new RfefScraping(true));
-      },
-      null,
-      true,
-      "America/Los_Angeles"
-    );
+    //     this.loopGeneric(CbfConstants.COMPETITIONS, new CbfScraping(true));
+    //     this.loopGeneric(DfbConstants.COMPETITIONS, new DfbScraping(true));
+    //     this.loopGeneric(FffConstants.COMPETITIONS, new FffScraping(true));
+    //     this.loopGeneric(FigcConstants.COMPETITIONS, new FigcScraping(true));
+    //     this.loopGeneric(FpfConstants.COMPETITIONS, new FpfScraping(true));
+    //     this.loopGeneric(RfefConstants.COMPETITIONS, new RfefScraping(true));
+    //   },
+    //   null,
+    //   true,
+    //   "America/Los_Angeles"
+    // );
 
     new cron.CronJob(
       "0 0 */12 * * *",

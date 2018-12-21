@@ -6,6 +6,7 @@ import FffController from "../controllers/scraping/FffController";
 import FigcController from "../controllers/scraping/FigcController";
 import DfbController from "../controllers/scraping/DfbController";
 import FpfController from "../controllers/scraping/FpfController";
+import FaController from "../controllers/scraping/FaController";
 
 import CompetitionController from "../controllers/CompetitionController";
 import RoundController from "../controllers/RoundController";
@@ -21,6 +22,7 @@ export class Routes {
   public figcController: FigcController;
   public dfbController: DfbController;
   public fpfController: FpfController;
+  public faController: FaController;
 
   public competitionController: CompetitionController;
   public roundController: RoundController;
@@ -36,6 +38,7 @@ export class Routes {
     this.figcController = new FigcController();
     this.dfbController = new DfbController();
     this.fpfController = new FpfController();
+    this.faController = new FaController();
 
     this.competitionController = new CompetitionController();
     this.roundController = new RoundController();
@@ -69,6 +72,9 @@ export class Routes {
 
     app.route("/scraping/fpf/:competition/results").get(this.fpfController.loadResults);
     app.route("/scraping/fpf/:competition/table").get(this.fpfController.loadTable);
+
+    app.route("/scraping/fa/:competition/results").get(this.faController.loadResults);
+    app.route("/scraping/fa/:competition/table").get(this.faController.loadTable);
 
     app.route("/api/register").post(this.userController.register);
     app.route("/api/login").post(this.userController.login);

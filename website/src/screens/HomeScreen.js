@@ -169,6 +169,16 @@ class HomeScreen extends Component {
               <TableCell><span role="img" aria-label="uncheck">❌</span></TableCell>
             </TableRow>
             <TableRow>
+              <TableCell>Premier League</TableCell>
+              <TableCell>England</TableCell>
+              <TableCell>M</TableCell>
+              <TableCell>2000/2001 - 2018/2019</TableCell>
+              <TableCell><span role="img" aria-label="check">✔️</span></TableCell>
+              <TableCell><span role="img" aria-label="check">❌</span></TableCell>
+              <TableCell><span role="img" aria-label="uncheck">❌</span></TableCell>
+              <TableCell><span role="img" aria-label="check">❌</span></TableCell>
+            </TableRow>
+            <TableRow>
               <TableCell>Ligue 1</TableCell>
               <TableCell>France</TableCell>
               <TableCell>M</TableCell>

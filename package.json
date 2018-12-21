@@ -5,7 +5,7 @@
   "main": "dist/index",
   "scripts": {
     "lite": "lite-server",
-    "start": "tsc --outDir dist src/index.ts --lib es2015 && node dist/index.js",
+    "start": "tsc --outDir dist src/index.ts --lib es6,dom && node dist/index.js",
     "test": "yarn test"
   },
   "repository": {

@@ -24,6 +24,7 @@ Copa Verde | Brazil | M | 2014 - 2018 | :heavy_check_mark: | :wavy_dash: | :x: |
 La Liga | Spain | M | 2013/2014 - 2018/2019 | :heavy_check_mark: | :heavy_check_mark: | :x: | :x:
 La Liga Segunda División | Spain | M | 2013/2014 - 2018/2019 | :heavy_check_mark: | :heavy_check_mark: | :x: | :x:
 Primera División Femenina | Spain | F | 2013/2014 - 2018/2019 | :heavy_check_mark: | :heavy_check_mark: | :x: | :x:
+Premier League | England | F | 2000/2001 - 2018/2019 | :heavy_check_mark: | :x: | :x: | :x:
 Ligue 1 | France | M | 2000/2001 - 2018/2019 | :heavy_check_mark: | :heavy_check_mark: | :x: | :heavy_check_mark:
 Ligue 2 | France | M | 2000/2001 - 2018/2019 | :heavy_check_mark: | :heavy_check_mark: | :x: | :heavy_check_mark:
 Coupe Ligue | France | M | 2000/2001 - 2018/2019 | :heavy_check_mark: | :wavy_dash: | :x: | :heavy_check_mark:

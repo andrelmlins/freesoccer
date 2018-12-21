@@ -1,24 +1,23 @@
 import ICompetitionDefault from "../../interfaces/ICompetitionDefault";
 import IFederationScraping from "../../interfaces/IFederationScraping";
 import CompetitionType from "../../enums/CompetitionType";
-import FpfLeagueScraping from "../FpfLeagueScraping";
-import FpfTableScraping from "../tables/FpfTableScraping";
-import { Request } from "express";
+import FaLeagueScraping from "../FaLeagueScraping";
+import FaTableScraping from "../tables/FaTableScraping";
 
-export default class FpfScraping implements IFederationScraping {
+export default class FaScraping implements IFederationScraping {
   public lastYear: boolean;
-  private fpfLeagueScraping: FpfLeagueScraping;
-  private fpfTableScraping: FpfTableScraping;
+  private faLeagueScraping: FaLeagueScraping;
+  private faTableScraping: FaTableScraping;
 
   constructor(lastYear: boolean = false) {
     this.lastYear = lastYear;
 
-    this.fpfLeagueScraping = new FpfLeagueScraping(this.lastYear);
-    this.fpfTableScraping = new FpfTableScraping(this.lastYear);
+    this.faLeagueScraping = new FaLeagueScraping(this.lastYear);
+    this.faTableScraping = new FaTableScraping(this.lastYear);
   }
 
   public async run(competition: ICompetitionDefault) {
-    console.log("-> FPF SCRAPING");
+    console.log("-> FA SCRAPING");
 
     switch (competition.type) {
       case CompetitionType.LEAGUE:
@@ -28,16 +27,16 @@ export default class FpfScraping implements IFederationScraping {
   }
 
   public async runTable(competition: ICompetitionDefault) {
-    console.log("-> FPF TABLE SCRAPING");
+    console.log("-> FA TABLE SCRAPING");
 
     if (competition.type === CompetitionType.LEAGUE) {
-      await this.fpfTableScraping.run(competition);
+      await this.faTableScraping.run(competition);
     } else {
       throw new Error("Competition does not have a table");
     }
   }
 
   public async runLeague(competition: ICompetitionDefault) {
-    await this.fpfLeagueScraping.run(competition);
+    await this.faLeagueScraping.run(competition);
   }
 }
