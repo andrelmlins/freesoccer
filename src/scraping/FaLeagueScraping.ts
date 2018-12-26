@@ -40,14 +40,25 @@ export default class FigcLeagueScraping {
 
       if (year >= 2000) {
         console.log("\t\t-> " + year);
+
         let competition = await Helpers.createCompetition(competitionDefault, year + "", FaConstants);
 
         let page = await Helpers.getPageDinamicallyScroll(FaConstants.URL_DEFAULT + "/results"+"?co="+competitionDefault.aux.code+"&se="+numberSeason);
-
         let $ = cheerio.load(page);
+
+        if(i == 0) {
+          let pageFixtures = await Helpers.getPageDinamicallyScroll(FaConstants.URL_DEFAULT + "/fixtures");
+          let $_fixtures = cheerio.load(pageFixtures);
+
+          let roundsFixtures = $_fixtures(".fixtures").children();
+          for(let i = 0; i < roundsFixtures.length; i++){
+            $(".fixtures").prepend(roundsFixtures.eq(i).html());
+          }
+        }
+
         let rounds = $(".fixtures").children();
 
-        let roundsResult = await this.runRound(rounds, competition, competitionDefault, numberSeason);
+        let roundsResult = await this.runRound(rounds, competition);
         competition.rounds = roundsResult!;
 
         await Helpers.replaceCompetition(competition);
@@ -55,39 +66,39 @@ export default class FigcLeagueScraping {
     }
   }
 
-  public async runRound(roundsHtml:any, competition:ICompetition, competitionDefault:any, codeyear:number): Promise<IRound[] | null> {
+  public async runRound(roundsHtml:any, competition:ICompetition): Promise<IRound[] | null> {
     let rounds: IRound[] = [];
     let countMatches = 0;
     
     for(let i = 0; i < roundsHtml.length; i++) {
       if(!roundsHtml.eq(i).attr("datetime")){
         countMatches += roundsHtml.eq(i).children().eq(1).children().length;
-      } 
+      }
     }
 
-    let countRounds = countMatches/10;
+    let countRounds = Math.round(countMatches/10);
     let j = 0;
 
-    for(let i = 0; i < countMatches/10; i++) {
+    for(let i = 0; i < countRounds; i++) {
       let round: IRound = new Round;
       round.goals = 0;
       round.goalsHome = 0;
       round.goalsGuest = 0;
-      round.number =  countRounds+"";
+      round.number =  (countRounds-i)+"";
       round.matchs = [];
       round.competition = competition._id;
       round.hash = md5(competition.code+competition.year+round.number);
       console.log("\t\t\t-> Round "+round.number);
 
-      let date = "";
       let matchesCount = 0;
+      let date = "";
 
       for(j; j < roundsHtml.length; j++) {
         if(roundsHtml.eq(j).attr("datetime")) {
           if(date=="") date = roundsHtml.eq(j).text().trim().split(" ").slice(1).join(" ");
         } else {
           let matches = roundsHtml.eq(j).children().eq(1).children();
-          matchesCount = matches.length;
+          matchesCount += matches.length;
           
           for(let k = 0; k < matches.length; k++){
               let matchResult = await this.runMatch(matches.eq(k),date);
@@ -97,17 +108,14 @@ export default class FigcLeagueScraping {
                   round.goalsGuest += matchResult.teamGuest.goals;
                   round.goalsHome += matchResult.teamHome.goals;
               }
-
               round.matchs.push(matchResult);
           }
 
-          if(matchesCount >= 10) break; 
+          if(matchesCount >= 10) break;
         }
       }
-
-      countRounds--;
+      
       rounds.push((await Helpers.replaceRound(round))!);
-      date = "";
     }
 
     return rounds;
@@ -118,24 +126,25 @@ export default class FigcLeagueScraping {
     match.teamHome = new TeamResult;
     match.teamGuest = new TeamResult;
 
-    const data = matchHtml.find("overview").children();
+    const data = matchHtml.find(".overview").children();
+    const location = matchHtml.eq(1).text().split(", ");
 
     match.date = moment.utc(date+" 00:00", 'DD MMMM YYYY HH:mm').format();
-    match.stadium = data.eq(1).text();
-    match.location = "";
+    match.stadium = location[0];
+    match.location = location[1];
 
     const dataResult = data.eq(0).children();
     const result = dataResult.eq(1).text().trim().split("-");
     
     match.teamHome.initials = "";
-    match.teamHome.name = dataResult.eq(0).find("teamName");
+    match.teamHome.name = dataResult.eq(0).text().trim();
     match.teamHome.flag = "";
-    match.teamHome.goals = result.length>1 ? undefined : parseInt(result[0]);
+    match.teamHome.goals = result.length<2 ? undefined : parseInt(result[0]);
 
     match.teamGuest.initials = "";
-    match.teamGuest.name = dataResult.eq(2).find("teamName");
+    match.teamGuest.name = dataResult.eq(2).text().trim();
     match.teamGuest.flag = "";
-    match.teamGuest.goals = result.length>1 ? undefined : parseInt(result[1]);
+    match.teamGuest.goals = result.length<2 ? undefined : parseInt(result[1]);
 
     return match;
   }
