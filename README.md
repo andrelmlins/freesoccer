@@ -1,6 +1,6 @@
 # Free Soccer
 
-:soccer::soccer: Free API with results from national football competitions
+:soccer::soccer: [Free API](https://www.apifreesoccer.com/) with results from national football competitions
 
 ## Federations
 
