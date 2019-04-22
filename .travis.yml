@@ -1,0 +1,21 @@
+language: node_js
+node_js:
+  - "stable"
+cache:
+  directories:
+    - node_modules
+    - dist
+before_install:
+  - npm i -g typescript
+  - npm i -g yarn
+install:
+  - yarn install
+script:
+  - yarn build
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $github_token
+  local_dir: build
+  on:
+    branch: master
