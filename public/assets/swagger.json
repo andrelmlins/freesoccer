@@ -688,5 +688,5 @@
   },
   "host": "www.apifreesoccer.com",
   "basePath": "/api",
-  "schemes": ["https"]
+  "schemes": ["https", "http"]
 }
