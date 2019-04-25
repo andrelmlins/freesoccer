@@ -8,7 +8,7 @@ class DocumentaionScreen extends Component {
   componentDidMount() {
     SwaggerUI({
       dom_id: "#ui",
-      url: window.location.origin
+      url: window.location.origin + "api/documentation"
     });
   }
 
