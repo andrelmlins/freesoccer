@@ -1,17 +1,25 @@
 language: node_js
 node_js:
   - "stable"
+services:
+  - docker
 cache:
   directories:
     - node_modules
     - dist
-before_install:
-  - npm i -g typescript
-  - npm i -g yarn
 install:
   - yarn install
+  - cd ./website/
+  - yarn install
+  - cd ../
 script:
   - yarn build
+  - cd ./website/
+  - yarn build
+  - cd ../
+before_deploy:
+  - docker login -u "$REGISTRY_USER" -p "$REGISTRY_PASS"
+  - docker tag "$IMAGE_NAME" "${IMAGE_NAME}:latest"
 deploy:
   provider: pages
   skip_cleanup: true

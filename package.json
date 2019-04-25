@@ -20,9 +20,6 @@
   },
   "homepage": "https://github.com/andrelmlins/freesoccer#readme",
   "dependencies": {
-    "@types/express": "^4.11.1",
-    "@types/mongodb": "^3.0.15",
-    "@types/mongoose": "^5.0.10",
     "bcrypt": "^2.0.1",
     "body-parser": "^1.18.2",
     "cheerio": "^1.0.0-rc.2",
@@ -36,7 +33,6 @@
     "morgan": "^1.9.0",
     "path": "^0.12.7",
     "puppeteer": "^1.11.0",
-    "puppeteer-core": "^1.11.0",
     "q": "^1.5.1",
     "request": "^2.88.0",
     "request-promise-any": "^1.0.5",
@@ -45,7 +41,6 @@
     "typescript": "^2.8.3"
   },
   "devDependencies": {
-    "@types/md5": "^2.1.33",
     "lite-server": "^2.4.0"
   }
 }
