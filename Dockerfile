@@ -20,6 +20,7 @@ RUN mkdir -p /app
 WORKDIR /app
 
 COPY website /app
+RUN yarn install --production
 RUN yarn build
 
 FROM nginx:1.13.9-alpine
