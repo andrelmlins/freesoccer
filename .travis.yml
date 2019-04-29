@@ -21,9 +21,9 @@ before_deploy:
   - docker login -u "$REGISTRY_USER" -p "$REGISTRY_PASS"
   - docker tag "$IMAGE_NAME" "${IMAGE_NAME}:latest"
 deploy:
-  provider: pages
+  provider: script
   skip_cleanup: true
   github_token: $github_token
-  local_dir: build
+  script: docker push "${IMAGE_NAME}:latest"
   on:
     branch: master

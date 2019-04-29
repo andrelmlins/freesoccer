@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "lib": ["es6", "dom"],
+    "types": ["node", "mongoose", "express"],
     "target": "es6",
     "module": "commonjs",
     "outDir": "dist",
