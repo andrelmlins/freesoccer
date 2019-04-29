@@ -1,4 +1,4 @@
-FROM node:alpine as build
+FROM node
 
 RUN apt-get update && apt-get install -y build-essential && apt-get install -y python
 RUN mkdir -p /api
