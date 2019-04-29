@@ -1,21 +1,24 @@
-FROM node
+FROM node:alpine as build
 
 RUN mkdir -p /api
 WORKDIR /api
 
 COPY package.json /api
-RUN yarn install
+RUN yarn install --production
+RUN yarn global add pm2
 
 COPY . /api
 RUN yarn build
 
-EXPOSE 80
+EXPOSE 8080
 CMD [ "yarn", "start-dev" ]
+	
+FROM node:alpine
+COPY --from=build /api /api
 
 FROM nginx:1.13.9-alpine
 
 RUN mkdir -p /app
-
 WORKDIR /app
 
 COPY ./nginx.conf /etc/nginx/nginx.conf
@@ -24,5 +27,4 @@ RUN yarn build
 COPY ./build /app
 
 EXPOSE 80
-
 CMD ["nginx", "-g", "daemon off;"]
