@@ -7,6 +7,7 @@ COPY package.json /api
 RUN yarn install
 
 COPY . /api
+RUN yarn build
 
 EXPOSE 80
 CMD [ "yarn", "start-dev" ]
