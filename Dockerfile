@@ -14,14 +14,17 @@ RUN yarn build
 EXPOSE 8080
 CMD [ "yarn", "start-dev" ]
 
-FROM nginx:1.13.9-alpine
+FROM node:alpine
 
 RUN mkdir -p /app
 WORKDIR /app
 
-COPY nginx.conf /etc/nginx/nginx.conf
-COPY website /api
+COPY website /app
 RUN yarn build
+
+FROM nginx:1.13.9-alpine
+
+COPY nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
