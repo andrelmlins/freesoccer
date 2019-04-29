@@ -8,7 +8,7 @@ cache:
     - node_modules
     - dist
 install:
-  - yarn install
+  - npm install -g typescript
   - cd ./website/
   - yarn install
   - cd ../
@@ -21,9 +21,13 @@ before_deploy:
   - docker login -u "$REGISTRY_USER" -p "$REGISTRY_PASS"
   - docker tag "$IMAGE_NAME" "${IMAGE_NAME}:latest"
 deploy:
-  provider: script
-  skip_cleanup: true
-  github_token: $github_token
-  script: docker push "${IMAGE_NAME}:latest"
-  on:
-    branch: master
+  - provider: pages
+    skip_cleanup: true
+    local_dir: dist/
+    github_token: $GITHUB_TOKEN
+    on:
+      tags: true
+  - provider: script
+    script: docker push "${IMAGE_NAME}:latest"
+    on:
+      branch: master
