@@ -2,7 +2,7 @@ sudo: required
 services:
   - docker
 env:
-  - IMAGE_NAME=andrelmlins/freesoccer
+  - IMAGE_NAME=andrelmlins1/freesoccer
 install: []
 before_script:
   - docker pull "${IMAGE_NAME}:latest" || true
