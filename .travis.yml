@@ -3,31 +3,19 @@ node_js:
   - "stable"
 services:
   - docker
-cache:
-  directories:
-    - node_modules
-    - dist
-install:
-  - npm install -g typescript
-  - cd ./website/
-  - yarn install
-  - cd ../
+env:
+  - IMAGE_NAME=andrelmlins/freesoccer
+install: []
+before_script:
+  - docker pull "${IMAGE_NAME}:latest" || true
 script:
-  - yarn build
-  - cd ./website/
-  - yarn build
-  - cd ../
+  - docker build --pull --cache-from "${IMAGE_NAME}:latest" --tag "$IMAGE_NAME" .
+
 before_deploy:
   - docker login -u "$REGISTRY_USER" -p "$REGISTRY_PASS"
   - docker tag "$IMAGE_NAME" "${IMAGE_NAME}:latest"
 deploy:
-  - provider: pages
-    skip_cleanup: true
-    local_dir: dist/
-    github_token: $GITHUB_TOKEN
-    on:
-      tags: true
-  - provider: script
-    script: docker push "${IMAGE_NAME}:latest"
-    on:
-      branch: master
+  provider: script
+  script: docker push "${IMAGE_NAME}:latest""
+  on:
+    branch: master
