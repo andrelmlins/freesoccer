@@ -19,10 +19,9 @@ FROM nginx:1.13.9-alpine
 RUN mkdir -p /app
 WORKDIR /app
 
-COPY ./nginx.conf /etc/nginx/nginx.conf
-RUN cd ./website
+COPY nginx.conf /etc/nginx/nginx.conf
+COPY website /api
 RUN yarn build
-COPY ./build /app
 
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
