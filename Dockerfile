@@ -13,9 +13,6 @@ RUN yarn build
 
 EXPOSE 8080
 CMD [ "yarn", "start-dev" ]
-	
-FROM node:alpine
-COPY --from=build /api /api
 
 FROM nginx:1.13.9-alpine
 
