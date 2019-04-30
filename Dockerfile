@@ -1,27 +1,24 @@
 FROM node
 
 RUN apt-get update && apt-get install -y build-essential && apt-get install -y python
-RUN mkdir -p /api
-RUN chown freesoccer /api
-USER freesoccer
-WORKDIR /api
+RUN mkdir -p /home/api
+WORKDIR /home/api
 
-COPY package.json /api
+COPY package.json /home/api
 RUN yarn install --production
 RUN yarn global add pm2
 
-COPY . /api
+COPY . /home/api
 RUN yarn build
 
 CMD [ "yarn", "start-dev" ]
 
 FROM node:alpine
 
-RUN mkdir -p /app
-RUN chown freesoccer /app
-WORKDIR /app
+RUN mkdir -p /home/app
+WORKDIR /home/app
 
-COPY website /app
+COPY website /home/app
 RUN yarn install --production
 RUN yarn build
 
