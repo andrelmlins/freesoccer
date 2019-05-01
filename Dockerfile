@@ -1,5 +1,8 @@
 FROM smebberson/alpine-nginx-nodejs
 
+RUN apt-get update && apt-get install -y build-essential && apt-get install -y python
+RUN npm i -g yarn
+
 #Website
 RUN mkdir -p /app
 WORKDIR /app
@@ -9,7 +12,6 @@ RUN yarn install --production
 RUN yarn build
 
 #API
-RUN apt-get update && apt-get install -y build-essential && apt-get install -y python
 RUN mkdir -p /api
 WORKDIR /api
 
