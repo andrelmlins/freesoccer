@@ -26,5 +26,4 @@ COPY nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE 80
 
-CMD [ "yarn", "start-dev" ]
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["./bootstrap.sh"]
