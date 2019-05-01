@@ -14,9 +14,9 @@ RUN yarn build
 RUN mkdir -p /api
 WORKDIR /api
 
+COPY bootstrap.sh /api
 COPY package.json /api
 RUN yarn install --production
-RUN yarn global add pm2
 
 COPY . /api
 RUN yarn build
