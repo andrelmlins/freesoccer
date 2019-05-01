@@ -1,5 +1,4 @@
-# Free Soccer
-
+# Free Soccer [![Build Status](https://travis-ci.com/andrelmlins/freesoccer.svg?branch=master)](https://travis-ci.com/andrelmlins/freesoccer)
 :soccer::soccer: [Free API](https://www.apifreesoccer.com/) with results from national football competitions
 
 ## Federations
