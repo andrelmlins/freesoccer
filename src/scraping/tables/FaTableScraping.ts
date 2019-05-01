@@ -1,5 +1,5 @@
-import * as request from "request-promise-any";
-import * as cheerio from "cheerio";
+import request from "request-promise-any";
+import cheerio from "cheerio";
 
 import FaConstants from "../../constants/FaConstants";
 import Helpers from "../../utils/Helpers";

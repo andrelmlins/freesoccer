@@ -5,8 +5,8 @@
   "main": "dist/index",
   "scripts": {
     "lite": "lite-server",
-    "build": "tsc --outDir dist src/index.ts --lib es6,dom",
-    "start": "tsc --outDir dist src/index.ts --lib es6,dom && node dist/index.js",
+    "build": "tsc",
+    "start": "yarn build && node dist/index.js",
     "test": "yarn test"
   },
   "repository": {

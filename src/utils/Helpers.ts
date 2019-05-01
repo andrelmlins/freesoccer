@@ -1,5 +1,5 @@
 import { Request } from "express";
-import * as puppeteer from "puppeteer";
+import puppeteer from "puppeteer";
 
 import ICompetitionDefault from "../interfaces/ICompetitionDefault";
 

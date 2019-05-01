@@ -1,9 +1,9 @@
-import * as express from "express";
-import * as bodyParser from "body-parser";
-import * as mongoose from "mongoose";
-import * as morgan from "morgan";
-import * as cors from "cors";
-import * as path from "path";
+import express from "express";
+import mongoose from "mongoose";
+import bodyParser from "body-parser";
+import morgan from "morgan";
+import cors from "cors";
+import path from "path";
 
 import { Routes } from "./Routes";
 import CronJobs from "./CronJobs";

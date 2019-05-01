@@ -1,7 +1,7 @@
 import { Response, Request } from "express";
-import * as jwt from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 
-var swaggerDocument = require("../config/swagger.json");
+var swaggerDocument = require("../../public/assets/swagger.json");
 
 export default class Controller {
   public async getSwagger(req: Request, res: Response) {

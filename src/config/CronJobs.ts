@@ -1,4 +1,4 @@
-import * as cron from "cron";
+import cron from "cron";
 
 import CbfConstants from "../constants/CbfConstants";
 import FffConstants from "../constants/FffConstants";
