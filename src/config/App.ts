@@ -27,7 +27,16 @@ class App {
   }
 
   private config(): void {
-    mongoose.connect("mongodb://localhost/freesoccer");
+    const ipMongo = process.env.IP_MONGO || "localhost";
+    const baseMongo = process.env.BASE_MONGO || "freesoccer";
+    const usrMongo = process.env.USR_MONGO;
+    const pswMongo = process.env.PSW_MONGO;
+
+    if (usrMongo) {
+      mongoose.connect(`mongodb://${usrMongo}:${pswMongo}@${ipMongo}/${baseMongo}`);
+    } else {
+      mongoose.connect(`mongodb://${ipMongo}/${baseMongo}`);
+    }
 
     this.app.use(bodyParser.json({ limit: "50mb" }));
     this.app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
