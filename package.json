@@ -6,7 +6,6 @@
   "scripts": {
     "lite": "lite-server",
     "build": "tsc --outDir dist src/index.ts --lib es6,dom",
-    "start-dev": "pm2 start dist/index.js --no-daemon",
     "start": "tsc --outDir dist src/index.ts --lib es6,dom && node dist/index.js",
     "test": "yarn test"
   },
