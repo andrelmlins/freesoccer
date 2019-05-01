@@ -1,5 +1,14 @@
-FROM node
+FROM smebberson/alpine-nginx-nodejs
 
+#Website
+RUN mkdir -p /app
+WORKDIR /app
+
+COPY website /app
+RUN yarn install --production
+RUN yarn build
+
+#API
 RUN apt-get update && apt-get install -y build-essential && apt-get install -y python
 RUN mkdir -p /api
 WORKDIR /api
@@ -11,25 +20,10 @@ RUN yarn global add pm2
 COPY . /api
 RUN yarn build
 
-EXPOSE 8080
-CMD [ "yarn", "start-dev" ]
-
-FROM node:alpine as app
-
-RUN mkdir -p /app
-WORKDIR /app
-
-COPY website /app
-RUN yarn install --production
-RUN yarn build
-
-FROM nginx:1.13.9-alpine
-
-RUN mkdir -p /app
-WORKDIR /app
-
-COPY --from=app /app .
+#Nginx
 COPY nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE 80
+
+CMD [ "yarn", "start-dev" ]
 CMD ["nginx", "-g", "daemon off;"]
