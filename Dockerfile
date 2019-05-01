@@ -1,24 +1,24 @@
 FROM node
 
 RUN apt-get update && apt-get install -y build-essential && apt-get install -y python
-RUN mkdir -p /home/api
-WORKDIR /home/api
+RUN mkdir -p /api
+WORKDIR /api
 
-COPY package.json /home/api
+COPY package.json /api
 RUN yarn install --production
 RUN yarn global add pm2
 
-COPY . /home/api
+COPY . /api
 RUN yarn build
 
 CMD [ "yarn", "start-dev" ]
 
 FROM node:alpine
 
-RUN mkdir -p /home/app
-WORKDIR /home/app
+RUN mkdir -p /app
+WORKDIR /app
 
-COPY website /home/app
+COPY website /app
 RUN yarn install --production
 RUN yarn build
 
