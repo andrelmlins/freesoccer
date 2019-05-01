@@ -2,6 +2,8 @@ FROM node
 
 RUN apt-get update && apt-get install -y build-essential && apt-get install -y python
 RUN mkdir -p /api
+USER freesoccer
+RUN chown freesoccer /api
 WORKDIR /api
 
 COPY package.json /api
@@ -16,6 +18,7 @@ CMD [ "yarn", "start-dev" ]
 FROM node:alpine
 
 RUN mkdir -p /app
+RUN chown freesoccer /app
 WORKDIR /app
 
 COPY website /app
