@@ -1,6 +1,7 @@
 FROM finizco/nginx-node:latest
 
 RUN apk update && apk --no-cache add --virtual builds-deps build-base python
+RUN yarn global add pm2
 
 #Website
 RUN mkdir -p /app
