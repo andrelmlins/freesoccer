@@ -1,6 +1,6 @@
 FROM finizco/nginx-node:latest
 
-RUN apt-get update && apt-get install -y build-essential && apt-get install -y python
+# RUN apt-get update && apt-get install -y build-essential && apt-get install -y python
 
 #Website
 RUN mkdir -p /app
