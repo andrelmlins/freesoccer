@@ -1,7 +1,6 @@
-FROM smebberson/alpine-nginx-nodejs
+FROM finizco/nginx-node:latest
 
 RUN apt-get update && apt-get install -y build-essential && apt-get install -y python
-RUN npm i -g yarn
 
 #Website
 RUN mkdir -p /app
