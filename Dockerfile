@@ -1,6 +1,6 @@
 FROM finizco/nginx-node:latest
 
-RUN apk update && apk install -y build-essential && apk install -y python
+RUN apk update && apk --no-cache add --virtual builds-deps build-base python
 
 #Website
 RUN mkdir -p /app
