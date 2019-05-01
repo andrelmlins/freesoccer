@@ -14,16 +14,19 @@ RUN yarn build
 RUN mkdir -p /api
 WORKDIR /api
 
-COPY bootstrap.sh /api
 COPY package.json /api
 RUN yarn install --production
 
 COPY . /api
 RUN yarn build
 
+#Bootstrap
+COPY bootstrap.sh /api
+RUN chmod +x /api/bootstrap.sh
+
 #Nginx
 COPY nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE 80
 
-CMD ["./bootstrap.sh"]
+CMD ["./bootstrap.sh"]  
