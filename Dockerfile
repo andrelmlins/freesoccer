@@ -11,9 +11,10 @@ RUN yarn global add pm2
 COPY . /api
 RUN yarn build
 
+EXPOSE 8080
 CMD [ "yarn", "start-dev" ]
 
-FROM node:alpine
+FROM node:alpine as app
 
 RUN mkdir -p /app
 WORKDIR /app
@@ -24,6 +25,10 @@ RUN yarn build
 
 FROM nginx:1.13.9-alpine
 
+RUN mkdir -p /app
+WORKDIR /app
+
+COPY --from=app /app .
 COPY nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE 80
