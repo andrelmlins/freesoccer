@@ -1,5 +1,5 @@
 <div align="center">
-<small> :soccer: </small> Free Soccer <small> :soccer: </small></h1>
+<h1><small> :soccer: </small> Free Soccer <small> :soccer: </small></h1>
 
 [Free API](https://www.apifreesoccer.com/) with results from national football competitions
 
@@ -13,6 +13,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/andrelmlins/freesoccer/blob/master/LICENSE)
 [![Known Vulnerabilities](https://snyk.io/test/github/andrelmlins/freesoccer/badge.svg)](https://snyk.io/test/github/andrelmlins/freesoccer)
 [![Dependencies](https://david-dm.org/andrelmlins/freesoccer.svg)](https://david-dm.org/andrelmlins/freesoccer)
+[![](https://images.microbadger.com/badges/image/andrelmlins1/freesoccer.svg)](https://microbadger.com/images/andrelmlins1/freesoccer "Get your own image badge on microbadger.com")
 
 </div>
 
