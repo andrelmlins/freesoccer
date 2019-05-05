@@ -1,14 +1,20 @@
-<div align="center">
-<h1>:soccer::soccer: Free Soccer</h1>
+<center>
+<h1>:soccer: Free Soccer :soccer:</h1>
+
 [Free API](https://www.apifreesoccer.com/) with results from national football competitions
-</div>
+
+</center>
 
 <hr />
+
+<center>
 
 [![Build Status](https://travis-ci.com/andrelmlins/freesoccer.svg?branch=master)](https://travis-ci.com/andrelmlins/freesoccer)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/andrelmlins/freesoccer/blob/master/LICENSE)
 [![Known Vulnerabilities](https://snyk.io/test/github/andrelmlins/freesoccer/badge.svg)](https://snyk.io/test/github/andrelmlins/freesoccer)
 [![Dependencies](https://david-dm.org/andrelmlins/freesoccer.svg)](https://david-dm.org/andrelmlins/freesoccer)
+
+</center>
 
 <hr />
 
