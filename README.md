@@ -1,5 +1,5 @@
 <div align="center">
-<h1>:soccer: Free Soccer :soccer:</h1>
+<h1><small>:soccer:</small> Free Soccer <small> :soccer:</small></h1>
 
 [Free API](https://www.apifreesoccer.com/) with results from national football competitions
 
