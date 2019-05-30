@@ -56,6 +56,13 @@
 | Liga NOS                  | Portugal | M   | 2009/2010 - 2018/2019 | :heavy_check_mark: | :heavy_check_mark: | :x:        | :x:                |
 | Ledman LigaPro            | Portugal | M   | 2009/2010 - 2018/2019 | :heavy_check_mark: | :heavy_check_mark: | :x:        | :x:                |
 
+## Docker
+
+```
+$ docker pull andrelmlins1/freesoccer
+$ docker run -d -p 80:8080 --name andrelmlins1/freesoccer
+```
+
 ## Data Sources
 
 - [CBF](http://cbf.com.br/)
