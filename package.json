@@ -7,7 +7,9 @@
     "lite": "lite-server",
     "build": "tsc",
     "start": "yarn build && node dist/index.js",
-    "test": "yarn test"
+    "test": "yarn test",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -41,9 +43,11 @@
     "request-promise-any": "^1.0.5",
     "ssl-root-cas": "^1.2.5",
     "translate": "^1.0.3",
-    "typescript": "^2.8.3"
+    "typescript": "^2.8.3",
+    "snyk": "^1.170.0"
   },
   "devDependencies": {
     "lite-server": "^2.4.0"
-  }
+  },
+  "snyk": true
 }
