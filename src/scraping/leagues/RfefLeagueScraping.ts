@@ -3,14 +3,14 @@ import cheerio from "cheerio";
 import md5 from "md5";
 import moment from "moment";
 
-import RfefConstants from "../constants/RfefConstants";
-import Helpers from "../utils/Helpers";
-import ICompetitionDefault from "../interfaces/ICompetitionDefault";
+import RfefConstants from "../../constants/RfefConstants";
+import Helpers from "../../utils/Helpers";
+import ICompetitionDefault from "../../interfaces/ICompetitionDefault";
 
-import { ICompetition } from "../schemas/Competition";
-import { Round, IRound } from "../schemas/Round";
-import Match from "../schemas/Match";
-import TeamResult from "../schemas/TeamResult";
+import { ICompetition } from "../../schemas/Competition";
+import { Round, IRound } from "../../schemas/Round";
+import Match from "../../schemas/Match";
+import TeamResult from "../../schemas/TeamResult";
 
 export default class RfefLeagueScraping {
   public lastYear: boolean;

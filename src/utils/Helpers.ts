@@ -9,11 +9,10 @@ import { ITable, Table } from "../schemas/Table";
 import { IStage, Stage } from "../schemas/Stage";
 
 export default class Helpers {
-  public static getCompetition(competitions: Array<ICompetitionDefault>, code: String): ICompetitionDefault {
-    for (let i = 0; i < competitions.length; i++) {
-      if (competitions[i].code == code) return competitions[i];
-    }
-    throw new Error("Competition does not exist");
+
+  public static getEnumKeyByEnumValue(myEnum: any, enumValue: String) {
+    let keys = Object.keys(myEnum).filter(x => myEnum[x] == enumValue);
+    return keys.length > 0 ? keys[0] : null;
   }
 
   public static async replaceRound(round: IRound): Promise<IRound | null> {

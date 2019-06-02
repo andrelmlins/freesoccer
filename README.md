@@ -1,5 +1,5 @@
 <div align="center">
-<h1>Free Soccer</h1>
+<h1>⚽️Free Soccer⚽️</h1>
 
 [Free API](https://www.apifreesoccer.com/) with results from national football competitions
 
@@ -19,6 +19,27 @@
 </div>
 
 <hr />
+
+## Features
+
+* Scraping when CronJob
+* Exec scraping in Line Command
+* Login in API
+* Docker Image when environment variables
+* Scraping in ServerSide and ClientSide
+
+## Build Setup
+
+```
+# install dependencies
+yarn install
+
+# run the API
+yarn start
+
+# run scraping 
+yarn scraping [-c or --competition <code_competition>]
+```
 
 ## Federations
 
@@ -56,13 +77,6 @@
 | Liga NOS                  | Portugal | M   | 2009/2010 - 2018/2019 | :heavy_check_mark: | :heavy_check_mark: | :x:        | :x:                |
 | Ledman LigaPro            | Portugal | M   | 2009/2010 - 2018/2019 | :heavy_check_mark: | :heavy_check_mark: | :x:        | :x:                |
 
-## Docker
-
-```
-$ docker pull andrelmlins1/freesoccer
-$ docker run -d -p 80:8080 --name andrelmlins1/freesoccer
-```
-
 ## Data Sources
 
 - [CBF](http://cbf.com.br/)
@@ -72,3 +86,27 @@ $ docker run -d -p 80:8080 --name andrelmlins1/freesoccer
 - [DFB](https://www.dfb.de/)
 - [Liga Portugal](http://ligaportugal.pt/)
 - [Premier League](https://www.premierleague.com/)
+
+
+## Docker
+
+[![dockeri.co](https://dockeri.co/image/andrelmlins1/freesoccer)](https://hub.docker.com/r/andrelmlins1/freesoccer)
+
+There's an official docker image available on [Dockerhub](https://hub.docker.com/r/andrelmlins1/freesoccer):
+
+```
+$ docker pull andrelmlins1/freesoccer
+$ docker run -d -p 80:8080 --name andrelmlins1/freesoccer
+```
+
+## Used libraries
+
+* Typescript
+* Pupeteer
+* Axios
+* Cheerio
+* Express
+* Mongoose
+* Bcrypt
+* Cron
+* Jsonwebtoken

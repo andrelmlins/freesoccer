@@ -1,7 +1,7 @@
 import ICompetitionDefault from "../../interfaces/ICompetitionDefault";
 import IFederationScraping from "../../interfaces/IFederationScraping";
 import CompetitionType from "../../enums/CompetitionType";
-import DfbLeagueScraping from "../DfbLeagueScraping";
+import DfbLeagueScraping from "../leagues/DfbLeagueScraping";
 import DfbTableScraping from "../tables/DfbTableScraping";
 
 export default class DfbScraping implements IFederationScraping {

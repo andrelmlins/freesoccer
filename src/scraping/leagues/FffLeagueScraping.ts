@@ -3,14 +3,14 @@ import cheerio from "cheerio";
 import md5 from "md5";
 import moment from "moment";
 
-import FffConstants from "../constants/FffConstants";
-import Helpers from "../utils/Helpers";
-import ICompetitionDefault from "../interfaces/ICompetitionDefault";
+import FffConstants from "../../constants/FffConstants";
+import Helpers from "../../utils/Helpers";
+import ICompetitionDefault from "../../interfaces/ICompetitionDefault";
 
-import { Competition, ICompetition } from "../schemas/Competition";
-import { Round, IRound } from "../schemas/Round";
-import Match from "../schemas/Match";
-import TeamResult from "../schemas/TeamResult";
+import { Competition, ICompetition } from "../../schemas/Competition";
+import { Round, IRound } from "../../schemas/Round";
+import Match from "../../schemas/Match";
+import TeamResult from "../../schemas/TeamResult";
 
 export default class FffLeagueScraping {
   public lastYear: boolean;

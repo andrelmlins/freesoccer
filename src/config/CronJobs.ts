@@ -5,6 +5,8 @@ import FffConstants from "../constants/FffConstants";
 import FigcConstants from "../constants/FigcConstants";
 import FpfConstants from "../constants/FpfConstants";
 import RfefConstants from "../constants/RfefConstants";
+import DfbConstants from "../constants/DfbConstants";
+import FaConstants from "../constants/FaConstants";
 
 import CbfScraping from "../scraping/federations/CbfScraping";
 import FffScraping from "../scraping/federations/FffScraping";
@@ -12,7 +14,8 @@ import FigcScraping from "../scraping/federations/FigcScraping";
 import FpfScraping from "../scraping/federations/FpfScraping";
 import RfefScraping from "../scraping/federations/RfefScraping";
 import DfbScraping from "../scraping/federations/DfbScraping";
-import DfbConstants from "../constants/DfbConstants";
+import FaScraping from "../scraping/federations/FaScraping";
+
 import ICompetitionDefault from "../interfaces/ICompetitionDefault";
 
 import CompetitionType from "../enums/CompetitionType";
@@ -21,22 +24,23 @@ export default class CronJobs {
   constructor() {}
 
   public crons(): void {
-    // new cron.CronJob(
-    //   "0 */30 * * * *",
-    //   async () => {
-    //     console.log("START CRAWLER YEAR CURRENT");
+    new cron.CronJob(
+      "0 */15 * * * *",
+      async () => {
+        console.log("START CRAWLER YEAR CURRENT");
 
-    //     this.loopGeneric(CbfConstants.COMPETITIONS, new CbfScraping(true));
-    //     this.loopGeneric(DfbConstants.COMPETITIONS, new DfbScraping(true));
-    //     this.loopGeneric(FffConstants.COMPETITIONS, new FffScraping(true));
-    //     this.loopGeneric(FigcConstants.COMPETITIONS, new FigcScraping(true));
-    //     this.loopGeneric(FpfConstants.COMPETITIONS, new FpfScraping(true));
-    //     this.loopGeneric(RfefConstants.COMPETITIONS, new RfefScraping(true));
-    //   },
-    //   null,
-    //   true,
-    //   "America/Los_Angeles"
-    // );
+        this.loopGeneric(CbfConstants.COMPETITIONS, new CbfScraping(true));
+        this.loopGeneric(DfbConstants.COMPETITIONS, new DfbScraping(true));
+        this.loopGeneric(FffConstants.COMPETITIONS, new FffScraping(true));
+        this.loopGeneric(FigcConstants.COMPETITIONS, new FigcScraping(true));
+        this.loopGeneric(FpfConstants.COMPETITIONS, new FpfScraping(true));
+        this.loopGeneric(RfefConstants.COMPETITIONS, new RfefScraping(true));
+        this.loopGeneric(FaConstants.COMPETITIONS, new FaScraping(true));
+      },
+      null,
+      true,
+      "America/Los_Angeles"
+    );
 
     new cron.CronJob(
       "0 0 */12 * * *",
@@ -49,6 +53,7 @@ export default class CronJobs {
         this.loopGeneric(FigcConstants.COMPETITIONS, new FigcScraping(false));
         this.loopGeneric(FpfConstants.COMPETITIONS, new FpfScraping(false));
         this.loopGeneric(RfefConstants.COMPETITIONS, new RfefScraping(false));
+        this.loopGeneric(FaConstants.COMPETITIONS, new FaScraping(false));
       },
       null,
       true,

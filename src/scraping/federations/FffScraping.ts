@@ -1,7 +1,7 @@
 import ICompetitionDefault from "../../interfaces/ICompetitionDefault";
 import IFederationScraping from "../../interfaces/IFederationScraping";
 import CompetitionType from "../../enums/CompetitionType";
-import FffLeagueScraping from "../FffLeagueScraping";
+import FffLeagueScraping from "../leagues/FffLeagueScraping";
 import FffTableScraping from "../tables/FffTableScraping";
 import FffEliminationScraping from "../elimination/FffEliminationScraping";
 

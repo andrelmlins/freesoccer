@@ -1,7 +1,7 @@
 import ICompetitionDefault from "../../interfaces/ICompetitionDefault";
 import IFederationScraping from "../../interfaces/IFederationScraping";
 import CompetitionType from "../../enums/CompetitionType";
-import FaLeagueScraping from "../FaLeagueScraping";
+import FaLeagueScraping from "../leagues/FaLeagueScraping";
 import FaTableScraping from "../tables/FaTableScraping";
 
 export default class FaScraping implements IFederationScraping {

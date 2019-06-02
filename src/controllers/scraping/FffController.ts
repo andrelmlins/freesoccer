@@ -2,13 +2,13 @@ import { Response, Request } from "express";
 
 import FffConstants from "../../constants/FffConstants";
 import FffScraping from "../../scraping/federations/FffScraping";
-import Helpers from "../../utils/Helpers";
+import CompetitionUtil from "../../utils/CompetitionUtil";
 import ICompetitionDefault from "../../interfaces/ICompetitionDefault";
 
 export default class FffController {
   public async loadResults(req: Request, res: Response) {
     try {
-      let competition: ICompetitionDefault = Helpers.getCompetition(FffConstants.COMPETITIONS, req.params.competition);
+      let competition: ICompetitionDefault = CompetitionUtil.getCompetition(FffConstants.COMPETITIONS, req.params.competition);
 
       let fffScraping: FffScraping = new FffScraping();
       await fffScraping.run(competition);
@@ -21,7 +21,7 @@ export default class FffController {
 
   public async loadTable(req: Request, res: Response) {
     try {
-      let competition: ICompetitionDefault = Helpers.getCompetition(FffConstants.COMPETITIONS, req.params.competition);
+      let competition: ICompetitionDefault = CompetitionUtil.getCompetition(FffConstants.COMPETITIONS, req.params.competition);
 
       let fffScraping: FffScraping = new FffScraping();
       await fffScraping.runTable(competition);

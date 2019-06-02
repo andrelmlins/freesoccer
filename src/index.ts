@@ -1,8 +1,9 @@
 require('any-promise/register/q');
 
-import app from './config/App';
+import App from './config/App';
+
 const port = process.env.PORT || 8080;
 
-app.listen(port, () => {
+new App().app.listen(port, () => {
   console.log(`Free Soccer listening port ${port}`);
 });

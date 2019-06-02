@@ -2,13 +2,13 @@ import { Response, Request } from "express";
 
 import RfefConstants from "../../constants/RfefConstants";
 import RfefScraping from "../../scraping/federations/RfefScraping";
-import Helpers from "../../utils/Helpers";
+import CompetitionUtil from "../../utils/CompetitionUtil";
 import ICompetitionDefault from "../../interfaces/ICompetitionDefault";
 
 export default class RfefController {
   public async loadResults(req: Request, res: Response) {
     try {
-      let competition: ICompetitionDefault = Helpers.getCompetition(RfefConstants.COMPETITIONS, req.params.competition);
+      let competition: ICompetitionDefault = CompetitionUtil.getCompetition(RfefConstants.COMPETITIONS, req.params.competition);
 
       let rfefScraping: RfefScraping = new RfefScraping();
       await rfefScraping.run(competition);
@@ -21,7 +21,7 @@ export default class RfefController {
 
   public async loadTable(req: Request, res: Response) {
     try {
-      let competition: ICompetitionDefault = Helpers.getCompetition(RfefConstants.COMPETITIONS, req.params.competition);
+      let competition: ICompetitionDefault = CompetitionUtil.getCompetition(RfefConstants.COMPETITIONS, req.params.competition);
 
       let fpfScraping: RfefScraping = new RfefScraping();
       await fpfScraping.runTable(competition);

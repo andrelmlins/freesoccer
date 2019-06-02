@@ -3,7 +3,7 @@ import IFederationScraping from "../../interfaces/IFederationScraping";
 
 import CompetitionType from "../../enums/CompetitionType";
 
-import CbfLeagueScraping from "../CbfLeagueScraping";
+import CbfLeagueScraping from "../leagues/CbfLeagueScraping";
 import CbfTableScraping from "../tables/CbfTableScraping";
 import CbfEliminationScraping from "../elimination/CbfEliminationScraping";
 

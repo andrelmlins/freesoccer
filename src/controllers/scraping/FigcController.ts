@@ -2,13 +2,13 @@ import { Response, Request } from "express";
 
 import FigcConstants from "../../constants/FigcConstants";
 import FigcScraping from "../../scraping/federations/FigcScraping";
-import Helpers from "../../utils/Helpers";
+import CompetitionUtil from "../../utils/CompetitionUtil";
 import ICompetitionDefault from "../../interfaces/ICompetitionDefault";
 
 export default class FigcController {
   public async loadResults(req: Request, res: Response) {
     try {
-      let competition: ICompetitionDefault = Helpers.getCompetition(FigcConstants.COMPETITIONS, req.params.competition);
+      let competition: ICompetitionDefault = CompetitionUtil.getCompetition(FigcConstants.COMPETITIONS, req.params.competition);
 
       let figcScraping: FigcScraping = new FigcScraping();
       await figcScraping.run(competition);
@@ -22,7 +22,7 @@ export default class FigcController {
 
   public async loadTable(req: Request, res: Response) {
     try {
-      let competition: ICompetitionDefault = Helpers.getCompetition(FigcConstants.COMPETITIONS, req.params.competition);
+      let competition: ICompetitionDefault = CompetitionUtil.getCompetition(FigcConstants.COMPETITIONS, req.params.competition);
 
       let figcScraping: FigcScraping = new FigcScraping();
       await figcScraping.runTable(competition);

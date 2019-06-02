@@ -2,13 +2,13 @@ import { Response, Request } from "express";
 
 import CbfConstants from "../../constants/CbfConstants";
 import CbfScraping from "../../scraping/federations/CbfScraping";
-import Helpers from "../../utils/Helpers";
+import CompetitionUtil from "../../utils/CompetitionUtil";
 import ICompetitionDefault from "../../interfaces/ICompetitionDefault";
 
 export default class CbfController {
   public async loadResults(req: Request, res: Response) {
     try {
-      let competition: ICompetitionDefault = Helpers.getCompetition(CbfConstants.COMPETITIONS, req.params.competition);
+      let competition: ICompetitionDefault = CompetitionUtil.getCompetition(CbfConstants.COMPETITIONS, req.params.competition);
 
       let cbfScraping: CbfScraping = new CbfScraping();
       await cbfScraping.run(competition);
@@ -22,7 +22,7 @@ export default class CbfController {
 
   public async loadTable(req: Request, res: Response) {
     try {
-      let competition: ICompetitionDefault = Helpers.getCompetition(CbfConstants.COMPETITIONS, req.params.competition);
+      let competition: ICompetitionDefault = CompetitionUtil.getCompetition(CbfConstants.COMPETITIONS, req.params.competition);
 
       let cbfScraping: CbfScraping = new CbfScraping();
       await cbfScraping.runTable(competition);
