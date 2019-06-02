@@ -18,14 +18,12 @@
 
 </div>
 
-<hr />
-
 ## Features
 
-* Scraping when CronJob
+* Scraping with CronJob
 * Exec scraping in Line Command
 * Login in API
-* Docker Image when environment variables
+* Docker Image with environment variables in Dockerhub
 * Scraping in ServerSide and ClientSide
 
 ## Build Setup
