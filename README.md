@@ -1,5 +1,5 @@
 <div align="center">
-<h1>⚽️ Free Soccer</h1>
+<h1>⚽️ Free Soccer ⚽️</h1>
 
 [Free API](https://www.apifreesoccer.com/) with results from national football competitions
 
@@ -36,7 +36,7 @@ yarn install
 yarn start
 
 # run scraping 
-yarn scraping [-c or --competition <code_competition>]
+yarn scraping [-c or --competition <code_competition>] [-ly or --last-year]
 ```
 
 ## Federations
