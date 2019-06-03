@@ -1,5 +1,5 @@
 <div align="center">
-<h1>⚽️Free Soccer⚽️</h1>
+<h1>⚽️ Free Soccer</h1>
 
 [Free API](https://www.apifreesoccer.com/) with results from national football competitions
 
@@ -20,11 +20,11 @@
 
 ## Features
 
-* Scraping with CronJob
-* Exec scraping in Line Command
-* Login in API
-* Docker Image with environment variables in Dockerhub
-* Scraping in ServerSide and ClientSide
+* 🕒 Scraping with CronJob
+* 👨🏾‍💻 Exec scraping in Line Command
+* 🔐 Login in API
+* 🐋 Docker Image with environment variables in Dockerhub
+* 💻 Scraping in ServerSide and ClientSide
 
 ## Build Setup
 
