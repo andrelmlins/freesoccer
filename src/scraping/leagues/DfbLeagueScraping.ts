@@ -1,4 +1,5 @@
-import request from "request-promise-any";
+import axios from "axios";
+import https from "https";
 import cheerio from "cheerio";
 import md5 from "md5";
 import moment from "moment";
@@ -14,9 +15,16 @@ import TeamResult from "../../schemas/TeamResult";
 
 export default class DfbLeagueScraping {
   public lastYear: boolean;
+  private axios: any;
 
   constructor(lastYear: boolean) {
     this.lastYear = lastYear;
+
+    this.axios = axios.create({
+      httpsAgent: new https.Agent({  
+        rejectUnauthorized: false
+      })
+    });
   }
 
   public async run(competition: ICompetitionDefault) {
@@ -28,12 +36,9 @@ export default class DfbLeagueScraping {
   public async runCompetition(competitionDefault: ICompetitionDefault) {
     console.log("\t-> " + competitionDefault.name);
 
-    let pageSeason = await request({
-      url: DfbConstants.URL_DEFAULT + "/" + competitionDefault.code + "/spieltagtabelle",
-      rejectUnauthorized: false
-    });
+    let pageSeason = await this.axios(DfbConstants.URL_DEFAULT + "/" + competitionDefault.code + "/spieltagtabelle");
 
-    let $ = cheerio.load(pageSeason);
+    let $ = cheerio.load(pageSeason.data);
     let seasons = $("select[name='seasons']").children();
 
     let end = seasons.length;
@@ -41,40 +46,28 @@ export default class DfbLeagueScraping {
 
     for (let i = 0; i < end; i++) {
       let numberSeason = seasons.eq(i).attr("value");
-      let year = parseInt(
-        seasons
-          .eq(i)
-          .text()
-          .split("/")[0]
-      );
+      let year = parseInt(seasons.eq(i).text().split("/")[0]);
 
       if (year >= 2000) {
         console.log("\t\t-> " + year);
         let competition = await Helpers.createCompetition(competitionDefault, year + "", DfbConstants);
 
-        let page = await request({
-          url:
-            DfbConstants.URL_DEFAULT +
-            "/" +
-            competitionDefault.code +
-            "/spieltagtabelle?spieledb_path=%2Fcompetitions%2F" +
-            competitionDefault.aux.number +
-            "%2Fseasons%2F" +
-            numberSeason +
-            "%2Fmatchday",
-          rejectUnauthorized: false
-        });
+        let page = await this.axios.get(
+          DfbConstants.URL_DEFAULT +
+          "/" +
+          competitionDefault.code +
+          "/spieltagtabelle?spieledb_path=%2Fcompetitions%2F" +
+          competitionDefault.aux.number +
+          "%2Fseasons%2F" +
+          numberSeason +
+          "%2Fmatchday"
+        );
 
-        let $ = cheerio.load(page);
+        let $ = cheerio.load(page.data);
         let rounds = $("select[name='matchdays']").children();
 
         for (let j = 0; j < rounds.length; j++) {
-          if (
-            rounds
-              .eq(j)
-              .text()
-              .includes("Spieltag ")
-          ) {
+          if (rounds.eq(j).text().includes("Spieltag ")) {
             let roundResult = await this.runRound(rounds.eq(j), competition, competitionDefault, numberSeason);
             competition.rounds.push(roundResult!._id);
           }
@@ -103,28 +96,24 @@ export default class DfbLeagueScraping {
     round.hash = md5(competition.code + competition.year + round.number);
     console.log("\t\t\t-> Round " + round.number);
 
-    let page = await request({
-      url:
-        DfbConstants.URL_DEFAULT +
-        "/" +
-        competitionDefault.code +
-        "/spieltagtabelle/?spieledb_path=/competitions/" +
-        competitionDefault.aux.number +
-        "/seasons/" +
-        codeyear +
-        "/matchday&spieledb_path=%2Fcompetitions%2F" +
-        competitionDefault.aux.number +
-        "%2Fseasons%2F" +
-        codeyear +
-        "%2Fmatchday%2F" +
-        number,
-      rejectUnauthorized: false
-    });
+    let page = await this.axios.get(
+      DfbConstants.URL_DEFAULT +
+      "/" +
+      competitionDefault.code +
+      "/spieltagtabelle/?spieledb_path=/competitions/" +
+      competitionDefault.aux.number +
+      "/seasons/" +
+      codeyear +
+      "/matchday&spieledb_path=%2Fcompetitions%2F" +
+      competitionDefault.aux.number +
+      "%2Fseasons%2F" +
+      codeyear +
+      "%2Fmatchday%2F" +
+      number,
+    );
 
-    let $ = cheerio.load(page);
-    let matches = $(".table-match-comparison")
-      .children("tbody")
-      .children();
+    let $ = cheerio.load(page.data);
+    let matches = $(".table-match-comparison").children("tbody").children();
 
     for (let i = 0; i < matches.length; i++) {
       let matchResult = await this.runMatch(matches.eq(i));
@@ -148,29 +137,14 @@ export default class DfbLeagueScraping {
 
     let data = matchHtml.children();
 
-    let result = data
-      .eq(3)
-      .text()
-      .trim()
-      .split(" : ");
+    let result = data.eq(3).text().trim().split(" : ");
     let date = "";
 
-    if (
-      data
-        .eq(0)
-        .children("em")
-        .text()
-    ) {
-      date = data
-        .eq(0)
-        .children("em")
-        .text();
+    if (data.eq(0).children("em").text()) {
+      date = data.eq(0).children("em").text();
       date = date.split(" ~ ")[0] + date.split(" ~ ")[1].split(".")[2] + " 00:00";
     } else {
-      date = data
-        .eq(0)
-        .html()
-        .split("<br>");
+      date = data.eq(0).html().split("<br>");
 
       if (date.length > 2) {
         date = date[1].trim() + " " + date[2].split(" ")[0].trim();
@@ -185,25 +159,13 @@ export default class DfbLeagueScraping {
     match.location = "";
 
     match.teamHome.initials = "";
-    match.teamHome.name = data
-      .eq(1)
-      .text()
-      .trim();
-    match.teamHome.flag = data
-      .eq(2)
-      .children("img")
-      .attr("src");
+    match.teamHome.name = data.eq(1).text().trim();
+    match.teamHome.flag = data.eq(2).children("img").attr("src");
     match.teamHome.goals = result[0] == "-" ? undefined : parseInt(result[0]);
 
     match.teamGuest.initials = "";
-    match.teamGuest.name = data
-      .eq(5)
-      .text()
-      .trim();
-    match.teamGuest.flag = data
-      .eq(4)
-      .children("img")
-      .attr("src");
+    match.teamGuest.name = data.eq(5).text().trim();
+    match.teamGuest.flag = data.eq(4).children("img").attr("src");
     match.teamGuest.goals = result[1] == "-" ? undefined : parseInt(result[1]);
 
     return match;

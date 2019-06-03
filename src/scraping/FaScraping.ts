@@ -1,8 +1,8 @@
-import ICompetitionDefault from "../../interfaces/ICompetitionDefault";
-import IFederationScraping from "../../interfaces/IFederationScraping";
-import CompetitionType from "../../enums/CompetitionType";
-import FaLeagueScraping from "../leagues/FaLeagueScraping";
-import FaTableScraping from "../tables/FaTableScraping";
+import ICompetitionDefault from "../interfaces/ICompetitionDefault";
+import IFederationScraping from "../interfaces/IFederationScraping";
+import CompetitionType from "../enums/CompetitionType";
+import FaLeagueScraping from "./leagues/FaLeagueScraping";
+import FaTableScraping from "./tables/FaTableScraping";
 
 export default class FaScraping implements IFederationScraping {
   public lastYear: boolean;

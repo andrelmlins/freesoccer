@@ -9,13 +9,13 @@ import RfefConstants from "../constants/RfefConstants";
 import DfbConstants from "../constants/DfbConstants";
 import FaConstants from "../constants/FaConstants";
 
-import CbfScraping from "../scraping/federations/CbfScraping";
-import FffScraping from "../scraping/federations/FffScraping";
-import FigcScraping from "../scraping/federations/FigcScraping";
-import FpfScraping from "../scraping/federations/FpfScraping";
-import RfefScraping from "../scraping/federations/RfefScraping";
-import DfbScraping from "../scraping/federations/DfbScraping";
-import FaScraping from "../scraping/federations/FaScraping";
+import CbfScraping from "../scraping/CbfScraping";
+import FffScraping from "../scraping/FffScraping";
+import FigcScraping from "../scraping/FigcScraping";
+import FpfScraping from "../scraping/FpfScraping";
+import RfefScraping from "../scraping/RfefScraping";
+import DfbScraping from "../scraping/DfbScraping";
+import FaScraping from "../scraping/FaScraping";
 import ICompetitionDefault from "../interfaces/ICompetitionDefault";
 
 export default class CompetitionUtil {

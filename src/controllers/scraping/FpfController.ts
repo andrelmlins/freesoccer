@@ -1,7 +1,7 @@
 import { Response, Request } from "express";
 
 import FpfConstants from "../../constants/FpfConstants";
-import FpfScraping from "../../scraping/federations/FpfScraping";
+import FpfScraping from "../../scraping/FpfScraping";
 import CompetitionUtil from "../../utils/CompetitionUtil";
 import ICompetitionDefault from "../../interfaces/ICompetitionDefault";
 

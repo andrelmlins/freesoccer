@@ -1,7 +1,7 @@
 import { Response, Request } from "express";
 
 import RfefConstants from "../../constants/RfefConstants";
-import RfefScraping from "../../scraping/federations/RfefScraping";
+import RfefScraping from "../../scraping/RfefScraping";
 import CompetitionUtil from "../../utils/CompetitionUtil";
 import ICompetitionDefault from "../../interfaces/ICompetitionDefault";
 

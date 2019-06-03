@@ -1,4 +1,4 @@
-import request from "request-promise-any";
+import axios from "axios";
 import cheerio from "cheerio";
 import md5 from "md5";
 import moment from "moment";
@@ -36,9 +36,9 @@ export default class CbfLeagueScraping {
 
       let competition = await Helpers.createCompetition(competitionDefault, competitionDefault.years![i], CbfConstants);
 
-      let page = await request(CbfConstants.URL_DEFAULT + "/" + competition.code + "/" + competition.year);
+      let page = await axios.get(CbfConstants.URL_DEFAULT + "/" + competition.code + "/" + competition.year);
 
-      let $ = cheerio.load(page);
+      let $ = cheerio.load(page.data);
 
       let section = $(".container section");
       let rounds = section

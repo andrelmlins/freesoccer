@@ -1,7 +1,7 @@
 import { Response, Request } from "express";
 
 import CbfConstants from "../../constants/CbfConstants";
-import CbfScraping from "../../scraping/federations/CbfScraping";
+import CbfScraping from "../../scraping/CbfScraping";
 import CompetitionUtil from "../../utils/CompetitionUtil";
 import ICompetitionDefault from "../../interfaces/ICompetitionDefault";
 

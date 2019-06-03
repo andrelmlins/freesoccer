@@ -1,7 +1,7 @@
 import { Response, Request } from "express";
 
 import FigcConstants from "../../constants/FigcConstants";
-import FigcScraping from "../../scraping/federations/FigcScraping";
+import FigcScraping from "../../scraping/FigcScraping";
 import CompetitionUtil from "../../utils/CompetitionUtil";
 import ICompetitionDefault from "../../interfaces/ICompetitionDefault";
 

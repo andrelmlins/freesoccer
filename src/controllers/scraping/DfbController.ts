@@ -1,7 +1,7 @@
 import { Response, Request } from "express";
 
 import DbcConstants from "../../constants/DfbConstants";
-import DfbScraping from "../../scraping/federations/DfbScraping";
+import DfbScraping from "../../scraping/DfbScraping";
 import CompetitionUtil from "../../utils/CompetitionUtil";
 import ICompetitionDefault from "../../interfaces/ICompetitionDefault";
 

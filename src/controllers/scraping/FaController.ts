@@ -1,7 +1,7 @@
 import { Response, Request } from "express";
 
 import FaConstants from "../../constants/FaConstants";
-import FaScraping from "../../scraping/federations/FaScraping";
+import FaScraping from "../../scraping/FaScraping";
 import CompetitionUtil from "../../utils/CompetitionUtil";
 import ICompetitionDefault from "../../interfaces/ICompetitionDefault";
 

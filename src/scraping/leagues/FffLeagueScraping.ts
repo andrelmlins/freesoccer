@@ -1,4 +1,5 @@
-import request from "request-promise-any";
+import axios from "axios";
+import https from "https";
 import cheerio from "cheerio";
 import md5 from "md5";
 import moment from "moment";
@@ -7,16 +8,23 @@ import FffConstants from "../../constants/FffConstants";
 import Helpers from "../../utils/Helpers";
 import ICompetitionDefault from "../../interfaces/ICompetitionDefault";
 
-import { Competition, ICompetition } from "../../schemas/Competition";
+import { ICompetition } from "../../schemas/Competition";
 import { Round, IRound } from "../../schemas/Round";
 import Match from "../../schemas/Match";
 import TeamResult from "../../schemas/TeamResult";
 
 export default class FffLeagueScraping {
   public lastYear: boolean;
+  private axios: any;
 
   constructor(lastYear: boolean) {
     this.lastYear = lastYear;
+
+    this.axios = axios.create({
+      httpsAgent: new https.Agent({  
+        rejectUnauthorized: false
+      })
+    });
   }
 
   public async run(competition: ICompetitionDefault) {
@@ -28,12 +36,11 @@ export default class FffLeagueScraping {
   public async runCompetition(competitionDefault: ICompetitionDefault) {
     console.log("\t-> " + competitionDefault.name);
 
-    let pageSeason = await request({
-      url: FffConstants.URL_DEFAULT + "/" + competitionDefault.code + "/calendrier_resultat",
-      rejectUnauthorized: false
-    });
+    let pageSeason = await this.axios.get(
+      `${FffConstants.URL_DEFAULT}/${competitionDefault.code}/calendrier_resultat`
+    );
 
-    let $ = cheerio.load(pageSeason);
+    let $ = cheerio.load(pageSeason.data);
     let seasons = $("select[name='saison']").children();
 
     let end = seasons.length;
@@ -43,32 +50,21 @@ export default class FffLeagueScraping {
       let numberSeason = parseInt(seasons.eq(i).attr("value"));
 
       if (numberSeason >= FffConstants.START_SEASON) {
-        let year = parseInt(
-          seasons
-            .eq(i)
-            .text()
-            .split("/")[0]
-        );
+        let year = parseInt(seasons.eq(i).text().split("/")[0]);
 
         console.log("\t\t-> " + year);
 
         let competition = await Helpers.createCompetition(competitionDefault, year + "", FffConstants);
 
-        let page = await request({
-          url: FffConstants.URL_DEFAULT + "/" + competitionDefault.code + "/calendrier_resultat?sai=" + numberSeason,
-          rejectUnauthorized: false
-        });
+        let page = await this.axios.get(
+          `${FffConstants.URL_DEFAULT}/${competitionDefault.code}/calendrier_resultat?sai=${numberSeason}`
+        );
 
-        let $ = cheerio.load(page);
+        let $ = cheerio.load(page.data);
         let rounds = $("select[name='journee']").children();
 
         for (let j = 0; j < rounds.length; j++) {
-          if (
-            rounds
-              .eq(j)
-              .text()
-              .includes("Week")
-          ) {
+          if (rounds.eq(j).text().includes("Week")) {
             let roundResult = await this.runRound(rounds.eq(j), competition, competitionDefault, numberSeason);
             competition.rounds.push(roundResult!._id);
           }
@@ -92,27 +88,16 @@ export default class FffLeagueScraping {
     round.hash = md5(competition.code + competition.year + round.number);
     console.log("\t\t\t-> Round " + round.number);
 
-    let page = await request({
-      url: FffConstants.URL_DEFAULT + "/" + competitionDefault.code + "/calendrier_resultat?sai=" + codeyear + "&jour=" + number,
-      rejectUnauthorized: false
-    });
+    let page = await this.axios.get(
+      `${FffConstants.URL_DEFAULT}/${competitionDefault.code}/calendrier_resultat?sai=${codeyear}&jour=${number}`
+    );
 
-    let $ = cheerio.load(page);
-    let data = $("#tableaux_rencontres")
-      .children("div")
-      .find("table");
+    let $ = cheerio.load(page.data);
+    let data = $("#tableaux_rencontres").children("div").find("table");
 
     for (let i = 0; i < data.length; i++) {
-      let date = data
-        .eq(i)
-        .children("caption")
-        .text()
-        .replace("Fixtures of ", "")
-        .trim();
-      let matchs = data
-        .eq(i)
-        .children("tbody")
-        .children();
+      let date = data.eq(i).children("caption").text().replace("Fixtures of ", "").trim();
+      let matchs = data.eq(i).children("tbody").children();
 
       for (let i = 0; i < matchs.length; i++) {
         let matchResult = await this.runMatch(matchs.eq(i), date);
@@ -136,53 +121,21 @@ export default class FffLeagueScraping {
     match.teamGuest = new TeamResult();
 
     let data = matchHtml.children();
-    let result = data
-      .eq(3)
-      .children("a")
-      .text()
-      .trim()
-      .split(" - ");
-    date =
-      date +
-      " " +
-      data
-        .eq(0)
-        .children("a")
-        .text()
-        .trim();
+    let result = data.eq(3).children("a").text().trim().split(" - ");
+    date = date + " " + data.eq(0).children("a").text().trim();
 
     match.date = moment.utc(date, "DD MMMM YYYY HH:mm").format();
     match.stadium = "";
     match.location = "";
 
     match.teamHome.initials = "";
-    match.teamHome.name = data
-      .eq(1)
-      .children("a")
-      .text()
-      .trim();
-    match.teamHome.flag =
-      FffConstants.URL_DEFAULT +
-      data
-        .eq(2)
-        .children("a")
-        .children("img")
-        .attr("src");
+    match.teamHome.name = data.eq(1).children("a").text().trim();
+    match.teamHome.flag = FffConstants.URL_DEFAULT + data.eq(2).children("a").children("img").attr("src");
     match.teamHome.goals = result.length == 1 ? undefined : parseInt(result[0]);
 
     match.teamGuest.initials = "";
-    match.teamGuest.name = data
-      .eq(5)
-      .children("a")
-      .text()
-      .trim();
-    match.teamGuest.flag =
-      FffConstants.URL_DEFAULT +
-      data
-        .eq(4)
-        .children("a")
-        .children("img")
-        .attr("src");
+    match.teamGuest.name = data.eq(5).children("a").text().trim();
+    match.teamGuest.flag = FffConstants.URL_DEFAULT + data.eq(4).children("a").children("img").attr("src");
     match.teamGuest.goals = result.length == 1 ? undefined : parseInt(result[1]);
 
     return match;
