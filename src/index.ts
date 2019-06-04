@@ -1,5 +1,3 @@
-require('any-promise/register/q');
-
 import App from './config/App';
 
 const port = process.env.PORT || 8080;

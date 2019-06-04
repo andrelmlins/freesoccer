@@ -1,4 +1,5 @@
 import CompetitionCode from "../enums/CompetitionCode";
+import CompetitionType from "../enums/CompetitionType";
 import Helpers from "../utils/Helpers";
 
 import CbfConstants from "../constants/CbfConstants";
@@ -40,7 +41,7 @@ export default class CompetitionUtil {
     throw new Error("Competition does not exist");
   }
 
-  public static async runScraping(competitionName: String, lastYear: Boolean): Promise<void> {
+  public static async runScraping(competitionName: String, lastYear: Boolean, table: Boolean): Promise<void> {
     const competitionEnum = Helpers.getEnumKeyByEnumValue(CompetitionCode, competitionName);
 
     if(competitionEnum) {
@@ -48,6 +49,13 @@ export default class CompetitionUtil {
       const competition = CompetitionUtil.getCompetition(federation.Constant.COMPETITIONS, competitionName);
       const scraping = new federation.Scraping(lastYear);
       await scraping.run(competition);
+      if(table) {
+        if(competition.type === CompetitionType.LEAGUE){
+          await scraping.runTable(competition);
+        } else {
+          throw new Error("Competition does not league");
+        }
+      }
     } else {
       throw new Error("Competition does not exist");
     }

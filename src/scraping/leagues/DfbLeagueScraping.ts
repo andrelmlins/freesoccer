@@ -1,5 +1,4 @@
 import axios from "axios";
-import https from "https";
 import cheerio from "cheerio";
 import md5 from "md5";
 import moment from "moment";
@@ -15,16 +14,9 @@ import TeamResult from "../../schemas/TeamResult";
 
 export default class DfbLeagueScraping {
   public lastYear: boolean;
-  private axios: any;
 
   constructor(lastYear: boolean) {
     this.lastYear = lastYear;
-
-    this.axios = axios.create({
-      httpsAgent: new https.Agent({  
-        rejectUnauthorized: false
-      })
-    });
   }
 
   public async run(competition: ICompetitionDefault) {
@@ -36,7 +28,7 @@ export default class DfbLeagueScraping {
   public async runCompetition(competitionDefault: ICompetitionDefault) {
     console.log("\t-> " + competitionDefault.name);
 
-    let pageSeason = await this.axios(DfbConstants.URL_DEFAULT + "/" + competitionDefault.code + "/spieltagtabelle");
+    let pageSeason = await axios.get(DfbConstants.URL_DEFAULT + "/" + competitionDefault.code + "/spieltagtabelle");
 
     let $ = cheerio.load(pageSeason.data);
     let seasons = $("select[name='seasons']").children();
@@ -51,8 +43,8 @@ export default class DfbLeagueScraping {
       if (year >= 2000) {
         console.log("\t\t-> " + year);
         let competition = await Helpers.createCompetition(competitionDefault, year + "", DfbConstants);
-
-        let page = await this.axios.get(
+        
+        let page = await axios.get(
           DfbConstants.URL_DEFAULT +
           "/" +
           competitionDefault.code +
@@ -96,7 +88,7 @@ export default class DfbLeagueScraping {
     round.hash = md5(competition.code + competition.year + round.number);
     console.log("\t\t\t-> Round " + round.number);
 
-    let page = await this.axios.get(
+    let page = await axios.get(
       DfbConstants.URL_DEFAULT +
       "/" +
       competitionDefault.code +

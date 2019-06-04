@@ -21,21 +21,24 @@ class Commander {
     const pswMongo = process.env.PSW_MONGO;
 
     if (usrMongo) {
-      mongoose.connect(`mongodb://${usrMongo}:${pswMongo}@${ipMongo}/${baseMongo}`);
+      mongoose.connect(`mongodb://${usrMongo}:${pswMongo}@${ipMongo}/${baseMongo}`, { useNewUrlParser: true });
     } else {
-      mongoose.connect(`mongodb://${ipMongo}/${baseMongo}`);
+      mongoose.connect(`mongodb://${ipMongo}/${baseMongo}`, { useNewUrlParser: true });
     }
   }
 
   private run(): void {
     this.program
       .option('-c, --competition <competition>', 'scraping in competition')
-      .option('-l, --last-year', 'scraping in lastyear');
+      .option('-l, --last-year', 'scraping in lastyear')
+      .option('-t, --table', 'scraping in table competition');
 
     this.program.parse(process.argv);
 
     if(this.program.competition){
-      CompetitionUtil.runScraping(this.program.competition, this.program.lastYear);
+      CompetitionUtil.runScraping(this.program.competition, this.program.lastYear, this.program.table);
+    } else {
+      throw new Error("Competition does not exist");
     }
   }
 }

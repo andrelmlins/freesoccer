@@ -1,4 +1,4 @@
-import request from "request-promise-any";
+import axios from "axios";
 import cheerio from "cheerio";
 
 import CbfConstants from "../../constants/CbfConstants";
@@ -33,17 +33,12 @@ export default class CbfTableScraping {
 
       let competition = await Competition.findOne({ code: competitionDefault.code, year: competitionDefault.years![i] });
 
-      let page = await request(CbfConstants.URL_DEFAULT + "/" + competition!.code + "/" + competition!.year);
+      let page = await axios.get(`${CbfConstants.URL_DEFAULT}/${competition!.code}/${competition!.year}`);
 
-      let $ = cheerio.load(page);
+      let $ = cheerio.load(page.data);
 
       let section = $(".container section");
-      let tableHtml = section
-        .children()
-        .eq(0)
-        .children("table")
-        .children("tbody")
-        .children();
+      let tableHtml = section.children().eq(0).children("table").children("tbody").children();
 
       let table = new Table();
       table.competition = competition!._id;
@@ -64,77 +59,18 @@ export default class CbfTableScraping {
     if (data.length > 1) {
       let item = new ItemTable();
       item.position = position;
-      item.name = data
-        .eq(0)
-        .children()
-        .last()
-        .text()
-        .trim();
-      item.flag = data
-        .eq(0)
-        .children("img")
-        .attr("src")
-        .trim();
-      item.points = parseInt(
-        data
-          .eq(1)
-          .text()
-          .trim()
-      );
-      item.matches = parseInt(
-        data
-          .eq(2)
-          .text()
-          .trim()
-      );
-      item.win = parseInt(
-        data
-          .eq(3)
-          .text()
-          .trim()
-      );
-      item.draw = parseInt(
-        data
-          .eq(4)
-          .text()
-          .trim()
-      );
-      item.lose = parseInt(
-        data
-          .eq(5)
-          .text()
-          .trim()
-      );
-      item.goalsScored = parseInt(
-        data
-          .eq(6)
-          .text()
-          .trim()
-      );
-      item.goalsAgainst = parseInt(
-        data
-          .eq(7)
-          .text()
-          .trim()
-      );
-      item.goalsDifference = parseInt(
-        data
-          .eq(8)
-          .text()
-          .trim()
-      );
-      item.yellowCard = parseInt(
-        data
-          .eq(9)
-          .text()
-          .trim()
-      );
-      item.redCard = parseInt(
-        data
-          .eq(10)
-          .text()
-          .trim()
-      );
+      item.name = data.eq(0).children().last().text().trim();
+      item.flag = data.eq(0).children("img").attr("src").trim();
+      item.points = parseInt(data.eq(1).text().trim());
+      item.matches = parseInt(data.eq(2).text().trim());
+      item.win = parseInt(data.eq(3).text().trim());
+      item.draw = parseInt(data.eq(4).text().trim());
+      item.lose = parseInt(data.eq(5).text().trim());
+      item.goalsScored = parseInt(data.eq(6).text().trim());
+      item.goalsAgainst = parseInt(data.eq(7).text().trim());
+      item.goalsDifference = parseInt(data.eq(8).text().trim());
+      item.yellowCard = parseInt(data.eq(9).text().trim());
+      item.redCard = parseInt(data.eq(10).text().trim());
 
       return item;
     }

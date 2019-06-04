@@ -1,4 +1,4 @@
-import request from "request-promise-any";
+import axios from "axios";
 import cheerio from "cheerio";
 
 import FaConstants from "../../constants/FaConstants";

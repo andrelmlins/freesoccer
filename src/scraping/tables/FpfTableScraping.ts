@@ -1,4 +1,5 @@
-import request from "request-promise-any";
+import axios from "axios";
+import https from "https";
 import cheerio from "cheerio";
 
 import FpfConstants from "../../constants/FpfConstants";
@@ -11,9 +12,16 @@ import ItemTable from "../../schemas/ItemTable";
 
 export default class FpfTableScraping {
   public lastYear: boolean;
+  private axios: any;
 
   constructor(lastYear: boolean) {
     this.lastYear = lastYear;
+
+    this.axios = axios.create({
+      httpsAgent: new https.Agent({  
+        rejectUnauthorized: false
+      })
+    });
   }
 
   public async run(competition: ICompetitionDefault) {
@@ -37,12 +45,9 @@ export default class FpfTableScraping {
 
       let competition = await Competition.findOne({ code: competitionDefault.code, year: year });
 
-      let page = await request({
-        url: FpfConstants.URL_DEFAULT + "/classificacao/" + codeYear + "/" + url,
-        rejectUnauthorized: false
-      });
+      let page = await this.axios.get(`${FpfConstants.URL_DEFAULT}/classificacao/${codeYear}/${url}`);
 
-      let $ = cheerio.load(page);
+      let $ = cheerio.load(page.data);
       let tableHtml = $("table#primeiraLiga tbody").children();
 
       let table = new Table();
@@ -63,53 +68,15 @@ export default class FpfTableScraping {
 
     let item = new ItemTable();
     item.position = position;
-    item.name = data
-      .eq(2)
-      .text()
-      .trim();
+    item.name = data.eq(2).text().trim();
     item.flag = "";
-    item.points = parseInt(
-      data
-        .eq(19)
-        .text()
-        .trim()
-    );
-    item.matches = parseInt(
-      data
-        .eq(3)
-        .text()
-        .trim()
-    );
-    item.win = parseInt(
-      data
-        .eq(4)
-        .text()
-        .trim()
-    );
-    item.draw = parseInt(
-      data
-        .eq(5)
-        .text()
-        .trim()
-    );
-    item.lose = parseInt(
-      data
-        .eq(6)
-        .text()
-        .trim()
-    );
-    item.goalsScored = parseInt(
-      data
-        .eq(15)
-        .text()
-        .trim()
-    );
-    item.goalsAgainst = parseInt(
-      data
-        .eq(16)
-        .text()
-        .trim()
-    );
+    item.points = parseInt(data.eq(19).text().trim());
+    item.matches = parseInt(data.eq(3).text().trim());
+    item.win = parseInt(data.eq(4).text().trim());
+    item.draw = parseInt(data.eq(5).text().trim());
+    item.lose = parseInt(data.eq(6).text().trim());
+    item.goalsScored = parseInt(data.eq(15).text().trim());
+    item.goalsAgainst = parseInt(data.eq(16).text().trim());
     item.goalsDifference = item.goalsScored - item.goalsAgainst;
     item.yellowCard = undefined;
     item.redCard = undefined;

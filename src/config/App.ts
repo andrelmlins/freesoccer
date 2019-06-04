@@ -33,9 +33,9 @@ class App {
     const pswMongo = process.env.PSW_MONGO;
 
     if (usrMongo) {
-      mongoose.connect(`mongodb://${usrMongo}:${pswMongo}@${ipMongo}/${baseMongo}`);
+      mongoose.connect(`mongodb://${usrMongo}:${pswMongo}@${ipMongo}/${baseMongo}`, { useNewUrlParser: true });
     } else {
-      mongoose.connect(`mongodb://${ipMongo}/${baseMongo}`);
+      mongoose.connect(`mongodb://${ipMongo}/${baseMongo}`, { useNewUrlParser: true });
     }
 
     this.app.use(bodyParser.json({ limit: "50mb" }));

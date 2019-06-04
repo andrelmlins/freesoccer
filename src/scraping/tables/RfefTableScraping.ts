@@ -1,4 +1,4 @@
-import request from "request-promise-any";
+import axios from "axios";
 import cheerio from "cheerio";
 
 import RfefConstants from "../../constants/RfefConstants";
@@ -34,32 +34,16 @@ export default class RfefTableScraping {
       let year = (parseInt(competitionDefault.years![i]) - 1).toString();
       let competition = await Competition.findOne({ code: competitionDefault.code, year: year });
 
-      let page = await request(RfefConstants.URL_DEFAULT + competitionDefault.aux.url + "/clasificaciones?t=" + competitionDefault.years![i]);
+      let page = await axios.get(
+        RfefConstants.URL_DEFAULT + competitionDefault.aux.url + "/clasificaciones?t=" + competitionDefault.years![i]
+      );
 
-      let $ = cheerio.load(page);
-      let list = $(".postcontent")
-        .find(".content")
-        .children(".container-fluid");
+      let $ = cheerio.load(page.data);
+      let list = $(".postcontent").find(".content").children(".container-fluid");
 
       for (let j = 0; j < list.length; j++) {
-        if (
-          list
-            .eq(j)
-            .children("div")
-            .children()
-            .eq(0)
-            .text()
-            .trim()
-            .includes(competitionDefault.aux.name)
-        ) {
-          let rounds = list
-            .eq(j)
-            .children("div")
-            .children()
-            .eq(1)
-            .children("div")
-            .children("ul")
-            .children();
+        if (list.eq(j).children("div").children().eq(0).text().trim().includes(competitionDefault.aux.name)) {
+          let rounds = list.eq(j).children("div").children().eq(1).children("div").children("ul").children();
 
           await this.runTable(rounds.eq(0), competition!, competitionDefault.aux.url);
           break;
@@ -75,13 +59,9 @@ export default class RfefTableScraping {
     table.competition = competition!._id;
     table.itens = [];
 
-    let page = await request(RfefConstants.URL_DEFAULT + url + "/" + route);
-    let $ = cheerio.load(page);
-    let tableHtml = $(".postcontent")
-      .find(".content")
-      .find("table")
-      .find("tbody")
-      .children();
+    let page = await axios.get(RfefConstants.URL_DEFAULT + url + "/" + route);
+    let $ = cheerio.load(page.data);
+    let tableHtml = $(".postcontent").find(".content").find("table").find("tbody").children();
 
     for (let j = 0; j < tableHtml.length; j++) {
       let item = this.runItemTable(tableHtml.eq(j), j + 1);
@@ -96,53 +76,15 @@ export default class RfefTableScraping {
 
     let item = new ItemTable();
     item.position = position;
-    item.name = data
-      .eq(1)
-      .text()
-      .trim();
+    item.name = data.eq(1).text().trim();
     item.flag = "";
-    item.points = parseInt(
-      data
-        .eq(2)
-        .text()
-        .trim()
-    );
-    item.matches = parseInt(
-      data
-        .eq(3)
-        .text()
-        .trim()
-    );
-    item.win = parseInt(
-      data
-        .eq(4)
-        .text()
-        .trim()
-    );
-    item.draw = parseInt(
-      data
-        .eq(5)
-        .text()
-        .trim()
-    );
-    item.lose = parseInt(
-      data
-        .eq(6)
-        .text()
-        .trim()
-    );
-    item.goalsScored = parseInt(
-      data
-        .eq(7)
-        .text()
-        .trim()
-    );
-    item.goalsAgainst = parseInt(
-      data
-        .eq(8)
-        .text()
-        .trim()
-    );
+    item.points = parseInt(data.eq(2).text().trim());
+    item.matches = parseInt(data.eq(3).text().trim());
+    item.win = parseInt(data.eq(4).text().trim());
+    item.draw = parseInt(data.eq(5).text().trim());
+    item.lose = parseInt(data.eq(6).text().trim());
+    item.goalsScored = parseInt(data.eq(7).text().trim());
+    item.goalsAgainst = parseInt(data.eq(8).text().trim());
     item.goalsDifference = item.goalsScored - item.goalsAgainst;
     item.yellowCard = undefined;
     item.redCard = undefined;
