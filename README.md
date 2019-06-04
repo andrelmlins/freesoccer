@@ -1,11 +1,9 @@
 <div align="center">
-<h1>⚽️ Free Soccer ⚽️</h1>
+
+![FreeSoccer](https://raw.githubusercontent.com/andrelmlins/freesoccer/master/website/public/logo.png)
 
 [Free API](https://www.apifreesoccer.com/) with results from national football competitions
 
-</div>
-
-<div align="center">
 
 [![Build Status](https://travis-ci.com/andrelmlins/freesoccer.svg?branch=master)](https://travis-ci.com/andrelmlins/freesoccer)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/andrelmlins/freesoccer/blob/master/LICENSE)
