@@ -5,8 +5,6 @@
 
 </div>
 
-<hr />
-
 <div align="center">
 
 [![Build Status](https://travis-ci.com/andrelmlins/freesoccer.svg?branch=master)](https://travis-ci.com/andrelmlins/freesoccer)
