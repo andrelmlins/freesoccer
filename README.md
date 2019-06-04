@@ -4,7 +4,6 @@
 
 [Free API](https://www.apifreesoccer.com/) with results from national football competitions
 
-
 [![Build Status](https://travis-ci.com/andrelmlins/freesoccer.svg?branch=master)](https://travis-ci.com/andrelmlins/freesoccer)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/andrelmlins/freesoccer/blob/master/LICENSE)
 [![Known Vulnerabilities](https://snyk.io/test/github/andrelmlins/freesoccer/badge.svg)](https://snyk.io/test/github/andrelmlins/freesoccer)
