@@ -1,6 +1,6 @@
 <div align="center">
 
-<img alt="Logo FreeSoccer" src="https://raw.githubusercontent.com/andrelmlins/freesoccer/master/public/logo.png" width="400px">
+![FreeSoccer](https://raw.githubusercontent.com/andrelmlins/freesoccer/master/public/logo.png)
 
 [Free API](https://www.apifreesoccer.com/) with results from national football competitions
 
