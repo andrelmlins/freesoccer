@@ -3,15 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@material-ui/core": "^3.6.2",
-    "@material-ui/icons": "^3.0.1",
+    "@material-ui/core": "^4.0.2",
+    "@material-ui/icons": "^4.0.1",
     "axios": "^0.19.0",
-    "react": "^16.6.3",
-    "react-dom": "^16.6.3",
-    "react-router-dom": "^4.3.1",
-    "react-scripts": "2.1.1",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-router-dom": "^5.0.1",
+    "react-scripts": "3.0.1",
     "react-scrollable-anchor": "^0.6.1",
-    "swagger-ui": "^3.20.3",
+    "swagger-ui": "^3.22.2",
     "swagger-ui-themes": "^3.0.0"
   },
   "scripts": {
