@@ -1,14 +1,14 @@
-import axios from "axios";
-import https from "https";
-import cheerio from "cheerio";
+import axios from 'axios';
+import https from 'https';
+import cheerio from 'cheerio';
 
-import FigcConstants from "../../constants/FigcConstants";
-import Helpers from "../../utils/Helpers";
-import ICompetitionDefault from "../../interfaces/ICompetitionDefault";
+import FigcConstants from '../../constants/FigcConstants';
+import Helpers from '../../utils/Helpers';
+import ICompetitionDefault from '../../interfaces/ICompetitionDefault';
 
-import { Competition } from "../../schemas/Competition";
-import { Table } from "../../schemas/Table";
-import ItemTable from "../../schemas/ItemTable";
+import { Competition } from '../../schemas/Competition';
+import { Table } from '../../schemas/Table';
+import ItemTable from '../../schemas/ItemTable';
 
 export default class FigcTableScraping {
   public lastYear: boolean;
@@ -25,31 +25,31 @@ export default class FigcTableScraping {
   }
 
   public async run(competition: ICompetitionDefault) {
-    console.log("-> FIGC TABLE LEAGUE SCRAPING");
+    console.log('-> FIGC TABLE LEAGUE SCRAPING');
 
     await this.runCompetition(competition);
   }
 
   public async runCompetition(competitionDefault: ICompetitionDefault) {
-    console.log("\t-> " + competitionDefault.name);
+    console.log('\t-> ' + competitionDefault.name);
 
     let initial = 0;
     if (this.lastYear) initial = competitionDefault.years!.length - 1;
 
     for (let i = initial; i < competitionDefault.years!.length; i++) {
-      console.log("\t\t-> " + competitionDefault.years![i]);
+      console.log('\t\t-> ' + competitionDefault.years![i]);
 
       let competition = await Competition.findOne({ code: competitionDefault.code, year: competitionDefault.years![i] });
 
-      let newYear = parseInt(competition!.year.substring(2, 4)) + 1 + "";
-      if (newYear.length == 1) newYear = "0" + newYear;
+      let newYear = parseInt(competition!.year.substring(2, 4)) + 1 + '';
+      if (newYear.length == 1) newYear = '0' + newYear;
 
-      let year = competition!.year + "-" + newYear;
+      let year = competition!.year + '-' + newYear;
 
       let page = await this.axios.get(`${competitionDefault.aux.url}/classifica/${year}`);
 
       let $ = cheerio.load(page.data);
-      let tableHtml = $(".competizione-classifica table tbody").children();
+      let tableHtml = $('.competizione-classifica table tbody').children();
 
       let table = new Table();
       table.competition = competition!._id;
@@ -66,12 +66,12 @@ export default class FigcTableScraping {
 
   public runItemTable(tableHtml: any, position: number): ItemTable | null {
     let data = tableHtml.children();
-    data.eq(0).children("span").remove();
+    data.eq(0).children('span').remove();
 
     let item = new ItemTable();
     item.position = position;
     item.name = data.eq(0).text().trim();
-    item.flag = FigcConstants.URL_DEFAULT + data.eq(0).find("img").attr("src").trim();
+    item.flag = FigcConstants.URL_DEFAULT + data.eq(0).find('img').attr('src').trim();
     item.points = parseInt(data.eq(1).text().trim());
     item.matches = parseInt(data.eq(2).text().trim());
     item.win = parseInt(data.eq(3).text().trim());

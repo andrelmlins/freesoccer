@@ -1,9 +1,9 @@
-import { Response, Request } from "express";
+import { Response, Request } from 'express';
 
-import FigcConstants from "../../constants/FigcConstants";
-import FigcScraping from "../../scraping/FigcScraping";
-import CompetitionUtil from "../../utils/CompetitionUtil";
-import ICompetitionDefault from "../../interfaces/ICompetitionDefault";
+import FigcConstants from '../../constants/FigcConstants';
+import FigcScraping from '../../scraping/FigcScraping';
+import CompetitionUtil from '../../utils/CompetitionUtil';
+import ICompetitionDefault from '../../interfaces/ICompetitionDefault';
 
 export default class FigcController {
   public async loadResults(req: Request, res: Response) {
@@ -13,10 +13,10 @@ export default class FigcController {
       let figcScraping: FigcScraping = new FigcScraping();
       await figcScraping.run(competition);
 
-      res.send({ message: "Success" });
+      res.send({ message: 'Success' });
     } catch (error) {
       console.log(error);
-      res.status(404).send({ error: error + "" });
+      res.status(404).send({ error: error + '' });
     }
   }
 
@@ -27,10 +27,10 @@ export default class FigcController {
       let figcScraping: FigcScraping = new FigcScraping();
       await figcScraping.runTable(competition);
 
-      res.send({ message: "Success" });
+      res.send({ message: 'Success' });
     } catch (error) {
       console.log(error);
-      res.status(404).send({ error: error + "" });
+      res.status(404).send({ error: error + '' });
     }
   }
 }

@@ -1,8 +1,8 @@
-import ICompetitionDefault from "../interfaces/ICompetitionDefault";
-import IFederationScraping from "../interfaces/IFederationScraping";
-import CompetitionType from "../enums/CompetitionType";
-import FaLeagueScraping from "./leagues/FaLeagueScraping";
-import FaTableScraping from "./tables/FaTableScraping";
+import ICompetitionDefault from '../interfaces/ICompetitionDefault';
+import IFederationScraping from '../interfaces/IFederationScraping';
+import CompetitionType from '../enums/CompetitionType';
+import FaLeagueScraping from './leagues/FaLeagueScraping';
+import FaTableScraping from './tables/FaTableScraping';
 
 export default class FaScraping implements IFederationScraping {
   public lastYear: boolean;
@@ -17,7 +17,7 @@ export default class FaScraping implements IFederationScraping {
   }
 
   public async run(competition: ICompetitionDefault) {
-    console.log("-> FA SCRAPING");
+    console.log('-> FA SCRAPING');
 
     switch (competition.type) {
       case CompetitionType.LEAGUE:
@@ -27,12 +27,12 @@ export default class FaScraping implements IFederationScraping {
   }
 
   public async runTable(competition: ICompetitionDefault) {
-    console.log("-> FA TABLE SCRAPING");
+    console.log('-> FA TABLE SCRAPING');
 
     if (competition.type === CompetitionType.LEAGUE) {
       await this.faTableScraping.run(competition);
     } else {
-      throw new Error("Competition does not have a table");
+      throw new Error('Competition does not have a table');
     }
   }
 

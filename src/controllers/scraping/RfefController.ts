@@ -1,9 +1,9 @@
-import { Response, Request } from "express";
+import { Response, Request } from 'express';
 
-import RfefConstants from "../../constants/RfefConstants";
-import RfefScraping from "../../scraping/RfefScraping";
-import CompetitionUtil from "../../utils/CompetitionUtil";
-import ICompetitionDefault from "../../interfaces/ICompetitionDefault";
+import RfefConstants from '../../constants/RfefConstants';
+import RfefScraping from '../../scraping/RfefScraping';
+import CompetitionUtil from '../../utils/CompetitionUtil';
+import ICompetitionDefault from '../../interfaces/ICompetitionDefault';
 
 export default class RfefController {
   public async loadResults(req: Request, res: Response) {
@@ -13,9 +13,9 @@ export default class RfefController {
       let rfefScraping: RfefScraping = new RfefScraping();
       await rfefScraping.run(competition);
 
-      res.send({ message: "Success" });
+      res.send({ message: 'Success' });
     } catch (error) {
-      res.status(404).send({ error: error + "" });
+      res.status(404).send({ error: error + '' });
     }
   }
 
@@ -26,10 +26,10 @@ export default class RfefController {
       let fpfScraping: RfefScraping = new RfefScraping();
       await fpfScraping.runTable(competition);
 
-      res.send({ message: "Success" });
+      res.send({ message: 'Success' });
     } catch (error) {
       //console.log(error);
-      res.status(404).send({ error: error + "" });
+      res.status(404).send({ error: error + '' });
     }
   }
 }

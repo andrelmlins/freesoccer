@@ -1,9 +1,9 @@
-import { Response, Request } from "express";
+import { Response, Request } from 'express';
 
-import FaConstants from "../../constants/FaConstants";
-import FaScraping from "../../scraping/FaScraping";
-import CompetitionUtil from "../../utils/CompetitionUtil";
-import ICompetitionDefault from "../../interfaces/ICompetitionDefault";
+import FaConstants from '../../constants/FaConstants';
+import FaScraping from '../../scraping/FaScraping';
+import CompetitionUtil from '../../utils/CompetitionUtil';
+import ICompetitionDefault from '../../interfaces/ICompetitionDefault';
 
 export default class FaController {
   public async loadResults(req: Request, res: Response) {
@@ -13,10 +13,10 @@ export default class FaController {
       let faScraping: FaScraping = new FaScraping();
       await faScraping.run(competition);
 
-      res.send({ message: "Success" });
+      res.send({ message: 'Success' });
     } catch (error) {
       console.log(error);
-      res.status(404).send({ error: error + "" });
+      res.status(404).send({ error: error + '' });
     }
   }
 
@@ -27,10 +27,10 @@ export default class FaController {
       let faScraping: FaScraping = new FaScraping();
       await faScraping.runTable(competition);
 
-      res.send({ message: "Success" });
+      res.send({ message: 'Success' });
     } catch (error) {
       console.log(error);
-      res.status(404).send({ error: error + "" });
+      res.status(404).send({ error: error + '' });
     }
   }
 }

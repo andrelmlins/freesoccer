@@ -1,6 +1,6 @@
-import CompetitionCode from "../enums/CompetitionCode";
-import Helpers from "../utils/Helpers";
-import CompetitionUtil from "../utils/CompetitionUtil";
+import CompetitionCode from '../enums/CompetitionCode';
+import Helpers from '../utils/Helpers';
+import CompetitionUtil from '../utils/CompetitionUtil';
 
 export default class Scraping {
   public lastYear: boolean;
@@ -13,7 +13,7 @@ export default class Scraping {
 
   public async run() {
     const competitionEnum = Helpers.getEnumKeyByEnumValue(CompetitionCode, this.competition);
-    const federation = CompetitionUtil.getFederation(competitionEnum!.split("_")[0]);
+    const federation = CompetitionUtil.getFederation(competitionEnum!.split('_')[0]);
     const competition = CompetitionUtil.getCompetition(federation.Constant.COMPETITIONS, this.competition);
     const scraping = new federation.Scraping();
     await scraping.run(competition);

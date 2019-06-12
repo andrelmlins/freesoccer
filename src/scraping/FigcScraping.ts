@@ -1,8 +1,8 @@
-import ICompetitionDefault from "../interfaces/ICompetitionDefault";
-import IFederationScraping from "../interfaces/IFederationScraping";
-import CompetitionType from "../enums/CompetitionType";
-import FigcLeagueScraping from "./leagues/FigcLeagueScraping";
-import FigcTableScraping from "./tables/FigcTableScraping";
+import ICompetitionDefault from '../interfaces/ICompetitionDefault';
+import IFederationScraping from '../interfaces/IFederationScraping';
+import CompetitionType from '../enums/CompetitionType';
+import FigcLeagueScraping from './leagues/FigcLeagueScraping';
+import FigcTableScraping from './tables/FigcTableScraping';
 
 export default class FigcScraping implements IFederationScraping {
   public lastYear: boolean;
@@ -17,7 +17,7 @@ export default class FigcScraping implements IFederationScraping {
   }
 
   public async run(competition: ICompetitionDefault) {
-    console.log("-> FIGC SCRAPING");
+    console.log('-> FIGC SCRAPING');
 
     switch (competition.type) {
       case CompetitionType.LEAGUE:
@@ -27,12 +27,12 @@ export default class FigcScraping implements IFederationScraping {
   }
 
   public async runTable(competition: ICompetitionDefault) {
-    console.log("-> FIGC TABLE SCRAPING");
+    console.log('-> FIGC TABLE SCRAPING');
 
     if (competition.type === CompetitionType.LEAGUE) {
       await this.figcTableScraping.run(competition);
     } else {
-      throw new Error("Competition does not have a table");
+      throw new Error('Competition does not have a table');
     }
   }
 

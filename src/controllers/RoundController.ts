@@ -1,8 +1,8 @@
-import { Response, Request } from "express";
+import { Response, Request } from 'express';
 
-import { Competition } from "../schemas/Competition";
-import { Round } from "../schemas/Round";
-import Helpers from "../utils/Helpers";
+import { Competition } from '../schemas/Competition';
+import { Round } from '../schemas/Round';
+import Helpers from '../utils/Helpers';
 
 export default class RoundController {
   public async all(req: Request, res: Response) {
@@ -10,7 +10,7 @@ export default class RoundController {
       let competition = await Competition.findOne({ code: req.params.competition, year: req.params.year });
 
       if (competition == null) {
-        throw new Error("Competition does not exist");
+        throw new Error('Competition does not exist');
       } else {
         let rounds = await Round.aggregate([
           {
@@ -24,8 +24,8 @@ export default class RoundController {
               goalsHome: 1,
               goalsGuest: 1,
               hash: 1,
-              url: { $concat: [Helpers.getUrl(req, "/api/rounds"), "/", "$hash"] },
-              matches: { $size: "$matchs" }
+              url: { $concat: [Helpers.getUrl(req, '/api/rounds'), '/', '$hash'] },
+              matches: { $size: '$matchs' }
             }
           }
         ]);
@@ -51,11 +51,11 @@ export default class RoundController {
             goalsHome: 1,
             goalsGuest: 1,
             hash: 1,
-            matches: { $size: "$matchs" },
-            url: { $concat: [Helpers.getUrl(req, req.url), "/", "$hash"] },
+            matches: { $size: '$matchs' },
+            url: { $concat: [Helpers.getUrl(req, req.url), '/', '$hash'] },
             urls: {
-              matches: Helpers.getUrl(req, req.url) + "/matches",
-              statistics: Helpers.getUrl(req, req.url) + "/statistics"
+              matches: Helpers.getUrl(req, req.url) + '/matches',
+              statistics: Helpers.getUrl(req, req.url) + '/statistics'
             }
           }
         }

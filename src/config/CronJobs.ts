@@ -1,33 +1,33 @@
-import cron from "cron";
+import cron from 'cron';
 
-import CbfConstants from "../constants/CbfConstants";
-import FffConstants from "../constants/FffConstants";
-import FigcConstants from "../constants/FigcConstants";
-import FpfConstants from "../constants/FpfConstants";
-import RfefConstants from "../constants/RfefConstants";
-import DfbConstants from "../constants/DfbConstants";
-import FaConstants from "../constants/FaConstants";
+import CbfConstants from '../constants/CbfConstants';
+import FffConstants from '../constants/FffConstants';
+import FigcConstants from '../constants/FigcConstants';
+import FpfConstants from '../constants/FpfConstants';
+import RfefConstants from '../constants/RfefConstants';
+import DfbConstants from '../constants/DfbConstants';
+import FaConstants from '../constants/FaConstants';
 
-import CbfScraping from "../scraping/CbfScraping";
-import FffScraping from "../scraping/FffScraping";
-import FigcScraping from "../scraping/FigcScraping";
-import FpfScraping from "../scraping/FpfScraping";
-import RfefScraping from "../scraping/RfefScraping";
-import DfbScraping from "../scraping/DfbScraping";
-import FaScraping from "../scraping/FaScraping";
+import CbfScraping from '../scraping/CbfScraping';
+import FffScraping from '../scraping/FffScraping';
+import FigcScraping from '../scraping/FigcScraping';
+import FpfScraping from '../scraping/FpfScraping';
+import RfefScraping from '../scraping/RfefScraping';
+import DfbScraping from '../scraping/DfbScraping';
+import FaScraping from '../scraping/FaScraping';
 
-import ICompetitionDefault from "../interfaces/ICompetitionDefault";
+import ICompetitionDefault from '../interfaces/ICompetitionDefault';
 
-import CompetitionType from "../enums/CompetitionType";
+import CompetitionType from '../enums/CompetitionType';
 
 export default class CronJobs {
   constructor() {}
 
   public crons(): void {
     new cron.CronJob(
-      "0 */15 * * * *",
+      '0 */15 * * * *',
       async () => {
-        console.log("START CRAWLER YEAR CURRENT");
+        console.log('START CRAWLER YEAR CURRENT');
 
         this.loopGeneric(CbfConstants.COMPETITIONS, new CbfScraping(true));
         this.loopGeneric(DfbConstants.COMPETITIONS, new DfbScraping(true));
@@ -39,13 +39,13 @@ export default class CronJobs {
       },
       null,
       true,
-      "America/Los_Angeles"
+      'America/Los_Angeles'
     );
 
     new cron.CronJob(
-      "0 0 */12 * * *",
+      '0 0 */12 * * *',
       async () => {
-        console.log("START CRAWLER");
+        console.log('START CRAWLER');
 
         this.loopGeneric(CbfConstants.COMPETITIONS, new CbfScraping(false));
         this.loopGeneric(DfbConstants.COMPETITIONS, new DfbScraping(false));
@@ -57,7 +57,7 @@ export default class CronJobs {
       },
       null,
       true,
-      "America/Los_Angeles"
+      'America/Los_Angeles'
     );
   }
 

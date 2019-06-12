@@ -1,8 +1,8 @@
-import ICompetitionDefault from "../interfaces/ICompetitionDefault";
-import IFederationScraping from "../interfaces/IFederationScraping";
-import CompetitionType from "../enums/CompetitionType";
-import RfefLeagueScraping from "./leagues/RfefLeagueScraping";
-import RfefTableScraping from "./tables/RfefTableScraping";
+import ICompetitionDefault from '../interfaces/ICompetitionDefault';
+import IFederationScraping from '../interfaces/IFederationScraping';
+import CompetitionType from '../enums/CompetitionType';
+import RfefLeagueScraping from './leagues/RfefLeagueScraping';
+import RfefTableScraping from './tables/RfefTableScraping';
 
 export default class RfefScraping implements IFederationScraping {
   public lastYear: boolean;
@@ -17,7 +17,7 @@ export default class RfefScraping implements IFederationScraping {
   }
 
   public async run(competition: ICompetitionDefault) {
-    console.log("-> RFEF SCRAPING");
+    console.log('-> RFEF SCRAPING');
 
     switch (competition.type) {
       case CompetitionType.LEAGUE:
@@ -31,12 +31,12 @@ export default class RfefScraping implements IFederationScraping {
   }
 
   public async runTable(competition: ICompetitionDefault) {
-    console.log("-> RFEF TABLE SCRAPING");
+    console.log('-> RFEF TABLE SCRAPING');
 
     if (competition.type === CompetitionType.LEAGUE) {
       await this.rfefTableScraping.run(competition);
     } else {
-      throw new Error("Competition does not have a table");
+      throw new Error('Competition does not have a table');
     }
   }
 }

@@ -1,7 +1,7 @@
-import commander from "commander";
-import mongoose from "mongoose";
+import commander from 'commander';
+import mongoose from 'mongoose';
 
-import CompetitionUtil from "../utils/CompetitionUtil";
+import CompetitionUtil from '../utils/CompetitionUtil';
 
 class Commander {
   public program: commander.Command;
@@ -15,8 +15,8 @@ class Commander {
   }
 
   private config(): void {
-    const ipMongo = process.env.IP_MONGO || "localhost";
-    const baseMongo = process.env.BASE_MONGO || "freesoccer";
+    const ipMongo = process.env.IP_MONGO || 'localhost';
+    const baseMongo = process.env.BASE_MONGO || 'freesoccer';
     const usrMongo = process.env.USR_MONGO;
     const pswMongo = process.env.PSW_MONGO;
 
@@ -38,7 +38,7 @@ class Commander {
     if(this.program.competition){
       CompetitionUtil.runScraping(this.program.competition, this.program.lastYear, this.program.table);
     } else {
-      throw new Error("Competition does not exist");
+      throw new Error('Competition does not exist');
     }
   }
 }

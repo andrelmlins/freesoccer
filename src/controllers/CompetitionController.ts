@@ -1,9 +1,9 @@
-import { Response, Request } from "express";
+import { Response, Request } from 'express';
 
-import { Competition } from "../schemas/Competition";
-import Helpers from "../utils/Helpers";
+import { Competition } from '../schemas/Competition';
+import Helpers from '../utils/Helpers';
 
-export default class CompetitionController {
+export default class CompetitionCotroller {
   public async all(req: Request, res: Response) {
     try {
       let competitions = await Competition.aggregate([
@@ -12,13 +12,13 @@ export default class CompetitionController {
         },
         {
           $group: {
-            _id: "$code",
-            name: { $first: "$name" },
-            code: { $first: "$code" },
-            type: { $first: "$type" },
-            country: { $first: "$country" },
-            federation: { $first: "$federation" },
-            years: { $push: "$year" }
+            _id: '$code',
+            name: { $first: '$name' },
+            code: { $first: '$code' },
+            type: { $first: '$type' },
+            country: { $first: '$country' },
+            federation: { $first: '$federation' },
+            years: { $push: '$year' }
           }
         },
         {
@@ -29,8 +29,8 @@ export default class CompetitionController {
             name: 1,
             country: 1,
             federation: 1,
-            url: { $concat: [Helpers.getUrl(req, req.url), "/", "$code"] },
-            years: "$years"
+            url: { $concat: [Helpers.getUrl(req, req.url), '/', '$code'] },
+            years: '$years'
           }
         }
       ]);
@@ -49,17 +49,17 @@ export default class CompetitionController {
         },
         {
           $group: {
-            _id: "$code",
-            name: { $first: "$name" },
-            code: { $first: "$code" },
-            type: { $first: "$type" },
-            country: { $first: "$country" },
-            federation: { $first: "$federation" },
+            _id: '$code',
+            name: { $first: '$name' },
+            code: { $first: '$code' },
+            type: { $first: '$type' },
+            country: { $first: '$country' },
+            federation: { $first: '$federation' },
             years: {
               $push: {
-                year: "$year",
-                rounds: { $sum: { $size: "$rounds" } },
-                url: { $concat: [Helpers.getUrl(req, req.url), "/", "$year"] }
+                year: '$year',
+                rounds: { $sum: { $size: '$rounds' } },
+                url: { $concat: [Helpers.getUrl(req, req.url), '/', '$year'] }
               }
             }
           }
@@ -73,7 +73,7 @@ export default class CompetitionController {
             country: 1,
             federation: 1,
             url: Helpers.getUrl(req, req.url),
-            years: "$years"
+            years: '$years'
           }
         }
       ]);
@@ -92,14 +92,14 @@ export default class CompetitionController {
         },
         {
           $group: {
-            _id: "$code",
-            name: { $first: "$name" },
-            code: { $first: "$code" },
-            type: { $first: "$type" },
-            country: { $first: "$country" },
-            federation: { $first: "$federation" },
-            year: { $first: "$year" },
-            rounds: { $sum: { $size: "$rounds" } }
+            _id: '$code',
+            name: { $first: '$name' },
+            code: { $first: '$code' },
+            type: { $first: '$type' },
+            country: { $first: '$country' },
+            federation: { $first: '$federation' },
+            year: { $first: '$year' },
+            rounds: { $sum: { $size: '$rounds' } }
           }
         },
         {
@@ -114,10 +114,10 @@ export default class CompetitionController {
             rounds: 1,
             url: Helpers.getUrl(req, req.url),
             urls: {
-              rounds: Helpers.getUrl(req, req.url) + "/rounds",
-              matches: Helpers.getUrl(req, req.url) + "/matches",
-              statistics: Helpers.getUrl(req, req.url) + "/statistics",
-              table: Helpers.getUrl(req, req.url) + "/table"
+              rounds: Helpers.getUrl(req, req.url) + '/rounds',
+              matches: Helpers.getUrl(req, req.url) + '/matches',
+              statistics: Helpers.getUrl(req, req.url) + '/statistics',
+              table: Helpers.getUrl(req, req.url) + '/table'
             }
           }
         }
