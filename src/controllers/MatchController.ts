@@ -1,8 +1,8 @@
-import { Response, Request } from "express";
+import { Response, Request } from 'express';
 
-import { Competition } from "../schemas/Competition";
-import { Round } from "../schemas/Round";
-import Helpers from "../utils/Helpers";
+import { Competition } from '../schemas/Competition';
+import { Round } from '../schemas/Round';
+import Helpers from '../utils/Helpers';
 
 export default class MatchController {
   public async getRound(req: Request, res: Response) {
@@ -21,28 +21,28 @@ export default class MatchController {
       let competition = await Competition.findOne({ code: req.params.competition, year: req.params.year });
 
       if (competition == null) {
-        throw new Error("Competition does not exist");
+        throw new Error('Competition does not exist');
       } else {
         let matches = await Round.aggregate([
           {
             $match: { competition: competition._id }
           },
           {
-            $unwind: "$matchs"
+            $unwind: '$matchs'
           },
           {
             $project: {
               _id: 0,
               round: {
-                number: "$number",
-                hash: "$hash",
-                url: { $concat: [Helpers.getUrl(req, "/api/rounds"), "/", "$hash"] }
+                number: '$number',
+                hash: '$hash',
+                url: { $concat: [Helpers.getUrl(req, '/api/rounds'), '/', '$hash'] }
               },
-              date: "$matchs.date",
-              stadium: "$matchs.stadium",
-              location: "$matchs.location",
-              teamHome: "$matchs.teamHome",
-              teamGuest: "$matchs.teamGuest"
+              date: '$matchs.date',
+              stadium: '$matchs.stadium',
+              location: '$matchs.location',
+              teamHome: '$matchs.teamHome',
+              teamGuest: '$matchs.teamGuest'
             }
           }
         ]);

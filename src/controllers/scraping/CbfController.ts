@@ -1,9 +1,9 @@
-import { Response, Request } from "express";
+import { Response, Request } from 'express';
 
-import CbfConstants from "../../constants/CbfConstants";
-import CbfScraping from "../../scraping/CbfScraping";
-import CompetitionUtil from "../../utils/CompetitionUtil";
-import ICompetitionDefault from "../../interfaces/ICompetitionDefault";
+import CbfConstants from '../../constants/CbfConstants';
+import CbfScraping from '../../scraping/CbfScraping';
+import CompetitionUtil from '../../utils/CompetitionUtil';
+import ICompetitionDefault from '../../interfaces/ICompetitionDefault';
 
 export default class CbfController {
   public async loadResults(req: Request, res: Response) {
@@ -13,10 +13,10 @@ export default class CbfController {
       let cbfScraping: CbfScraping = new CbfScraping();
       await cbfScraping.run(competition);
 
-      res.send({ message: "Success" });
+      res.send({ message: 'Success' });
     } catch (error) {
       console.log(error);
-      res.status(404).send({ error: error + "" });
+      res.status(404).send({ error: error + '' });
     }
   }
 
@@ -27,9 +27,9 @@ export default class CbfController {
       let cbfScraping: CbfScraping = new CbfScraping();
       await cbfScraping.runTable(competition);
 
-      res.send({ message: "Success" });
+      res.send({ message: 'Success' });
     } catch (error) {
-      res.status(404).send({ error: error + "" });
+      res.status(404).send({ error: error + '' });
     }
   }
 }

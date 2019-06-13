@@ -1,13 +1,13 @@
-import axios from "axios";
-import cheerio from "cheerio";
+import axios from 'axios';
+import cheerio from 'cheerio';
 
-import FaConstants from "../../constants/FaConstants";
-import Helpers from "../../utils/Helpers";
-import ICompetitionDefault from "../../interfaces/ICompetitionDefault";
+import FaConstants from '../../constants/FaConstants';
+import Helpers from '../../utils/Helpers';
+import ICompetitionDefault from '../../interfaces/ICompetitionDefault';
 
-import { Competition } from "../../schemas/Competition";
-import { Table } from "../../schemas/Table";
-import ItemTable from "../../schemas/ItemTable";
+import { Competition } from '../../schemas/Competition';
+import { Table } from '../../schemas/Table';
+import ItemTable from '../../schemas/ItemTable';
 
 export default class FaTableScraping {
   public lastYear: boolean;
@@ -17,7 +17,7 @@ export default class FaTableScraping {
   }
 
   public async run(competition: ICompetitionDefault) {
-    console.log("-> FA TABLE LEAGUE SCRAPING");
+    console.log('-> FA TABLE LEAGUE SCRAPING');
 
     //await this.runCompetition(competition)
   }

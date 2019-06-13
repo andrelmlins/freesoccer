@@ -1,7 +1,7 @@
-import { Document, Schema, Model, model } from "mongoose";
+import { Document, Schema, Model, model } from 'mongoose';
 
-import Match from "./Match";
-import { ICompetition } from "./Competition";
+import Match from './Match';
+import { ICompetition } from './Competition';
 
 export interface IRound extends Document {
   hash: string;
@@ -20,7 +20,7 @@ export var RoundSchema: Schema = new Schema({
   goalsHome: Number,
   goalsGuest: Number,
   matchs: [Object],
-  competition: { type: Schema.Types.ObjectId, ref: "Competition" }
+  competition: { type: Schema.Types.ObjectId, ref: 'Competition' }
 });
 
-export const Round: Model<IRound> = model<IRound>("Round", RoundSchema);
+export const Round: Model<IRound> = model<IRound>('Round', RoundSchema);

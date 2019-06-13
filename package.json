@@ -39,6 +39,8 @@
     "morgan": "^1.9.1",
     "path": "^0.12.7",
     "puppeteer": "^1.17.0",
+    "serve-favicon": "^2.5.0",
+    "swagger-ui-express": "^4.0.6",
     "typescript": "^3.5.1"
   },
   "devDependencies": {

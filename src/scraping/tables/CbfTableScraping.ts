@@ -1,13 +1,13 @@
-import axios from "axios";
-import cheerio from "cheerio";
+import axios from 'axios';
+import cheerio from 'cheerio';
 
-import CbfConstants from "../../constants/CbfConstants";
-import Helpers from "../../utils/Helpers";
-import ICompetitionDefault from "../../interfaces/ICompetitionDefault";
+import CbfConstants from '../../constants/CbfConstants';
+import Helpers from '../../utils/Helpers';
+import ICompetitionDefault from '../../interfaces/ICompetitionDefault';
 
-import { Competition } from "../../schemas/Competition";
-import { Table } from "../../schemas/Table";
-import ItemTable from "../../schemas/ItemTable";
+import { Competition } from '../../schemas/Competition';
+import { Table } from '../../schemas/Table';
+import ItemTable from '../../schemas/ItemTable';
 
 export default class CbfTableScraping {
   public lastYear: boolean;
@@ -17,19 +17,19 @@ export default class CbfTableScraping {
   }
 
   public async run(competition: ICompetitionDefault) {
-    console.log("-> CBF LEAGUE SCRAPING");
+    console.log('-> CBF LEAGUE SCRAPING');
 
     await this.runCompetition(competition);
   }
 
   public async runCompetition(competitionDefault: ICompetitionDefault) {
-    console.log("\t-> " + competitionDefault.name);
+    console.log('\t-> ' + competitionDefault.name);
 
     let initial = 0;
     if (this.lastYear) initial = competitionDefault.years!.length - 1;
 
     for (let i = initial; i < competitionDefault.years!.length; i++) {
-      console.log("\t\t-> " + competitionDefault.years![i]);
+      console.log('\t\t-> ' + competitionDefault.years![i]);
 
       let competition = await Competition.findOne({ code: competitionDefault.code, year: competitionDefault.years![i] });
 
@@ -37,8 +37,8 @@ export default class CbfTableScraping {
 
       let $ = cheerio.load(page.data);
 
-      let section = $(".container section");
-      let tableHtml = section.children().eq(0).children("table").children("tbody").children();
+      let section = $('.container section');
+      let tableHtml = section.children().eq(0).children('table').children('tbody').children();
 
       let table = new Table();
       table.competition = competition!._id;
@@ -60,7 +60,7 @@ export default class CbfTableScraping {
       let item = new ItemTable();
       item.position = position;
       item.name = data.eq(0).children().last().text().trim();
-      item.flag = data.eq(0).children("img").attr("src").trim();
+      item.flag = data.eq(0).children('img').attr('src').trim();
       item.points = parseInt(data.eq(1).text().trim());
       item.matches = parseInt(data.eq(2).text().trim());
       item.win = parseInt(data.eq(3).text().trim());

@@ -1,14 +1,14 @@
-import axios from "axios";
-import https from "https";
-import cheerio from "cheerio";
+import axios from 'axios';
+import https from 'https';
+import cheerio from 'cheerio';
 
-import FffConstants from "../../constants/FffConstants";
-import Helpers from "../../utils/Helpers";
-import ICompetitionDefault from "../../interfaces/ICompetitionDefault";
+import FffConstants from '../../constants/FffConstants';
+import Helpers from '../../utils/Helpers';
+import ICompetitionDefault from '../../interfaces/ICompetitionDefault';
 
-import { Competition } from "../../schemas/Competition";
-import { Table } from "../../schemas/Table";
-import ItemTable from "../../schemas/ItemTable";
+import { Competition } from '../../schemas/Competition';
+import { Table } from '../../schemas/Table';
+import ItemTable from '../../schemas/ItemTable';
 
 export default class FffTableScraping {
   public lastYear: boolean;
@@ -25,29 +25,29 @@ export default class FffTableScraping {
   }
 
   public async run(competition: ICompetitionDefault) {
-    console.log("-> FFF TABLE LEAGUE SCRAPING");
+    console.log('-> FFF TABLE LEAGUE SCRAPING');
 
     await this.runCompetition(competition);
   }
 
   public async runCompetition(competitionDefault: ICompetitionDefault) {
-    console.log("\t-> " + competitionDefault.name);
+    console.log('\t-> ' + competitionDefault.name);
 
     let pageSeason = await this.axios.get(`${FffConstants.URL_DEFAULT}/${competitionDefault.code}/classement`);
 
     let $ = cheerio.load(pageSeason.data);
-    let seasons = $("select[name='saison']").children();
+    let seasons = $('select[name="saison"]').children();
 
     let end = seasons.length;
     if (this.lastYear) end = 1;
 
     for (let i = 0; i < end; i++) {
-      let numberSeason = parseInt(seasons.eq(i).attr("value"));
+      let numberSeason = parseInt(seasons.eq(i).attr('value'));
 
       if (numberSeason >= FffConstants.START_SEASON) {
-        let year = parseInt(seasons.eq(i).text().split("/")[0]);
+        let year = parseInt(seasons.eq(i).text().split('/')[0]);
 
-        console.log("\t\t-> " + year);
+        console.log('\t\t-> ' + year);
 
         let competition = await Competition.findOne({ code: competitionDefault.code, year: year });
 
@@ -56,7 +56,7 @@ export default class FffTableScraping {
         );
 
         let $ = cheerio.load(page.data);
-        let tableHtml = $("#liste_classement table tbody").children();
+        let tableHtml = $('#liste_classement table tbody').children();
 
         let table = new Table();
         table.competition = competition!._id;
@@ -78,7 +78,7 @@ export default class FffTableScraping {
     let item = new ItemTable();
     item.position = position;
     item.name = data.eq(2).text().trim();
-    item.flag = FffConstants.URL_DEFAULT + data.eq(2).find("img").attr("src").trim();
+    item.flag = FffConstants.URL_DEFAULT + data.eq(2).find('img').attr('src').trim();
     item.points = parseInt(data.eq(10).text().trim());
     item.matches = parseInt(data.eq(3).text().trim());
     item.win = parseInt(data.eq(4).text().trim());

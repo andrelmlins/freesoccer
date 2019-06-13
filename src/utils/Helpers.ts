@@ -1,12 +1,12 @@
-import { Request } from "express";
-import puppeteer from "puppeteer";
+import { Request } from 'express';
+import puppeteer from 'puppeteer';
 
-import ICompetitionDefault from "../interfaces/ICompetitionDefault";
+import ICompetitionDefault from '../interfaces/ICompetitionDefault';
 
-import { IRound, Round } from "../schemas/Round";
-import { ICompetition, Competition } from "../schemas/Competition";
-import { ITable, Table } from "../schemas/Table";
-import { IStage, Stage } from "../schemas/Stage";
+import { IRound, Round } from '../schemas/Round';
+import { ICompetition, Competition } from '../schemas/Competition';
+import { ITable, Table } from '../schemas/Table';
+import { IStage, Stage } from '../schemas/Stage';
 
 export default class Helpers {
 
@@ -88,7 +88,7 @@ export default class Helpers {
   }
 
   public static getUrl(req: Request, url: string): string {
-    return req.protocol + "://" + req.get("host") + url;
+    return req.protocol + '://' + req.get('host') + url;
   }
 
   public static async autoScroll(page: any) {

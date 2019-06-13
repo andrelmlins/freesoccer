@@ -1,9 +1,9 @@
-import ICompetitionDefault from "../interfaces/ICompetitionDefault";
-import IFederationScraping from "../interfaces/IFederationScraping";
-import CompetitionType from "../enums/CompetitionType";
-import FpfLeagueScraping from "./leagues/FpfLeagueScraping";
-import FpfTableScraping from "./tables/FpfTableScraping";
-import { Request } from "express";
+import ICompetitionDefault from '../interfaces/ICompetitionDefault';
+import IFederationScraping from '../interfaces/IFederationScraping';
+import CompetitionType from '../enums/CompetitionType';
+import FpfLeagueScraping from './leagues/FpfLeagueScraping';
+import FpfTableScraping from './tables/FpfTableScraping';
+import { Request } from 'express';
 
 export default class FpfScraping implements IFederationScraping {
   public lastYear: boolean;
@@ -18,7 +18,7 @@ export default class FpfScraping implements IFederationScraping {
   }
 
   public async run(competition: ICompetitionDefault) {
-    console.log("-> FPF SCRAPING");
+    console.log('-> FPF SCRAPING');
 
     switch (competition.type) {
       case CompetitionType.LEAGUE:
@@ -28,12 +28,12 @@ export default class FpfScraping implements IFederationScraping {
   }
 
   public async runTable(competition: ICompetitionDefault) {
-    console.log("-> FPF TABLE SCRAPING");
+    console.log('-> FPF TABLE SCRAPING');
 
     if (competition.type === CompetitionType.LEAGUE) {
       await this.fpfTableScraping.run(competition);
     } else {
-      throw new Error("Competition does not have a table");
+      throw new Error('Competition does not have a table');
     }
   }
 

@@ -1,17 +1,17 @@
-import axios from "axios";
-import https from "https";
-import cheerio from "cheerio";
-import md5 from "md5";
-import moment from "moment";
+import axios from 'axios';
+import https from 'https';
+import cheerio from 'cheerio';
+import md5 from 'md5';
+import moment from 'moment';
 
-import FigcConstants from "../../constants/FigcConstants";
-import Helpers from "../../utils/Helpers";
-import ICompetitionDefault from "../../interfaces/ICompetitionDefault";
+import FigcConstants from '../../constants/FigcConstants';
+import Helpers from '../../utils/Helpers';
+import ICompetitionDefault from '../../interfaces/ICompetitionDefault';
 
-import { ICompetition } from "../../schemas/Competition";
-import { Round, IRound } from "../../schemas/Round";
-import Match from "../../schemas/Match";
-import TeamResult from "../../schemas/TeamResult";
+import { ICompetition } from '../../schemas/Competition';
+import { Round, IRound } from '../../schemas/Round';
+import Match from '../../schemas/Match';
+import TeamResult from '../../schemas/TeamResult';
 
 export default class FigcLeagueScraping {
   public lastYear: boolean;
@@ -28,33 +28,33 @@ export default class FigcLeagueScraping {
   }
 
   public async run(competition: ICompetitionDefault) {
-    console.log("-> FIGC LEAGUE SCRAPING");
+    console.log('-> FIGC LEAGUE SCRAPING');
 
     await this.runCompetition(competition);
   }
 
   public async runCompetition(competitionDefault: ICompetitionDefault) {
-    console.log("\t-> " + competitionDefault.name);
+    console.log('\t-> ' + competitionDefault.name);
 
     let initial = 0;
     if (this.lastYear) initial = competitionDefault.years!.length - 1;
 
     for (let i = initial; i < competitionDefault.years!.length; i++) {
-      console.log("\t\t-> " + competitionDefault.years![i]);
+      console.log('\t\t-> ' + competitionDefault.years![i]);
 
       let competition = await Helpers.createCompetition(competitionDefault, competitionDefault.years![i], FigcConstants);
 
-      let newYear = parseInt(competition.year.substring(2, 4)) + 1 + "";
-      if (newYear.length == 1) newYear = "0" + newYear;
+      let newYear = parseInt(competition.year.substring(2, 4)) + 1 + '';
+      if (newYear.length == 1) newYear = '0' + newYear;
 
-      let year = competition.year + "-" + newYear;
+      let year = competition.year + '-' + newYear;
 
       let page = await this.axios.get(
         `${competitionDefault.aux.url}/calendario-e-risultati/${year}/UNICO/UNI/1`,
       );
 
       let $ = cheerio.load(page.data);
-      let data = $("#menu-giornate").children();
+      let data = $('#menu-giornate').children();
 
       for (let j = 0; j < 2; j++) {
         let rounds = data.eq(j).children();
@@ -76,18 +76,18 @@ export default class FigcLeagueScraping {
     round.goals = 0;
     round.goalsHome = 0;
     round.goalsGuest = 0;
-    round.number = number + "";
+    round.number = number + '';
     round.matchs = [];
     round.competition = competition._id;
     round.hash = md5(competition.code + competition.year + round.number);
-    console.log("\t\t\t-> Round " + round.number);
+    console.log('\t\t\t-> Round ' + round.number);
 
     let page = await this.axios.get(
       `${competitionDefault.aux.url}/calendario-e-risultati/${year}/UNICO/UNI/${number}`
     );
 
     let $ = cheerio.load(page.data);
-    let matches = $(".risultati").children();
+    let matches = $('.risultati').children();
 
     for (let i = 1; i < matches.length; i++) {
       let matchResult = await this.runMatch(matches.eq(i));
@@ -110,31 +110,31 @@ export default class FigcLeagueScraping {
     match.teamGuest = new TeamResult();
 
     let data = matchHtml.children();
-    let date = data.eq(0).children("p").children("span").text().trim();
-    if (date.length < 16) date = date + " 00:00";
+    let date = data.eq(0).children('p').children('span').text().trim();
+    if (date.length < 16) date = date + ' 00:00';
 
-    let location = data.eq(0).children("p").html().split("</span>")[1].split("<br>")[1].replace("Stadium: ", "").trim();
-    location = location.split("(");
+    let location = data.eq(0).children('p').html().split('</span>')[1].split('<br>')[1].replace('Stadium: ', '').trim();
+    location = location.split('(');
 
-    match.date = moment.utc(date, "DD/MM/YYYY HH:mm").format();
+    match.date = moment.utc(date, 'DD/MM/YYYY HH:mm').format();
     match.stadium = location[0].trim();
-    match.location = location[1] ? location[1].replace(")", "").trim() : "";
+    match.location = location[1] ? location[1].replace(')', '').trim() : '';
 
-    match.teamHome.initials = "";
-    match.teamHome.name = data.eq(1).children(".nomesquadra").text().trim();
-    match.teamHome.flag = FigcConstants.URL_DEFAULT + data.eq(1).children("img").attr("src");
+    match.teamHome.initials = '';
+    match.teamHome.name = data.eq(1).children('.nomesquadra').text().trim();
+    match.teamHome.flag = FigcConstants.URL_DEFAULT + data.eq(1).children('img').attr('src');
     match.teamHome.goals =
-      data.eq(1).children("span").text().trim() === "-"
+      data.eq(1).children('span').text().trim() === '-'
         ? undefined
-        : parseInt(data.eq(1).children("span").text().trim());
+        : parseInt(data.eq(1).children('span').text().trim());
 
-    match.teamGuest.initials = "";
-    match.teamGuest.name = data.eq(2).children(".nomesquadra").text().trim();
-    match.teamGuest.flag = FigcConstants.URL_DEFAULT + data.eq(2).children("img").attr("src");
+    match.teamGuest.initials = '';
+    match.teamGuest.name = data.eq(2).children('.nomesquadra').text().trim();
+    match.teamGuest.flag = FigcConstants.URL_DEFAULT + data.eq(2).children('img').attr('src');
     match.teamGuest.goals =
-      data.eq(2).children("span").text().trim() === "-"
+      data.eq(2).children('span').text().trim() === '-'
         ? undefined
-        : parseInt(data.eq(2).children("span").text().trim());
+        : parseInt(data.eq(2).children('span').text().trim());
 
     return match;
   }

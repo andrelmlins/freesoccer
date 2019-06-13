@@ -1,9 +1,9 @@
-import { Response, Request } from "express";
+import { Response, Request } from 'express';
 
-import DbcConstants from "../../constants/DfbConstants";
-import DfbScraping from "../../scraping/DfbScraping";
-import CompetitionUtil from "../../utils/CompetitionUtil";
-import ICompetitionDefault from "../../interfaces/ICompetitionDefault";
+import DbcConstants from '../../constants/DfbConstants';
+import DfbScraping from '../../scraping/DfbScraping';
+import CompetitionUtil from '../../utils/CompetitionUtil';
+import ICompetitionDefault from '../../interfaces/ICompetitionDefault';
 
 export default class DfbController {
   public async loadResults(req: Request, res: Response) {
@@ -13,10 +13,10 @@ export default class DfbController {
       let dfbScraping: DfbScraping = new DfbScraping();
       await dfbScraping.run(competition);
 
-      res.send({ message: "Success" });
+      res.send({ message: 'Success' });
     } catch (error) {
       console.log(error);
-      res.status(404).send({ error: error + "" });
+      res.status(404).send({ error: error + '' });
     }
   }
 
@@ -27,10 +27,10 @@ export default class DfbController {
       let dfbScraping: DfbScraping = new DfbScraping();
       await dfbScraping.runTable(competition);
 
-      res.send({ message: "Success" });
+      res.send({ message: 'Success' });
     } catch (error) {
       console.log(error);
-      res.status(404).send({ error: error + "" });
+      res.status(404).send({ error: error + '' });
     }
   }
 }
