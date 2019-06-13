@@ -34,7 +34,7 @@ class App {
     this.config();
 
     this.app.use(express.static(path.join(__dirname + '../../../public')));
-    this.app.use(favicon(path.join(__dirname,'public','favicon.ico')));
+    this.app.use(favicon(path.join(__dirname + '../../../public','favicon.ico')));
 
     this.routes.routes(this.app);
     this.cronJobs.crons();
