@@ -8,7 +8,9 @@
     "build": "tsc",
     "start": "yarn build && node dist/index.js",
     "scraping": "yarn build && node dist/config/Commander.js",
-    "test": "yarn test"
+    "test": "yarn test",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -41,9 +43,11 @@
     "puppeteer": "^1.17.0",
     "serve-favicon": "^2.5.0",
     "swagger-ui-express": "^4.0.6",
-    "typescript": "^3.5.2"
+    "typescript": "^3.5.2",
+    "snyk": "^1.189.0"
   },
   "devDependencies": {
     "lite-server": "^2.5.3"
-  }
+  },
+  "snyk": true
 }
