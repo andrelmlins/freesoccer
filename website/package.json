@@ -12,7 +12,8 @@
     "react-scripts": "3.1.1",
     "react-scrollable-anchor": "^0.6.1",
     "swagger-ui": "^3.23.5",
-    "swagger-ui-themes": "^3.0.0"
+    "swagger-ui-themes": "^3.0.0",
+    "snyk": "^1.216.5"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -20,7 +21,9 @@
     "start:prod": "NODE_ENV=production node server",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -30,5 +33,6 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "snyk": true
 }
