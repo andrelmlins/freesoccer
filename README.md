@@ -10,7 +10,7 @@
 [![Dependencies](https://david-dm.org/andrelmlins/freesoccer.svg)](https://david-dm.org/andrelmlins/freesoccer)
 [![Badge Docker](https://images.microbadger.com/badges/image/andrelmlins1/freesoccer.svg)](https://microbadger.com/images/andrelmlins1/freesoccer "Get your own image badge on microbadger.com")
 [![Docker Pulls](https://img.shields.io/docker/pulls/andrelmlins1/freesoccer.svg)](https://hub.docker.com/r/andrelmlins1/freesoccer)
-
+[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/andrelmlins/freesoccer.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/andrelmlins/freesoccer/context:javascript)
 </div>
 
 ## Features
