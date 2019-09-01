@@ -8,7 +8,7 @@ class DocumentaionScreen extends Component {
   componentDidMount() {
     SwaggerUI({
       dom_id: "#ui",
-      url: "http://service.apifreesoccer.com/api"
+      url: "http://service.apifreesoccer.com/api/documentation"
     });
   }
 
