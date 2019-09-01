@@ -130,13 +130,13 @@ export default class DfbLeagueScraping {
     let data = matchHtml.children();
 
     let result = data.eq(3).text().trim().split(' : ');
-    let date = '';
 
     if (data.eq(0).children('em').text()) {
-      date = data.eq(0).children('em').text();
+      let date = data.eq(0).children('em').text();
       date = date.split(' ~ ')[0] + date.split(' ~ ')[1].split('.')[2] + ' 00:00';
+      match.date = date;
     } else {
-      date = data.eq(0).html().split('<br>');
+      let date = data.eq(0).html().split('<br>');
 
       if (date.length > 2) {
         date = date[1].trim() + ' ' + date[2].split(' ')[0].trim();

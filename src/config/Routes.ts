@@ -1,5 +1,3 @@
-import { Request, Response } from 'express';
-
 import CbfController from '../controllers/scraping/CbfController';
 import RfefController from '../controllers/scraping/RfefController';
 import FffController from '../controllers/scraping/FffController';

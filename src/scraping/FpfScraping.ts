@@ -3,7 +3,6 @@ import IFederationScraping from '../interfaces/IFederationScraping';
 import CompetitionType from '../enums/CompetitionType';
 import FpfLeagueScraping from './leagues/FpfLeagueScraping';
 import FpfTableScraping from './tables/FpfTableScraping';
-import { Request } from 'express';
 
 export default class FpfScraping implements IFederationScraping {
   public lastYear: boolean;
