@@ -1,14 +1,12 @@
-FROM node:alpine
+FROM node
 
 RUN yarn global add pm2
 
 RUN mkdir -p /api
 WORKDIR /api
 
-COPY package.json /api
-RUN yarn install --production
-
 COPY . /api
+RUN yarn install --production
 RUN yarn build
 
 EXPOSE 80
