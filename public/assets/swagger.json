@@ -686,7 +686,7 @@
       }
     }
   },
-  "host": "www.apifreesoccer.com",
+  "host": "service.apifreesoccer.com",
   "basePath": "/api",
   "schemes": ["https", "http"]
 }
