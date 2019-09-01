@@ -47,6 +47,8 @@ class LoginScreen extends Component {
 
     if (result.error) {
       this.setState({ messsageErrorRegister: result.message });
+    } else if (!result.success) {
+      this.setState({ messsageErrorLogin: result.message });
     } else {
       localStorage.setItem('token', result.token);
       window.location.href = '/getting-started';
