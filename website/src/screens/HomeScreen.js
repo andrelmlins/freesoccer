@@ -39,7 +39,7 @@ class HomeScreen extends Component {
             </ul>
           </li>
           <li>
-            <Link to="/getting-started#conTableRowibute">Getting Started to ConTableRowibute</Link>
+            <Link to="/getting-started#conTableRowibute">Getting Started to Contribute</Link>
             <ul>
               <li>
                 <Link to="/getting-started#clone-github">Clone to Github</Link>

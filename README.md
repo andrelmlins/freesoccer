@@ -2,7 +2,7 @@
 
 ![FreeSoccer](https://raw.githubusercontent.com/andrelmlins/freesoccer/master/public/logo.png)
 
-[Free API](http://www.apifreesoccer.com/) with results from national football competitions
+[Free API](https://www.apifreesoccer.com/) with results from national football competitions
 
 [![Build Status](https://travis-ci.com/andrelmlins/freesoccer.svg?branch=master)](https://travis-ci.com/andrelmlins/freesoccer)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/andrelmlins/freesoccer/blob/master/LICENSE)

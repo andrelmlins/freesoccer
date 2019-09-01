@@ -4,7 +4,6 @@
   "description": "Free API with results from national football competitions",
   "main": "dist/index",
   "scripts": {
-    "lite": "lite-server",
     "build": "tsc",
     "start": "yarn build && node dist/index.js",
     "scraping": "yarn build && node dist/config/Commander.js",
@@ -18,7 +17,7 @@
   "bugs": {
     "url": "https://github.com/andrelmlins/freesoccer/issues"
   },
-  "homepage": "https://github.com/andrelmlins/freesoccer#readme",
+  "homepage": "https://www.apifreesoccer.com/",
   "dependencies": {
     "@types/express": "^4.17.0",
     "@types/mongoose": "^5.5.12",
@@ -42,8 +41,5 @@
     "serve-favicon": "^2.5.0",
     "swagger-ui-express": "^4.0.7",
     "typescript": "^3.6.2"
-  },
-  "devDependencies": {
-    "lite-server": "^2.5.4"
   }
 }
