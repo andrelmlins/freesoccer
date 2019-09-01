@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@material-ui/core": "^4.3.2",
+    "@material-ui/core": "^4.4.0",
     "@material-ui/icons": "^4.2.1",
     "axios": "^0.19.0",
     "react": "^16.9.0",
@@ -11,7 +11,7 @@
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.1.1",
     "react-scrollable-anchor": "^0.6.1",
-    "swagger-ui": "^3.23.5",
+    "swagger-ui": "^3.23.7",
     "swagger-ui-themes": "^3.0.0"
   },
   "scripts": {
