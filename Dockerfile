@@ -6,7 +6,7 @@ RUN mkdir -p /api
 WORKDIR /api
 
 COPY . /api
-RUN yarn install --production
+RUN yarn install --frozen-lockfile --production
 RUN yarn build
 
 EXPOSE 80

@@ -1,22 +1,22 @@
-import React, { Component } from "react";
-import Grid from "@material-ui/core/Grid";
-import { withRouter } from "react-router-dom";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import Typography from "@material-ui/core/Typography";
+import React, { Component } from 'react';
+import Grid from '@material-ui/core/Grid';
+import { withRouter } from 'react-router-dom';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
 
-import FreeSoccerService from "../services/freesoccer";
+import FreeSoccerService from '../services/freesoccer';
 
-import Register from "../components/Register";
-import Login from "../components/Login";
+import Register from '../components/Register';
+import Login from '../components/Login';
 
 class LoginScreen extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      messsageErrorLogin: "",
-      messsageErrorRegister: ""
+      messsageErrorLogin: '',
+      messsageErrorRegister: ''
     };
   }
 
@@ -48,8 +48,8 @@ class LoginScreen extends Component {
     if (result.error) {
       this.setState({ messsageErrorRegister: result.message });
     } else {
-      localStorage.setItem("token", result.token);
-      window.location.href = "/getting-started";
+      localStorage.setItem('token', result.token);
+      window.location.href = '/getting-started';
     }
   };
 
@@ -61,17 +61,19 @@ class LoginScreen extends Component {
 
     if (result.error) {
       this.setState({ messsageErrorLogin: result.message });
+    } else if (!result.success) {
+      this.setState({ messsageErrorLogin: result.message });
     } else {
-      localStorage.setItem("token", result.token);
-      window.location.href = "/getting-started";
+      localStorage.setItem('token', result.token);
+      window.location.href = '/getting-started';
     }
   };
 
   render() {
     return (
       <div className="card-center">
-        <Card classes={{ root: "card" }}>
-          <CardContent classes={{ root: "card-content" }} className="text-center p-15">
+        <Card classes={{ root: 'card' }}>
+          <CardContent classes={{ root: 'card-content' }} className="text-center p-15">
             <Typography variant="h4" color="inherit">
               <span role="img" aria-label="icon">
                 ⚽️
