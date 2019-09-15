@@ -51,10 +51,10 @@ const LoginScreen = ({ classes }) => {
           <img alt="FreeSoccer" src="/logo.png" className={classes.logo} />
           <Grid container spacing={4}>
             <Grid item lg={6} sm={12}>
-              <Login login={data => login(data)} messsageError={messsageErrorLogin} />
+              <Login onLogin={data => login(data)} messsageError={messsageErrorLogin} />
             </Grid>
             <Grid item lg={6} sm={12} className="line">
-              <Register register={data => register(data)} messsageError={messsageErrorRegister} />
+              <Register onRegister={data => register(data)} messsageError={messsageErrorRegister} />
             </Grid>
           </Grid>
         </CardContent>

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
@@ -9,90 +9,76 @@ import Grid from "@material-ui/core/Grid";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 
-export default class Login extends Component {
-  constructor(props) {
-    super(props);
+const Login = ({ onLogin, messsageError }) => {
+  const [fields, setFields] = useState({ user: "", password: "" });
+  const [showPassword, setShowPassword] = useState(false);
 
-    this.state = {
-      user: "",
-      password: "",
-      showPassword: false
-    };
-  }
-
-  handleChange = name => event => {
-    this.setState({
-      [name]: event.target.value
-    });
+  const handleChange = newFields => {
+    setFields({ ...fields, ...newFields });
   };
 
-  handleClickShowPassword = () => {
-    this.setState(state => ({ showPassword: !state.showPassword }));
-  };
-
-  onEnterPress = e => {
+  const onEnterPress = e => {
     if (e.keyCode === 13 && e.shiftKey === false) {
       e.preventDefault();
-      this.props.login(this.state);
+      onLogin(fields);
     }
   };
 
-  render() {
-    return (
-      <div>
-        <Typography variant="h5" color="inherit">
-          Login
+  return (
+    <div>
+      <Typography variant="h5" color="inherit">
+        Login
+      </Typography>
+      <br />
+      {messsageError !== "" && (
+        <Typography variant="body1" color="error">
+          {messsageError}
         </Typography>
-        <br />
-        {this.props.messsageError !== "" && (
-          <Typography variant="body1" color="error">
-            {this.props.messsageError}
-          </Typography>
-        )}
-        <Grid container spacing={24}>
-          <Grid item xs={12}>
-            <TextField
-              id="outlined-email-login"
-              label="Email or Username"
-              type="user"
-              autoComplete="email"
-              className="input-block"
-              value={this.state.user}
-              onChange={this.handleChange("user")}
-              margin="normal"
-              variant="outlined"
-              onKeyDown={this.onEnterPress}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              id="outlined-password-login"
-              label="Password"
-              type={this.state.showPassword ? "text" : "password"}
-              className="input-block"
-              value={this.state.password}
-              onChange={this.handleChange("password")}
-              margin="normal"
-              variant="outlined"
-              onKeyDown={this.onEnterPress}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton aria-label="Toggle password visibility" onClick={this.handleClickShowPassword}>
-                      {this.state.showPassword ? <Visibility /> : <VisibilityOff />}
-                    </IconButton>
-                  </InputAdornment>
-                )
-              }}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <Button className="button-block" variant="contained" color="primary" onClick={() => this.props.login(this.state)}>
-              Login
-            </Button>
-          </Grid>
+      )}
+      <Grid container spacing={24}>
+        <Grid item xs={12}>
+          <TextField
+            id="outlined-email-login"
+            label="Email or Username"
+            autoComplete="email"
+            className="input-block"
+            value={fields.user}
+            onChange={e => handleChange({ user: e.target.value })}
+            margin="normal"
+            variant="outlined"
+            onKeyDown={e => onEnterPress(e)}
+          />
         </Grid>
-      </div>
-    );
-  }
-}
+        <Grid item xs={12}>
+          <TextField
+            id="outlined-password-login"
+            label="Password"
+            type={showPassword ? "text" : "password"}
+            className="input-block"
+            value={fields.password}
+            onChange={e => handleChange({ password: e.target.value })}
+            margin="normal"
+            variant="outlined"
+            onKeyDown={e => onEnterPress(e)}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton aria-label="Toggle password visibility" onClick={() => setShowPassword(!showPassword)}>
+                    {showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              )
+            }}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <Button className="button-block" variant="contained" color="primary" onClick={() => onLogin(fields)}>
+            Login
+          </Button>
+        </Grid>
+      </Grid>
+    </div>
+  );
+};
+
+export default Login;

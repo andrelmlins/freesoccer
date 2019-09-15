@@ -1,5 +1,4 @@
-import React, { Component } from "react";
-
+import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
@@ -9,120 +8,100 @@ import Grid from "@material-ui/core/Grid";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 
-export default class Register extends Component {
-  constructor(props) {
-    super(props);
+const Register = ({ onRegister, messsageError }) => {
+  const [fields, setFields] = useState({ name: "", username: "", email: "", password: "" });
+  const [showPassword, setShowPassword] = useState();
 
-    this.state = {
-      name: "",
-      username: "",
-      email: "",
-      password: "",
-      showPassword: false
-    };
-  }
-
-  handleChange = name => event => {
-    this.setState({
-      [name]: event.target.value
-    });
+  const handleChange = newFields => {
+    setFields({ ...fields, ...newFields });
   };
 
-  handleClickShowPassword = () => {
-    this.setState(state => ({ showPassword: !state.showPassword }));
-  };
-
-  onEnterPress = e => {
+  const onEnterPress = e => {
     if (e.keyCode === 13 && e.shiftKey === false) {
       e.preventDefault();
-      this.props.register(this.state);
+      onRegister(fields);
     }
   };
 
-  render() {
-    return (
-      <div>
-        <Typography variant="h5" color="inherit">
-          Register
+  return (
+    <div>
+      <Typography variant="h5" color="inherit">
+        Register
+      </Typography>
+      <br />
+      {messsageError !== "" && (
+        <Typography variant="body1" color="error">
+          {messsageError}
         </Typography>
-        <br />
-        {this.props.messsageError !== "" && (
-          <Typography variant="body1" color="error">
-            {this.props.messsageError}
-          </Typography>
-        )}
-        <Grid container spacing={24}>
-          <Grid item xs={12}>
-            <TextField
-              id="outlined-name-register"
-              label="Name"
-              type="name"
-              autoComplete="name"
-              className="input-block"
-              value={this.state.name}
-              onChange={this.handleChange("name")}
-              margin="normal"
-              variant="outlined"
-              onKeyDown={this.onEnterPress}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              id="outlined-username-register"
-              label="Username"
-              type="username"
-              autoComplete="username"
-              className="input-block"
-              value={this.state.username}
-              onChange={this.handleChange("username")}
-              margin="normal"
-              variant="outlined"
-              onKeyDown={this.onEnterPress}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              id="outlined-email-register"
-              label="Email"
-              type="email"
-              autoComplete="email"
-              className="input-block"
-              value={this.state.email}
-              onChange={this.handleChange("email")}
-              margin="normal"
-              variant="outlined"
-              onKeyDown={this.onEnterPress}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              id="outlined-password-register"
-              label="Password"
-              type={this.state.showPassword ? "text" : "password"}
-              className="input-block"
-              value={this.state.password}
-              onChange={this.handleChange("password")}
-              margin="normal"
-              variant="outlined"
-              onKeyDown={this.onEnterPress}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton aria-label="Toggle password visibility" onClick={this.handleClickShowPassword}>
-                      {this.state.showPassword ? <Visibility /> : <VisibilityOff />}
-                    </IconButton>
-                  </InputAdornment>
-                )
-              }}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <Button className="button-block" variant="contained" color="primary" onClick={() => this.props.register(this.state)}>
-              Register
-            </Button>
-          </Grid>
+      )}
+      <Grid container spacing={24}>
+        <Grid item xs={12}>
+          <TextField
+            id="outlined-name-register"
+            label="Name"
+            className="input-block"
+            value={fields.name}
+            onChange={e => handleChange({ name: e.target.value })}
+            margin="normal"
+            variant="outlined"
+            onKeyDown={e => onEnterPress(e)}
+          />
         </Grid>
-      </div>
-    );
-  }
-}
+        <Grid item xs={12}>
+          <TextField
+            id="outlined-username-register"
+            label="Username"
+            className="input-block"
+            value={fields.username}
+            onChange={e => handleChange({ username: e.target.value })}
+            margin="normal"
+            variant="outlined"
+            onKeyDown={e => onEnterPress(e)}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            id="outlined-email-register"
+            label="Email"
+            type="email"
+            className="input-block"
+            value={fields.email}
+            onChange={e => handleChange({ email: e.target.value })}
+            margin="normal"
+            variant="outlined"
+            onKeyDown={e => onEnterPress(e)}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            id="outlined-password-register"
+            label="Password"
+            type={showPassword ? "text" : "password"}
+            className="input-block"
+            value={fields.password}
+            onChange={e => handleChange({ password: e.target.value })}
+            margin="normal"
+            variant="outlined"
+            onKeyDown={e => onEnterPress(e)}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton aria-label="Toggle password visibility" onClick={() => setShowPassword(!showPassword)}>
+                    {showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              )
+            }}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <Button className="button-block" variant="contained" color="primary" onClick={() => onRegister(fields)}>
+            Register
+          </Button>
+        </Grid>
+      </Grid>
+    </div>
+  );
+};
+
+export default Register;
