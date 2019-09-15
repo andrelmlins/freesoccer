@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { makeStyles } from "@material-ui/styles";
 import { Route, Switch, Link } from "react-router-dom";
 
 import AppBar from "@material-ui/core/AppBar";
@@ -18,6 +19,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import routes from "../utils/routes";
 
 const Container = ({ container }) => {
+  const classes = useStyle();
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const drawer = (
@@ -56,13 +58,7 @@ const Container = ({ container }) => {
   return (
     <div className="container">
       <Hidden xsDown implementation="css">
-        <Drawer
-          classes={{
-            paper: "drawer"
-          }}
-          variant="permanent"
-          open
-        >
+        <Drawer classes={{ paper: classes.drawer }} variant="permanent" open>
           {drawer}
         </Drawer>
       </Hidden>
@@ -94,7 +90,7 @@ const Container = ({ container }) => {
               ⚽️
             </span>
           </Typography>
-          <div className="grow" />
+          <div style={{ flexGrow: 1 }} />
           <Hidden xsDown implementation="css">
             <Button color="inherit" component={Link} to="/login">
               <Icon>input</Icon>&ensp;Login
@@ -102,7 +98,7 @@ const Container = ({ container }) => {
           </Hidden>
         </Toolbar>
       </AppBar>
-      <main className="content">
+      <main className={classes.content}>
         <Switch>
           {routes.map((item, index) => (
             <Route exact path={item.path} component={item.component} key={index} />
@@ -112,5 +108,17 @@ const Container = ({ container }) => {
     </div>
   );
 };
+
+const useStyle = makeStyles(theme => ({
+  content: {
+    padding: 40,
+    paddingTop: 104,
+    marginLeft: 240,
+    [theme.breakpoints.down("xs")]: {
+      marginLeft: 0
+    }
+  },
+  drawer: { paddingTop: 64 }
+}));
 
 export default Container;

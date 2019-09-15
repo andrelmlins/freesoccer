@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { makeStyles } from "@material-ui/styles";
 import { Link } from "react-router-dom";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
-import Icon from "@material-ui/core/Icon";
+import { Typography, Button, Icon } from "@material-ui/core";
 import ScrollableAnchor, { configureAnchors } from "react-scrollable-anchor";
 
 const GettingStartedScreen = () => {
+  const classes = useStyle();
   const [token, setToken] = useState();
 
   useEffect(() => {
@@ -49,13 +49,13 @@ const GettingStartedScreen = () => {
       <Typography variant="body1" color="inherit">
         To access the endpoints, it's necessary to use your token: <br />
       </Typography>
-      <code className="language-sh">{token || "Login to receive a token"}</code>
+      <code className={classes.languageSh}>{token || "Login to receive a token"}</code>
       <br />
       <ScrollableAnchor id={"know-api"}>
         <Typography variant="h4">Know the API</Typography>
       </ScrollableAnchor>
       <br />
-      <code className="language-sh">
+      <code className={classes.languageSh}>
         curl -H "x-access-token: [YOUR_TOKEN];Content-Type: application/json" -X GET http://www.apifreesoccer.com/data
       </code>
       <br />
@@ -70,7 +70,7 @@ const GettingStartedScreen = () => {
       <ScrollableAnchor id={"clone-github"}>
         <Typography variant="h4">Clone to Github</Typography>
       </ScrollableAnchor>
-      <code className="language-sh">git clone https://github.com/andrelmlins/freesoccer</code>
+      <code className={classes.languageSh}>git clone https://github.com/andrelmlins/freesoccer</code>
       <br />
       <ScrollableAnchor id={"npm"}>
         <Typography variant="h4">NPM</Typography>
@@ -79,17 +79,17 @@ const GettingStartedScreen = () => {
       <Typography variant="body1" color="inherit">
         Move to the project folder
       </Typography>
-      <code className="language-sh">cd ./freesoccer</code>
+      <code className={classes.languageSh}>cd ./freesoccer</code>
       <br />
       <Typography variant="body1" color="inherit">
         Install npm dependencies
       </Typography>
-      <code className="language-sh">npm install</code>
+      <code className={classes.languageSh}>npm install</code>
       <br />
       <Typography variant="body1" color="inherit">
         Start the Project
       </Typography>
-      <code className="language-sh">npm start</code>
+      <code className={classes.languageSh}>npm start</code>
       <br />
       <ScrollableAnchor id={"branch-request"}>
         <Typography variant="h4">Create branch</Typography>
@@ -98,9 +98,20 @@ const GettingStartedScreen = () => {
       <Typography variant="body1" color="inherit">
         Create new Branch and make your changes.
       </Typography>
-      <code className="language-sh">git checkout -b new-branch</code>
+      <code className={classes.languageSh}>git checkout -b new-branch</code>
     </div>
   );
 };
+
+const useStyle = makeStyles(() => ({
+  languageSh: {
+    padding: 20,
+    margin: "20px 0px",
+    backgroundColor: "#dedede",
+    display: "block",
+    borderRadius: 5,
+    wordWrap: "break-word"
+  }
+}));
 
 export default GettingStartedScreen;

@@ -41,7 +41,7 @@ const Login = ({ onLogin, messsageError }) => {
             id="outlined-email-login"
             label="Email or Username"
             autoComplete="email"
-            className="input-block"
+            fullWidth
             value={fields.user}
             onChange={e => handleChange({ user: e.target.value })}
             margin="normal"
@@ -54,7 +54,7 @@ const Login = ({ onLogin, messsageError }) => {
             id="outlined-password-login"
             label="Password"
             type={showPassword ? "text" : "password"}
-            className="input-block"
+            fullWidth
             value={fields.password}
             onChange={e => handleChange({ password: e.target.value })}
             margin="normal"
@@ -72,7 +72,7 @@ const Login = ({ onLogin, messsageError }) => {
           />
         </Grid>
         <Grid item xs={12}>
-          <Button className="button-block" variant="contained" color="primary" onClick={() => onLogin(fields)}>
+          <Button fullWidth variant="contained" color="primary" onClick={() => onLogin(fields)}>
             Login
           </Button>
         </Grid>

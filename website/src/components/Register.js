@@ -39,7 +39,7 @@ const Register = ({ onRegister, messsageError }) => {
           <TextField
             id="outlined-name-register"
             label="Name"
-            className="input-block"
+            fullWidth
             value={fields.name}
             onChange={e => handleChange({ name: e.target.value })}
             margin="normal"
@@ -51,7 +51,7 @@ const Register = ({ onRegister, messsageError }) => {
           <TextField
             id="outlined-username-register"
             label="Username"
-            className="input-block"
+            fullWidth
             value={fields.username}
             onChange={e => handleChange({ username: e.target.value })}
             margin="normal"
@@ -64,7 +64,7 @@ const Register = ({ onRegister, messsageError }) => {
             id="outlined-email-register"
             label="Email"
             type="email"
-            className="input-block"
+            fullWidth
             value={fields.email}
             onChange={e => handleChange({ email: e.target.value })}
             margin="normal"
@@ -77,7 +77,7 @@ const Register = ({ onRegister, messsageError }) => {
             id="outlined-password-register"
             label="Password"
             type={showPassword ? "text" : "password"}
-            className="input-block"
+            fullWidth
             value={fields.password}
             onChange={e => handleChange({ password: e.target.value })}
             margin="normal"
@@ -95,7 +95,7 @@ const Register = ({ onRegister, messsageError }) => {
           />
         </Grid>
         <Grid item xs={12}>
-          <Button className="button-block" variant="contained" color="primary" onClick={() => onRegister(fields)}>
+          <Button fullWidth variant="contained" color="primary" onClick={() => onRegister(fields)}>
             Register
           </Button>
         </Grid>

@@ -1,12 +1,14 @@
 import React, { useState } from "react";
-import { Grid, Card, CardContent, withStyles } from "@material-ui/core";
+import { makeStyles } from "@material-ui/styles";
+import { Grid, Card, CardContent } from "@material-ui/core";
 
 import FreeSoccerService from "../services/freesoccer";
 
 import Register from "../components/Register";
 import Login from "../components/Login";
 
-const LoginScreen = ({ classes }) => {
+const LoginScreen = () => {
+  const classes = useStyle();
   const [messsageErrorLogin, setMessageErrorLogin] = useState();
   const [messsageErrorRegister, setMessageErrorRegister] = useState();
 
@@ -53,7 +55,7 @@ const LoginScreen = ({ classes }) => {
             <Grid item lg={6} sm={12}>
               <Login onLogin={data => login(data)} messsageError={messsageErrorLogin} />
             </Grid>
-            <Grid item lg={6} sm={12} className="line">
+            <Grid item lg={6} sm={12} className={classes.line}>
               <Register onRegister={data => register(data)} messsageError={messsageErrorRegister} />
             </Grid>
           </Grid>
@@ -63,7 +65,7 @@ const LoginScreen = ({ classes }) => {
   );
 };
 
-const styles = {
+const useStyle = makeStyles(theme => ({
   root: {
     display: "flex",
     justifyContent: "center",
@@ -74,7 +76,11 @@ const styles = {
     backgroundColor: "#2e7d32"
   },
   content: { maxWidth: "60%", textAlign: "center" },
-  logo: { marginBottom: 25 }
-};
+  logo: { marginBottom: 25 },
+  line: { marginBottom: 10, borderLeft: "1px solid #cdcdcd" },
+  [theme.breakpoints.down("sm")]: {
+    line: { borderLeft: "none" }
+  }
+}));
 
-export default withStyles(styles)(LoginScreen);
+export default LoginScreen;

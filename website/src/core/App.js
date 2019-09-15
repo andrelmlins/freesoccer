@@ -2,8 +2,6 @@ import React from "react";
 import { Route, BrowserRouter, Switch } from "react-router-dom";
 import LoginScreen from "../screens/LoginScreen";
 
-import "./App.css";
-
 import Container from "../components/Container";
 
 const App = () => (
