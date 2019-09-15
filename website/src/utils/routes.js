@@ -1,7 +1,6 @@
 import HomeScreen from "../screens/HomeScreen";
 import GettingStartedScreen from "../screens/GettingStartedScreen";
 import DocumentationScreen from "../screens/DocumentationScreen";
-import LoginScreen from "../screens/LoginScreen";
 import AboutScreen from "../screens/AboutScreen";
 
 export default [
@@ -28,14 +27,6 @@ export default [
     exact: true,
     showMenu: true,
     icon: "insert_drive_file"
-  },
-  {
-    path: "/login",
-    name: "Login",
-    component: LoginScreen,
-    exact: true,
-    showMenu: false,
-    icon: "input"
   },
   {
     path: "/about",

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Icon from "@material-ui/core/Icon";
@@ -32,7 +33,7 @@ const GettingStartedScreen = () => {
           <Icon>input</Icon>&ensp;Is Logged
         </Button>
       ) : (
-        <Button color="primary" variant="contained" component="a" href="/login">
+        <Button color="primary" variant="contained" component={Link} to="/login">
           <Icon>input</Icon>&ensp;Login
         </Button>
       )}
