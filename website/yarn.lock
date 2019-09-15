@@ -10487,11 +10487,6 @@ swagger-client@^3.9.4:
     utf8-bytes "0.0.1"
     utfstring "^2.0.0"
 
-swagger-ui-themes@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/swagger-ui-themes/-/swagger-ui-themes-3.0.0.tgz#4523cad5a43d460ec4c6ae633baa8a6e8fd69ba9"
-  integrity sha1-RSPK1aQ9Rg7Exq5jO6qKbo/Wm6k=
-
 swagger-ui@^3.23.9:
   version "3.23.9"
   resolved "https://registry.yarnpkg.com/swagger-ui/-/swagger-ui-3.23.9.tgz#c6e29a8bc8c67a045cd2e601211847d977a5dddb"
