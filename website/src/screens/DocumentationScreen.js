@@ -1,28 +1,24 @@
-import React, { Component } from "react";
+import React, { useEffect } from "react";
 import SwaggerUI from "swagger-ui";
-
-import { withRouter } from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
 
-class DocumentaionScreen extends Component {
-  componentDidMount() {
+const DocumentationScreen = () => {
+  useEffect(() => {
     SwaggerUI({
       dom_id: "#ui",
       url: "http://service.apifreesoccer.com/api/documentation"
     });
-  }
+  }, []);
 
-  render() {
-    return (
-      <div>
-        <Typography variant="h2" color="inherit" noWrap>
-          Documentation
-        </Typography>
-        <br />
-        <div id="ui" />
-      </div>
-    );
-  }
-}
+  return (
+    <>
+      <Typography variant="h2" color="inherit" noWrap>
+        Documentation
+      </Typography>
+      <br />
+      <div id="ui" />
+    </>
+  );
+};
 
-export default withRouter(DocumentaionScreen);
+export default DocumentationScreen;

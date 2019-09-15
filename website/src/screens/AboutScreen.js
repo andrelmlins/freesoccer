@@ -1,18 +1,10 @@
-import React, { Component } from "react";
-
-import { withRouter } from "react-router-dom";
+import React from "react";
 import Typography from "@material-ui/core/Typography";
 
-class AboutScreen extends Component {
-  render() {
-    return (
-      <div>
-        <Typography variant="h2" color="inherit">
-          About us
-        </Typography>
-      </div>
-    );
-  }
-}
+const AboutScreen = () => (
+  <Typography variant="h2" color="inherit">
+    About us
+  </Typography>
+);
 
-export default withRouter(AboutScreen);
+export default AboutScreen;
