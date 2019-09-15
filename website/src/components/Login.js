@@ -39,7 +39,7 @@ export default class Login extends Component {
 
   render() {
     return (
-      <div className="signin-padding">
+      <div>
         <Typography variant="h5" color="inherit">
           Login
         </Typography>

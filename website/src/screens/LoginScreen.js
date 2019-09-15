@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { Grid, Card, CardContent, Typography } from "@material-ui/core";
+import { Grid, Card, CardContent, withStyles } from "@material-ui/core";
 
 import FreeSoccerService from "../services/freesoccer";
 
 import Register from "../components/Register";
 import Login from "../components/Login";
 
-const LoginScreen = () => {
+const LoginScreen = ({ classes }) => {
   const [messsageErrorLogin, setMessageErrorLogin] = useState();
   const [messsageErrorRegister, setMessageErrorRegister] = useState();
 
@@ -45,15 +45,11 @@ const LoginScreen = () => {
   };
 
   return (
-    <div className="card-center">
-      <Card classes={{ root: "card" }}>
-        <CardContent classes={{ root: "card-content" }} className="text-center p-15">
-          <Typography variant="h4" color="inherit">
-            <img alt="FreeSoccer" src="/logo.png" />
-          </Typography>
-          <br />
-          <br />
-          <Grid container spacing={24}>
+    <div className={classes.root}>
+      <Card className={classes.content}>
+        <CardContent>
+          <img alt="FreeSoccer" src="/logo.png" className={classes.logo} />
+          <Grid container spacing={4}>
             <Grid item lg={6} sm={12}>
               <Login login={data => login(data)} messsageError={messsageErrorLogin} />
             </Grid>
@@ -67,4 +63,18 @@ const LoginScreen = () => {
   );
 };
 
-export default LoginScreen;
+const styles = {
+  root: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 20,
+    minHeight: "100%",
+    boxSizing: "border-box",
+    backgroundColor: "#2e7d32"
+  },
+  content: { maxWidth: "60%", textAlign: "center" },
+  logo: { marginBottom: 25 }
+};
+
+export default withStyles(styles)(LoginScreen);

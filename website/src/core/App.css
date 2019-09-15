@@ -25,16 +25,6 @@ body,
   border-radius: 5px;
 }
 
-.card-center {
-  display: block;
-  padding: 30px 0%;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  background-color: #2e7d32;
-  overflow: scroll;
-}
-
 .input-block {
   width: 100%;
   margin-top: 10px !important;
@@ -45,15 +35,6 @@ body,
   text-align: center;
 }
 
-.card {
-  margin: 0px 30px;
-}
-
-.card-content {
-  padding: 40px 30px !important;
-  padding-bottom: 15px !important;
-}
-
 .card-actions {
   padding: 40px 30px !important;
   padding-top: 15px !important;
@@ -61,10 +42,6 @@ body,
 
 .button-block {
   width: 100%;
-}
-
-.signin-padding {
-  padding: 20px;
 }
 
 code {
@@ -78,12 +55,6 @@ code {
 @media (min-width: 600px) {
   .content {
     margin-left: 240px;
-  }
-  .card-center {
-    padding: 30px 20%;
-    display: flex;
-    padding-top: 0px;
-    overflow: hidden;
   }
 
   .line {

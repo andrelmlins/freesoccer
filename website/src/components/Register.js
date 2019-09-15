@@ -41,7 +41,7 @@ export default class Register extends Component {
 
   render() {
     return (
-      <div className="signin-padding">
+      <div>
         <Typography variant="h5" color="inherit">
           Register
         </Typography>
