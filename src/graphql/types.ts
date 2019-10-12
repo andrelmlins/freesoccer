@@ -5,8 +5,13 @@ const types = gql`
     name: String
   }
 
+  type Round {
+    name: String
+  }
+
   type Query {
     competitions: [Competition]
+    rounds: [Round]
   }
 `;
 
