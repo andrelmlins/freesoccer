@@ -1,3 +1,8 @@
+import { ApolloServer } from 'apollo-server';
+
+import types from '../graphql/types';
+import resolvers from '../graphql/resolvers';
+
 import CbfController from '../controllers/scraping/CbfController';
 import RfefController from '../controllers/scraping/RfefController';
 import FffController from '../controllers/scraping/FffController';
@@ -85,5 +90,12 @@ export class Routes {
 
     app.route('/api/rounds/:round/matches').get(this.matchController.getRound);
     app.route('/api/competitions/:competition/:year/matches').get(this.matchController.getCompetition);
+
+    const server = new ApolloServer({ cors: false, typeDefs: types, resolvers });
+
+    const url: String = '/apollo';
+    server.listen().then(({ url }) => {
+      console.log(`Server ready at ${url}`);
+    });
   }
 }

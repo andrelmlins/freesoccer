@@ -1,6 +1,5 @@
 declare module 'cheerio';
 declare module 'morgan';
-declare module 'cors';
 declare module 'md5';
 declare module 'swagger-ui-express';
 declare module 'cron';
