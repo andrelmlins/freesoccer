@@ -122,17 +122,17 @@ class Index extends React.Component {
             title: 'Scraping with CronJob'
           },
           {
-            image: `${baseUrl}img/undraw_operating_system.svg`,
+            image: `${baseUrl}img/person.png`,
             imageAlign: 'top',
             title: 'Exec scraping in Line Command'
           },
           {
-            image: `${baseUrl}img/undraw_operating_system.svg`,
+            image: `${baseUrl}img/docker.png`,
             imageAlign: 'top',
             title: 'Docker Image with environment variables in Dockerhub'
           },
           {
-            image: `${baseUrl}img/undraw_operating_system.svg`,
+            image: `${baseUrl}img/computer.png`,
             imageAlign: 'top',
             title: 'Scraping in ServerSide and ClientSide'
           }
