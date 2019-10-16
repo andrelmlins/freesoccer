@@ -1,5 +1,13 @@
 /* your custom css */
 
+.homeContainer {
+  background: #f7f7f7;
+}
+
+.mainContainer {
+  padding: 0;
+}
+
 @media only screen and (min-device-width: 360px) and (max-device-width: 736px) {
 }
 

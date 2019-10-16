@@ -1,6 +1,5 @@
 {
   "docs": {
-    "Home": ["home"],
     "GettingStarted": ["getting-started"],
     "Documentation": ["documentation"],
     "Contributing": ["contributing"],
