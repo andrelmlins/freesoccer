@@ -41,7 +41,7 @@ const siteConfig = {
     { doc: 'getting-started', label: 'Getting Started' },
     { doc: 'documentation', label: 'Documentation' },
     { doc: 'contributing', label: 'Contributing' },
-    { doc: 'about', label: 'About Us' }
+    { doc: 'about', label: 'About' }
   ],
 
   // If you have users set above, you add it here:
@@ -87,10 +87,6 @@ const siteConfig = {
   onPageNav: 'separate',
   // No .html extensions for paths.
   cleanUrl: true,
-
-  // Open Graph and Twitter card images.
-  ogImage: 'img/undraw_online.svg',
-  twitterImage: 'img/undraw_tweetstorm.svg',
 
   // For sites with a sizable amount of content, set collapsible to true.
   // Expand/collapse the links and subcategories under categories.
