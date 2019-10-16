@@ -1,8 +1,5 @@
 {
   "docs": {
-    "GettingStarted": ["getting-started"],
-    "Documentation": ["documentation"],
-    "Contributing": ["contributing"],
-    "About": ["about"]
+    "Menu": ["getting-started", "documentation", "contributing", "about"]
   }
 }
