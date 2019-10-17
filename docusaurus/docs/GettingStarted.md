@@ -11,13 +11,17 @@ sidebar_label: Getting Started
 ## Build Setup
 
 ```
+# clone the repository
+git clone https://github.com/andrelmlins/freesoccer
+cd freesoccer
+
 # install dependencies
 yarn install
 
 # run the API
 yarn start
 
-# run scraping
+# or run the scraping
 yarn scraping [-c or --competition <code_competition>] [-ly or --last-year] [-t or --table]
 ```
 
