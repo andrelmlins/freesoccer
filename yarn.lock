@@ -202,10 +202,10 @@
     "@types/bson" "*"
     "@types/node" "*"
 
-"@types/mongoose@^5.5.20":
-  version "5.5.20"
-  resolved "https://registry.yarnpkg.com/@types/mongoose/-/mongoose-5.5.20.tgz#06106a0ffae6aeb2192f5351bcd1ed0599bd34f1"
-  integrity sha512-vaLVDjfuNp2LMfqHGMss4hN/K9puZfql/Rh6yXFvJvex3jKP646CXtvSKT8FM9uOUb2P4me266fmpPovBhEJXQ==
+"@types/mongoose@^5.5.22":
+  version "5.5.22"
+  resolved "https://registry.yarnpkg.com/@types/mongoose/-/mongoose-5.5.22.tgz#e5a507ba81e41480f9de564917bb250faba00bc4"
+  integrity sha512-1AXWXzpt7MZTxsm0cg2Nd6vkZHtKF5poHESJAIp31AKDxN6YXTThg1LRUmKC9tIsdKHD+y8v2KeoO/sZeR/+OQ==
   dependencies:
     "@types/mongodb" "*"
     "@types/node" "*"
@@ -220,10 +220,10 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-10.14.21.tgz#4a9db7ef1d1671c0015e632c5fa3d46c86c58c1e"
   integrity sha512-nuFlRdBiqbF+PJIEVxm2jLFcQWN7q7iWEJGsBV4n7v1dbI9qXB8im2pMMKMCUZe092sQb5SQft2DHfuQGK5hqQ==
 
-"@types/node@^12.7.12":
-  version "12.7.12"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.7.12.tgz#7c6c571cc2f3f3ac4a59a5f2bd48f5bdbc8653cc"
-  integrity sha512-KPYGmfD0/b1eXurQ59fXD1GBzhSQfz6/lKBxkaHX9dKTzjXbK68Zt7yGUxUsCS1jeTy/8aL+d9JEr+S54mpkWQ==
+"@types/node@^12.11.1":
+  version "12.11.1"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.11.1.tgz#1fd7b821f798b7fa29f667a1be8f3442bb8922a3"
+  integrity sha512-TJtwsqZ39pqcljJpajeoofYRfeZ7/I/OMUQ5pR4q5wOKf2ocrUvBAZUMhWsOvKx3dVc/aaV5GluBivt0sWqA5A==
 
 "@types/range-parser@*":
   version "1.2.3"
@@ -1442,10 +1442,10 @@ mongoose-legacy-pluralize@1.0.2:
   resolved "https://registry.yarnpkg.com/mongoose-legacy-pluralize/-/mongoose-legacy-pluralize-1.0.2.tgz#3ba9f91fa507b5186d399fb40854bff18fb563e4"
   integrity sha512-Yo/7qQU4/EyIS8YDFSeenIvXxZN+ld7YdV9LqFVQJzTLye8unujAWPZ4NWKfFA+RNjh+wvTWKY9Z3E5XM6ZZiQ==
 
-mongoose@^5.7.4:
-  version "5.7.4"
-  resolved "https://registry.yarnpkg.com/mongoose/-/mongoose-5.7.4.tgz#b6a77a9217dace917ab028fa5dc72f400f2faf4b"
-  integrity sha512-IgqQS5HIaZ8tG2cib6QllfIw2Wc/A0QVOsdKLsSqRolqJFWOjI0se3vsKXLNkbEcuJ1xziW3e/jPhBs65678Hg==
+mongoose@^5.7.5:
+  version "5.7.5"
+  resolved "https://registry.yarnpkg.com/mongoose/-/mongoose-5.7.5.tgz#b787b47216edf62036aa358c3ef0f1869c46cdc2"
+  integrity sha512-BZ4FxtnbTurc/wcm/hLltLdI4IDxo4nsE0D9q58YymTdZwreNzwO62CcjVtaHhmr8HmJtOInp2W/T12FZaMf8g==
   dependencies:
     bson "~1.1.1"
     kareem "2.3.1"
