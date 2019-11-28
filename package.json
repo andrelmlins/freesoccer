@@ -7,7 +7,8 @@
     "build": "tsc",
     "start": "yarn build && node dist/index.js",
     "scraping": "yarn build && node dist/config/Commander.js",
-    "test": "yarn test"
+    "test": "jest --watch",
+    "coverage": "jest --coverage"
   },
   "repository": {
     "type": "git",
@@ -33,6 +34,7 @@
     "express": "^4.17.1",
     "graphql": "^14.5.8",
     "https": "^1.0.0",
+    "jest": "^24.9.0",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.15",
     "md5": "^2.2.1",
