@@ -32,7 +32,7 @@ yarn install
 yarn start
 
 # run scraping
-yarn scraping [-c or --competition <code_competition>] [-ly or --last-year] [-t or --table]
+yarn scraping [-c or --competition <code_competition>] [-l or --last-year] [-t or --table]
 ```
 
 ## Federations
