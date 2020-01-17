@@ -1,6 +1,14 @@
 import CompetitionResolver from './resolvers/CompetitionResolver';
-import RoundResolver from './resolvers/RoundResolver';
+// import RoundResolver from './resolvers/RoundResolver';
 
-const resolvers = { ...CompetitionResolver, ...RoundResolver };
+export default class Resolvers {
+  private competitionResolver: CompetitionResolver;
 
-export default resolvers;
+  constructor() {
+    this.competitionResolver = new CompetitionResolver();
+  }
+
+  public resolvers = () => ({
+    ...this.competitionResolver.resolver()
+  });
+}

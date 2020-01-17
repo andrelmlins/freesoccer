@@ -1,9 +1,21 @@
-const competitions = [{ name: "Competition One" }, { name: "Competition Two" }];
+import CompetitionRepository from '../../repository/CompetitionRepository';
 
-const resolvers = {
-  Query: {
-    competitions: () => competitions
+export default class CompetitionResolver {
+  private competitionRepository: CompetitionRepository;
+
+  constructor() {
+    console.log(new CompetitionRepository());
+    this.competitionRepository = new CompetitionRepository();
   }
-};
 
-export default resolvers;
+  private async get() {
+    console.log(this.competitionRepository);
+    return await this.competitionRepository.all({});
+  }
+
+  public resolver = () => ({
+    Query: {
+      competitions: this.get
+    }
+  });
+}

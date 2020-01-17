@@ -1,7 +1,7 @@
 import { ApolloServer } from 'apollo-server';
 
 import types from '../graphql/types';
-import resolvers from '../graphql/resolvers';
+import Resolvers from '../graphql/Resolvers';
 
 import CbfController from '../controllers/scraping/CbfController';
 import RfefController from '../controllers/scraping/RfefController';
@@ -34,6 +34,8 @@ export class Routes {
   public userController: UserController;
   public controller: Controller;
 
+  private resolvers: Resolvers;
+
   constructor() {
     this.cbfController = new CbfController();
     this.rfefController = new RfefController();
@@ -49,9 +51,22 @@ export class Routes {
     this.matchController = new MatchController();
     this.userController = new UserController();
     this.controller = new Controller();
+
+    this.resolvers = new Resolvers();
   }
 
   public routes(app: any): void {
+    const server = new ApolloServer({
+      cors: false,
+      typeDefs: types,
+      resolvers: this.resolvers.resolvers()
+    });
+
+    const url: String = '/apollo';
+    server.listen().then(({ url }) => {
+      console.log(`Server ready at ${url}`);
+    });
+
     app.route('/scraping/cbf/:competition/results').get(this.cbfController.loadResults);
     app.route('/scraping/cbf/:competition/table').get(this.cbfController.loadTable);
 
@@ -90,12 +105,5 @@ export class Routes {
 
     app.route('/api/rounds/:round/matches').get(this.matchController.getRound);
     app.route('/api/competitions/:competition/:year/matches').get(this.matchController.getCompetition);
-
-    const server = new ApolloServer({ cors: false, typeDefs: types, resolvers });
-
-    const url: String = '/apollo';
-    server.listen().then(({ url }) => {
-      console.log(`Server ready at ${url}`);
-    });
   }
 }

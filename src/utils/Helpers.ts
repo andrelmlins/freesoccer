@@ -9,7 +9,6 @@ import { ITable, Table } from '../schemas/Table';
 import { IStage, Stage } from '../schemas/Stage';
 
 export default class Helpers {
-
   public static getEnumKeyByEnumValue(myEnum: any, enumValue: String) {
     let keys = Object.keys(myEnum).filter(x => myEnum[x] == enumValue);
     return keys.length > 0 ? keys[0] : null;
