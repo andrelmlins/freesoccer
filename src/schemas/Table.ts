@@ -8,7 +8,7 @@ export interface ITable extends Document {
   itens: Array<ItemTable>;
 }
 
-export var TableSchema: Schema = new Schema({
+export const TableSchema: Schema = new Schema({
   competition: { type: Schema.Types.ObjectId, ref: 'Competition' },
   itens: [Object]
 });

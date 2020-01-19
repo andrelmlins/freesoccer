@@ -11,7 +11,7 @@ export interface IStage extends Document {
   competition: ICompetition;
 }
 
-export var StageSchema: Schema = new Schema({
+export const StageSchema: Schema = new Schema({
   hash: String,
   name: String,
   goals: Number,

@@ -7,7 +7,7 @@ export interface IUser extends Document {
   password: string;
 }
 
-export var UserSchema: Schema = new Schema({
+export const UserSchema: Schema = new Schema({
   name: {
     type: String,
     required: true

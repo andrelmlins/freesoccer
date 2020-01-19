@@ -13,7 +13,7 @@ export interface IRound extends Document {
   competition: ICompetition;
 }
 
-export var RoundSchema: Schema = new Schema({
+export const RoundSchema: Schema = new Schema({
   hash: String,
   number: String,
   goals: Number,
