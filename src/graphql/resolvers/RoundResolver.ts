@@ -1,9 +1,21 @@
-const rounds = [{ name: 'Round One' }, { name: 'Round Two' }];
+import RoundRepository from '../../repository/RoundRepository';
 
-const resolvers = {
-  Query: {
-    rounds: () => rounds
+export default class RoundResolver {
+  private roundRepository: RoundRepository;
+
+  constructor() {
+    this.roundRepository = new RoundRepository();
   }
-};
 
-export default resolvers;
+  private async all(args: any) {
+    return await this.roundRepository.all(args.competitionCode, args.year);
+  }
+
+  public resolver() {
+    return {
+      Query: {
+        rounds: (_: any, args: Object) => this.all(args)
+      }
+    };
+  }
+}

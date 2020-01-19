@@ -2,7 +2,7 @@ import { Competition } from '../schemas/Competition';
 
 export default class CompetitionRepository {
   public async all(params: any) {
-    let competitions = await Competition.aggregate([
+    const competitions = await Competition.aggregate([
       {
         $match: params
       },
@@ -35,7 +35,7 @@ export default class CompetitionRepository {
   }
 
   public async get(competitionCode: String) {
-    let competitions = await Competition.aggregate([
+    const competitions = await Competition.aggregate([
       {
         $match: { code: competitionCode }
       },
@@ -73,10 +73,10 @@ export default class CompetitionRepository {
     return competitions[0];
   }
 
-  public async getYear(competition: String, year: String) {
-    let competitions = await Competition.aggregate([
+  public async getYear(competitionCode: String, year: String) {
+    const competitions = await Competition.aggregate([
       {
-        $match: { code: competition, year: year }
+        $match: { code: competitionCode, year: year }
       },
       {
         $group: {
@@ -112,5 +112,9 @@ export default class CompetitionRepository {
     ]);
 
     return competitions[0];
+  }
+
+  public async getBasicYear(competitionCode: String, year: String) {
+    return await Competition.findOne({ code: competitionCode, year });
   }
 }

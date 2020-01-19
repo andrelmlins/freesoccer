@@ -26,7 +26,7 @@ const types = gql`
 
   type Query {
     competitions: [Competition]
-    rounds: [Round]
+    rounds(competitionCode: String!, year: String!): [Round]
   }
 `;
 
