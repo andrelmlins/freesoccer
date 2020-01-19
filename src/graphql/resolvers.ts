@@ -8,7 +8,9 @@ export default class Resolvers {
     this.competitionResolver = new CompetitionResolver();
   }
 
-  public resolvers = () => ({
-    ...this.competitionResolver.resolver()
-  });
+  public resolvers = () => {
+    return {
+      ...this.competitionResolver.resolver()
+    };
+  };
 }

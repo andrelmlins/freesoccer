@@ -7,13 +7,15 @@ export default class CompetitionResolver {
     this.competitionRepository = new CompetitionRepository();
   }
 
-  private async get() {
+  private async all() {
     return await this.competitionRepository.all({});
   }
 
-  public resolver = () => ({
-    Query: {
-      competitions: this.get
-    }
-  });
+  public resolver() {
+    return {
+      Query: {
+        competitions: () => this.all()
+      }
+    };
+  }
 }
