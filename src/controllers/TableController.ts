@@ -1,10 +1,6 @@
 import { Response, Request } from 'express';
 import TableRepository from '../repository/TableRepository';
 
-import { Competition } from '../schemas/Competition';
-import { Table } from '../schemas/Table';
-import Helpers from '../utils/Helpers';
-
 export default class TableController {
   private tableRepository: TableRepository;
 
