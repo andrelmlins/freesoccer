@@ -1,16 +1,16 @@
 import { Response, Request } from 'express';
-
-import { Competition } from '../schemas/Competition';
-import { Round } from '../schemas/Round';
-import Helpers from '../utils/Helpers';
+import MatchRepository from '../repository/MatchRepository';
 
 export default class MatchController {
+  private matchRepository: MatchRepository;
+
+  constructor() {
+    this.matchRepository = new MatchRepository();
+  }
+
   public async getRound(req: Request, res: Response) {
     try {
-      let round = await Round.findOne({ hash: req.params.round });
-      let matches = round!.matchs.sort((a, b) => (a.date > b.date ? 1 : b.date > a.date ? -1 : 0));
-
-      res.send({ matches });
+      res.send({ matches: await this.matchRepository.allPerRound(req.params.round) });
     } catch (error) {
       res.status(404).send({ error: true });
     }
@@ -18,37 +18,7 @@ export default class MatchController {
 
   public async getCompetition(req: Request, res: Response) {
     try {
-      let competition = await Competition.findOne({ code: req.params.competition, year: req.params.year });
-
-      if (competition == null) {
-        throw new Error('Competition does not exist');
-      } else {
-        let matches = await Round.aggregate([
-          {
-            $match: { competition: competition._id }
-          },
-          {
-            $unwind: '$matchs'
-          },
-          {
-            $project: {
-              _id: 0,
-              round: {
-                number: '$number',
-                hash: '$hash',
-                url: { $concat: [Helpers.getUrl(req, '/api/rounds'), '/', '$hash'] }
-              },
-              date: '$matchs.date',
-              stadium: '$matchs.stadium',
-              location: '$matchs.location',
-              teamHome: '$matchs.teamHome',
-              teamGuest: '$matchs.teamGuest'
-            }
-          }
-        ]);
-
-        res.send({ matches });
-      }
+      res.send({ matches: await this.matchRepository.allPerCompetition(req.params.competition, req.params.year) });
     } catch (error) {
       res.status(404).send({ error: true });
     }

@@ -16,9 +16,7 @@ export default class RoundRepository {
       throw new Error('Competition does not exist');
     } else {
       rounds = await Round.aggregate([
-        {
-          $match: { competition: competition._id }
-        },
+        { $match: { competition: competition._id } },
         {
           $project: {
             _id: 0,
@@ -39,9 +37,7 @@ export default class RoundRepository {
 
   public async get(roundCode: String) {
     const rounds = await Round.aggregate([
-      {
-        $match: { hash: roundCode }
-      },
+      { $match: { hash: roundCode } },
       {
         $project: {
           _id: 0,
