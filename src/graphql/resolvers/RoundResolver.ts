@@ -11,10 +11,15 @@ export default class RoundResolver {
     return await this.roundRepository.all(args.competitionCode, args.year);
   }
 
+  private async get(args: any) {
+    return await this.roundRepository.get(args.roundCode);
+  }
+
   public resolver() {
     return {
       Query: {
-        rounds: (_: any, args: Object) => this.all(args)
+        rounds: (_: any, args: Object) => this.all(args),
+        round: (_: any, args: Object) => this.get(args)
       }
     };
   }
