@@ -29,6 +29,8 @@ const types = gql`
     competition(competitionCode: String!): Competition
     round(roundCode: String!): Round
     rounds(competitionCode: String!, year: String!): [Round]
+    roundMatches(roundCode: String!): [Match]
+    competitionMatches(competitionCode: String!, year: String!): [Match]
   }
 `;
 
