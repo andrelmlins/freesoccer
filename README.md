@@ -103,3 +103,14 @@ $ docker run -d -p 80:8080 --name andrelmlins1/freesoccer
 - Bcrypt
 - Cron
 - Jsonwebtoken
+
+## Contribution guidelines
+
+If you want to contribute to **FreeSoccer**, be sure to review the
+[contribution guidelines](CONTRIBUTING.md). This project adheres to
+[code of conduct](CODE_OF_CONDUCT.md). By participating, you are expected to
+uphold this code.
+
+## License
+
+FreeSoccer is open source software [licensed as MIT](https://github.com/andrelmlins/freesoccer/blob/master/LICENSE).
