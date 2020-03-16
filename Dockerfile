@@ -6,6 +6,7 @@ RUN mkdir -p /api
 WORKDIR /api
 
 COPY package.json /api
+COPY yarn.lock /api
 RUN yarn install --frozen-lockfile --production
 RUN yarn build
 
