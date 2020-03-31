@@ -46,16 +46,6 @@ export default class Helpers {
     }
   }
 
-  public static async replaceCompetition(competition: ICompetition) {
-    let competitionOld = await Competition.findOne({ code: competition.code, year: competition.year });
-    if (competitionOld) {
-      let competitionAux: any = competition.toObject();
-      delete competitionAux._id;
-
-      await Competition.updateOne({ _id: competitionOld._id }, competitionAux);
-    } else await competition.save();
-  }
-
   public static async replaceTable(table: ITable) {
     let tableOld = await Table.findOne({ competition: table.competition });
 

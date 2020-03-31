@@ -12,16 +12,19 @@ import { ICompetition } from '../../schemas/Competition';
 import { Round, IRound } from '../../schemas/Round';
 import Match from '../../schemas/Match';
 import TeamResult from '../../schemas/TeamResult';
+import CompetitionRepository from '../../repository/CompetitionRepository';
 
 export default class FigcLeagueScraping {
   public lastYear: boolean;
   private axios: any;
+  private competitionRepository: CompetitionRepository;
 
   constructor(lastYear: boolean) {
     this.lastYear = lastYear;
+    this.competitionRepository = new CompetitionRepository();
 
     this.axios = axios.create({
-      httpsAgent: new https.Agent({  
+      httpsAgent: new https.Agent({
         rejectUnauthorized: false
       })
     });
@@ -49,9 +52,7 @@ export default class FigcLeagueScraping {
 
       let year = competition.year + '-' + newYear;
 
-      let page = await this.axios.get(
-        `${competitionDefault.aux.url}/calendario-e-risultati/${year}/UNICO/UNI/1`,
-      );
+      let page = await this.axios.get(`${competitionDefault.aux.url}/calendario-e-risultati/${year}/UNICO/UNI/1`);
 
       let $ = cheerio.load(page.data);
       let data = $('#menu-giornate').children();
@@ -65,7 +66,7 @@ export default class FigcLeagueScraping {
         }
       }
 
-      await Helpers.replaceCompetition(competition);
+      await this.competitionRepository.save(competition);
     }
   }
 
@@ -82,9 +83,7 @@ export default class FigcLeagueScraping {
     round.hash = md5(competition.code + competition.year + round.number);
     console.log('\t\t\t-> Round ' + round.number);
 
-    let page = await this.axios.get(
-      `${competitionDefault.aux.url}/calendario-e-risultati/${year}/UNICO/UNI/${number}`
-    );
+    let page = await this.axios.get(`${competitionDefault.aux.url}/calendario-e-risultati/${year}/UNICO/UNI/${number}`);
 
     let $ = cheerio.load(page.data);
     let matches = $('.risultati').children();
@@ -110,10 +109,22 @@ export default class FigcLeagueScraping {
     match.teamGuest = new TeamResult();
 
     let data = matchHtml.children();
-    let date = data.eq(0).children('p').children('span').text().trim();
+    let date = data
+      .eq(0)
+      .children('p')
+      .children('span')
+      .text()
+      .trim();
     if (date.length < 16) date = date + ' 00:00';
 
-    let location = data.eq(0).children('p').html().split('</span>')[1].split('<br>')[1].replace('Stadium: ', '').trim();
+    let location = data
+      .eq(0)
+      .children('p')
+      .html()
+      .split('</span>')[1]
+      .split('<br>')[1]
+      .replace('Stadium: ', '')
+      .trim();
     location = location.split('(');
 
     match.date = moment.utc(date, 'DD/MM/YYYY HH:mm').format();
@@ -121,20 +132,58 @@ export default class FigcLeagueScraping {
     match.location = location[1] ? location[1].replace(')', '').trim() : '';
 
     match.teamHome.initials = '';
-    match.teamHome.name = data.eq(1).children('.nomesquadra').text().trim();
-    match.teamHome.flag = FigcConstants.URL_DEFAULT + data.eq(1).children('img').attr('src');
+    match.teamHome.name = data
+      .eq(1)
+      .children('.nomesquadra')
+      .text()
+      .trim();
+    match.teamHome.flag =
+      FigcConstants.URL_DEFAULT +
+      data
+        .eq(1)
+        .children('img')
+        .attr('src');
     match.teamHome.goals =
-      data.eq(1).children('span').text().trim() === '-'
+      data
+        .eq(1)
+        .children('span')
+        .text()
+        .trim() === '-'
         ? undefined
-        : parseInt(data.eq(1).children('span').text().trim());
+        : parseInt(
+            data
+              .eq(1)
+              .children('span')
+              .text()
+              .trim()
+          );
 
     match.teamGuest.initials = '';
-    match.teamGuest.name = data.eq(2).children('.nomesquadra').text().trim();
-    match.teamGuest.flag = FigcConstants.URL_DEFAULT + data.eq(2).children('img').attr('src');
+    match.teamGuest.name = data
+      .eq(2)
+      .children('.nomesquadra')
+      .text()
+      .trim();
+    match.teamGuest.flag =
+      FigcConstants.URL_DEFAULT +
+      data
+        .eq(2)
+        .children('img')
+        .attr('src');
     match.teamGuest.goals =
-      data.eq(2).children('span').text().trim() === '-'
+      data
+        .eq(2)
+        .children('span')
+        .text()
+        .trim() === '-'
         ? undefined
-        : parseInt(data.eq(2).children('span').text().trim());
+        : parseInt(
+            data
+              .eq(2)
+              .children('span')
+              .text()
+              .trim()
+          );
 
     return match;
   }

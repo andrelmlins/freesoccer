@@ -11,12 +11,15 @@ import { ICompetition } from '../../schemas/Competition';
 import { Round, IRound } from '../../schemas/Round';
 import Match from '../../schemas/Match';
 import TeamResult from '../../schemas/TeamResult';
+import CompetitionRepository from '../../repository/CompetitionRepository';
 
 export default class CbfLeagueScraping {
   public lastYear: boolean;
+  private competitionRepository: CompetitionRepository;
 
   constructor(lastYear: boolean) {
     this.lastYear = lastYear;
+    this.competitionRepository = new CompetitionRepository();
   }
 
   public async run(competition: ICompetitionDefault) {
@@ -53,7 +56,7 @@ export default class CbfLeagueScraping {
         competition.rounds.push(roundResult!._id);
       }
 
-      await Helpers.replaceCompetition(competition);
+      await this.competitionRepository.save(competition);
     }
   }
 

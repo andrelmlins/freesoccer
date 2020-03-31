@@ -11,12 +11,15 @@ import { ICompetition } from '../../schemas/Competition';
 import { IStage, Stage } from '../../schemas/Stage';
 import Match from '../../schemas/Match';
 import TeamResult from '../../schemas/TeamResult';
+import CompetitionRepository from '../../repository/CompetitionRepository';
 
 export default class CbfEliminationScraping {
   public lastYear: boolean;
+  private competitionRepository: CompetitionRepository;
 
   constructor(lastYear: boolean) {
     this.lastYear = lastYear;
+    this.competitionRepository = new CompetitionRepository();
   }
 
   public async run(competition: ICompetitionDefault) {
@@ -37,7 +40,7 @@ export default class CbfEliminationScraping {
       let competition = await Helpers.createCompetition(competitionDefault, competitionDefault.years![i], CbfConstants);
 
       let page = await axios.get(CbfConstants.URL_DEFAULT + '/' + competition.code + '/' + competition.year);
-      
+
       let $ = cheerio.load(page.data);
       let stages = $('.campeonato .container div div section')
         .find('.group-btns')
@@ -48,7 +51,7 @@ export default class CbfEliminationScraping {
         competition.stages.push(stageResult!._id);
       }
 
-      await Helpers.replaceCompetition(competition);
+      await this.competitionRepository.save(competition);
     }
   }
 
@@ -57,7 +60,10 @@ export default class CbfEliminationScraping {
 
     let stage = new Stage();
     stage.goals = 0;
-    stage.name = stageHtml.children('a').text().trim();
+    stage.name = stageHtml
+      .children('a')
+      .text()
+      .trim();
     stage.matchs = [];
     stage.competition = competition._id;
     stage.hash = md5(competition.code + competition.year + stage.name);
@@ -98,14 +104,43 @@ export default class CbfEliminationScraping {
         match.teamHome = new TeamResult();
         match.teamGuest = new TeamResult();
 
-        let aux = data.children().eq(1).children('div').children();
-        let location = data.children().eq(0).text().includes('A definir')
+        let aux = data
+          .children()
+          .eq(1)
+          .children('div')
+          .children();
+        let location = data
+          .children()
+          .eq(0)
+          .text()
+          .includes('A definir')
           ? ['', '', '']
-          : data.children().eq(2).text().trim().replace(' Como foi o jogo', '').split(' - ');
-        let date = data.children().eq(0).text().includes('A definir')
-          ? null :
-          data.children().eq(0).text().split('-')[0].trim().split(',')[1].trim();
-        let result = aux.eq(1).text().trim().split('x');
+          : data
+              .children()
+              .eq(2)
+              .text()
+              .trim()
+              .replace(' Como foi o jogo', '')
+              .split(' - ');
+        let date = data
+          .children()
+          .eq(0)
+          .text()
+          .includes('A definir')
+          ? null
+          : data
+              .children()
+              .eq(0)
+              .text()
+              .split('-')[0]
+              .trim()
+              .split(',')[1]
+              .trim();
+        let result = aux
+          .eq(1)
+          .text()
+          .trim()
+          .split('x');
         let penalty = false;
 
         if (result[0].includes(')')) penalty = true;
@@ -130,9 +165,18 @@ export default class CbfEliminationScraping {
         match.stadium = location[0];
         match.location = location.length >= 2 ? location[1] + '/' + location[2] : '';
 
-        match.teamHome.initials = aux.eq(0).children('b').text();
-        match.teamHome.name = aux.eq(0).children('img').attr('title');
-        match.teamHome.flag = aux.eq(0).children('img').attr('src');
+        match.teamHome.initials = aux
+          .eq(0)
+          .children('b')
+          .text();
+        match.teamHome.name = aux
+          .eq(0)
+          .children('img')
+          .attr('title');
+        match.teamHome.flag = aux
+          .eq(0)
+          .children('img')
+          .attr('src');
 
         if (penalty) {
           match.teamHome.goalsPenalty = parseInt(result[0][0]);
@@ -141,9 +185,18 @@ export default class CbfEliminationScraping {
           match.teamHome.goals = result[0] == '' ? undefined : parseInt(result[0]);
         }
 
-        match.teamGuest.initials = aux.eq(2).children('b').text();
-        match.teamGuest.name = aux.eq(2).children('img').attr('title');
-        match.teamGuest.flag = aux.eq(2).children('img').attr('title');
+        match.teamGuest.initials = aux
+          .eq(2)
+          .children('b')
+          .text();
+        match.teamGuest.name = aux
+          .eq(2)
+          .children('img')
+          .attr('title');
+        match.teamGuest.flag = aux
+          .eq(2)
+          .children('img')
+          .attr('title');
 
         if (penalty) {
           match.teamGuest.goalsPenalty = parseInt(result[1][1]);

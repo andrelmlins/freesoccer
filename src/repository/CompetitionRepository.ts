@@ -1,4 +1,4 @@
-import { Competition } from '../schemas/Competition';
+import { Competition, ICompetition } from '../schemas/Competition';
 
 export default class CompetitionRepository {
   public async all(params: any) {
@@ -110,5 +110,15 @@ export default class CompetitionRepository {
 
   public async getBasicYear(competitionCode: String, year: String) {
     return await Competition.findOne({ code: competitionCode, year });
+  }
+
+  public async save(competition: ICompetition) {
+    let competitionOld = await Competition.findOne({ code: competition.code, year: competition.year });
+    if (competitionOld) {
+      let competitionAux: any = competition.toObject();
+      delete competitionAux._id;
+
+      await Competition.updateOne({ _id: competitionOld._id }, competitionAux);
+    } else await competition.save();
   }
 }
