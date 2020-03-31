@@ -2,18 +2,19 @@ import axios from 'axios';
 import cheerio from 'cheerio';
 
 import CbfConstants from '../../constants/CbfConstants';
-import Helpers from '../../utils/Helpers';
 import ICompetitionDefault from '../../interfaces/ICompetitionDefault';
 
 import { Competition } from '../../schemas/Competition';
 import { Table } from '../../schemas/Table';
 import ItemTable from '../../schemas/ItemTable';
-
+import TableRepository from '../../repository/TableRepository';
 export default class CbfTableScraping {
   public lastYear: boolean;
+  private tableRepository: TableRepository;
 
   constructor(lastYear: boolean) {
     this.lastYear = lastYear;
+    this.tableRepository = new TableRepository();
   }
 
   public async run(competition: ICompetitionDefault) {
@@ -38,7 +39,12 @@ export default class CbfTableScraping {
       let $ = cheerio.load(page.data);
 
       let section = $('.container section');
-      let tableHtml = section.children().eq(0).children('table').children('tbody').children();
+      let tableHtml = section
+        .children()
+        .eq(0)
+        .children('table')
+        .children('tbody')
+        .children();
 
       let table = new Table();
       table.competition = competition!._id;
@@ -49,7 +55,7 @@ export default class CbfTableScraping {
         if (item) table.itens.push(item);
       }
 
-      await Helpers.replaceTable(table);
+      await this.tableRepository.save(table);
     }
   }
 
@@ -59,18 +65,77 @@ export default class CbfTableScraping {
     if (data.length > 1) {
       let item = new ItemTable();
       item.position = position;
-      item.name = data.eq(0).children().last().text().trim();
-      item.flag = data.eq(0).children('img').attr('src').trim();
-      item.points = parseInt(data.eq(1).text().trim());
-      item.matches = parseInt(data.eq(2).text().trim());
-      item.win = parseInt(data.eq(3).text().trim());
-      item.draw = parseInt(data.eq(4).text().trim());
-      item.lose = parseInt(data.eq(5).text().trim());
-      item.goalsScored = parseInt(data.eq(6).text().trim());
-      item.goalsAgainst = parseInt(data.eq(7).text().trim());
-      item.goalsDifference = parseInt(data.eq(8).text().trim());
-      item.yellowCard = parseInt(data.eq(9).text().trim());
-      item.redCard = parseInt(data.eq(10).text().trim());
+      item.name = data
+        .eq(0)
+        .children()
+        .last()
+        .text()
+        .trim();
+      item.flag = data
+        .eq(0)
+        .children('img')
+        .attr('src')
+        .trim();
+      item.points = parseInt(
+        data
+          .eq(1)
+          .text()
+          .trim()
+      );
+      item.matches = parseInt(
+        data
+          .eq(2)
+          .text()
+          .trim()
+      );
+      item.win = parseInt(
+        data
+          .eq(3)
+          .text()
+          .trim()
+      );
+      item.draw = parseInt(
+        data
+          .eq(4)
+          .text()
+          .trim()
+      );
+      item.lose = parseInt(
+        data
+          .eq(5)
+          .text()
+          .trim()
+      );
+      item.goalsScored = parseInt(
+        data
+          .eq(6)
+          .text()
+          .trim()
+      );
+      item.goalsAgainst = parseInt(
+        data
+          .eq(7)
+          .text()
+          .trim()
+      );
+      item.goalsDifference = parseInt(
+        data
+          .eq(8)
+          .text()
+          .trim()
+      );
+      item.yellowCard = parseInt(
+        data
+          .eq(9)
+          .text()
+          .trim()
+      );
+      item.redCard = parseInt(
+        data
+          .eq(10)
+          .text()
+          .trim()
+      );
 
       return item;
     }

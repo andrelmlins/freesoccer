@@ -1,5 +1,5 @@
 import { Competition } from '../schemas/Competition';
-import { Table } from '../schemas/Table';
+import { Table, ITable } from '../schemas/Table';
 
 export default class TableRepository {
   public async get(competitionCode: String, year: String) {
@@ -56,5 +56,16 @@ export default class TableRepository {
     ]);
 
     return table[0];
+  }
+
+  public async save(table: ITable) {
+    let tableOld = await Table.findOne({ competition: table.competition });
+
+    if (tableOld) {
+      let tableAux: any = table.toObject();
+      delete tableAux._id;
+
+      await Table.updateOne({ competition: table.competition }, tableAux);
+    } else await table.save();
   }
 }

@@ -2,18 +2,20 @@ import axios from 'axios';
 import cheerio from 'cheerio';
 
 import DfbConstants from '../../constants/DfbConstants';
-import Helpers from '../../utils/Helpers';
 import ICompetitionDefault from '../../interfaces/ICompetitionDefault';
 
 import { Competition } from '../../schemas/Competition';
 import { Table } from '../../schemas/Table';
 import ItemTable from '../../schemas/ItemTable';
+import TableRepository from '../../repository/TableRepository';
 
 export default class DfbTableScraping {
   public lastYear: boolean;
+  private tableRepository: TableRepository;
 
   constructor(lastYear: boolean) {
     this.lastYear = lastYear;
+    this.tableRepository = new TableRepository();
   }
 
   public async run(competition: ICompetitionDefault) {
@@ -35,7 +37,12 @@ export default class DfbTableScraping {
 
     for (let i = 0; i < end; i++) {
       let numberSeason = seasons.eq(i).attr('value');
-      let year = parseInt(seasons.eq(i).text().split('/')[0]);
+      let year = parseInt(
+        seasons
+          .eq(i)
+          .text()
+          .split('/')[0]
+      );
 
       if (year >= 2000) {
         console.log('\t\t-> ' + year);
@@ -44,17 +51,17 @@ export default class DfbTableScraping {
 
         let page = await axios.get(
           DfbConstants.URL_DEFAULT +
-          '/' +
-          competitionDefault.code +
-          '/spieltagtabelle/?spieledb_path=/competitions/' +
-          competitionDefault.aux.number +
-          '/seasons/' +
-          numberSeason +
-          '/matchday&spieledb_path=%2Fcompetitions%2F' +
-          competitionDefault.aux.number +
-          '%2Fseasons%2F' +
-          numberSeason +
-          '%2Fmatchday%2Fcurrent',
+            '/' +
+            competitionDefault.code +
+            '/spieltagtabelle/?spieledb_path=/competitions/' +
+            competitionDefault.aux.number +
+            '/seasons/' +
+            numberSeason +
+            '/matchday&spieledb_path=%2Fcompetitions%2F' +
+            competitionDefault.aux.number +
+            '%2Fseasons%2F' +
+            numberSeason +
+            '%2Fmatchday%2Fcurrent'
         );
 
         let $ = cheerio.load(page.data);
@@ -69,7 +76,7 @@ export default class DfbTableScraping {
           if (item) table.itens.push(item);
         }
 
-        await Helpers.replaceTable(table);
+        await this.tableRepository.save(table);
       }
     }
   }
@@ -79,15 +86,59 @@ export default class DfbTableScraping {
 
     let item = new ItemTable();
     item.position = position;
-    item.name = data.eq(2).text().trim();
-    item.flag = data.eq(1).find('img').attr('src').trim();
-    item.points = parseInt(data.eq(9).text().trim());
-    item.matches = parseInt(data.eq(3).text().trim());
-    item.win = parseInt(data.eq(4).text().trim());
-    item.draw = parseInt(data.eq(5).text().trim());
-    item.lose = parseInt(data.eq(6).text().trim());
-    item.goalsScored = parseInt(data.eq(7).text().trim().split(':')[0]);
-    item.goalsAgainst = parseInt(data.eq(7).text().trim().split(':')[1]);
+    item.name = data
+      .eq(2)
+      .text()
+      .trim();
+    item.flag = data
+      .eq(1)
+      .find('img')
+      .attr('src')
+      .trim();
+    item.points = parseInt(
+      data
+        .eq(9)
+        .text()
+        .trim()
+    );
+    item.matches = parseInt(
+      data
+        .eq(3)
+        .text()
+        .trim()
+    );
+    item.win = parseInt(
+      data
+        .eq(4)
+        .text()
+        .trim()
+    );
+    item.draw = parseInt(
+      data
+        .eq(5)
+        .text()
+        .trim()
+    );
+    item.lose = parseInt(
+      data
+        .eq(6)
+        .text()
+        .trim()
+    );
+    item.goalsScored = parseInt(
+      data
+        .eq(7)
+        .text()
+        .trim()
+        .split(':')[0]
+    );
+    item.goalsAgainst = parseInt(
+      data
+        .eq(7)
+        .text()
+        .trim()
+        .split(':')[1]
+    );
     item.goalsDifference = item.goalsScored - item.goalsAgainst;
     item.yellowCard = undefined;
     item.redCard = undefined;
