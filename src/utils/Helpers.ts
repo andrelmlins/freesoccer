@@ -3,31 +3,13 @@ import puppeteer from 'puppeteer';
 
 import ICompetitionDefault from '../interfaces/ICompetitionDefault';
 
-import { IRound, Round } from '../schemas/Round';
 import { ICompetition, Competition } from '../schemas/Competition';
-import { ITable, Table } from '../schemas/Table';
 import { IStage, Stage } from '../schemas/Stage';
 
 export default class Helpers {
   public static getEnumKeyByEnumValue(myEnum: any, enumValue: String) {
     let keys = Object.keys(myEnum).filter(x => myEnum[x] == enumValue);
     return keys.length > 0 ? keys[0] : null;
-  }
-
-  public static async replaceRound(round: IRound): Promise<IRound | null> {
-    let roundOld = await Round.findOne({ hash: round.hash });
-    if (roundOld) {
-      let roundAux: any = round.toObject();
-      delete roundAux._id;
-
-      await Round.updateOne({ _id: roundOld._id }, roundAux);
-
-      let roundResult = await Round.findOne({ hash: round.hash });
-      return roundResult;
-    } else {
-      let roundResult = await Round.create(round);
-      return roundResult;
-    }
   }
 
   public static async replaceStage(stage: IStage): Promise<IStage | null> {
@@ -44,17 +26,6 @@ export default class Helpers {
       let stageResult = await Stage.create(stage);
       return stageResult;
     }
-  }
-
-  public static async replaceTable(table: ITable) {
-    let tableOld = await Table.findOne({ competition: table.competition });
-
-    if (tableOld) {
-      let tableAux: any = table.toObject();
-      delete tableAux._id;
-
-      await Table.updateOne({ competition: table.competition }, tableAux);
-    } else await table.save();
   }
 
   public static async createCompetition(competitionDefault: ICompetitionDefault, year: string, constants: any): Promise<ICompetition> {

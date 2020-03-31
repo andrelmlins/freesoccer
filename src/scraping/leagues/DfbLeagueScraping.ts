@@ -12,14 +12,17 @@ import { Round, IRound } from '../../schemas/Round';
 import Match from '../../schemas/Match';
 import TeamResult from '../../schemas/TeamResult';
 import CompetitionRepository from '../../repository/CompetitionRepository';
+import RoundRepository from '../../repository/RoundRepository';
 
 export default class DfbLeagueScraping {
   public lastYear: boolean;
   private competitionRepository: CompetitionRepository;
+  private roundRepository: RoundRepository;
 
   constructor(lastYear: boolean) {
     this.lastYear = lastYear;
     this.competitionRepository = new CompetitionRepository();
+    this.roundRepository = new RoundRepository();
   }
 
   public async run(competition: ICompetitionDefault) {
@@ -83,12 +86,7 @@ export default class DfbLeagueScraping {
     }
   }
 
-  public async runRound(
-    roundHtml: any,
-    competition: ICompetition,
-    competitionDefault: ICompetitionDefault,
-    codeyear: string
-  ): Promise<IRound | null> {
+  public async runRound(roundHtml: any, competition: ICompetition, competitionDefault: ICompetitionDefault, codeyear: string): Promise<IRound | null> {
     let number = parseInt(roundHtml.attr('value'));
 
     let round = new Round();
@@ -134,7 +132,7 @@ export default class DfbLeagueScraping {
       round.matchs.push(matchResult);
     }
 
-    return await Helpers.replaceRound(round);
+    return await this.roundRepository.save(round);
   }
 
   public async runMatch(matchHtml: any): Promise<Match> {

@@ -11,14 +11,17 @@ import { Round, IRound } from '../../schemas/Round';
 import Match from '../../schemas/Match';
 import TeamResult from '../../schemas/TeamResult';
 import CompetitionRepository from '../../repository/CompetitionRepository';
+import RoundRepository from '../../repository/RoundRepository';
 
 export default class FigcLeagueScraping {
   public lastYear: boolean;
   private competitionRepository: CompetitionRepository;
+  private roundRepository: RoundRepository;
 
   constructor(lastYear: boolean) {
     this.lastYear = lastYear;
     this.competitionRepository = new CompetitionRepository();
+    this.roundRepository = new RoundRepository();
   }
 
   public async run(competition: ICompetitionDefault) {
@@ -51,9 +54,7 @@ export default class FigcLeagueScraping {
 
         let competition = await Helpers.createCompetition(competitionDefault, year + '', FaConstants);
 
-        let page = await Helpers.getPageDinamicallyScroll(
-          FaConstants.URL_DEFAULT + '/results' + '?co=' + competitionDefault.aux.code + '&se=' + numberSeason
-        );
+        let page = await Helpers.getPageDinamicallyScroll(FaConstants.URL_DEFAULT + '/results' + '?co=' + competitionDefault.aux.code + '&se=' + numberSeason);
         let $ = cheerio.load(page);
 
         if (i == 0) {
@@ -140,7 +141,7 @@ export default class FigcLeagueScraping {
         }
       }
 
-      rounds.push((await Helpers.replaceRound(round))!);
+      rounds.push((await this.roundRepository.save(round))!);
     }
 
     return rounds;

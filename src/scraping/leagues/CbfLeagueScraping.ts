@@ -12,14 +12,17 @@ import { Round, IRound } from '../../schemas/Round';
 import Match from '../../schemas/Match';
 import TeamResult from '../../schemas/TeamResult';
 import CompetitionRepository from '../../repository/CompetitionRepository';
+import RoundRepository from '../../repository/RoundRepository';
 
 export default class CbfLeagueScraping {
   public lastYear: boolean;
   private competitionRepository: CompetitionRepository;
+  private roundRepository: RoundRepository;
 
   constructor(lastYear: boolean) {
     this.lastYear = lastYear;
     this.competitionRepository = new CompetitionRepository();
+    this.roundRepository = new RoundRepository();
   }
 
   public async run(competition: ICompetitionDefault) {
@@ -90,7 +93,7 @@ export default class CbfLeagueScraping {
       round.matchs.push(matchResult);
     }
 
-    return await Helpers.replaceRound(round);
+    return await this.roundRepository.save(round);
   }
 
   public async runMatch(matchHtml: any): Promise<Match> {

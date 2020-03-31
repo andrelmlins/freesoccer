@@ -1,4 +1,4 @@
-import { Round } from '../schemas/Round';
+import { Round, IRound } from '../schemas/Round';
 import CompetitionRepository from './CompetitionRepository';
 
 export default class RoundRepository {
@@ -57,5 +57,21 @@ export default class RoundRepository {
     ]);
 
     return rounds[0];
+  }
+
+  public async save(round: IRound): Promise<IRound | null> {
+    let roundOld = await Round.findOne({ hash: round.hash });
+    if (roundOld) {
+      let roundAux: any = round.toObject();
+      delete roundAux._id;
+
+      await Round.updateOne({ _id: roundOld._id }, roundAux);
+
+      let roundResult = await Round.findOne({ hash: round.hash });
+      return roundResult;
+    } else {
+      let roundResult = await Round.create(round);
+      return roundResult;
+    }
   }
 }
