@@ -1,7 +1,7 @@
 import { Response, Request } from 'express';
 import jwt from 'jsonwebtoken';
 
-var swaggerDocument = require('../../public/assets/swagger.json');
+const swaggerDocument = require('../../public/assets/swagger.json');
 
 export default class Controller {
   public async getSwagger(req: Request, res: Response) {
@@ -13,7 +13,7 @@ export default class Controller {
   }
 
   public async validateToken(req: Request, res: Response, next: any) {
-    var token = req.body.token || req.query.token || req.headers['x-access-token'];
+    const token = req.body.token || req.query.token || req.headers['x-access-token'];
 
     if (token) {
       try {

@@ -62,7 +62,6 @@ export class Routes {
       resolvers: this.resolvers.resolvers()
     });
 
-    const url: String = '/apollo';
     server.listen().then(({ url }) => {
       console.log(`Server ready at ${url}`);
     });
