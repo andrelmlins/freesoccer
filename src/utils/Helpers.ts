@@ -1,5 +1,6 @@
 import { Request } from 'express';
-import puppeteer from 'puppeteer';
+import puppeteer from 'puppeteer-extra';
+import autoScrollPlugin from 'puppeteer-extra-plugin-auto-scroll';
 
 import ICompetitionDefault from '../interfaces/ICompetitionDefault';
 
@@ -51,44 +52,30 @@ export default class Helpers {
     return req.protocol + '://' + req.get('host') + url;
   }
 
-  public static async autoScroll(page: any) {
-    await page.evaluate(`(async () => {
-      await new Promise((resolve, reject) => {
-        let totalHeight = 0;
-        let distance = 100;
-        let timer = setInterval(() => {
-          let scrollHeight = document.body.scrollHeight;
-          window.scrollBy(0, distance);
-          totalHeight += distance;
-
-          if (totalHeight >= scrollHeight) {
-            clearInterval(timer);
-            resolve();
-          }
-        }, 1000);
-      });
-    })()`);
-  }
-
   public static async getPageDinamically(url: String, stop: String): Promise<String> {
     const browser = await puppeteer.launch({ headless: false });
     const page = await browser.newPage();
-    await page.goto(url);
-    await page.waitForSelector(stop);
+    await page.goto(url.toString());
+    await page.waitForSelector(stop.toString());
 
     let content = await page.content();
     await browser.close();
+
     return content;
   }
 
   public static async getPageDinamicallyScroll(url: String): Promise<String> {
+    puppeteer.use(autoScrollPlugin());
+
     const browser = await puppeteer.launch({ headless: false });
     const page = await browser.newPage();
-    await page.goto(url);
-    await Helpers.autoScroll(page);
+    await page.goto(url.toString());
+    // @ts-ignore
+    await page.autoScroll(null, 100, 1000);
 
     let content = await page.content();
     await browser.close();
+
     return content;
   }
 }

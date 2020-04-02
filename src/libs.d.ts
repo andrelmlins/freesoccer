@@ -5,5 +5,5 @@ declare module 'swagger-ui-express';
 declare module 'cron';
 declare module 'jsonwebtoken';
 declare module 'bcrypt';
-declare module 'puppeteer';
 declare module 'serve-favicon';
+declare module 'puppeteer-extra-plugin-auto-scroll';
