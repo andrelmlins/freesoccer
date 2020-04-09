@@ -33,8 +33,6 @@ export default class DfbLeagueScraping extends ScrapingBasic {
   }
 
   public async runCompetition(competitionDefault: ICompetitionDefault) {
-    this.loadingCli.push(competitionDefault.name);
-
     let $ = await this.getPageData(competitionDefault.code + '/spieltagtabelle');
     let seasons = $('select[name="seasons"]').children();
 

@@ -1,12 +1,13 @@
 import cheerio from 'cheerio';
 import axios from 'axios';
+import https from 'https';
 
 import LoadingCli from '../utils/LoadingCli';
 import ICompetitionDefault from '../interfaces/ICompetitionDefault';
 import { ICompetition, Competition } from '../schemas/Competition';
 
 export default abstract class ScrapingBasic {
-  public lastYear: boolean;
+  protected lastYear: boolean;
   protected loadingCli: LoadingCli;
 
   constructor(lastYear: boolean) {
@@ -19,7 +20,13 @@ export default abstract class ScrapingBasic {
   public abstract getConstants(): any;
 
   public async getPageData(url: string): Promise<any> {
-    const page = await axios.get(this.getConstants().URL_DEFAULT + '/' + url);
+    const axiosObject = axios.create({
+      httpsAgent: new https.Agent({
+        rejectUnauthorized: false
+      })
+    });
+    console.log(this.getConstants().URL_DEFAULT + '/' + url);
+    const page = await axiosObject.get(this.getConstants().URL_DEFAULT + '/' + url);
     let $ = cheerio.load(page.data);
 
     return $;

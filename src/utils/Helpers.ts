@@ -34,31 +34,4 @@ export default class Helpers {
   public static getUrl(req: Request, url: string): string {
     return req.protocol + '://' + req.get('host') + url;
   }
-
-  public static async getPageDinamically(url: String, stop: String): Promise<String> {
-    const browser = await puppeteer.launch({ headless: false });
-    const page = await browser.newPage();
-    await page.goto(url.toString());
-    await page.waitForSelector(stop.toString());
-
-    let content = await page.content();
-    await browser.close();
-
-    return content;
-  }
-
-  public static async getPageDinamicallyScroll(url: String): Promise<String> {
-    puppeteer.use(autoScrollPlugin());
-
-    const browser = await puppeteer.launch({ headless: false });
-    const page = await browser.newPage();
-    await page.goto(url.toString());
-    // @ts-ignore
-    await page.autoScroll(null, 100, 1000);
-
-    let content = await page.content();
-    await browser.close();
-
-    return content;
-  }
 }

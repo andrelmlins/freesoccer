@@ -32,8 +32,6 @@ export default class FaLeagueScraping extends ScrapingBasicClient {
   }
 
   public async runCompetition(competitionDefault: ICompetitionDefault) {
-    this.loadingCli.push(competitionDefault.name);
-
     let $ = await this.getPageDinamically('results', 'div[data-dropdown-block="compSeasons"] ul li');
     let seasons = $('div[data-dropdown-block="compSeasons"] ul').children();
 
