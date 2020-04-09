@@ -17,8 +17,6 @@ export default class DfbScraping implements IFederationScraping {
   }
 
   public async run(competition: ICompetitionDefault) {
-    console.log('-> DFB SCRAPING');
-
     switch (competition.type) {
       case CompetitionType.LEAGUE:
         await this.runLeague(competition);
@@ -27,8 +25,6 @@ export default class DfbScraping implements IFederationScraping {
   }
 
   public async runTable(competition: ICompetitionDefault) {
-    console.log('-> DFB TABLE SCRAPING');
-
     if (competition.type === CompetitionType.LEAGUE) {
       await this.dfbTableScraping.run(competition);
     } else {

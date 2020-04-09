@@ -17,8 +17,6 @@ export default class RfefScraping implements IFederationScraping {
   }
 
   public async run(competition: ICompetitionDefault) {
-    console.log('-> RFEF SCRAPING');
-
     switch (competition.type) {
       case CompetitionType.LEAGUE:
         await this.runLeague(competition);

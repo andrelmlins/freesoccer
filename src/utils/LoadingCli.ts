@@ -11,7 +11,6 @@ export default class LoadingCli {
   }
 
   start() {
-    console.log();
     this.loading = this.loading.start();
   }
 

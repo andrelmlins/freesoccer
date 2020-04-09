@@ -17,8 +17,6 @@ export default class FpfScraping implements IFederationScraping {
   }
 
   public async run(competition: ICompetitionDefault) {
-    console.log('-> FPF SCRAPING');
-
     switch (competition.type) {
       case CompetitionType.LEAGUE:
         await this.runLeague(competition);
@@ -27,8 +25,6 @@ export default class FpfScraping implements IFederationScraping {
   }
 
   public async runTable(competition: ICompetitionDefault) {
-    console.log('-> FPF TABLE SCRAPING');
-
     if (competition.type === CompetitionType.LEAGUE) {
       await this.fpfTableScraping.run(competition);
     } else {
