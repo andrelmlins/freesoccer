@@ -25,7 +25,7 @@ export default abstract class ScrapingBasic {
         rejectUnauthorized: false
       })
     });
-    console.log(this.getConstants().URL_DEFAULT + '/' + url);
+
     const page = await axiosObject.get(this.getConstants().URL_DEFAULT + '/' + url);
     let $ = cheerio.load(page.data);
 

@@ -1,11 +1,8 @@
-import axios from 'axios';
-import https from 'https';
-import cheerio from 'cheerio';
 import md5 from 'md5';
 import moment from 'moment';
 
+import ScrapingBasic from '../ScrapingBasic';
 import FigcConstants from '../../constants/FigcConstants';
-import Helpers from '../../utils/Helpers';
 import ICompetitionDefault from '../../interfaces/ICompetitionDefault';
 
 import { ICompetition } from '../../schemas/Competition';
@@ -15,49 +12,40 @@ import TeamResult from '../../schemas/TeamResult';
 import CompetitionRepository from '../../repository/CompetitionRepository';
 import RoundRepository from '../../repository/RoundRepository';
 
-export default class FigcLeagueScraping {
-  public lastYear: boolean;
-  private axios: any;
+export default class FigcLeagueScraping extends ScrapingBasic {
   private competitionRepository: CompetitionRepository;
   private roundRepository: RoundRepository;
 
   constructor(lastYear: boolean) {
-    this.lastYear = lastYear;
+    super(lastYear);
+
     this.competitionRepository = new CompetitionRepository();
     this.roundRepository = new RoundRepository();
-
-    this.axios = axios.create({
-      httpsAgent: new https.Agent({
-        rejectUnauthorized: false
-      })
-    });
   }
 
-  public async run(competition: ICompetitionDefault) {
-    console.log('-> FIGC LEAGUE SCRAPING');
+  public getTitle(): string {
+    return 'FIGC LEAGUE SCRAPING';
+  }
 
-    await this.runCompetition(competition);
+  public getConstants(): any {
+    return FigcConstants;
   }
 
   public async runCompetition(competitionDefault: ICompetitionDefault) {
-    console.log('\t-> ' + competitionDefault.name);
-
     let initial = 0;
     if (this.lastYear) initial = competitionDefault.years!.length - 1;
 
     for (let i = initial; i < competitionDefault.years!.length; i++) {
-      console.log('\t\t-> ' + competitionDefault.years![i]);
+      this.loadingCli.push(`Year ${competitionDefault.years![i]}`);
 
-      let competition = await Helpers.createCompetition(competitionDefault, competitionDefault.years![i], FigcConstants);
+      let competition = await this.createCompetition(competitionDefault, competitionDefault.years![i]);
 
       let newYear = parseInt(competition.year.substring(2, 4)) + 1 + '';
       if (newYear.length == 1) newYear = '0' + newYear;
 
       let year = competition.year + '-' + newYear;
 
-      let page = await this.axios.get(`${competitionDefault.aux.url}/calendario-e-risultati/${year}/UNICO/UNI/1`);
-
-      let $ = cheerio.load(page.data);
+      let $ = await this.getPageData(`${competitionDefault.aux.url}/calendario-e-risultati/${year}/UNICO/UNI/1`);
       let data = $('#menu-giornate').children();
 
       for (let j = 0; j < 2; j++) {
@@ -70,6 +58,8 @@ export default class FigcLeagueScraping {
       }
 
       await this.competitionRepository.save(competition);
+
+      this.loadingCli.pop();
     }
   }
 
@@ -84,11 +74,10 @@ export default class FigcLeagueScraping {
     round.matchs = [];
     round.competition = competition._id;
     round.hash = md5(competition.code + competition.year + round.number);
-    console.log('\t\t\t-> Round ' + round.number);
 
-    let page = await this.axios.get(`${competitionDefault.aux.url}/calendario-e-risultati/${year}/UNICO/UNI/${number}`);
+    this.loadingCli.push(`Round ${round.number}`);
 
-    let $ = cheerio.load(page.data);
+    let $ = await this.getPageData(`${competitionDefault.aux.url}/calendario-e-risultati/${year}/UNICO/UNI/${number}`);
     let matches = $('.risultati').children();
 
     for (let i = 1; i < matches.length; i++) {
@@ -103,7 +92,9 @@ export default class FigcLeagueScraping {
       round.matchs.push(matchResult);
     }
 
-    return await this.roundRepository.save(round);
+    const result = await this.roundRepository.save(round);
+    this.loadingCli.pop();
+    return result;
   }
 
   public async runMatch(matchHtml: any): Promise<Match> {
