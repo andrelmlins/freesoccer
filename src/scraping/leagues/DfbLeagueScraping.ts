@@ -3,6 +3,7 @@ import cheerio from 'cheerio';
 import md5 from 'md5';
 import moment from 'moment';
 
+import LoadingCli from '../../utils/LoadingCli';
 import DfbConstants from '../../constants/DfbConstants';
 import Helpers from '../../utils/Helpers';
 import ICompetitionDefault from '../../interfaces/ICompetitionDefault';
@@ -18,21 +19,24 @@ export default class DfbLeagueScraping {
   public lastYear: boolean;
   private competitionRepository: CompetitionRepository;
   private roundRepository: RoundRepository;
+  private loadingCli: LoadingCli;
 
   constructor(lastYear: boolean) {
     this.lastYear = lastYear;
     this.competitionRepository = new CompetitionRepository();
     this.roundRepository = new RoundRepository();
+    this.loadingCli = new LoadingCli();
   }
 
   public async run(competition: ICompetitionDefault) {
-    console.log('-> DFB LEAGUE SCRAPING');
+    this.loadingCli.start();
+    this.loadingCli.push('DFB LEAGUE SCRAPING');
 
     await this.runCompetition(competition);
   }
 
   public async runCompetition(competitionDefault: ICompetitionDefault) {
-    console.log('\t-> ' + competitionDefault.name);
+    this.loadingCli.push(competitionDefault.name);
 
     let pageSeason = await axios.get(DfbConstants.URL_DEFAULT + '/' + competitionDefault.code + '/spieltagtabelle');
 
@@ -52,7 +56,7 @@ export default class DfbLeagueScraping {
       );
 
       if (year >= 2000) {
-        console.log('\t\t-> ' + year);
+        this.loadingCli.push(`Year ${year}`);
         let competition = await Helpers.createCompetition(competitionDefault, year + '', DfbConstants);
 
         let page = await axios.get(
@@ -82,6 +86,8 @@ export default class DfbLeagueScraping {
         }
 
         await this.competitionRepository.save(competition);
+
+        this.loadingCli.pop();
       }
     }
   }
@@ -97,7 +103,8 @@ export default class DfbLeagueScraping {
     round.matchs = [];
     round.competition = competition._id;
     round.hash = md5(competition.code + competition.year + round.number);
-    console.log('\t\t\t-> Round ' + round.number);
+
+    this.loadingCli.push(`Round ${round.number}`);
 
     let page = await axios.get(
       DfbConstants.URL_DEFAULT +
@@ -132,7 +139,9 @@ export default class DfbLeagueScraping {
       round.matchs.push(matchResult);
     }
 
-    return await this.roundRepository.save(round);
+    const result = await this.roundRepository.save(round);
+    this.loadingCli.pop();
+    return result;
   }
 
   public async runMatch(matchHtml: any): Promise<Match> {

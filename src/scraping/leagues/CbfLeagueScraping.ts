@@ -103,9 +103,7 @@ export default class CbfLeagueScraping {
     }
 
     const result = await this.roundRepository.save(round);
-
     this.loadingCli.pop();
-
     return result;
   }
 
