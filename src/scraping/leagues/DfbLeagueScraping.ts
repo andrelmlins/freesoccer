@@ -32,13 +32,6 @@ export default class DfbLeagueScraping extends ScrapingBasic {
     return DfbConstants;
   }
 
-  public async run(competition: ICompetitionDefault) {
-    this.loadingCli.start();
-    this.loadingCli.push('DFB LEAGUE SCRAPING');
-
-    await this.runCompetition(competition);
-  }
-
   public async runCompetition(competitionDefault: ICompetitionDefault) {
     this.loadingCli.push(competitionDefault.name);
 

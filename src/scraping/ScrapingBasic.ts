@@ -1,5 +1,5 @@
 import cheerio from 'cheerio';
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 
 import LoadingCli from '../utils/LoadingCli';
 import ICompetitionDefault from '../interfaces/ICompetitionDefault';

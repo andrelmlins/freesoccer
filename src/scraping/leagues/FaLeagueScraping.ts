@@ -1,10 +1,8 @@
-import cheerio from 'cheerio';
 import md5 from 'md5';
 import moment from 'moment';
 
-import LoadingCli from '../../utils/LoadingCli';
+import ScrapingBasicClient from '../ScrapingBasicClient';
 import FaConstants from '../../constants/FaConstants';
-import Helpers from '../../utils/Helpers';
 import ICompetitionDefault from '../../interfaces/ICompetitionDefault';
 
 import { ICompetition } from '../../schemas/Competition';
@@ -14,31 +12,29 @@ import TeamResult from '../../schemas/TeamResult';
 import CompetitionRepository from '../../repository/CompetitionRepository';
 import RoundRepository from '../../repository/RoundRepository';
 
-export default class FigcLeagueScraping {
-  public lastYear: boolean;
+export default class FaLeagueScraping extends ScrapingBasicClient {
   private competitionRepository: CompetitionRepository;
   private roundRepository: RoundRepository;
-  private loadingCli: LoadingCli;
 
   constructor(lastYear: boolean) {
-    this.lastYear = lastYear;
+    super(lastYear);
+
     this.competitionRepository = new CompetitionRepository();
     this.roundRepository = new RoundRepository();
-    this.loadingCli = new LoadingCli();
   }
 
-  public async run(competition: ICompetitionDefault) {
-    this.loadingCli.start();
-    this.loadingCli.push('FA LEAGUE SCRAPING');
+  public getTitle(): string {
+    return 'FA LEAGUE SCRAPING';
+  }
 
-    await this.runCompetition(competition);
+  public getConstants(): any {
+    return FaConstants;
   }
 
   public async runCompetition(competitionDefault: ICompetitionDefault) {
     this.loadingCli.push(competitionDefault.name);
 
-    let page = await Helpers.getPageDinamically(FaConstants.URL_DEFAULT + '/results', 'div[data-dropdown-block="compSeasons"] ul li');
-    let $ = cheerio.load(page);
+    let $ = await this.getPageDinamically('results', 'div[data-dropdown-block="compSeasons"] ul li');
     let seasons = $('div[data-dropdown-block="compSeasons"] ul').children();
 
     let end = seasons.length;
@@ -56,15 +52,12 @@ export default class FigcLeagueScraping {
       if (year >= 2000) {
         this.loadingCli.push(`Year ${year}`);
 
-        let competition = await Helpers.createCompetition(competitionDefault, year + '', FaConstants);
+        let competition = await this.createCompetition(competitionDefault, year + '');
 
-        let page = await Helpers.getPageDinamicallyScroll(FaConstants.URL_DEFAULT + '/results' + '?co=' + competitionDefault.aux.code + '&se=' + numberSeason);
-        let $ = cheerio.load(page);
+        let $ = await this.getPageDinamicallyScroll('results' + '?co=' + competitionDefault.aux.code + '&se=' + numberSeason);
 
         if (i == 0) {
-          let pageFixtures = await Helpers.getPageDinamicallyScroll(FaConstants.URL_DEFAULT + '/fixtures');
-          let $_fixtures = cheerio.load(pageFixtures);
-
+          let $_fixtures = await this.getPageDinamicallyScroll('fixtures');
           let roundsFixtures = $_fixtures('.fixtures').children();
           for (let i = 0; i < roundsFixtures.length; i++) {
             $('.fixtures').prepend(roundsFixtures.eq(i).html());
