@@ -1,9 +1,7 @@
-import axios from 'axios';
-import cheerio from 'cheerio';
 import md5 from 'md5';
 import moment from 'moment';
 
-import LoadingCli from '../../utils/LoadingCli';
+import ScrapingBasic from '../ScrapingBasic';
 import DfbConstants from '../../constants/DfbConstants';
 import Helpers from '../../utils/Helpers';
 import ICompetitionDefault from '../../interfaces/ICompetitionDefault';
@@ -15,17 +13,23 @@ import TeamResult from '../../schemas/TeamResult';
 import CompetitionRepository from '../../repository/CompetitionRepository';
 import RoundRepository from '../../repository/RoundRepository';
 
-export default class DfbLeagueScraping {
-  public lastYear: boolean;
+export default class DfbLeagueScraping extends ScrapingBasic {
   private competitionRepository: CompetitionRepository;
   private roundRepository: RoundRepository;
-  private loadingCli: LoadingCli;
 
   constructor(lastYear: boolean) {
-    this.lastYear = lastYear;
+    super(lastYear);
+
     this.competitionRepository = new CompetitionRepository();
     this.roundRepository = new RoundRepository();
-    this.loadingCli = new LoadingCli();
+  }
+
+  public getTitle(): string {
+    return 'CBF LEAGUE SCRAPING';
+  }
+
+  public getConstants(): any {
+    return DfbConstants;
   }
 
   public async run(competition: ICompetitionDefault) {
@@ -38,9 +42,7 @@ export default class DfbLeagueScraping {
   public async runCompetition(competitionDefault: ICompetitionDefault) {
     this.loadingCli.push(competitionDefault.name);
 
-    let pageSeason = await axios.get(DfbConstants.URL_DEFAULT + '/' + competitionDefault.code + '/spieltagtabelle');
-
-    let $ = cheerio.load(pageSeason.data);
+    let $ = await this.getPageData(competitionDefault.code + '/spieltagtabelle');
     let seasons = $('select[name="seasons"]').children();
 
     let end = seasons.length;
@@ -59,18 +61,7 @@ export default class DfbLeagueScraping {
         this.loadingCli.push(`Year ${year}`);
         let competition = await Helpers.createCompetition(competitionDefault, year + '', DfbConstants);
 
-        let page = await axios.get(
-          DfbConstants.URL_DEFAULT +
-            '/' +
-            competitionDefault.code +
-            '/spieltagtabelle?spieledb_path=%2Fcompetitions%2F' +
-            competitionDefault.aux.number +
-            '%2Fseasons%2F' +
-            numberSeason +
-            '%2Fmatchday'
-        );
-
-        let $ = cheerio.load(page.data);
+        let $ = await this.getPageData(`${competitionDefault.code}/spieltagtabelle?spieledb_path=%2Fcompetitions%2F${competitionDefault.aux.number}%2Fseasons%2F${numberSeason}%2Fmatchday`);
         let rounds = $('select[name="matchdays"]').children();
 
         for (let j = 0; j < rounds.length; j++) {
@@ -106,10 +97,8 @@ export default class DfbLeagueScraping {
 
     this.loadingCli.push(`Round ${round.number}`);
 
-    let page = await axios.get(
-      DfbConstants.URL_DEFAULT +
-        '/' +
-        competitionDefault.code +
+    let $ = await this.getPageData(
+      competitionDefault.code +
         '/spieltagtabelle/?spieledb_path=/competitions/' +
         competitionDefault.aux.number +
         '/seasons/' +
@@ -122,7 +111,6 @@ export default class DfbLeagueScraping {
         number
     );
 
-    let $ = cheerio.load(page.data);
     let matches = $('.table-match-comparison')
       .children('tbody')
       .children();

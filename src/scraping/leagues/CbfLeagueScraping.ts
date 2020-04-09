@@ -1,10 +1,7 @@
-import axios from 'axios';
-import cheerio from 'cheerio';
 import md5 from 'md5';
 import moment from 'moment';
 
 import CbfConstants from '../../constants/CbfConstants';
-import Helpers from '../../utils/Helpers';
 import ICompetitionDefault from '../../interfaces/ICompetitionDefault';
 import ScrapingBasic from '../ScrapingBasic';
 
@@ -31,6 +28,10 @@ export default class CbfLeagueScraping extends ScrapingBasic {
     return 'CBF LEAGUE SCRAPING';
   }
 
+  public getConstants(): any {
+    return CbfConstants;
+  }
+
   public async runCompetition(competitionDefault: ICompetitionDefault) {
     let initial = 0;
     if (this.lastYear) initial = competitionDefault.years!.length - 1;
@@ -38,11 +39,8 @@ export default class CbfLeagueScraping extends ScrapingBasic {
     for (let i = initial; i < competitionDefault.years!.length; i++) {
       this.loadingCli.push(`Year ${competitionDefault.years![i]}`);
 
-      let competition = await Helpers.createCompetition(competitionDefault, competitionDefault.years![i], CbfConstants);
-
-      let page = await axios.get(CbfConstants.URL_DEFAULT + '/' + competition.code + '/' + competition.year);
-
-      let $ = cheerio.load(page.data);
+      let competition = await this.createCompetition(competitionDefault, competitionDefault.years![i]);
+      let $ = await this.getPageData(`${competition.code}/${competition.year}`);
 
       let section = $('.container section');
       let rounds = section
