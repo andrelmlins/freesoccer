@@ -21,9 +21,9 @@ class Commander {
     const pswMongo = process.env.PSW_MONGO;
 
     if (usrMongo) {
-      mongoose.connect(`mongodb://${usrMongo}:${pswMongo}@${ipMongo}/${baseMongo}`, { useNewUrlParser: true });
+      mongoose.connect(`mongodb://${usrMongo}:${pswMongo}@${ipMongo}/${baseMongo}`, { useUnifiedTopology: true, useNewUrlParser: true });
     } else {
-      mongoose.connect(`mongodb://${ipMongo}/${baseMongo}`, { useNewUrlParser: true });
+      mongoose.connect(`mongodb://${ipMongo}/${baseMongo}`, { useUnifiedTopology: true, useNewUrlParser: true });
     }
   }
 
@@ -35,7 +35,7 @@ class Commander {
 
     this.program.parse(process.argv);
 
-    if(this.program.competition){
+    if (this.program.competition) {
       CompetitionUtil.runScraping(this.program.competition, this.program.lastYear, this.program.table);
     } else {
       throw new Error('Competition does not exist');

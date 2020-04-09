@@ -3,6 +3,7 @@ import cheerio from 'cheerio';
 import md5 from 'md5';
 import moment from 'moment';
 
+import LoadingCli from '../../utils/LoadingCli';
 import CbfConstants from '../../constants/CbfConstants';
 import Helpers from '../../utils/Helpers';
 import ICompetitionDefault from '../../interfaces/ICompetitionDefault';
@@ -18,27 +19,32 @@ export default class CbfLeagueScraping {
   public lastYear: boolean;
   private competitionRepository: CompetitionRepository;
   private roundRepository: RoundRepository;
+  private loadingCli: LoadingCli;
 
   constructor(lastYear: boolean) {
     this.lastYear = lastYear;
     this.competitionRepository = new CompetitionRepository();
     this.roundRepository = new RoundRepository();
+    this.loadingCli = new LoadingCli();
   }
 
   public async run(competition: ICompetitionDefault) {
-    console.log('-> CBF LEAGUE SCRAPING');
+    this.loadingCli.start();
+    this.loadingCli.push('CBF LEAGUE SCRAPING');
 
     await this.runCompetition(competition);
+
+    this.loadingCli.pop();
   }
 
   public async runCompetition(competitionDefault: ICompetitionDefault) {
-    console.log('\t-> ' + competitionDefault.name);
+    this.loadingCli.push(competitionDefault.name);
 
     let initial = 0;
     if (this.lastYear) initial = competitionDefault.years!.length - 1;
 
     for (let i = initial; i < competitionDefault.years!.length; i++) {
-      console.log('\t\t-> ' + competitionDefault.years![i]);
+      this.loadingCli.push(`Year ${competitionDefault.years![i]}`);
 
       let competition = await Helpers.createCompetition(competitionDefault, competitionDefault.years![i], CbfConstants);
 
@@ -56,10 +62,13 @@ export default class CbfLeagueScraping {
 
       for (let j = 0; j < rounds.length; j++) {
         let roundResult = await this.runRound(rounds.eq(j), competition);
+
         competition.rounds.push(roundResult!._id);
       }
 
       await this.competitionRepository.save(competition);
+
+      this.loadingCli.pop();
     }
   }
 
@@ -77,7 +86,7 @@ export default class CbfLeagueScraping {
     round.competition = competition._id;
     round.hash = md5(competition.code + competition.year + round.number);
 
-    console.log('\t\t\t-> Round ' + round.number);
+    this.loadingCli.push(`Round ${round.number}`);
 
     let matchsHtml = roundHtml.find('.list-unstyled').children();
 
@@ -93,7 +102,11 @@ export default class CbfLeagueScraping {
       round.matchs.push(matchResult);
     }
 
-    return await this.roundRepository.save(round);
+    const result = await this.roundRepository.save(round);
+
+    this.loadingCli.pop();
+
+    return result;
   }
 
   public async runMatch(matchHtml: any): Promise<Match> {

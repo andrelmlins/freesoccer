@@ -22,7 +22,6 @@ export default class CbfScraping implements IFederationScraping {
   }
 
   public async run(competition: ICompetitionDefault) {
-    console.log('-> CBF SCRAPING');
     this.lastYear = true;
 
     switch (competition.type) {
@@ -36,8 +35,6 @@ export default class CbfScraping implements IFederationScraping {
   }
 
   public async runTable(competition: ICompetitionDefault) {
-    console.log('-> CBF TABLE SCRAPING');
-
     if (competition.type === CompetitionType.LEAGUE) {
       await this.cbfTableScraping.run(competition);
     } else {

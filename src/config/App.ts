@@ -6,7 +6,7 @@ import cors from 'cors';
 import path from 'path';
 import favicon from 'serve-favicon';
 import swaggerUI from 'swagger-ui-express';
-import swagger from './swagger.json'
+import swagger from './swagger.json';
 
 import { Routes } from './Routes';
 import CronJobs from './CronJobs';
@@ -23,9 +23,9 @@ class App {
     this.app = express();
 
     const swaggerOptions = {
-      customSiteTitle: 'API Free Soccer',  
-      customCss: '.swagger-ui .topbar { display: none }',
-    }; 
+      customSiteTitle: 'API Free Soccer',
+      customCss: '.swagger-ui .topbar { display: none }'
+    };
     // this.app.route('/', swaggerUI.serve, swaggerUI.setup(swagger, swaggerOptions));
 
     this.app.use('/', swaggerUI.serve);
@@ -34,7 +34,7 @@ class App {
     this.config();
 
     this.app.use(express.static(path.join(__dirname + '../../../public')));
-    this.app.use(favicon(path.join(__dirname + '../../../public','favicon.ico')));
+    this.app.use(favicon(path.join(__dirname + '../../../public', 'favicon.ico')));
 
     this.routes.routes(this.app);
     this.cronJobs.crons();
@@ -47,9 +47,9 @@ class App {
     const pswMongo = process.env.PSW_MONGO;
 
     if (usrMongo) {
-      mongoose.connect(`mongodb://${usrMongo}:${pswMongo}@${ipMongo}/${baseMongo}`, { useNewUrlParser: true });
+      mongoose.connect(`mongodb://${usrMongo}:${pswMongo}@${ipMongo}/${baseMongo}`, { useUnifiedTopology: true, useNewUrlParser: true });
     } else {
-      mongoose.connect(`mongodb://${ipMongo}/${baseMongo}`, { useNewUrlParser: true });
+      mongoose.connect(`mongodb://${ipMongo}/${baseMongo}`, { useUnifiedTopology: true, useNewUrlParser: true });
     }
 
     this.app.use(bodyParser.json({ limit: '50mb' }));

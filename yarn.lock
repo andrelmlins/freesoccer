@@ -1537,6 +1537,11 @@ color-name@~1.1.4:
   resolved "https://registry.yarnpkg.com/color-name/-/color-name-1.1.4.tgz#c2a09a87acbde69543de6f63fa3995c826c536a2"
   integrity sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==
 
+colors-cli@^1.0.26:
+  version "1.0.26"
+  resolved "https://registry.yarnpkg.com/colors-cli/-/colors-cli-1.0.26.tgz#5368aec90c80364e6868c57224e74596963ef8ff"
+  integrity sha512-yCz3ZQfOMvPKfa58jpe6PqKhCbr8v8EwLgUnYqcXprmZGruC0Ht2fcvUIFUbkG8sGXFi7uunE493UHXhvOokqQ==
+
 combined-stream@^1.0.6, combined-stream@^1.0.8, combined-stream@~1.0.6:
   version "1.0.8"
   resolved "https://registry.yarnpkg.com/combined-stream/-/combined-stream-1.0.8.tgz#c3d45a8b34fd730631a110a8a2520682b31d5a7f"
@@ -3434,6 +3439,13 @@ levn@~0.3.0:
   dependencies:
     prelude-ls "~1.1.2"
     type-check "~0.3.2"
+
+loading-cli@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/loading-cli/-/loading-cli-1.1.0.tgz#3457edaa3290439ad0061755174363a8091d56bc"
+  integrity sha512-r6Kj0Y3d3isT4vvJ0tFlND1CcLkpatWmlgQs/PEfnSofJSHZwAbsqexnpQEDj4nlxSXEqFWh/Wu2iQXAAZRPNQ==
+  dependencies:
+    colors-cli "^1.0.26"
 
 locate-path@^5.0.0:
   version "5.0.0"
