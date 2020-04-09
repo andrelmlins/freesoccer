@@ -12,14 +12,17 @@ import { IStage, Stage } from '../../schemas/Stage';
 import Match from '../../schemas/Match';
 import TeamResult from '../../schemas/TeamResult';
 import CompetitionRepository from '../../repository/CompetitionRepository';
+import StageRepository from '../../repository/StageRepository';
 
 export default class CbfEliminationScraping {
   public lastYear: boolean;
   private competitionRepository: CompetitionRepository;
+  private stageRepository: StageRepository;
 
   constructor(lastYear: boolean) {
     this.lastYear = lastYear;
     this.competitionRepository = new CompetitionRepository();
+    this.stageRepository = new StageRepository();
   }
 
   public async run(competition: ICompetitionDefault) {
@@ -89,7 +92,7 @@ export default class CbfEliminationScraping {
       }
     }
 
-    return await Helpers.replaceStage(stage);
+    return await this.stageRepository.save(stage);
   }
 
   public async runMatch(matchHtml: any): Promise<Match[]> {

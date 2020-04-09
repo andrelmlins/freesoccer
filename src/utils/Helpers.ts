@@ -5,28 +5,11 @@ import autoScrollPlugin from 'puppeteer-extra-plugin-auto-scroll';
 import ICompetitionDefault from '../interfaces/ICompetitionDefault';
 
 import { ICompetition, Competition } from '../schemas/Competition';
-import { IStage, Stage } from '../schemas/Stage';
 
 export default class Helpers {
   public static getEnumKeyByEnumValue(myEnum: any, enumValue: String) {
     let keys = Object.keys(myEnum).filter(x => myEnum[x] == enumValue);
     return keys.length > 0 ? keys[0] : null;
-  }
-
-  public static async replaceStage(stage: IStage): Promise<IStage | null> {
-    let stageOld = await Stage.findOne({ hash: stage.hash });
-    if (stageOld) {
-      let stageAux: any = stage.toObject();
-      delete stageAux._id;
-
-      await Stage.updateOne({ _id: stageOld._id }, stageAux);
-
-      let stageResult = await Stage.findOne({ hash: stage.hash });
-      return stageResult;
-    } else {
-      let stageResult = await Stage.create(stage);
-      return stageResult;
-    }
   }
 
   public static async createCompetition(competitionDefault: ICompetitionDefault, year: string, constants: any): Promise<ICompetition> {

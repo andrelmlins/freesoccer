@@ -13,15 +13,18 @@ import { IStage, Stage } from '../../schemas/Stage';
 import Match from '../../schemas/Match';
 import TeamResult from '../../schemas/TeamResult';
 import CompetitionRepository from '../../repository/CompetitionRepository';
+import StageRepository from '../../repository/StageRepository';
 
 export default class FffEliminationScraping {
   public lastYear: boolean;
   private axios: any;
   private competitionRepository: CompetitionRepository;
+  private stageRepository: StageRepository;
 
   constructor(lastYear: boolean) {
     this.lastYear = lastYear;
     this.competitionRepository = new CompetitionRepository();
+    this.stageRepository = new StageRepository();
 
     this.axios = axios.create({
       httpsAgent: new https.Agent({
@@ -88,9 +91,7 @@ export default class FffEliminationScraping {
     stage.hash = md5(competition.code + competition.year + stage.name);
     console.log('\t\t\t-> Stage ' + stage.name);
 
-    let page = await this.axios.get(
-      FffConstants.URL_DEFAULT + '/' + competitionDefault.aux.url + '/calendrier_resultat?sai=' + codeyear + '&jour=' + number
-    );
+    let page = await this.axios.get(FffConstants.URL_DEFAULT + '/' + competitionDefault.aux.url + '/calendrier_resultat?sai=' + codeyear + '&jour=' + number);
 
     let $ = cheerio.load(page.data);
     let data = $('#tableaux_rencontres')
@@ -120,7 +121,7 @@ export default class FffEliminationScraping {
       }
     }
 
-    return await Helpers.replaceStage(stage);
+    return await this.stageRepository.save(stage);
   }
 
   public async runMatch(matchHtml: any, date: string): Promise<Match> {
