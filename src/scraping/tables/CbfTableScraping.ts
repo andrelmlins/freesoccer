@@ -8,6 +8,7 @@ import { Competition } from '../../schemas/Competition';
 import { Table } from '../../schemas/Table';
 import ItemTable from '../../schemas/ItemTable';
 import TableRepository from '../../repository/TableRepository';
+
 export default class CbfTableScraping {
   public lastYear: boolean;
   private tableRepository: TableRepository;

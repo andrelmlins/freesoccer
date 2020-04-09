@@ -3,43 +3,35 @@ import cheerio from 'cheerio';
 import md5 from 'md5';
 import moment from 'moment';
 
-import LoadingCli from '../../utils/LoadingCli';
 import CbfConstants from '../../constants/CbfConstants';
 import Helpers from '../../utils/Helpers';
 import ICompetitionDefault from '../../interfaces/ICompetitionDefault';
+import ScrapingBasic from '../ScrapingBasic';
 
 import { ICompetition } from '../../schemas/Competition';
 import { Round, IRound } from '../../schemas/Round';
 import Match from '../../schemas/Match';
 import TeamResult from '../../schemas/TeamResult';
+
 import CompetitionRepository from '../../repository/CompetitionRepository';
 import RoundRepository from '../../repository/RoundRepository';
 
-export default class CbfLeagueScraping {
-  public lastYear: boolean;
+export default class CbfLeagueScraping extends ScrapingBasic {
   private competitionRepository: CompetitionRepository;
   private roundRepository: RoundRepository;
-  private loadingCli: LoadingCli;
 
   constructor(lastYear: boolean) {
-    this.lastYear = lastYear;
+    super(lastYear);
+
     this.competitionRepository = new CompetitionRepository();
     this.roundRepository = new RoundRepository();
-    this.loadingCli = new LoadingCli();
   }
 
-  public async run(competition: ICompetitionDefault) {
-    this.loadingCli.start();
-    this.loadingCli.push('CBF LEAGUE SCRAPING');
-
-    await this.runCompetition(competition);
-
-    this.loadingCli.pop();
+  public getTitle(): string {
+    return 'CBF LEAGUE SCRAPING';
   }
 
   public async runCompetition(competitionDefault: ICompetitionDefault) {
-    this.loadingCli.push(competitionDefault.name);
-
     let initial = 0;
     if (this.lastYear) initial = competitionDefault.years!.length - 1;
 
@@ -62,7 +54,6 @@ export default class CbfLeagueScraping {
 
       for (let j = 0; j < rounds.length; j++) {
         let roundResult = await this.runRound(rounds.eq(j), competition);
-
         competition.rounds.push(roundResult!._id);
       }
 
