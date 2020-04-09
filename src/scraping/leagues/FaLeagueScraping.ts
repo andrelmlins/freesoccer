@@ -2,6 +2,7 @@ import cheerio from 'cheerio';
 import md5 from 'md5';
 import moment from 'moment';
 
+import LoadingCli from '../../utils/LoadingCli';
 import FaConstants from '../../constants/FaConstants';
 import Helpers from '../../utils/Helpers';
 import ICompetitionDefault from '../../interfaces/ICompetitionDefault';
@@ -17,21 +18,24 @@ export default class FigcLeagueScraping {
   public lastYear: boolean;
   private competitionRepository: CompetitionRepository;
   private roundRepository: RoundRepository;
+  private loadingCli: LoadingCli;
 
   constructor(lastYear: boolean) {
     this.lastYear = lastYear;
     this.competitionRepository = new CompetitionRepository();
     this.roundRepository = new RoundRepository();
+    this.loadingCli = new LoadingCli();
   }
 
   public async run(competition: ICompetitionDefault) {
-    console.log('-> FA LEAGUE SCRAPING');
+    this.loadingCli.start();
+    this.loadingCli.push('FA LEAGUE SCRAPING');
 
     await this.runCompetition(competition);
   }
 
   public async runCompetition(competitionDefault: ICompetitionDefault) {
-    console.log('\t-> ' + competitionDefault.name);
+    this.loadingCli.push(competitionDefault.name);
 
     let page = await Helpers.getPageDinamically(FaConstants.URL_DEFAULT + '/results', 'div[data-dropdown-block="compSeasons"] ul li');
     let $ = cheerio.load(page);
@@ -50,7 +54,7 @@ export default class FigcLeagueScraping {
       );
 
       if (year >= 2000) {
-        console.log('\t\t-> ' + year);
+        this.loadingCli.push(`Year ${year}`);
 
         let competition = await Helpers.createCompetition(competitionDefault, year + '', FaConstants);
 
@@ -73,6 +77,8 @@ export default class FigcLeagueScraping {
         competition.rounds = roundsResult!;
 
         await this.competitionRepository.save(competition);
+
+        this.loadingCli.pop();
       }
     }
   }
@@ -103,7 +109,7 @@ export default class FigcLeagueScraping {
       round.matchs = [];
       round.competition = competition._id;
       round.hash = md5(competition.code + competition.year + round.number);
-      console.log('\t\t\t-> Round ' + round.number);
+      this.loadingCli.push(`Round ${round.number}`);
 
       let matchesCount = 0;
       let date = '';
@@ -142,6 +148,8 @@ export default class FigcLeagueScraping {
       }
 
       rounds.push((await this.roundRepository.save(round))!);
+
+      this.loadingCli.pop();
     }
 
     return rounds;
