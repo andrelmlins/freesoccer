@@ -1,9 +1,7 @@
-import axios from 'axios';
-import https from 'https';
-import cheerio from 'cheerio';
 import md5 from 'md5';
 import moment from 'moment';
 
+import ScrapingBasic from '../ScrapingBasic';
 import FpfConstants from '../../constants/FpfConstants';
 import Helpers from '../../utils/Helpers';
 import ICompetitionDefault from '../../interfaces/ICompetitionDefault';
@@ -15,31 +13,26 @@ import TeamResult from '../../schemas/TeamResult';
 import CompetitionRepository from '../../repository/CompetitionRepository';
 import RoundRepository from '../../repository/RoundRepository';
 
-export default class FffLeagueScraping {
-  public lastYear: boolean;
-  private axios: any;
+export default class FpfLeagueScraping extends ScrapingBasic {
   private competitionRepository: CompetitionRepository;
   private roundRepository: RoundRepository;
 
   constructor(lastYear: boolean) {
-    this.lastYear = lastYear;
+    super(lastYear);
+
     this.competitionRepository = new CompetitionRepository();
     this.roundRepository = new RoundRepository();
-
-    this.axios = axios.create({
-      httpsAgent: new https.Agent({ rejectUnauthorized: false })
-    });
   }
 
-  public async run(competition: ICompetitionDefault) {
-    console.log('-> FPF LEAGUE SCRAPING');
+  public getTitle(): string {
+    return 'FPF LEAGUE SCRAPING';
+  }
 
-    await this.runCompetition(competition);
+  public getConstants(): any {
+    return FpfConstants;
   }
 
   public async runCompetition(competitionDefault: ICompetitionDefault) {
-    console.log('\t-> ' + competitionDefault.name);
-
     let initial = 0;
     if (this.lastYear) initial = competitionDefault.years!.length - 1;
 
@@ -48,13 +41,11 @@ export default class FffLeagueScraping {
       let codeYear = year + (parseInt(year) + 1);
       let url = competitionDefault.aux.urls[i];
 
-      console.log('\t\t-> ' + year);
+      this.loadingCli.push(`Year ${year}`);
 
       let competition = await Helpers.createCompetition(competitionDefault, year + '', FpfConstants);
 
-      let page = await this.axios.get(`${FpfConstants.URL_DEFAULT}/jornada/${codeYear}/${url}`);
-
-      let $ = cheerio.load(page.data);
+      let $ = await this.getPageData(`${FpfConstants.URL_DEFAULT}/jornada/${codeYear}/${url}`);
       let rounds = $('select[name="ddlMatchdays"]').children();
 
       for (let j = 0; j < rounds.length; j++) {
@@ -70,6 +61,8 @@ export default class FffLeagueScraping {
       }
 
       await this.competitionRepository.save(competition);
+
+      this.loadingCli.pop();
     }
   }
 
@@ -84,11 +77,9 @@ export default class FffLeagueScraping {
     round.matchs = [];
     round.competition = competition._id;
     round.hash = md5(competition.code + competition.year + round.number);
-    console.log('\t\t\t-> Round ' + round.number);
+    this.loadingCli.push(`Round ${round.number}`);
 
-    let page = await this.axios.get(`${FpfConstants.URL_DEFAULT}/jornada/${codeYear}/${url}/${number}`);
-
-    let $ = cheerio.load(page.data);
+    let $ = await this.getPageData(`${FpfConstants.URL_DEFAULT}/jornada/${codeYear}/${url}/${number}`);
     let data = $('.container')
       .eq(2)
       .children('.tab-content')
@@ -120,7 +111,9 @@ export default class FffLeagueScraping {
       }
     }
 
-    return await this.roundRepository.save(round);
+    const result = await this.roundRepository.save(round);
+    this.loadingCli.pop();
+    return result;
   }
 
   public async runMatch(matchHtml: any, date: string): Promise<Match> {
