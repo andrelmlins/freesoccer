@@ -6,7 +6,6 @@
 
 [![Build Status](https://travis-ci.com/andrelmlins/freesoccer.svg?branch=master)](https://travis-ci.com/andrelmlins/freesoccer)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/andrelmlins/freesoccer/blob/master/LICENSE)
-[![Known Vulnerabilities](https://snyk.io/test/github/andrelmlins/freesoccer/badge.svg?targetFile=package.json)](https://snyk.io/test/github/andrelmlins/freesoccer?targetFile=package.json)
 [![Dependencies](https://david-dm.org/andrelmlins/freesoccer.svg)](https://david-dm.org/andrelmlins/freesoccer)
 [![Badge Docker](https://images.microbadger.com/badges/image/andrelmlins1/freesoccer.svg)](https://microbadger.com/images/andrelmlins1/freesoccer 'Get your own image badge on microbadger.com')
 [![Docker Pulls](https://img.shields.io/docker/pulls/andrelmlins1/freesoccer.svg)](https://hub.docker.com/r/andrelmlins1/freesoccer)
