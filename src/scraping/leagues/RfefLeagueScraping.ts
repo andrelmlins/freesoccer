@@ -1,52 +1,49 @@
-import axios from 'axios';
-import cheerio from 'cheerio';
 import md5 from 'md5';
 import moment from 'moment';
 
 import RfefConstants from '../../constants/RfefConstants';
-import Helpers from '../../utils/Helpers';
 import ICompetitionDefault from '../../interfaces/ICompetitionDefault';
+import ScrapingBasic from '../ScrapingBasic';
 
 import { ICompetition } from '../../schemas/Competition';
 import { Round, IRound } from '../../schemas/Round';
 import Match from '../../schemas/Match';
 import TeamResult from '../../schemas/TeamResult';
+
 import CompetitionRepository from '../../repository/CompetitionRepository';
 import RoundRepository from '../../repository/RoundRepository';
 
-export default class RfefLeagueScraping {
-  public lastYear: boolean;
+export default class RfefLeagueScraping extends ScrapingBasic {
   private competitionRepository: CompetitionRepository;
   private roundRepository: RoundRepository;
 
   constructor(lastYear: boolean) {
-    this.lastYear = lastYear;
+    super(lastYear);
+
     this.competitionRepository = new CompetitionRepository();
     this.roundRepository = new RoundRepository();
   }
 
-  public async run(competition: ICompetitionDefault) {
-    console.log('-> RFEF LEAGUE SCRAPING');
+  public getTitle(): string {
+    return 'RFEF LEAGUE SCRAPING';
+  }
 
-    await this.runCompetition(competition);
+  public getConstants(): any {
+    return RfefConstants;
   }
 
   public async runCompetition(competitionDefault: ICompetitionDefault) {
-    console.log('\t-> ' + competitionDefault.name);
-
     let initial = 0;
     if (this.lastYear) initial = competitionDefault.years!.length - 1;
 
     for (let i = initial; i < competitionDefault.years!.length; i++) {
-      console.log('\t\t-> ' + competitionDefault.years![i]);
+      this.loadingCli.push(`Year ${competitionDefault.years![i]}`);
 
       let year = (parseInt(competitionDefault.years![i]) - 1).toString();
 
-      let competition = await Helpers.createCompetition(competitionDefault, year, RfefConstants);
+      let competition = await this.createCompetition(competitionDefault, year);
 
-      let page = await axios.get(`${RfefConstants.URL_DEFAULT}${competitionDefault.aux.url}/resultados?t=${competitionDefault.years![i]}`);
-
-      let $ = cheerio.load(page.data);
+      let $ = await this.getPageData(`${RfefConstants.URL_DEFAULT}${competitionDefault.aux.url}/resultados?t=${competitionDefault.years![i]}`);
       let list = $('.postcontent')
         .find('.content')
         .children('.container-fluid');
@@ -81,6 +78,8 @@ export default class RfefLeagueScraping {
       }
 
       await this.competitionRepository.save(competition);
+
+      this.loadingCli.pop();
     }
   }
 
@@ -100,11 +99,10 @@ export default class RfefLeagueScraping {
     round.matchs = [];
     round.competition = competition._id;
     round.hash = md5(competition.code + competition.year + round.number);
-    console.log('\t\t\t-> Round ' + round.number);
 
-    let page = await axios.get(RfefConstants.URL_DEFAULT + url + '/' + route);
+    this.loadingCli.push(`Round ${round.number}`);
 
-    let $ = cheerio.load(page.data);
+    let $ = await this.getPageData(RfefConstants.URL_DEFAULT + url + '/' + route);
     let data = $('.postcontent')
       .find('.content')
       .children('div');
@@ -137,7 +135,9 @@ export default class RfefLeagueScraping {
       round.matchs.push(matchResult);
     }
 
-    return await this.roundRepository.save(round);
+    const result = await this.roundRepository.save(round);
+    this.loadingCli.pop();
+    return result;
   }
 
   public async runMatch(matchHtml: any, date: string): Promise<Match> {
