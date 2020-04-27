@@ -1,4 +1,4 @@
-FROM node:stretch
+FROM node:stretch-slim
 
 RUN yarn global add pm2
 
