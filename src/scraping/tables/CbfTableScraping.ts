@@ -1,43 +1,39 @@
-import axios from 'axios';
-import cheerio from 'cheerio';
-
 import CbfConstants from '../../constants/CbfConstants';
 import ICompetitionDefault from '../../interfaces/ICompetitionDefault';
+import ScrapingBasic from '../ScrapingBasic';
 
 import { Competition } from '../../schemas/Competition';
 import { Table } from '../../schemas/Table';
 import ItemTable from '../../schemas/ItemTable';
 import TableRepository from '../../repository/TableRepository';
 
-export default class CbfTableScraping {
-  public lastYear: boolean;
+export default class CbfTableScraping extends ScrapingBasic {
   private tableRepository: TableRepository;
 
   constructor(lastYear: boolean) {
-    this.lastYear = lastYear;
+    super(lastYear);
+    
     this.tableRepository = new TableRepository();
   }
 
-  public async run(competition: ICompetitionDefault) {
-    console.log('-> CBF LEAGUE SCRAPING');
+  public getTitle(): string {
+    return 'CBF LEAGUE SCRAPING';
+  }
 
-    await this.runCompetition(competition);
+  public getConstants(): any {
+    return CbfConstants;
   }
 
   public async runCompetition(competitionDefault: ICompetitionDefault) {
-    console.log('\t-> ' + competitionDefault.name);
-
     let initial = 0;
     if (this.lastYear) initial = competitionDefault.years!.length - 1;
 
     for (let i = initial; i < competitionDefault.years!.length; i++) {
-      console.log('\t\t-> ' + competitionDefault.years![i]);
+      this.loadingCli.push(`Year ${competitionDefault.years![i]}`);
 
       let competition = await Competition.findOne({ code: competitionDefault.code, year: competitionDefault.years![i] });
 
-      let page = await axios.get(`${CbfConstants.URL_DEFAULT}/${competition!.code}/${competition!.year}`);
-
-      let $ = cheerio.load(page.data);
+      let $ = await this.getPageData(`${CbfConstants.URL_DEFAULT}/${competition!.code}/${competition!.year}`);
 
       let section = $('.container section');
       let tableHtml = section
@@ -57,6 +53,8 @@ export default class CbfTableScraping {
       }
 
       await this.tableRepository.save(table);
+
+      this.loadingCli.pop();
     }
   }
 
