@@ -43,7 +43,7 @@ export default class RfefLeagueScraping extends ScrapingBasic {
 
       let competition = await this.createCompetition(competitionDefault, year);
 
-      let $ = await this.getPageData(`${RfefConstants.URL_DEFAULT}${competitionDefault.aux.url}/resultados?t=${competitionDefault.years![i]}`);
+      let $ = await this.getPageData(`${competitionDefault.aux.url}/resultados?t=${competitionDefault.years![i]}`);
       let list = $('.postcontent')
         .find('.content')
         .children('.container-fluid');

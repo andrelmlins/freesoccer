@@ -45,7 +45,7 @@ export default class FpfLeagueScraping extends ScrapingBasic {
 
       let competition = await Helpers.createCompetition(competitionDefault, year + '', FpfConstants);
 
-      let $ = await this.getPageData(`${FpfConstants.URL_DEFAULT}/jornada/${codeYear}/${url}`);
+      let $ = await this.getPageData(`jornada/${codeYear}/${url}`);
       let rounds = $('select[name="ddlMatchdays"]').children();
 
       for (let j = 0; j < rounds.length; j++) {

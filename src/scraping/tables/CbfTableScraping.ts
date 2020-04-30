@@ -12,12 +12,12 @@ export default class CbfTableScraping extends ScrapingBasic {
 
   constructor(lastYear: boolean) {
     super(lastYear);
-    
+
     this.tableRepository = new TableRepository();
   }
 
   public getTitle(): string {
-    return 'CBF LEAGUE SCRAPING';
+    return 'CBF TABLE LEAGUE SCRAPING';
   }
 
   public getConstants(): any {
@@ -33,7 +33,7 @@ export default class CbfTableScraping extends ScrapingBasic {
 
       let competition = await Competition.findOne({ code: competitionDefault.code, year: competitionDefault.years![i] });
 
-      let $ = await this.getPageData(`${CbfConstants.URL_DEFAULT}/${competition!.code}/${competition!.year}`);
+      let $ = await this.getPageData(`${competition!.code}/${competition!.year}`);
 
       let section = $('.container section');
       let tableHtml = section

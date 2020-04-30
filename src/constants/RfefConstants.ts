@@ -14,7 +14,7 @@ export default class RfefConstants {
       name: 'La Liga - Primera División',
       years: ['2014', '2015', '2016', '2017', '2018', '2019'],
       aux: {
-        url: '/futbol-masculino',
+        url: 'futbol-masculino',
         name: 'Campeonato Nacional de Liga de Primera División'
       }
     },
@@ -24,7 +24,7 @@ export default class RfefConstants {
       name: 'La Liga - Segunda División',
       years: ['2014', '2015', '2016', '2017', '2018', '2019'],
       aux: {
-        url: '/futbol-masculino',
+        url: 'futbol-masculino',
         name: 'Campeonato Nacional de Liga de Segunda División'
       }
     },
@@ -34,7 +34,7 @@ export default class RfefConstants {
       name: 'Primera División Femenina',
       years: ['2014', '2015', '2016', '2017', '2018', '2019'],
       aux: {
-        url: '/futbol-femenino',
+        url: 'futbol-femenino',
         name: 'Primera División Femenina'
       }
     }
