@@ -35,7 +35,7 @@
     "express": "^4.17.1",
     "graphql": "^14.6.0",
     "https": "^1.0.0",
-    "jest": "^25.2.6",
+    "jest": "^26.0.0",
     "jsonwebtoken": "^8.5.1",
     "loading-cli": "^1.1.0",
     "lodash": "^4.17.20",
