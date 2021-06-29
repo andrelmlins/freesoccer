@@ -1,4 +1,4 @@
-FROM node:stretch-slim
+FROM node:14-stretch-slim
 
 RUN yarn global add pm2
 
@@ -7,7 +7,7 @@ WORKDIR /api
 
 COPY . /api
 
-RUN yarn install --frozen-lockfile --production
+RUN yarn install --frozen-lockfile
 RUN yarn build
 
 EXPOSE 80
