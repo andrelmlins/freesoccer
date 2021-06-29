@@ -1,9 +1,10 @@
+import CompetitionCode from '../enums/CompetitionCode';
 import { Competition } from '../schemas/Competition';
 import { Table, ITable } from '../schemas/Table';
 
 export default class TableRepository {
-  public async get(competitionCode: String, year: String) {
-    const competition = await Competition.findOne({ code: competitionCode, year });
+  public async get(code: CompetitionCode, year: string) {
+    const competition = await Competition.findOne({ code, year });
 
     if (!competition) {
       throw new Error('Competition does not exist');
@@ -15,16 +16,16 @@ export default class TableRepository {
         $project: {
           _id: 0,
           //   url: { $concat: [Helpers.getUrl(req, req.url)] },
-          positions: '$itens'
-        }
-      }
+          positions: '$itens',
+        },
+      },
     ]);
 
     return table[0];
   }
 
-  public async getPosition(competitionCode: String, year: String, position: Number) {
-    const competition = await Competition.findOne({ code: competitionCode, year });
+  public async getPosition(code: CompetitionCode, year: string, position: number) {
+    const competition = await Competition.findOne({ code, year });
 
     if (!competition) {
       throw new Error('Competition does not exist');
@@ -49,10 +50,10 @@ export default class TableRepository {
           goalsAgainst: '$itens.goalsAgainst',
           goalsDifference: '$itens.goalsDifference',
           yellowCard: '$itens.yellowCard',
-          redCard: '$itens.redCard'
-        }
+          redCard: '$itens.redCard',
+        },
       },
-      { $match: { position } }
+      { $match: { position } },
     ]);
 
     return table[0];

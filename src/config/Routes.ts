@@ -1,8 +1,3 @@
-import { ApolloServer } from 'apollo-server';
-
-import types from '../graphql/types';
-import Resolvers from '../graphql/Resolvers';
-
 import CbfController from '../controllers/scraping/CbfController';
 import RfefController from '../controllers/scraping/RfefController';
 import FffController from '../controllers/scraping/FffController';
@@ -34,8 +29,6 @@ export class Routes {
   public userController: UserController;
   public controller: Controller;
 
-  private resolvers: Resolvers;
-
   constructor() {
     this.cbfController = new CbfController();
     this.rfefController = new RfefController();
@@ -51,21 +44,9 @@ export class Routes {
     this.matchController = new MatchController();
     this.userController = new UserController();
     this.controller = new Controller();
-
-    this.resolvers = new Resolvers();
   }
 
   public routes(app: any): void {
-    const server = new ApolloServer({
-      cors: false,
-      typeDefs: types,
-      resolvers: this.resolvers.resolvers()
-    });
-
-    server.listen().then(({ url }) => {
-      console.log(`Server ready at ${url}`);
-    });
-
     app.route('/scraping/cbf/:competition/results').get(this.cbfController.loadResults);
     app.route('/scraping/cbf/:competition/table').get(this.cbfController.loadTable);
 

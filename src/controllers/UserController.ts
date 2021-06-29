@@ -28,10 +28,7 @@ export default class UserController {
 
         res.status(200).send({ error: false, user: user, token });
       } else {
-        res.status(404).send({
-          error: true,
-          message: 'There are fields that were not filled.'
-        });
+        res.status(404).send({ message: 'There are fields that were not filled.' });
       }
     } catch (error) {
       res.status(404).send({ error: true });
@@ -47,23 +44,15 @@ export default class UserController {
           const token = jwt.sign(user.toJSON(), 'shhhhh');
 
           let userObject = user.toObject();
-          delete userObject.password;
 
-          res.status(200).send({ error: false, user: userObject, token });
+          res.status(200).send({ user: userObject, token });
         } else {
-          res.status(404).send({
-            error: true,
-            message: 'Incorrect user or password.'
-          });
+          res.status(404).send({ message: 'Incorrect user or password.' });
         }
       } else {
-        res.status(404).send({
-          error: true,
-          message: 'There are fields that were not filled.'
-        });
+        res.status(404).send({ message: 'There are fields that were not filled.' });
       }
     } catch (error) {
-      console.log(error);
       res.status(404).send({ error: true });
     }
   }

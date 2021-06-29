@@ -1,4 +1,5 @@
 import { Response, Request } from 'express';
+import CompetitionCode from '../enums/CompetitionCode';
 import MatchRepository from '../repository/MatchRepository';
 
 export default class MatchController {
@@ -18,7 +19,7 @@ export default class MatchController {
 
   public async getCompetition(req: Request, res: Response) {
     try {
-      res.send({ matches: await this.matchRepository.allPerCompetition(req.params.competition, req.params.year) });
+      res.send({ matches: await this.matchRepository.allPerCompetition(req.params.competition as CompetitionCode, req.params.year) });
     } catch (error) {
       res.status(404).send({ error: true });
     }

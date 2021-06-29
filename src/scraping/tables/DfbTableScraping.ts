@@ -33,17 +33,12 @@ export default class DfbTableScraping extends ScrapingBasic {
 
     for (let i = 0; i < end; i++) {
       let numberSeason = seasons.eq(i).attr('value');
-      let year = parseInt(
-        seasons
-          .eq(i)
-          .text()
-          .split('/')[0]
-      );
+      let year = seasons.eq(i).text().split('/')[0];
 
       if (year >= 2000) {
         this.loadingCli.push(`Year ${year}`);
 
-        let competition = await Competition.findOne({ code: competitionDefault.code, year: year });
+        let competition = await Competition.findOne({ code: competitionDefault.code, year });
 
         let $ = await this.getPageData(
           `${competitionDefault.code}/spieltagtabelle/?spieledb_path=/competitions/${competitionDefault.aux.number}/seasons/${numberSeason}/matchday&spieledb_path=%2Fcompetitions%2F${competitionDefault.aux.number}%2Fseasons%2F${numberSeason}%2Fmatchday%2Fcurrent`
@@ -72,59 +67,15 @@ export default class DfbTableScraping extends ScrapingBasic {
 
     let item = new ItemTable();
     item.position = position;
-    item.name = data
-      .eq(2)
-      .text()
-      .trim();
-    item.flag = data
-      .eq(1)
-      .find('img')
-      .attr('src')
-      .trim();
-    item.points = parseInt(
-      data
-        .eq(9)
-        .text()
-        .trim()
-    );
-    item.matches = parseInt(
-      data
-        .eq(3)
-        .text()
-        .trim()
-    );
-    item.win = parseInt(
-      data
-        .eq(4)
-        .text()
-        .trim()
-    );
-    item.draw = parseInt(
-      data
-        .eq(5)
-        .text()
-        .trim()
-    );
-    item.lose = parseInt(
-      data
-        .eq(6)
-        .text()
-        .trim()
-    );
-    item.goalsScored = parseInt(
-      data
-        .eq(7)
-        .text()
-        .trim()
-        .split(':')[0]
-    );
-    item.goalsAgainst = parseInt(
-      data
-        .eq(7)
-        .text()
-        .trim()
-        .split(':')[1]
-    );
+    item.name = data.eq(2).text().trim();
+    item.flag = data.eq(1).find('img').attr('src').trim();
+    item.points = parseInt(data.eq(9).text().trim());
+    item.matches = parseInt(data.eq(3).text().trim());
+    item.win = parseInt(data.eq(4).text().trim());
+    item.draw = parseInt(data.eq(5).text().trim());
+    item.lose = parseInt(data.eq(6).text().trim());
+    item.goalsScored = parseInt(data.eq(7).text().trim().split(':')[0]);
+    item.goalsAgainst = parseInt(data.eq(7).text().trim().split(':')[1]);
     item.goalsDifference = item.goalsScored - item.goalsAgainst;
     item.yellowCard = undefined;
     item.redCard = undefined;

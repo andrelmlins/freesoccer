@@ -1,3 +1,4 @@
+import CompetitionCode from '../enums/CompetitionCode';
 import { Round, IRound } from '../schemas/Round';
 import CompetitionRepository from './CompetitionRepository';
 
@@ -8,9 +9,9 @@ export default class RoundRepository {
     this.competitioRepository = new CompetitionRepository();
   }
 
-  public async all(competitionCode: String, year: String) {
+  public async all(code: CompetitionCode, year: string) {
     let rounds = [];
-    const competition = await this.competitioRepository.getBasicYear(competitionCode, year);
+    const competition = await this.competitioRepository.getBasicYear(code, year);
 
     if (competition == null) {
       throw new Error('Competition does not exist');
@@ -26,9 +27,9 @@ export default class RoundRepository {
             goalsGuest: 1,
             hash: 1,
             //   url: { $concat: [Helpers.getUrl(req, '/api/rounds'), '/', '$hash'] },
-            matches: { $size: '$matchs' }
-          }
-        }
+            matches: { $size: '$matchs' },
+          },
+        },
       ]);
     }
 
@@ -46,14 +47,14 @@ export default class RoundRepository {
           goalsHome: 1,
           goalsGuest: 1,
           hash: 1,
-          matches: { $size: '$matchs' }
+          matches: { $size: '$matchs' },
           //   url: { $concat: [Helpers.getUrl(req, req.url), '/', '$hash'] },
           //   urls: {
           //     matches: Helpers.getUrl(req, req.url) + '/matches',
           //     statistics: Helpers.getUrl(req, req.url) + '/statistics'
           //   }
-        }
-      }
+        },
+      },
     ]);
 
     return rounds[0];

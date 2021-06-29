@@ -1,4 +1,5 @@
 import { Response, Request } from 'express';
+import CompetitionCode from '../enums/CompetitionCode';
 import RoundRepository from '../repository/RoundRepository';
 
 export default class RoundController {
@@ -10,7 +11,7 @@ export default class RoundController {
 
   public async all(req: Request, res: Response) {
     try {
-      res.send({ rounds: await this.roundRepository.all(req.params.competition, req.params.year) });
+      res.send({ rounds: await this.roundRepository.all(req.params.competition as CompetitionCode, req.params.year) });
     } catch (error) {
       res.status(404).send({ error: true });
     }

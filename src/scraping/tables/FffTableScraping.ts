@@ -21,8 +21,8 @@ export default class FffTableScraping {
 
     this.axios = axios.create({
       httpsAgent: new https.Agent({
-        rejectUnauthorized: false
-      })
+        rejectUnauthorized: false,
+      }),
     });
   }
 
@@ -47,16 +47,11 @@ export default class FffTableScraping {
       let numberSeason = parseInt(seasons.eq(i).attr('value'));
 
       if (numberSeason >= FffConstants.START_SEASON) {
-        let year = parseInt(
-          seasons
-            .eq(i)
-            .text()
-            .split('/')[0]
-        );
+        let year = seasons.eq(i).text().split('/')[0];
 
         console.log('\t\t-> ' + year);
 
-        let competition = await Competition.findOne({ code: competitionDefault.code, year: year });
+        let competition = await Competition.findOne({ code: competitionDefault.code, year });
 
         let page = await this.axios.get(`${FffConstants.URL_DEFAULT}/${competitionDefault.code}/classement?sai=${numberSeason}`);
 
@@ -82,59 +77,15 @@ export default class FffTableScraping {
 
     let item = new ItemTable();
     item.position = position;
-    item.name = data
-      .eq(2)
-      .text()
-      .trim();
-    item.flag =
-      FffConstants.URL_DEFAULT +
-      data
-        .eq(2)
-        .find('img')
-        .attr('src')
-        .trim();
-    item.points = parseInt(
-      data
-        .eq(10)
-        .text()
-        .trim()
-    );
-    item.matches = parseInt(
-      data
-        .eq(3)
-        .text()
-        .trim()
-    );
-    item.win = parseInt(
-      data
-        .eq(4)
-        .text()
-        .trim()
-    );
-    item.draw = parseInt(
-      data
-        .eq(5)
-        .text()
-        .trim()
-    );
-    item.lose = parseInt(
-      data
-        .eq(6)
-        .text()
-        .trim()
-    );
-    item.goalsScored = parseInt(
-      data
-        .eq(7)
-        .text()
-        .trim()
-    );
-    item.goalsAgainst = parseInt(
-      data
-        .eq(8)
-        .text()
-        .trim()
-    );
+    item.name = data.eq(2).text().trim();
+    item.flag = FffConstants.URL_DEFAULT + data.eq(2).find('img').attr('src').trim();
+    item.points = parseInt(data.eq(10).text().trim());
+    item.matches = parseInt(data.eq(3).text().trim());
+    item.win = parseInt(data.eq(4).text().trim());
+    item.draw = parseInt(data.eq(5).text().trim());
+    item.lose = parseInt(data.eq(6).text().trim());
+    item.goalsScored = parseInt(data.eq(7).text().trim());
+    item.goalsAgainst = parseInt(data.eq(8).text().trim());
     item.goalsDifference = item.goalsScored - item.goalsAgainst;
     item.yellowCard = undefined;
     item.redCard = undefined;

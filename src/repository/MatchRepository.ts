@@ -1,8 +1,9 @@
+import CompetitionCode from '../enums/CompetitionCode';
 import { Competition } from '../schemas/Competition';
 import { Round } from '../schemas/Round';
 
 export default class MatchRepository {
-  public async allPerRound(roundCode: String) {
+  public async allPerRound(roundCode: string) {
     const round = await Round.findOne({ hash: roundCode });
 
     if (!round) {
@@ -13,8 +14,8 @@ export default class MatchRepository {
     return matches;
   }
 
-  public async allPerCompetition(competitionCode: String, year: String) {
-    const competition = await Competition.findOne({ code: competitionCode, year });
+  public async allPerCompetition(code: CompetitionCode, year: string) {
+    const competition = await Competition.findOne({ code, year });
 
     if (!competition) {
       throw new Error('Competition does not exist');
@@ -28,16 +29,16 @@ export default class MatchRepository {
           _id: 0,
           round: {
             number: '$number',
-            hash: '$hash'
+            hash: '$hash',
             //   url: { $concat: [Helpers.getUrl(req, '/api/rounds'), '/', '$hash'] }
           },
           date: '$matchs.date',
           stadium: '$matchs.stadium',
           location: '$matchs.location',
           teamHome: '$matchs.teamHome',
-          teamGuest: '$matchs.teamGuest'
-        }
-      }
+          teamGuest: '$matchs.teamGuest',
+        },
+      },
     ]);
 
     return matches;

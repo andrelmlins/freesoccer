@@ -15,15 +15,15 @@ export default abstract class ScrapingBasic {
     this.loadingCli = new LoadingCli();
   }
 
-  public abstract async runCompetition(competitionDefault: ICompetitionDefault): Promise<any>;
+  public abstract runCompetition(competitionDefault: ICompetitionDefault): Promise<any>;
   public abstract getTitle(): string;
   public abstract getConstants(): any;
 
   public async getPageData(url: string): Promise<any> {
     const axiosObject = axios.create({
       httpsAgent: new https.Agent({
-        rejectUnauthorized: false
-      })
+        rejectUnauthorized: false,
+      }),
     });
 
     const page = await axiosObject.get(this.getConstants().URL_DEFAULT + '/' + url);

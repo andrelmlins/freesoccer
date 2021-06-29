@@ -1,4 +1,5 @@
 import { Response, Request } from 'express';
+import CompetitionCode from '../enums/CompetitionCode';
 import TableRepository from '../repository/TableRepository';
 
 export default class TableController {
@@ -10,7 +11,7 @@ export default class TableController {
 
   public async get(req: Request, res: Response) {
     try {
-      res.send({ table: await this.tableRepository.get(req.params.competition, req.params.year) });
+      res.send({ table: await this.tableRepository.get(req.params.competition as CompetitionCode, req.params.year) });
     } catch (error) {
       res.status(404).send({ error: true });
     }
@@ -18,7 +19,7 @@ export default class TableController {
 
   public async getPosition(req: Request, res: Response) {
     try {
-      res.send({ positionTable: await this.tableRepository.getPosition(req.params.competition, req.params.year, parseInt(req.params.position)) });
+      res.send({ positionTable: await this.tableRepository.getPosition(req.params.competition as CompetitionCode, req.params.year, parseInt(req.params.position)) });
     } catch (error) {
       res.status(404).send({ error: true });
     }

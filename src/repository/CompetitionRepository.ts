@@ -1,3 +1,4 @@
+import CompetitionCode from '../enums/CompetitionCode';
 import { Competition, ICompetition } from '../schemas/Competition';
 
 export default class CompetitionRepository {
@@ -12,8 +13,8 @@ export default class CompetitionRepository {
           type: { $first: '$type' },
           country: { $first: '$country' },
           federation: { $first: '$federation' },
-          years: { $push: '$year' }
-        }
+          years: { $push: '$year' },
+        },
       },
       {
         $project: {
@@ -24,9 +25,9 @@ export default class CompetitionRepository {
           country: 1,
           federation: 1,
           //   url: { $concat: [Helpers.getUrl(req, req.url), '/', '$code'] },
-          years: '$years'
-        }
-      }
+          years: '$years',
+        },
+      },
     ]);
 
     return competitions;
@@ -46,11 +47,11 @@ export default class CompetitionRepository {
           years: {
             $push: {
               year: '$year',
-              rounds: { $sum: { $size: '$rounds' } }
+              rounds: { $sum: { $size: '$rounds' } },
               //   url: { $concat: [Helpers.getUrl(req, req.url), '/', '$year'] }
-            }
-          }
-        }
+            },
+          },
+        },
       },
       {
         $project: {
@@ -61,9 +62,9 @@ export default class CompetitionRepository {
           country: 1,
           federation: 1,
           //   url: Helpers.getUrl(req, req.url),
-          years: '$years'
-        }
-      }
+          years: '$years',
+        },
+      },
     ]);
 
     return competitions[0];
@@ -81,8 +82,8 @@ export default class CompetitionRepository {
           country: { $first: '$country' },
           federation: { $first: '$federation' },
           year: { $first: '$year' },
-          rounds: { $sum: { $size: '$rounds' } }
-        }
+          rounds: { $sum: { $size: '$rounds' } },
+        },
       },
       {
         $project: {
@@ -93,7 +94,7 @@ export default class CompetitionRepository {
           country: 1,
           federation: 1,
           year: 1,
-          rounds: 1
+          rounds: 1,
           //   url: Helpers.getUrl(req, req.url),
           //   urls: {
           //     rounds: Helpers.getUrl(req, req.url) + '/rounds',
@@ -101,15 +102,15 @@ export default class CompetitionRepository {
           //     statistics: Helpers.getUrl(req, req.url) + '/statistics',
           //     table: Helpers.getUrl(req, req.url) + '/table'
           //   }
-        }
-      }
+        },
+      },
     ]);
 
     return competitions[0];
   }
 
-  public async getBasicYear(competitionCode: String, year: String) {
-    return await Competition.findOne({ code: competitionCode, year });
+  public async getBasicYear(code: CompetitionCode, year: string) {
+    return await Competition.findOne({ code, year });
   }
 
   public async save(competition: ICompetition) {

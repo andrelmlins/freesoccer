@@ -1,9 +1,6 @@
 declare module 'cheerio';
-declare module 'morgan';
 declare module 'md5';
 declare module 'swagger-ui-express';
-declare module 'cron';
 declare module 'jsonwebtoken';
 declare module 'bcrypt';
-declare module 'serve-favicon';
 declare module 'puppeteer-extra-plugin-auto-scroll';

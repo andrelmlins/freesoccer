@@ -28,15 +28,14 @@ class Commander {
   }
 
   private run(): void {
-    this.program
-      .option('-c, --competition <competition>', 'scraping in competition')
-      .option('-l, --last-year', 'scraping in lastyear')
-      .option('-t, --table', 'scraping in table competition');
+    this.program.option('-c, --competition <competition>', 'scraping in competition').option('-l, --last-year', 'scraping in lastyear').option('-t, --table', 'scraping in table competition');
 
     this.program.parse(process.argv);
 
-    if (this.program.competition) {
-      CompetitionUtil.runScraping(this.program.competition, this.program.lastYear, this.program.table);
+    const options = this.program.opts();
+
+    if (options.competition) {
+      CompetitionUtil.runScraping(options.competition, options.lastYear, options.table);
     } else {
       throw new Error('Competition does not exist');
     }

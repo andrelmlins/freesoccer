@@ -25,7 +25,7 @@ export let CompetitionSchema: Schema = new Schema({
   country: String,
   federation: String,
   rounds: [{ type: Schema.Types.ObjectId, ref: 'Round', required: false }],
-  stages: [{ type: Schema.Types.ObjectId, ref: 'Stage', required: false }]
+  stages: [{ type: Schema.Types.ObjectId, ref: 'Stage', required: false }],
 });
 
 export const Competition: Model<ICompetition> = model<ICompetition>('Competition', CompetitionSchema);

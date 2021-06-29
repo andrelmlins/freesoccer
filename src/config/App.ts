@@ -1,10 +1,8 @@
 import express from 'express';
 import mongoose from 'mongoose';
-import bodyParser from 'body-parser';
-import morgan from 'morgan';
+import { json } from 'body-parser';
 import cors from 'cors';
 import path from 'path';
-import favicon from 'serve-favicon';
 import swaggerUI from 'swagger-ui-express';
 import swagger from './swagger.json';
 
@@ -24,7 +22,7 @@ class App {
 
     const swaggerOptions = {
       customSiteTitle: 'API Free Soccer',
-      customCss: '.swagger-ui .topbar { display: none }'
+      customCss: '.swagger-ui .topbar { display: none }',
     };
     // this.app.route('/', swaggerUI.serve, swaggerUI.setup(swagger, swaggerOptions));
 
@@ -34,7 +32,6 @@ class App {
     this.config();
 
     this.app.use(express.static(path.join(__dirname + '../../../public')));
-    this.app.use(favicon(path.join(__dirname + '../../../public', 'favicon.ico')));
 
     this.routes.routes(this.app);
     this.cronJobs.crons();
@@ -52,10 +49,8 @@ class App {
       mongoose.connect(`mongodb://${ipMongo}/${baseMongo}`, { useUnifiedTopology: true, useNewUrlParser: true });
     }
 
-    this.app.use(bodyParser.json({ limit: '50mb' }));
-    this.app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
+    this.app.use(json({ limit: '50mb' }));
     this.app.use(cors());
-    this.app.use(morgan('dev'));
   }
 }
 
