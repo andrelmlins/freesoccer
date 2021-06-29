@@ -1,29 +1,11 @@
 import { Response, Request } from 'express';
-import jwt from 'jsonwebtoken';
-
-const swaggerDocument = require('../../public/assets/swagger.json');
 
 export default class Controller {
-  public async getSwagger(req: Request, res: Response) {
+  public async getSwagger(_: Request, res: Response) {
     try {
-      res.send(swaggerDocument);
+      res.send(require('../../public/assets/swagger.json'));
     } catch (error) {
       res.status(404).send({ error: true });
-    }
-  }
-
-  public async validateToken(req: Request, res: Response, next: any) {
-    const token = req.body.token || req.query.token || req.headers['x-access-token'];
-
-    if (token) {
-      try {
-        jwt.verify(token, 'shhhhh');
-        next();
-      } catch (err) {
-        return res.status(403).send({ success: false, message: 'No access' });
-      }
-    } else {
-      return res.status(403).send({ success: false, message: 'No access' });
     }
   }
 }

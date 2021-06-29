@@ -16,7 +16,6 @@
 
 - 🕒 Scraping with CronJob
 - 👨🏾‍💻 Exec scraping in Line Command
-- 🔐 Login in API
 - 🐋 Docker Image with environment variables in Dockerhub
 - 💻 Scraping in ServerSide and ClientSide
 
@@ -98,9 +97,7 @@ $ docker run -d -p 80:8080 --name andrelmlins1/freesoccer
 - Cheerio
 - Express
 - Mongoose
-- Bcrypt
 - Cron
-- Jsonwebtoken
 
 ## Contribution guidelines
 
