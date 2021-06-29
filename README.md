@@ -4,9 +4,8 @@
 
 [Free API](https://www.apifreesoccer.com/) with results from national football competitions
 
-[![Build Status](https://travis-ci.com/andrelmlins/freesoccer.svg?branch=master)](https://travis-ci.com/andrelmlins/freesoccer)
+[![Docker Image CI](https://github.com/andrelmlins/freesoccer/actions/workflows/docker-image.yml/badge.svg)](https://github.com/andrelmlins/freesoccer/actions/workflows/docker-image.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/andrelmlins/freesoccer/blob/master/LICENSE)
-[![Dependencies](https://david-dm.org/andrelmlins/freesoccer.svg)](https://david-dm.org/andrelmlins/freesoccer)
 [![Docker Pulls](https://img.shields.io/docker/pulls/andrelmlins1/freesoccer)](https://hub.docker.com/repository/docker/andrelmlins1/freesoccer)
 [![Docker Image Size (latest by date)](https://img.shields.io/docker/image-size/andrelmlins1/freesoccer)](https://hub.docker.com/repository/docker/andrelmlins1/freesoccer)
 [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/andrelmlins/freesoccer.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/andrelmlins/freesoccer/context:javascript)
