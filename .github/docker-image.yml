@@ -1,0 +1,29 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+env:
+  IMAGE_NAME: andrelmlins1/freesoccer
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      REGISTRY_USER: ${{secrets.REGISTRY_USER}}
+      REGISTRY_PASS: ${{secrets.REGISTRY_PASS}}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Login
+        run: |
+          docker login -u "$REGISTRY_USER" -p "$REGISTRY_PASS"
+          docker tag "$IMAGE_NAME" "${IMAGE_NAME}:latest"
+      - name: Pull
+        run: docker pull "${IMAGE_NAME}:latest" || true
+      - name: Build the docker image
+        run: docker build --pull --cache-from "${IMAGE_NAME}:latest" --tag "$IMAGE_NAME" .
+      - name: Push image
+        run: docker push "${IMAGE_NAME}:latest"
