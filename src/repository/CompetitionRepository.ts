@@ -1,7 +1,7 @@
-import CompetitionCode from '../enums/CompetitionCode';
-import { Competition, ICompetition } from '../schemas/Competition';
+import CompetitionCode from '@enums/CompetitionCode';
+import { Competition, ICompetition } from '@schemas/Competition';
 
-export default class CompetitionRepository {
+class CompetitionRepository {
   public async all(params: any) {
     const competitions = await Competition.aggregate([
       { $match: params },
@@ -123,3 +123,5 @@ export default class CompetitionRepository {
     } else await competition.save();
   }
 }
+
+export default CompetitionRepository;

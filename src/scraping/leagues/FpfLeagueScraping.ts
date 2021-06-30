@@ -1,19 +1,20 @@
 import md5 from 'md5';
 import moment from 'moment';
 
+import FpfConstants from '@constants/FpfConstants';
+import Helpers from '@utils/Helpers';
+import ICompetitionDefault from '@interfaces/ICompetitionDefault';
+
+import { ICompetition } from '@schemas/Competition';
+import { Round, IRound } from '@schemas/Round';
+import Match from '@schemas/Match';
+import TeamResult from '@schemas/TeamResult';
+import CompetitionRepository from '@repository/CompetitionRepository';
+import RoundRepository from '@repository/RoundRepository';
+
 import ScrapingBasic from '../ScrapingBasic';
-import FpfConstants from '../../constants/FpfConstants';
-import Helpers from '../../utils/Helpers';
-import ICompetitionDefault from '../../interfaces/ICompetitionDefault';
 
-import { ICompetition } from '../../schemas/Competition';
-import { Round, IRound } from '../../schemas/Round';
-import Match from '../../schemas/Match';
-import TeamResult from '../../schemas/TeamResult';
-import CompetitionRepository from '../../repository/CompetitionRepository';
-import RoundRepository from '../../repository/RoundRepository';
-
-export default class FpfLeagueScraping extends ScrapingBasic {
+class FpfLeagueScraping extends ScrapingBasic {
   private competitionRepository: CompetitionRepository;
   private roundRepository: RoundRepository;
 
@@ -49,12 +50,7 @@ export default class FpfLeagueScraping extends ScrapingBasic {
       let rounds = $('select[name="ddlMatchdays"]').children();
 
       for (let j = 0; j < rounds.length; j++) {
-        if (
-          rounds
-            .eq(j)
-            .text()
-            .includes('Week')
-        ) {
+        if (rounds.eq(j).text().includes('Week')) {
           let roundResult = await this.runRound(rounds.eq(j), competition, url, codeYear);
           competition.rounds.push(roundResult!._id);
         }
@@ -80,24 +76,13 @@ export default class FpfLeagueScraping extends ScrapingBasic {
     this.loadingCli.push(`Round ${round.number}`);
 
     let $ = await this.getPageData(`${FpfConstants.URL_DEFAULT}/jornada/${codeYear}/${url}/${number}`);
-    let data = $('.container')
-      .eq(2)
-      .children('.tab-content')
-      .children()
-      .eq(0)
-      .children('div');
-    let matches = data
-      .children()
-      .eq(0)
-      .children();
+    let data = $('.container').eq(2).children('.tab-content').children().eq(0).children('div');
+    let matches = data.children().eq(0).children();
 
     let date = '';
     for (let i = 1; i < matches.length - 1; i++) {
       if (matches.eq(i).hasClass('match-day')) {
-        date = matches
-          .eq(i)
-          .text()
-          .trim();
+        date = matches.eq(i).text().trim();
       } else {
         let matchResult = await this.runMatch(matches.eq(i), date);
 
@@ -121,45 +106,14 @@ export default class FpfLeagueScraping extends ScrapingBasic {
     match.teamHome = new TeamResult();
     match.teamGuest = new TeamResult();
 
-    let data = matchHtml
-      .children('div')
-      .children()
-      .eq(1)
-      .children();
+    let data = matchHtml.children('div').children().eq(1).children();
     let result = null;
 
-    if (
-      matchHtml
-        .children('div')
-        .children()
-        .eq(0)
-        .children().length == 2
-    ) {
-      date =
-        date.split(', ')[1] +
-        ' ' +
-        data
-          .eq(1)
-          .text()
-          .trim()
-          .replace('H', ':');
+    if (matchHtml.children('div').children().eq(0).children().length == 2) {
+      date = date.split(', ')[1] + ' ' + data.eq(1).text().trim().replace('H', ':');
     } else {
-      result = data
-        .eq(1)
-        .text()
-        .trim()
-        .split(' - ');
-      date =
-        date.split(', ')[1] +
-        ' ' +
-        matchHtml
-          .children('div')
-          .children()
-          .eq(0)
-          .children('.time')
-          .text()
-          .trim()
-          .replace('H', ':');
+      result = data.eq(1).text().trim().split(' - ');
+      date = date.split(', ')[1] + ' ' + matchHtml.children('div').children().eq(0).children('.time').text().trim().replace('H', ':');
     }
 
     match.date = moment.utc(date, 'DD MMMM YYYY HH:mm').format();
@@ -167,23 +121,17 @@ export default class FpfLeagueScraping extends ScrapingBasic {
     match.location = '';
 
     match.teamHome.initials = '';
-    match.teamHome.name = data
-      .eq(0)
-      .children('.teams-name')
-      .text()
-      .trim();
+    match.teamHome.name = data.eq(0).children('.teams-name').text().trim();
     match.teamHome.flag = '';
     match.teamHome.goals = result == null ? undefined : parseInt(result[0]);
 
     match.teamGuest.initials = '';
-    match.teamGuest.name = data
-      .eq(2)
-      .children('.teams-name')
-      .text()
-      .trim();
+    match.teamGuest.name = data.eq(2).children('.teams-name').text().trim();
     match.teamGuest.flag = '';
     match.teamGuest.goals = result == null ? undefined : parseInt(result[1]);
 
     return match;
   }
 }
+
+export default FpfLeagueScraping;

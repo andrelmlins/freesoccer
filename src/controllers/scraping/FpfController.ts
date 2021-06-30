@@ -1,11 +1,11 @@
 import { Response, Request } from 'express';
 
-import FpfConstants from '../../constants/FpfConstants';
-import FpfScraping from '../../scraping/FpfScraping';
-import CompetitionUtil from '../../utils/CompetitionUtil';
-import ICompetitionDefault from '../../interfaces/ICompetitionDefault';
+import FpfConstants from '@constants/FpfConstants';
+import FpfScraping from '@scraping/FpfScraping';
+import CompetitionUtil from '@utils/CompetitionUtil';
+import ICompetitionDefault from '@interfaces/ICompetitionDefault';
 
-export default class FpfController {
+class FpfController {
   public async loadResults(req: Request, res: Response) {
     try {
       let competition: ICompetitionDefault = CompetitionUtil.getCompetition(FpfConstants.COMPETITIONS, req.params.competition);
@@ -33,3 +33,5 @@ export default class FpfController {
     }
   }
 }
+
+export default FpfController;

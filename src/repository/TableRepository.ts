@@ -1,8 +1,8 @@
-import CompetitionCode from '../enums/CompetitionCode';
-import { Competition } from '../schemas/Competition';
-import { Table, ITable } from '../schemas/Table';
+import CompetitionCode from '@enums/CompetitionCode';
+import { Competition } from '@schemas/Competition';
+import { Table, ITable } from '@schemas/Table';
 
-export default class TableRepository {
+class TableRepository {
   public async get(code: CompetitionCode, year: string) {
     const competition = await Competition.findOne({ code, year });
 
@@ -70,3 +70,5 @@ export default class TableRepository {
     } else await table.save();
   }
 }
+
+export default TableRepository;

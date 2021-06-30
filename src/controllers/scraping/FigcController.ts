@@ -1,11 +1,11 @@
 import { Response, Request } from 'express';
 
-import FigcConstants from '../../constants/FigcConstants';
-import FigcScraping from '../../scraping/FigcScraping';
-import CompetitionUtil from '../../utils/CompetitionUtil';
-import ICompetitionDefault from '../../interfaces/ICompetitionDefault';
+import FigcConstants from '@constants/FigcConstants';
+import FigcScraping from '@scraping/FigcScraping';
+import CompetitionUtil from '@utils/CompetitionUtil';
+import ICompetitionDefault from '@interfaces/ICompetitionDefault';
 
-export default class FigcController {
+class FigcController {
   public async loadResults(req: Request, res: Response) {
     try {
       let competition: ICompetitionDefault = CompetitionUtil.getCompetition(FigcConstants.COMPETITIONS, req.params.competition);
@@ -34,3 +34,5 @@ export default class FigcController {
     }
   }
 }
+
+export default FigcController;

@@ -1,8 +1,8 @@
-import CompetitionCode from '../enums/CompetitionCode';
-import Helpers from '../utils/Helpers';
-import CompetitionUtil from '../utils/CompetitionUtil';
+import CompetitionCode from '@enums/CompetitionCode';
+import Helpers from '@utils/Helpers';
+import CompetitionUtil from '@utils/CompetitionUtil';
 
-export default class Scraping {
+class Scraping {
   public lastYear: boolean;
   public competition: String;
 
@@ -19,3 +19,5 @@ export default class Scraping {
     await scraping.run(competition);
   }
 }
+
+export default Scraping;

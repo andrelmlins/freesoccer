@@ -2,13 +2,13 @@ import axios from 'axios';
 import https from 'https';
 import cheerio from 'cheerio';
 
-import FffConstants from '../../constants/FffConstants';
-import ICompetitionDefault from '../../interfaces/ICompetitionDefault';
+import FffConstants from '@constants/FffConstants';
+import ICompetitionDefault from '@interfaces/ICompetitionDefault';
 
-import { Competition } from '../../schemas/Competition';
-import { Table } from '../../schemas/Table';
-import ItemTable from '../../schemas/ItemTable';
-import TableRepository from '../../repository/TableRepository';
+import { Competition } from '@schemas/Competition';
+import { Table } from '@schemas/Table';
+import ItemTable from '@schemas/ItemTable';
+import TableRepository from '@repository/TableRepository';
 
 export default class FffTableScraping {
   public lastYear: boolean;

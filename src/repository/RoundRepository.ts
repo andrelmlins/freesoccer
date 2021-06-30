@@ -1,8 +1,8 @@
-import CompetitionCode from '../enums/CompetitionCode';
-import { Round, IRound } from '../schemas/Round';
+import CompetitionCode from '@enums/CompetitionCode';
+import { Round, IRound } from '@schemas/Round';
 import CompetitionRepository from './CompetitionRepository';
 
-export default class RoundRepository {
+class RoundRepository {
   private competitioRepository: CompetitionRepository;
 
   constructor() {
@@ -76,3 +76,5 @@ export default class RoundRepository {
     }
   }
 }
+
+export default RoundRepository;

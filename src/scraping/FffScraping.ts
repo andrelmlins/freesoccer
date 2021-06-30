@@ -1,11 +1,11 @@
-import ICompetitionDefault from '../interfaces/ICompetitionDefault';
-import IFederationScraping from '../interfaces/IFederationScraping';
-import CompetitionType from '../enums/CompetitionType';
+import ICompetitionDefault from '@interfaces/ICompetitionDefault';
+import IFederationScraping from '@interfaces/IFederationScraping';
+import CompetitionType from '@enums/CompetitionType';
 import FffLeagueScraping from './leagues/FffLeagueScraping';
 import FffTableScraping from './tables/FffTableScraping';
 import FffEliminationScraping from './elimination/FffEliminationScraping';
 
-export default class FffScraping implements IFederationScraping {
+class FffScraping implements IFederationScraping {
   public lastYear: boolean;
   private fffLeagueScraping: FffLeagueScraping;
   private fffTableScraping: FffTableScraping;
@@ -46,3 +46,5 @@ export default class FffScraping implements IFederationScraping {
     await this.fffEliminationScraping.run(competition);
   }
 }
+
+export default FffScraping;

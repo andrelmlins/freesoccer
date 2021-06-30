@@ -1,11 +1,11 @@
 import { Response, Request } from 'express';
 
-import RfefConstants from '../../constants/RfefConstants';
-import RfefScraping from '../../scraping/RfefScraping';
-import CompetitionUtil from '../../utils/CompetitionUtil';
-import ICompetitionDefault from '../../interfaces/ICompetitionDefault';
+import RfefConstants from '@constants/RfefConstants';
+import RfefScraping from '@scraping/RfefScraping';
+import CompetitionUtil from '@utils/CompetitionUtil';
+import ICompetitionDefault from '@interfaces/ICompetitionDefault';
 
-export default class RfefController {
+class RfefController {
   public async loadResults(req: Request, res: Response) {
     try {
       let competition: ICompetitionDefault = CompetitionUtil.getCompetition(RfefConstants.COMPETITIONS, req.params.competition);
@@ -28,8 +28,9 @@ export default class RfefController {
 
       res.send({ message: 'Success' });
     } catch (error) {
-      //console.log(error);
       res.status(404).send({ error: error + '' });
     }
   }
 }
+
+export default RfefController;

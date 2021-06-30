@@ -1,7 +1,7 @@
 import { Response, Request } from 'express';
-import CompetitionRepository from '../repository/CompetitionRepository';
+import CompetitionRepository from '@repository/CompetitionRepository';
 
-export default class CompetitionController {
+class CompetitionController {
   private competitionRepository: CompetitionRepository;
 
   constructor() {
@@ -32,3 +32,5 @@ export default class CompetitionController {
     }
   }
 }
+
+export default CompetitionController;

@@ -1,11 +1,11 @@
 import { Response, Request } from 'express';
 
-import CbfConstants from '../../constants/CbfConstants';
-import CbfScraping from '../../scraping/CbfScraping';
-import CompetitionUtil from '../../utils/CompetitionUtil';
-import ICompetitionDefault from '../../interfaces/ICompetitionDefault';
+import CbfConstants from '@constants/CbfConstants';
+import CbfScraping from '@scraping/CbfScraping';
+import CompetitionUtil from '@utils/CompetitionUtil';
+import ICompetitionDefault from '@interfaces/ICompetitionDefault';
 
-export default class CbfController {
+class CbfController {
   public async loadResults(req: Request, res: Response) {
     try {
       let competition: ICompetitionDefault = CompetitionUtil.getCompetition(CbfConstants.COMPETITIONS, req.params.competition);
@@ -33,3 +33,5 @@ export default class CbfController {
     }
   }
 }
+
+export default CbfController;

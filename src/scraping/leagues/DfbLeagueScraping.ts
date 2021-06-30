@@ -1,19 +1,20 @@
 import md5 from 'md5';
 import moment from 'moment';
 
+import DfbConstants from '@constants/DfbConstants';
+import Helpers from '@utils/Helpers';
+import ICompetitionDefault from '@interfaces/ICompetitionDefault';
+
+import { ICompetition } from '@schemas/Competition';
+import { Round, IRound } from '@schemas/Round';
+import Match from '@schemas/Match';
+import TeamResult from '@schemas/TeamResult';
+import CompetitionRepository from '@repository/CompetitionRepository';
+import RoundRepository from '@repository/RoundRepository';
+
 import ScrapingBasic from '../ScrapingBasic';
-import DfbConstants from '../../constants/DfbConstants';
-import Helpers from '../../utils/Helpers';
-import ICompetitionDefault from '../../interfaces/ICompetitionDefault';
 
-import { ICompetition } from '../../schemas/Competition';
-import { Round, IRound } from '../../schemas/Round';
-import Match from '../../schemas/Match';
-import TeamResult from '../../schemas/TeamResult';
-import CompetitionRepository from '../../repository/CompetitionRepository';
-import RoundRepository from '../../repository/RoundRepository';
-
-export default class DfbLeagueScraping extends ScrapingBasic {
+class DfbLeagueScraping extends ScrapingBasic {
   private competitionRepository: CompetitionRepository;
   private roundRepository: RoundRepository;
 
@@ -41,12 +42,7 @@ export default class DfbLeagueScraping extends ScrapingBasic {
 
     for (let i = 0; i < end; i++) {
       let numberSeason = seasons.eq(i).attr('value');
-      let year = parseInt(
-        seasons
-          .eq(i)
-          .text()
-          .split('/')[0]
-      );
+      let year = parseInt(seasons.eq(i).text().split('/')[0]);
 
       if (year >= 2000) {
         this.loadingCli.push(`Year ${year}`);
@@ -56,12 +52,7 @@ export default class DfbLeagueScraping extends ScrapingBasic {
         let rounds = $('select[name="matchdays"]').children();
 
         for (let j = 0; j < rounds.length; j++) {
-          if (
-            rounds
-              .eq(j)
-              .text()
-              .includes('Spieltag ')
-          ) {
+          if (rounds.eq(j).text().includes('Spieltag ')) {
             let roundResult = await this.runRound(rounds.eq(j), competition, competitionDefault, numberSeason);
             competition.rounds.push(roundResult!._id);
           }
@@ -102,9 +93,7 @@ export default class DfbLeagueScraping extends ScrapingBasic {
         number
     );
 
-    let matches = $('.table-match-comparison')
-      .children('tbody')
-      .children();
+    let matches = $('.table-match-comparison').children('tbody').children();
 
     for (let i = 0; i < matches.length; i++) {
       let matchResult = await this.runMatch(matches.eq(i));
@@ -130,29 +119,14 @@ export default class DfbLeagueScraping extends ScrapingBasic {
 
     let data = matchHtml.children();
 
-    let result = data
-      .eq(3)
-      .text()
-      .trim()
-      .split(' : ');
+    let result = data.eq(3).text().trim().split(' : ');
 
-    if (
-      data
-        .eq(0)
-        .children('em')
-        .text()
-    ) {
-      let date = data
-        .eq(0)
-        .children('em')
-        .text();
+    if (data.eq(0).children('em').text()) {
+      let date = data.eq(0).children('em').text();
       date = date.split(' ~ ')[0] + date.split(' ~ ')[1].split('.')[2] + ' 00:00';
       match.date = date;
     } else {
-      let date = data
-        .eq(0)
-        .html()
-        .split('<br>');
+      let date = data.eq(0).html().split('<br>');
 
       if (date.length > 2) {
         date = date[1].trim() + ' ' + date[2].split(' ')[0].trim();
@@ -167,27 +141,17 @@ export default class DfbLeagueScraping extends ScrapingBasic {
     match.location = '';
 
     match.teamHome.initials = '';
-    match.teamHome.name = data
-      .eq(1)
-      .text()
-      .trim();
-    match.teamHome.flag = data
-      .eq(2)
-      .children('img')
-      .attr('src');
+    match.teamHome.name = data.eq(1).text().trim();
+    match.teamHome.flag = data.eq(2).children('img').attr('src');
     match.teamHome.goals = result[0] == '-' ? undefined : parseInt(result[0]);
 
     match.teamGuest.initials = '';
-    match.teamGuest.name = data
-      .eq(5)
-      .text()
-      .trim();
-    match.teamGuest.flag = data
-      .eq(4)
-      .children('img')
-      .attr('src');
+    match.teamGuest.name = data.eq(5).text().trim();
+    match.teamGuest.flag = data.eq(4).children('img').attr('src');
     match.teamGuest.goals = result[1] == '-' ? undefined : parseInt(result[1]);
 
     return match;
   }
 }
+
+export default DfbLeagueScraping;

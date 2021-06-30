@@ -1,8 +1,8 @@
 import { Response, Request } from 'express';
-import CompetitionCode from '../enums/CompetitionCode';
-import TableRepository from '../repository/TableRepository';
+import CompetitionCode from '@enums/CompetitionCode';
+import TableRepository from '@repository/TableRepository';
 
-export default class TableController {
+class TableController {
   private tableRepository: TableRepository;
 
   constructor() {
@@ -25,3 +25,5 @@ export default class TableController {
     }
   }
 }
+
+export default TableController;

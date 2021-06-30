@@ -1,4 +1,4 @@
-import ICompetitionDefault from '../../interfaces/ICompetitionDefault';
+import ICompetitionDefault from '@interfaces/ICompetitionDefault';
 
 export default class FaTableScraping {
   public lastYear: boolean;

@@ -1,6 +1,6 @@
-import { Stage, IStage } from '../schemas/Stage';
+import { Stage, IStage } from '@schemas/Stage';
 
-export default class StageRepository {
+class StageRepository {
   public async save(stage: IStage): Promise<IStage | null> {
     let stageOld = await Stage.findOne({ hash: stage.hash });
     if (stageOld) {
@@ -17,3 +17,5 @@ export default class StageRepository {
     }
   }
 }
+
+export default StageRepository;

@@ -4,18 +4,18 @@ import cheerio from 'cheerio';
 import md5 from 'md5';
 import moment from 'moment';
 
-import FffConstants from '../../constants/FffConstants';
-import Helpers from '../../utils/Helpers';
-import ICompetitionDefault from '../../interfaces/ICompetitionDefault';
+import FffConstants from '@constants/FffConstants';
+import Helpers from '@utils/Helpers';
+import ICompetitionDefault from '@interfaces/ICompetitionDefault';
 
-import { ICompetition } from '../../schemas/Competition';
-import { IStage, Stage } from '../../schemas/Stage';
-import Match from '../../schemas/Match';
-import TeamResult from '../../schemas/TeamResult';
-import CompetitionRepository from '../../repository/CompetitionRepository';
-import StageRepository from '../../repository/StageRepository';
+import { ICompetition } from '@schemas/Competition';
+import { IStage, Stage } from '@schemas/Stage';
+import Match from '@schemas/Match';
+import TeamResult from '@schemas/TeamResult';
+import CompetitionRepository from '@repository/CompetitionRepository';
+import StageRepository from '@repository/StageRepository';
 
-export default class FffEliminationScraping {
+class FffEliminationScraping {
   public lastYear: boolean;
   private axios: any;
   private competitionRepository: CompetitionRepository;
@@ -28,8 +28,8 @@ export default class FffEliminationScraping {
 
     this.axios = axios.create({
       httpsAgent: new https.Agent({
-        rejectUnauthorized: false
-      })
+        rejectUnauthorized: false,
+      }),
     });
   }
 
@@ -54,12 +54,7 @@ export default class FffEliminationScraping {
       let numberSeason = parseInt(seasons.eq(i).attr('value'));
 
       if (numberSeason >= FffConstants.START_SEASON) {
-        let year = parseInt(
-          seasons
-            .eq(i)
-            .text()
-            .split('/')[0]
-        );
+        let year = parseInt(seasons.eq(i).text().split('/')[0]);
 
         console.log('\t\t-> ' + year);
 
@@ -94,21 +89,11 @@ export default class FffEliminationScraping {
     let page = await this.axios.get(FffConstants.URL_DEFAULT + '/' + competitionDefault.aux.url + '/calendrier_resultat?sai=' + codeyear + '&jour=' + number);
 
     let $ = cheerio.load(page.data);
-    let data = $('#tableaux_rencontres')
-      .children('div')
-      .find('table');
+    let data = $('#tableaux_rencontres').children('div').find('table');
 
     for (let i = 0; i < data.length; i++) {
-      let date = data
-        .eq(i)
-        .children('caption')
-        .text()
-        .replace('Fixtures of ', '')
-        .trim();
-      let matchs = data
-        .eq(i)
-        .children('tbody')
-        .children();
+      let date = data.eq(i).children('caption').text().replace('Fixtures of ', '').trim();
+      let matchs = data.eq(i).children('tbody').children();
 
       for (let i = 0; i < matchs.length; i++) {
         let matchResult = await this.runMatch(matchs.eq(i), date);
@@ -132,88 +117,42 @@ export default class FffEliminationScraping {
     let data = matchHtml.children();
     let penalty = null;
 
-    let childrenResult = data
-      .eq(3)
-      .children('a')
-      .children();
+    let childrenResult = data.eq(3).children('a').children();
 
     if (childrenResult.length >= 1) {
       if (childrenResult.text().includes('pens')) {
-        penalty = childrenResult
-          .eq(0)
-          .text()
-          .replace('on pens')
-          .trim()
-          .split(' - ');
+        penalty = childrenResult.eq(0).text().replace('on pens').trim().split(' - ');
       }
-      data
-        .eq(3)
-        .children('a')
-        .children()
-        .eq(0)
-        .remove();
+      data.eq(3).children('a').children().eq(0).remove();
     }
 
     if (childrenResult.length >= 2) {
-      penalty = childrenResult
-        .eq(1)
-        .text()
-        .replace('on pens')
-        .trim()
-        .split(' - ');
-      data
-        .eq(3)
-        .children('a')
-        .children()
-        .eq(0)
-        .remove();
+      penalty = childrenResult.eq(1).text().replace('on pens').trim().split(' - ');
+      data.eq(3).children('a').children().eq(0).remove();
     }
 
-    let result = data
-      .eq(3)
-      .children('a')
-      .text()
-      .trim()
-      .split(' - ');
+    let result = data.eq(3).children('a').text().trim().split(' - ');
 
-    date = `${date} ${data
-      .eq(0)
-      .children('a')
-      .text()
-      .trim()}`;
+    date = `${date} ${data.eq(0).children('a').text().trim()}`;
 
     match.date = moment.utc(date, 'DD MMMM YYYY HH:mm').format();
     match.stadium = '';
     match.location = '';
 
     match.teamHome.initials = '';
-    match.teamHome.name = data
-      .eq(1)
-      .text()
-      .trim();
-    match.teamHome.flag =
-      FffConstants.URL_DEFAULT +
-      data
-        .eq(2)
-        .find('img')
-        .attr('src');
+    match.teamHome.name = data.eq(1).text().trim();
+    match.teamHome.flag = FffConstants.URL_DEFAULT + data.eq(2).find('img').attr('src');
     match.teamHome.goals = result.length == 1 ? undefined : parseInt(result[0]);
     match.teamHome.goalsPenalty = !penalty ? undefined : parseInt(penalty[0]);
 
     match.teamGuest.initials = '';
-    match.teamGuest.name = data
-      .eq(5)
-      .text()
-      .trim();
-    match.teamGuest.flag =
-      FffConstants.URL_DEFAULT +
-      data
-        .eq(4)
-        .find('img')
-        .attr('src');
+    match.teamGuest.name = data.eq(5).text().trim();
+    match.teamGuest.flag = FffConstants.URL_DEFAULT + data.eq(4).find('img').attr('src');
     match.teamGuest.goals = result.length == 1 ? undefined : parseInt(result[1]);
     match.teamGuest.goalsPenalty = !penalty ? undefined : parseInt(penalty[1]);
 
     return match;
   }
 }
+
+export default FffEliminationScraping;

@@ -1,11 +1,11 @@
 import { Response, Request } from 'express';
 
-import DbcConstants from '../../constants/DfbConstants';
-import DfbScraping from '../../scraping/DfbScraping';
-import CompetitionUtil from '../../utils/CompetitionUtil';
-import ICompetitionDefault from '../../interfaces/ICompetitionDefault';
+import DbcConstants from '@constants/DfbConstants';
+import DfbScraping from '@scraping/DfbScraping';
+import CompetitionUtil from '@utils/CompetitionUtil';
+import ICompetitionDefault from '@interfaces/ICompetitionDefault';
 
-export default class DfbController {
+class DfbController {
   public async loadResults(req: Request, res: Response) {
     try {
       let competition: ICompetitionDefault = CompetitionUtil.getCompetition(DbcConstants.COMPETITIONS, req.params.competition);
@@ -34,3 +34,5 @@ export default class DfbController {
     }
   }
 }
+
+export default DfbController;

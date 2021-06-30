@@ -1,24 +1,24 @@
 import cron from 'cron';
 
-import CbfConstants from '../constants/CbfConstants';
-import FffConstants from '../constants/FffConstants';
-import FigcConstants from '../constants/FigcConstants';
-import FpfConstants from '../constants/FpfConstants';
-import RfefConstants from '../constants/RfefConstants';
-import DfbConstants from '../constants/DfbConstants';
-import FaConstants from '../constants/FaConstants';
+import CbfConstants from '@constants/CbfConstants';
+import FffConstants from '@constants/FffConstants';
+import FigcConstants from '@constants/FigcConstants';
+import FpfConstants from '@constants/FpfConstants';
+import RfefConstants from '@constants/RfefConstants';
+import DfbConstants from '@constants/DfbConstants';
+import FaConstants from '@constants/FaConstants';
 
-import CbfScraping from '../scraping/CbfScraping';
-import FffScraping from '../scraping/FffScraping';
-import FigcScraping from '../scraping/FigcScraping';
-import FpfScraping from '../scraping/FpfScraping';
-import RfefScraping from '../scraping/RfefScraping';
-import DfbScraping from '../scraping/DfbScraping';
-import FaScraping from '../scraping/FaScraping';
+import CbfScraping from '@scraping/CbfScraping';
+import FffScraping from '@scraping/FffScraping';
+import FigcScraping from '@scraping/FigcScraping';
+import FpfScraping from '@scraping/FpfScraping';
+import RfefScraping from '@scraping/RfefScraping';
+import DfbScraping from '@scraping/DfbScraping';
+import FaScraping from '@scraping/FaScraping';
 
-import ICompetitionDefault from '../interfaces/ICompetitionDefault';
+import ICompetitionDefault from '@interfaces/ICompetitionDefault';
 
-import CompetitionType from '../enums/CompetitionType';
+import CompetitionType from '@enums/CompetitionType';
 
 export default class CronJobs {
   constructor() {}

@@ -1,18 +1,19 @@
 import md5 from 'md5';
 import moment from 'moment';
 
+import FigcConstants from '@constants/FigcConstants';
+import ICompetitionDefault from '@interfaces/ICompetitionDefault';
+
+import { ICompetition } from '@schemas/Competition';
+import { Round, IRound } from '@schemas/Round';
+import Match from '@schemas/Match';
+import TeamResult from '@schemas/TeamResult';
+import CompetitionRepository from '@repository/CompetitionRepository';
+import RoundRepository from '@repository/RoundRepository';
+
 import ScrapingBasic from '../ScrapingBasic';
-import FigcConstants from '../../constants/FigcConstants';
-import ICompetitionDefault from '../../interfaces/ICompetitionDefault';
 
-import { ICompetition } from '../../schemas/Competition';
-import { Round, IRound } from '../../schemas/Round';
-import Match from '../../schemas/Match';
-import TeamResult from '../../schemas/TeamResult';
-import CompetitionRepository from '../../repository/CompetitionRepository';
-import RoundRepository from '../../repository/RoundRepository';
-
-export default class FigcLeagueScraping extends ScrapingBasic {
+class FigcLeagueScraping extends ScrapingBasic {
   private competitionRepository: CompetitionRepository;
   private roundRepository: RoundRepository;
 
@@ -103,22 +104,10 @@ export default class FigcLeagueScraping extends ScrapingBasic {
     match.teamGuest = new TeamResult();
 
     let data = matchHtml.children();
-    let date = data
-      .eq(0)
-      .children('p')
-      .children('span')
-      .text()
-      .trim();
+    let date = data.eq(0).children('p').children('span').text().trim();
     if (date.length < 16) date = date + ' 00:00';
 
-    let location = data
-      .eq(0)
-      .children('p')
-      .html()
-      .split('</span>')[1]
-      .split('<br>')[1]
-      .replace('Stadium: ', '')
-      .trim();
+    let location = data.eq(0).children('p').html().split('</span>')[1].split('<br>')[1].replace('Stadium: ', '').trim();
     location = location.split('(');
 
     match.date = moment.utc(date, 'DD/MM/YYYY HH:mm').format();
@@ -126,59 +115,17 @@ export default class FigcLeagueScraping extends ScrapingBasic {
     match.location = location[1] ? location[1].replace(')', '').trim() : '';
 
     match.teamHome.initials = '';
-    match.teamHome.name = data
-      .eq(1)
-      .children('.nomesquadra')
-      .text()
-      .trim();
-    match.teamHome.flag =
-      FigcConstants.URL_DEFAULT +
-      data
-        .eq(1)
-        .children('img')
-        .attr('src');
-    match.teamHome.goals =
-      data
-        .eq(1)
-        .children('span')
-        .text()
-        .trim() === '-'
-        ? undefined
-        : parseInt(
-            data
-              .eq(1)
-              .children('span')
-              .text()
-              .trim()
-          );
+    match.teamHome.name = data.eq(1).children('.nomesquadra').text().trim();
+    match.teamHome.flag = FigcConstants.URL_DEFAULT + data.eq(1).children('img').attr('src');
+    match.teamHome.goals = data.eq(1).children('span').text().trim() === '-' ? undefined : parseInt(data.eq(1).children('span').text().trim());
 
     match.teamGuest.initials = '';
-    match.teamGuest.name = data
-      .eq(2)
-      .children('.nomesquadra')
-      .text()
-      .trim();
-    match.teamGuest.flag =
-      FigcConstants.URL_DEFAULT +
-      data
-        .eq(2)
-        .children('img')
-        .attr('src');
-    match.teamGuest.goals =
-      data
-        .eq(2)
-        .children('span')
-        .text()
-        .trim() === '-'
-        ? undefined
-        : parseInt(
-            data
-              .eq(2)
-              .children('span')
-              .text()
-              .trim()
-          );
+    match.teamGuest.name = data.eq(2).children('.nomesquadra').text().trim();
+    match.teamGuest.flag = FigcConstants.URL_DEFAULT + data.eq(2).children('img').attr('src');
+    match.teamGuest.goals = data.eq(2).children('span').text().trim() === '-' ? undefined : parseInt(data.eq(2).children('span').text().trim());
 
     return match;
   }
 }
+
+export default FigcLeagueScraping;

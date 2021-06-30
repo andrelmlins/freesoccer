@@ -1,19 +1,20 @@
 import md5 from 'md5';
 import moment from 'moment';
 
-import CbfConstants from '../../constants/CbfConstants';
-import ICompetitionDefault from '../../interfaces/ICompetitionDefault';
+import CbfConstants from '@constants/CbfConstants';
+import ICompetitionDefault from '@interfaces/ICompetitionDefault';
+
+import { ICompetition } from '@schemas/Competition';
+import { Round, IRound } from '@schemas/Round';
+import Match from '@schemas/Match';
+import TeamResult from '@schemas/TeamResult';
+
+import CompetitionRepository from '@repository/CompetitionRepository';
+import RoundRepository from '@repository/RoundRepository';
+
 import ScrapingBasic from '../ScrapingBasic';
 
-import { ICompetition } from '../../schemas/Competition';
-import { Round, IRound } from '../../schemas/Round';
-import Match from '../../schemas/Match';
-import TeamResult from '../../schemas/TeamResult';
-
-import CompetitionRepository from '../../repository/CompetitionRepository';
-import RoundRepository from '../../repository/RoundRepository';
-
-export default class CbfLeagueScraping extends ScrapingBasic {
+class CbfLeagueScraping extends ScrapingBasic {
   private competitionRepository: CompetitionRepository;
   private roundRepository: RoundRepository;
 
@@ -43,12 +44,7 @@ export default class CbfLeagueScraping extends ScrapingBasic {
       let $ = await this.getPageData(`${competition.code}/${competition.year}`);
 
       let section = $('.container section');
-      let rounds = section
-        .children()
-        .eq(1)
-        .children('aside')
-        .children('div')
-        .children();
+      let rounds = section.children().eq(1).children('aside').children('div').children();
 
       for (let j = 0; j < rounds.length; j++) {
         let roundResult = await this.runRound(rounds.eq(j), competition);
@@ -66,11 +62,7 @@ export default class CbfLeagueScraping extends ScrapingBasic {
     round.goals = 0;
     round.goalsHome = 0;
     round.goalsGuest = 0;
-    round.number = roundHtml
-      .children('header')
-      .children('h3')
-      .text()
-      .replace('Rodada ', '');
+    round.number = roundHtml.children('header').children('h3').text().replace('Rodada ', '');
     round.matchs = [];
     round.competition = competition._id;
     round.hash = md5(competition.code + competition.year + round.number);
@@ -101,65 +93,28 @@ export default class CbfLeagueScraping extends ScrapingBasic {
     match.teamHome = new TeamResult();
     match.teamGuest = new TeamResult();
 
-    matchHtml
-      .find('.partida-desc')
-      .eq(0)
-      .find('.partida-desc')
-      .remove();
+    matchHtml.find('.partida-desc').eq(0).find('.partida-desc').remove();
 
-    let result = matchHtml
-      .find('.partida-horario')
-      .children('span')
-      .text()
-      .split(' x ');
-    let location = matchHtml
-      .find('.partida-desc')
-      .eq(1)
-      .text()
-      .trim()
-      .replace(' Como foi o jogo', '')
-      .split(' - ');
-    let date = matchHtml
-      .find('.partida-desc')
-      .eq(0)
-      .text()
-      .trim()
-      .split(' - ')[0]
-      .split(',')[1]
-      .trim();
+    let result = matchHtml.find('.partida-horario').children('span').text().split(' x ');
+    let location = matchHtml.find('.partida-desc').eq(1).text().trim().replace(' Como foi o jogo', '').split(' - ');
+    let date = matchHtml.find('.partida-desc').eq(0).text().trim().split(' - ')[0].split(',')[1].trim();
 
     match.date = moment.utc(date, 'DD/MM/YYYY HH:mm').format();
     match.stadium = location[0];
     match.location = location[1] + '/' + location[2];
 
-    match.teamHome.initials = matchHtml
-      .find('.time.pull-left')
-      .find('.time-sigla')
-      .text();
-    match.teamHome.name = matchHtml
-      .find('.time.pull-left')
-      .find('img')
-      .attr('alt');
-    match.teamHome.flag = matchHtml
-      .find('.time.pull-left')
-      .find('img')
-      .attr('src');
+    match.teamHome.initials = matchHtml.find('.time.pull-left').find('.time-sigla').text();
+    match.teamHome.name = matchHtml.find('.time.pull-left').find('img').attr('alt');
+    match.teamHome.flag = matchHtml.find('.time.pull-left').find('img').attr('src');
     match.teamHome.goals = result[0] == '' ? undefined : parseInt(result[0]);
 
-    match.teamGuest.initials = matchHtml
-      .find('.time.pull-right')
-      .find('.time-sigla')
-      .text();
-    match.teamGuest.name = matchHtml
-      .find('.time.pull-right')
-      .find('img')
-      .attr('alt');
-    match.teamGuest.flag = matchHtml
-      .find('.time.pull-right')
-      .find('img')
-      .attr('src');
+    match.teamGuest.initials = matchHtml.find('.time.pull-right').find('.time-sigla').text();
+    match.teamGuest.name = matchHtml.find('.time.pull-right').find('img').attr('alt');
+    match.teamGuest.flag = matchHtml.find('.time.pull-right').find('img').attr('src');
     match.teamGuest.goals = result[1] == '' ? undefined : parseInt(result[1]);
 
     return match;
   }
 }
+
+export default CbfLeagueScraping;

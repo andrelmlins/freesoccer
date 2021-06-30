@@ -1,9 +1,9 @@
-import ICompetitionDefault from '../interfaces/ICompetitionDefault';
+import ICompetitionDefault from '@interfaces/ICompetitionDefault';
 
-import CompetitionCode from '../enums/CompetitionCode';
-import CompetitionType from '../enums/CompetitionType';
+import CompetitionCode from '@enums/CompetitionCode';
+import CompetitionType from '@enums/CompetitionType';
 
-export default class FaConstants {
+class FaConstants {
   public static URL_DEFAULT = 'https://www.premierleague.com';
   public static COUNTRY = 'England';
   public static FEDERATION = 'FA - The Football Association';
@@ -13,8 +13,10 @@ export default class FaConstants {
       code: CompetitionCode.FA_MALE_A,
       name: 'Premier League',
       aux: {
-        code: '1'
-      }
-    }
+        code: '1',
+      },
+    },
   ];
 }
+
+export default FaConstants;

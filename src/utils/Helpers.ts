@@ -1,14 +1,11 @@
 import { Request } from 'express';
-import puppeteer from 'puppeteer-extra';
-import autoScrollPlugin from 'puppeteer-extra-plugin-auto-scroll';
 
-import ICompetitionDefault from '../interfaces/ICompetitionDefault';
-
-import { ICompetition, Competition } from '../schemas/Competition';
+import ICompetitionDefault from '@interfaces/ICompetitionDefault';
+import { ICompetition, Competition } from '@schemas/Competition';
 
 export default class Helpers {
   public static getEnumKeyByEnumValue(myEnum: any, enumValue: String) {
-    let keys = Object.keys(myEnum).filter(x => myEnum[x] == enumValue);
+    let keys = Object.keys(myEnum).filter((x) => myEnum[x] == enumValue);
     return keys.length > 0 ? keys[0] : null;
   }
 

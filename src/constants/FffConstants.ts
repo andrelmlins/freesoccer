@@ -1,9 +1,9 @@
-import ICompetitionDefault from '../interfaces/ICompetitionDefault';
+import ICompetitionDefault from '@interfaces/ICompetitionDefault';
 
-import CompetitionCode from '../enums/CompetitionCode';
-import CompetitionType from '../enums/CompetitionType';
+import CompetitionCode from '@enums/CompetitionCode';
+import CompetitionType from '@enums/CompetitionType';
 
-export default class FffConstants {
+class FffConstants {
   public static URL_DEFAULT = 'https://www.ligue1.com';
   public static COUNTRY = 'France';
   public static FEDERATION = 'FFF - Fédération Française de Football';
@@ -12,20 +12,22 @@ export default class FffConstants {
     {
       type: CompetitionType.LEAGUE,
       code: CompetitionCode.FFF_MALE_A,
-      name: 'Ligue 1'
+      name: 'Ligue 1',
     },
     {
       type: CompetitionType.LEAGUE,
       code: CompetitionCode.FFF_MALE_B,
-      name: 'Ligue 2'
+      name: 'Ligue 2',
     },
     {
       type: CompetitionType.ELIMINATION,
       code: CompetitionCode.FFF_CUP_MALE,
       name: 'Coupe de La Ligue',
       aux: {
-        url: 'coupeLigue'
-      }
-    }
+        url: 'coupeLigue',
+      },
+    },
   ];
 }
+
+export default FffConstants;

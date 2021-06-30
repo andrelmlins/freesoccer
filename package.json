@@ -4,8 +4,8 @@
   "description": "Free API with results from national football competitions",
   "main": "dist/index",
   "scripts": {
-    "build": "tsc -p .",
-    "start": "yarn build && node dist/index.js",
+    "build": "tsc -p . && tscpaths -p tsconfig.json -s ./src -o ./dist",
+    "start": "ts-node -r tsconfig-paths/register --transpile-only src/index.ts",
     "scraping": "yarn build && node dist/config/Commander.js",
     "test": "jest --watch",
     "coverage": "jest --coverage"
@@ -46,6 +46,9 @@
     "@types/express": "^4.17.12",
     "@types/md5": "^2.3.0",
     "@types/mongoose": "5.11.97",
-    "@types/node": "^15.12.5"
+    "@types/node": "^15.12.5",
+    "ts-node": "^10.0.0",
+    "tsconfig-paths": "^3.9.0",
+    "tscpaths": "^0.0.9"
   }
 }

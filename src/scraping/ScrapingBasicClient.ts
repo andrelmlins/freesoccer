@@ -4,7 +4,7 @@ import cheerio from 'cheerio';
 
 import ScrapingBasic from './ScrapingBasic';
 
-export default abstract class ScrapingBasicClient extends ScrapingBasic {
+abstract class ScrapingBasicClient extends ScrapingBasic {
   protected async getPageDinamically(url: string, stop: string): Promise<any> {
     const browser = await puppeteer.launch({ headless: false });
     const page = await browser.newPage();
@@ -34,3 +34,5 @@ export default abstract class ScrapingBasicClient extends ScrapingBasic {
     return $;
   }
 }
+
+export default ScrapingBasicClient;

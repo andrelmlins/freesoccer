@@ -1,11 +1,11 @@
-import DfbConstants from '../../constants/DfbConstants';
-import ICompetitionDefault from '../../interfaces/ICompetitionDefault';
+import DfbConstants from '@constants/DfbConstants';
+import ICompetitionDefault from '@interfaces/ICompetitionDefault';
 import ScrapingBasic from '../ScrapingBasic';
 
-import { Competition } from '../../schemas/Competition';
-import { Table } from '../../schemas/Table';
-import ItemTable from '../../schemas/ItemTable';
-import TableRepository from '../../repository/TableRepository';
+import { Competition } from '@schemas/Competition';
+import { Table } from '@schemas/Table';
+import ItemTable from '@schemas/ItemTable';
+import TableRepository from '@repository/TableRepository';
 
 export default class DfbTableScraping extends ScrapingBasic {
   private tableRepository: TableRepository;

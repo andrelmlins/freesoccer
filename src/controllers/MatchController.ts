@@ -1,8 +1,8 @@
 import { Response, Request } from 'express';
-import CompetitionCode from '../enums/CompetitionCode';
-import MatchRepository from '../repository/MatchRepository';
+import CompetitionCode from '@enums/CompetitionCode';
+import MatchRepository from '@repository/MatchRepository';
 
-export default class MatchController {
+class MatchController {
   private matchRepository: MatchRepository;
 
   constructor() {
@@ -25,3 +25,5 @@ export default class MatchController {
     }
   }
 }
+
+export default MatchController;

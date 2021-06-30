@@ -1,8 +1,8 @@
-import CompetitionCode from '../enums/CompetitionCode';
-import { Competition } from '../schemas/Competition';
-import { Round } from '../schemas/Round';
+import CompetitionCode from '@enums/CompetitionCode';
+import { Competition } from '@schemas/Competition';
+import { Round } from '@schemas/Round';
 
-export default class MatchRepository {
+class MatchRepository {
   public async allPerRound(roundCode: string) {
     const round = await Round.findOne({ hash: roundCode });
 
@@ -44,3 +44,5 @@ export default class MatchRepository {
     return matches;
   }
 }
+
+export default MatchRepository;

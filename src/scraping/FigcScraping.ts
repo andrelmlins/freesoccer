@@ -1,10 +1,10 @@
-import ICompetitionDefault from '../interfaces/ICompetitionDefault';
-import IFederationScraping from '../interfaces/IFederationScraping';
-import CompetitionType from '../enums/CompetitionType';
+import ICompetitionDefault from '@interfaces/ICompetitionDefault';
+import IFederationScraping from '@interfaces/IFederationScraping';
+import CompetitionType from '@enums/CompetitionType';
 import FigcLeagueScraping from './leagues/FigcLeagueScraping';
 import FigcTableScraping from './tables/FigcTableScraping';
 
-export default class FigcScraping implements IFederationScraping {
+class FigcScraping implements IFederationScraping {
   public lastYear: boolean;
   private figcLeagueScraping: FigcLeagueScraping;
   private figcTableScraping: FigcTableScraping;
@@ -36,3 +36,5 @@ export default class FigcScraping implements IFederationScraping {
     await this.figcLeagueScraping.run(competition);
   }
 }
+
+export default FigcScraping;

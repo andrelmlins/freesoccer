@@ -1,4 +1,4 @@
-export default class ItemTable {
+class ItemTable {
   public position?: number;
   public name?: string;
   public flag?: string;
@@ -13,3 +13,5 @@ export default class ItemTable {
   public yellowCard?: number;
   public redCard?: number;
 }
+
+export default ItemTable;

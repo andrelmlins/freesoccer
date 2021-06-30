@@ -1,9 +1,9 @@
-import ICompetitionDefault from '../interfaces/ICompetitionDefault';
+import ICompetitionDefault from '@interfaces/ICompetitionDefault';
 
-import CompetitionCode from '../enums/CompetitionCode';
-import CompetitionType from '../enums/CompetitionType';
+import CompetitionCode from '@enums/CompetitionCode';
+import CompetitionType from '@enums/CompetitionType';
 
-export default class RfefConstants {
+class RfefConstants {
   public static URL_DEFAULT = 'http://www.rfef.es/competiciones';
   public static COUNTRY = 'Spain';
   public static FEDERATION = 'RFEF - Real Federación Española de Fútbol';
@@ -15,8 +15,8 @@ export default class RfefConstants {
       years: ['2014', '2015', '2016', '2017', '2018', '2019'],
       aux: {
         url: 'futbol-masculino',
-        name: 'Campeonato Nacional de Liga de Primera División'
-      }
+        name: 'Campeonato Nacional de Liga de Primera División',
+      },
     },
     {
       type: CompetitionType.LEAGUE,
@@ -25,8 +25,8 @@ export default class RfefConstants {
       years: ['2014', '2015', '2016', '2017', '2018', '2019'],
       aux: {
         url: 'futbol-masculino',
-        name: 'Campeonato Nacional de Liga de Segunda División'
-      }
+        name: 'Campeonato Nacional de Liga de Segunda División',
+      },
     },
     {
       type: CompetitionType.LEAGUE,
@@ -35,8 +35,10 @@ export default class RfefConstants {
       years: ['2014', '2015', '2016', '2017', '2018', '2019'],
       aux: {
         url: 'futbol-femenino',
-        name: 'Primera División Femenina'
-      }
-    }
+        name: 'Primera División Femenina',
+      },
+    },
   ];
 }
+
+export default RfefConstants;

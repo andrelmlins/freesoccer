@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": "src",
     "lib": ["es6", "dom"],
     "types": ["node", "mongoose", "express"],
     "target": "es6",
@@ -8,7 +9,18 @@
     "strict": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "paths": {
+      "*": ["node_modules/*"],
+      "@constants/*": ["constants/*"],
+      "@controllers/*": ["controllers/*"],
+      "@enums/*": ["enums/*"],
+      "@interfaces/*": ["interfaces/*"],
+      "@repository/*": ["repository/*"],
+      "@schemas/*": ["schemas/*"],
+      "@scraping/*": ["scraping/*"],
+      "@utils/*": ["utils/*"]
+    }
   },
   "include": ["src/**/*.ts", "public/*"],
   "exclude": ["node_modules"]

@@ -1,7 +1,7 @@
 import commander from 'commander';
 import mongoose from 'mongoose';
 
-import CompetitionUtil from '../utils/CompetitionUtil';
+import CompetitionUtil from '@utils/CompetitionUtil';
 
 class Commander {
   public program: commander.Command;

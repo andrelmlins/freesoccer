@@ -2,11 +2,11 @@ import cheerio from 'cheerio';
 import axios from 'axios';
 import https from 'https';
 
-import LoadingCli from '../utils/LoadingCli';
-import ICompetitionDefault from '../interfaces/ICompetitionDefault';
-import { ICompetition, Competition } from '../schemas/Competition';
+import LoadingCli from '@utils/LoadingCli';
+import ICompetitionDefault from '@interfaces/ICompetitionDefault';
+import { ICompetition, Competition } from '@schemas/Competition';
 
-export default abstract class ScrapingBasic {
+abstract class ScrapingBasic {
   protected lastYear: boolean;
   protected loadingCli: LoadingCli;
 
@@ -66,3 +66,5 @@ export default abstract class ScrapingBasic {
     return competition;
   }
 }
+
+export default ScrapingBasic;

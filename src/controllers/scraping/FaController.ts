@@ -1,11 +1,11 @@
 import { Response, Request } from 'express';
 
-import FaConstants from '../../constants/FaConstants';
-import FaScraping from '../../scraping/FaScraping';
-import CompetitionUtil from '../../utils/CompetitionUtil';
-import ICompetitionDefault from '../../interfaces/ICompetitionDefault';
+import FaConstants from '@constants/FaConstants';
+import FaScraping from '@scraping/FaScraping';
+import CompetitionUtil from '@utils/CompetitionUtil';
+import ICompetitionDefault from '@interfaces/ICompetitionDefault';
 
-export default class FaController {
+class FaController {
   public async loadResults(req: Request, res: Response) {
     try {
       let competition: ICompetitionDefault = CompetitionUtil.getCompetition(FaConstants.COMPETITIONS, req.params.competition);
@@ -34,3 +34,5 @@ export default class FaController {
     }
   }
 }
+
+export default FaController;

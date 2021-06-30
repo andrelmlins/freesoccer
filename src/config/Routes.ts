@@ -1,8 +1,8 @@
-import CompetitionController from '../controllers/CompetitionController';
-import RoundController from '../controllers/RoundController';
-import TableController from '../controllers/TableController';
-import MatchController from '../controllers/MatchController';
-import Controller from '../controllers/Controller';
+import CompetitionController from '@controllers/CompetitionController';
+import RoundController from '@controllers/RoundController';
+import TableController from '@controllers/TableController';
+import MatchController from '@controllers/MatchController';
+import Controller from '@controllers/Controller';
 
 export class Routes {
   public competitionController: CompetitionController;

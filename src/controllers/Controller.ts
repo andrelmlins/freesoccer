@@ -1,6 +1,6 @@
 import { Response, Request } from 'express';
 
-export default class Controller {
+class Controller {
   public async getSwagger(_: Request, res: Response) {
     try {
       res.send(require('../../public/assets/swagger.json'));
@@ -9,3 +9,5 @@ export default class Controller {
     }
   }
 }
+
+export default Controller;

@@ -1,8 +1,8 @@
 import { Response, Request } from 'express';
-import CompetitionCode from '../enums/CompetitionCode';
-import RoundRepository from '../repository/RoundRepository';
+import CompetitionCode from '@enums/CompetitionCode';
+import RoundRepository from '@repository/RoundRepository';
 
-export default class RoundController {
+class RoundController {
   private roundRepository: RoundRepository;
 
   constructor() {
@@ -25,3 +25,5 @@ export default class RoundController {
     }
   }
 }
+
+export default RoundController;

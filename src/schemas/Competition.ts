@@ -1,10 +1,10 @@
 import { Document, Schema, Model, model } from 'mongoose';
 
+import CompetitionType from '@enums/CompetitionType';
+import CompetitionCode from '@enums/CompetitionCode';
+
 import { IRound } from './Round';
 import { IStage } from './Stage';
-
-import CompetitionType from '../enums/CompetitionType';
-import CompetitionCode from '../enums/CompetitionCode';
 
 export interface ICompetition extends Document {
   name: string;
