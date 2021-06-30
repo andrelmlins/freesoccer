@@ -24,7 +24,6 @@ class CompetitionRepository {
           name: 1,
           country: 1,
           federation: 1,
-          //   url: { $concat: [Helpers.getUrl(req, req.url), '/', '$code'] },
           years: '$years',
         },
       },
@@ -33,7 +32,7 @@ class CompetitionRepository {
     return competitions;
   }
 
-  public async get(competitionCode: String) {
+  public async get(competitionCode: string) {
     const competitions = await Competition.aggregate([
       { $match: { code: competitionCode } },
       {
@@ -48,7 +47,6 @@ class CompetitionRepository {
             $push: {
               year: '$year',
               rounds: { $sum: { $size: '$rounds' } },
-              //   url: { $concat: [Helpers.getUrl(req, req.url), '/', '$year'] }
             },
           },
         },
@@ -61,7 +59,6 @@ class CompetitionRepository {
           name: 1,
           country: 1,
           federation: 1,
-          //   url: Helpers.getUrl(req, req.url),
           years: '$years',
         },
       },
@@ -70,9 +67,9 @@ class CompetitionRepository {
     return competitions[0];
   }
 
-  public async getYear(competitionCode: String, year: String) {
+  public async getYear(competitionCode: string, year: string) {
     const competitions = await Competition.aggregate([
-      { $match: { code: competitionCode, year: year } },
+      { $match: { code: competitionCode, year } },
       {
         $group: {
           _id: '$code',
@@ -95,13 +92,6 @@ class CompetitionRepository {
           federation: 1,
           year: 1,
           rounds: 1,
-          //   url: Helpers.getUrl(req, req.url),
-          //   urls: {
-          //     rounds: Helpers.getUrl(req, req.url) + '/rounds',
-          //     matches: Helpers.getUrl(req, req.url) + '/matches',
-          //     statistics: Helpers.getUrl(req, req.url) + '/statistics',
-          //     table: Helpers.getUrl(req, req.url) + '/table'
-          //   }
         },
       },
     ]);
@@ -110,13 +100,16 @@ class CompetitionRepository {
   }
 
   public async getBasicYear(code: CompetitionCode, year: string) {
-    return await Competition.findOne({ code, year });
+    return Competition.findOne({ code, year });
   }
 
   public async save(competition: ICompetition) {
-    let competitionOld = await Competition.findOne({ code: competition.code, year: competition.year });
+    const competitionOld = await Competition.findOne({
+      code: competition.code,
+      year: competition.year,
+    });
     if (competitionOld) {
-      let competitionAux: any = competition.toObject();
+      const competitionAux: any = competition.toObject();
       delete competitionAux._id;
 
       await Competition.updateOne({ _id: competitionOld._id }, competitionAux);

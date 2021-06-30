@@ -10,7 +10,7 @@ export interface ITable extends Document {
 
 export const TableSchema: Schema = new Schema({
   competition: { type: Schema.Types.ObjectId, ref: 'Competition' },
-  itens: [Object]
+  itens: [Object],
 });
 
 export const Table: Model<ITable> = model<ITable>('Table', TableSchema);

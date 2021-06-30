@@ -38,20 +38,20 @@ class FpfLeagueScraping extends ScrapingBasic {
     if (this.lastYear) initial = competitionDefault.years!.length - 1;
 
     for (let i = initial; i < competitionDefault.years!.length; i++) {
-      let year = competitionDefault.years![i];
-      let codeYear = year + (parseInt(year) + 1);
-      let url = competitionDefault.aux.urls[i];
+      const year = competitionDefault.years![i];
+      const codeYear = year + (Number(year) + 1);
+      const url = competitionDefault.aux.urls[i];
 
       this.loadingCli.push(`Year ${year}`);
 
-      let competition = await Helpers.createCompetition(competitionDefault, year + '', FpfConstants);
+      const competition = await Helpers.createCompetition(competitionDefault, `${year}`, FpfConstants);
 
-      let $ = await this.getPageData(`jornada/${codeYear}/${url}`);
-      let rounds = $('select[name="ddlMatchdays"]').children();
+      const $ = await this.getPageData(`jornada/${codeYear}/${url}`);
+      const rounds = $('select[name="ddlMatchdays"]').children();
 
       for (let j = 0; j < rounds.length; j++) {
         if (rounds.eq(j).text().includes('Week')) {
-          let roundResult = await this.runRound(rounds.eq(j), competition, url, codeYear);
+          const roundResult = await this.runRound(rounds.eq(j), competition, url, codeYear);
           competition.rounds.push(roundResult!._id);
         }
       }
@@ -63,28 +63,28 @@ class FpfLeagueScraping extends ScrapingBasic {
   }
 
   public async runRound(roundHtml: any, competition: ICompetition, url: string, codeYear: string): Promise<IRound | null> {
-    let number = parseInt(roundHtml.attr('value'));
+    const number = Number(roundHtml.attr('value'));
 
-    let round = new Round();
+    const round = new Round();
     round.goals = 0;
     round.goalsHome = 0;
     round.goalsGuest = 0;
-    round.number = number + '';
+    round.number = `${number}`;
     round.matchs = [];
     round.competition = competition._id;
     round.hash = md5(competition.code + competition.year + round.number);
     this.loadingCli.push(`Round ${round.number}`);
 
-    let $ = await this.getPageData(`${FpfConstants.URL_DEFAULT}/jornada/${codeYear}/${url}/${number}`);
-    let data = $('.container').eq(2).children('.tab-content').children().eq(0).children('div');
-    let matches = data.children().eq(0).children();
+    const $ = await this.getPageData(`${FpfConstants.URL_DEFAULT}/jornada/${codeYear}/${url}/${number}`);
+    const data = $('.container').eq(2).children('.tab-content').children().eq(0).children('div');
+    const matches = data.children().eq(0).children();
 
     let date = '';
     for (let i = 1; i < matches.length - 1; i++) {
       if (matches.eq(i).hasClass('match-day')) {
         date = matches.eq(i).text().trim();
       } else {
-        let matchResult = await this.runMatch(matches.eq(i), date);
+        const matchResult = await this.runMatch(matches.eq(i), date);
 
         if (matchResult.teamGuest.goals && matchResult.teamHome.goals) {
           round.goals += matchResult.teamGuest.goals + matchResult.teamHome.goals;
@@ -102,18 +102,18 @@ class FpfLeagueScraping extends ScrapingBasic {
   }
 
   public async runMatch(matchHtml: any, date: string): Promise<Match> {
-    let match = new Match();
+    const match = new Match();
     match.teamHome = new TeamResult();
     match.teamGuest = new TeamResult();
 
-    let data = matchHtml.children('div').children().eq(1).children();
+    const data = matchHtml.children('div').children().eq(1).children();
     let result = null;
 
-    if (matchHtml.children('div').children().eq(0).children().length == 2) {
-      date = date.split(', ')[1] + ' ' + data.eq(1).text().trim().replace('H', ':');
+    if (matchHtml.children('div').children().eq(0).children().length === 2) {
+      date = `${date.split(', ')[1]} ${data.eq(1).text().trim().replace('H', ':')}`;
     } else {
       result = data.eq(1).text().trim().split(' - ');
-      date = date.split(', ')[1] + ' ' + matchHtml.children('div').children().eq(0).children('.time').text().trim().replace('H', ':');
+      date = `${date.split(', ')[1]} ${matchHtml.children('div').children().eq(0).children('.time').text().trim().replace('H', ':')}`;
     }
 
     match.date = moment.utc(date, 'DD MMMM YYYY HH:mm').format();
@@ -123,12 +123,12 @@ class FpfLeagueScraping extends ScrapingBasic {
     match.teamHome.initials = '';
     match.teamHome.name = data.eq(0).children('.teams-name').text().trim();
     match.teamHome.flag = '';
-    match.teamHome.goals = result == null ? undefined : parseInt(result[0]);
+    match.teamHome.goals = result === null ? undefined : Number(result[0]);
 
     match.teamGuest.initials = '';
     match.teamGuest.name = data.eq(2).children('.teams-name').text().trim();
     match.teamGuest.flag = '';
-    match.teamGuest.goals = result == null ? undefined : parseInt(result[1]);
+    match.teamGuest.goals = result === null ? undefined : Number(result[1]);
 
     return match;
   }

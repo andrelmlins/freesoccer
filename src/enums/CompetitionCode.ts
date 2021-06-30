@@ -26,7 +26,7 @@ enum CompetitionCode {
   FPF_MALE_A = 'liga-nos',
   FPF_MALE_B = 'ledman-ligapro',
 
-  FA_MALE_A = 'premier-league'
+  FA_MALE_A = 'premier-league',
 }
 
 export default CompetitionCode;

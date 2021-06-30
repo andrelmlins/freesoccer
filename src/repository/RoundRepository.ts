@@ -13,7 +13,7 @@ class RoundRepository {
     let rounds = [];
     const competition = await this.competitioRepository.getBasicYear(code, year);
 
-    if (competition == null) {
+    if (!competition) {
       throw new Error('Competition does not exist');
     } else {
       rounds = await Round.aggregate([
@@ -36,7 +36,7 @@ class RoundRepository {
     return rounds;
   }
 
-  public async get(roundCode: String) {
+  public async get(roundCode: string) {
     const rounds = await Round.aggregate([
       { $match: { hash: roundCode } },
       {
@@ -61,19 +61,18 @@ class RoundRepository {
   }
 
   public async save(round: IRound): Promise<IRound | null> {
-    let roundOld = await Round.findOne({ hash: round.hash });
+    const roundOld = await Round.findOne({ hash: round.hash });
     if (roundOld) {
-      let roundAux: any = round.toObject();
+      const roundAux: any = round.toObject();
       delete roundAux._id;
 
       await Round.updateOne({ _id: roundOld._id }, roundAux);
 
-      let roundResult = await Round.findOne({ hash: round.hash });
-      return roundResult;
-    } else {
-      let roundResult = await Round.create(round);
+      const roundResult = await Round.findOne({ hash: round.hash });
       return roundResult;
     }
+    const roundResult = await Round.create(round);
+    return roundResult;
   }
 }
 

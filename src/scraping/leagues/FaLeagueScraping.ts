@@ -33,34 +33,34 @@ class FaLeagueScraping extends ScrapingBasicClient {
   }
 
   public async runCompetition(competitionDefault: ICompetitionDefault) {
-    let $ = await this.getPageDinamically('results', 'div[data-dropdown-block="compSeasons"] ul li');
-    let seasons = $('div[data-dropdown-block="compSeasons"] ul').children();
+    const $ = await this.getPageDinamically('results', 'div[data-dropdown-block="compSeasons"] ul li');
+    const seasons = $('div[data-dropdown-block="compSeasons"] ul').children();
 
     let end = seasons.length;
     if (this.lastYear) end = 1;
 
     for (let i = 0; i < end; i++) {
-      let numberSeason = seasons.eq(i).attr('data-option-id');
-      let year = parseInt(seasons.eq(i).text().split('/')[0]);
+      const numberSeason = seasons.eq(i).attr('data-option-id');
+      const year = Number(seasons.eq(i).text().split('/')[0]);
 
       if (year >= 2000) {
         this.loadingCli.push(`Year ${year}`);
 
-        let competition = await this.createCompetition(competitionDefault, year + '');
+        const competition = await this.createCompetition(competitionDefault, `${year}`);
 
-        let $ = await this.getPageDinamicallyScroll('results' + '?co=' + competitionDefault.aux.code + '&se=' + numberSeason);
+        const $page = await this.getPageDinamicallyScroll(`results?co=${competitionDefault.aux.code}&se=${numberSeason}`);
 
-        if (i == 0) {
-          let $_fixtures = await this.getPageDinamicallyScroll('fixtures');
-          let roundsFixtures = $_fixtures('.fixtures').children();
-          for (let i = 0; i < roundsFixtures.length; i++) {
+        if (i === 0) {
+          const $fixtures = await this.getPageDinamicallyScroll('fixtures');
+          const roundsFixtures = $fixtures('.fixtures').children();
+          for (let j = 0; j < roundsFixtures.length; j++) {
             $('.fixtures').prepend(roundsFixtures.eq(i).html());
           }
         }
 
-        let rounds = $('.fixtures').children();
+        const rounds = $page('.fixtures').children();
 
-        let roundsResult = await this.runRound(rounds, competition);
+        const roundsResult = await this.runRound(rounds, competition);
         competition.rounds = roundsResult!;
 
         await this.competitionRepository.save(competition);
@@ -71,7 +71,7 @@ class FaLeagueScraping extends ScrapingBasicClient {
   }
 
   public async runRound(roundsHtml: any, competition: ICompetition): Promise<IRound[] | null> {
-    let rounds: IRound[] = [];
+    const rounds: IRound[] = [];
     let countMatches = 0;
 
     for (let i = 0; i < roundsHtml.length; i++) {
@@ -80,15 +80,15 @@ class FaLeagueScraping extends ScrapingBasicClient {
       }
     }
 
-    let countRounds = Math.round(countMatches / 10);
+    const countRounds = Math.round(countMatches / 10);
     let j = 0;
 
     for (let i = 0; i < countRounds; i++) {
-      let round: IRound = new Round();
+      const round: IRound = new Round();
       round.goals = 0;
       round.goalsHome = 0;
       round.goalsGuest = 0;
-      round.number = countRounds - i + '';
+      round.number = `${countRounds - i}`;
       round.matchs = [];
       round.competition = competition._id;
       round.hash = md5(competition.code + competition.year + round.number);
@@ -99,13 +99,13 @@ class FaLeagueScraping extends ScrapingBasicClient {
 
       for (j; j < roundsHtml.length; j++) {
         if (roundsHtml.eq(j).attr('datetime')) {
-          if (date == '') date = roundsHtml.eq(j).text().trim().split(' ').slice(1).join(' ');
+          if (date === '') date = roundsHtml.eq(j).text().trim().split(' ').slice(1).join(' ');
         } else {
-          let matches = roundsHtml.eq(j).children().eq(1).children();
+          const matches = roundsHtml.eq(j).children().eq(1).children();
           matchesCount += matches.length;
 
           for (let k = 0; k < matches.length; k++) {
-            let matchResult = await this.runMatch(matches.eq(k), date);
+            const matchResult = await this.runMatch(matches.eq(k), date);
 
             if (matchResult.teamGuest.goals && matchResult.teamHome.goals) {
               round.goals += matchResult.teamGuest.goals + matchResult.teamHome.goals;
@@ -135,7 +135,7 @@ class FaLeagueScraping extends ScrapingBasicClient {
     const data = matchHtml.find('.overview').children();
     const location = matchHtml.eq(1).text().split(', ');
 
-    match.date = moment.utc(date + ' 00:00', 'DD MMMM YYYY HH:mm').format();
+    match.date = moment.utc(`${date} 00:00`, 'DD MMMM YYYY HH:mm').toDate();
     match.stadium = location[0];
     match.location = location[1];
 
@@ -145,12 +145,12 @@ class FaLeagueScraping extends ScrapingBasicClient {
     match.teamHome.initials = '';
     match.teamHome.name = dataResult.eq(0).text().trim();
     match.teamHome.flag = '';
-    match.teamHome.goals = result.length < 2 ? undefined : parseInt(result[0]);
+    match.teamHome.goals = result.length < 2 ? undefined : Number(result[0]);
 
     match.teamGuest.initials = '';
     match.teamGuest.name = dataResult.eq(2).text().trim();
     match.teamGuest.flag = '';
-    match.teamGuest.goals = result.length < 2 ? undefined : parseInt(result[1]);
+    match.teamGuest.goals = result.length < 2 ? undefined : Number(result[1]);
 
     return match;
   }

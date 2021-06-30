@@ -10,7 +10,9 @@ class CompetitionController {
 
   public async all(req: Request, res: Response) {
     try {
-      res.send({ competitions: await this.competitionRepository.all(req.query) });
+      res.send({
+        competitions: await this.competitionRepository.all(req.query),
+      });
     } catch (error) {
       res.status(404).send({ error: true });
     }
@@ -18,7 +20,9 @@ class CompetitionController {
 
   public async get(req: Request, res: Response) {
     try {
-      res.send({ competition: await this.competitionRepository.get(req.params.competition) });
+      res.send({
+        competition: await this.competitionRepository.get(req.params.competition),
+      });
     } catch (error) {
       res.status(404).send({ error: true });
     }
@@ -26,7 +30,9 @@ class CompetitionController {
 
   public async getYear(req: Request, res: Response) {
     try {
-      res.send({ competition: await this.competitionRepository.getYear(req.params.competition, req.params.year) });
+      res.send({
+        competition: await this.competitionRepository.getYear(req.params.competition, req.params.year),
+      });
     } catch (error) {
       res.status(404).send({ error: true });
     }

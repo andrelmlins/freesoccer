@@ -9,7 +9,7 @@ class DfbScraping implements IFederationScraping {
   private dbcLeagueScraping: DfbLeagueScraping;
   private dfbTableScraping: DfbTableScraping;
 
-  constructor(lastYear: boolean = false) {
+  constructor(lastYear = false) {
     this.lastYear = lastYear;
 
     this.dbcLeagueScraping = new DfbLeagueScraping(this.lastYear);
@@ -20,6 +20,8 @@ class DfbScraping implements IFederationScraping {
     switch (competition.type) {
       case CompetitionType.LEAGUE:
         await this.runLeague(competition);
+        break;
+      default:
         break;
     }
   }

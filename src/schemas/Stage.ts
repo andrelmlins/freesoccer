@@ -16,7 +16,7 @@ export const StageSchema: Schema = new Schema({
   name: String,
   goals: Number,
   matchs: [Object],
-  competition: { type: Schema.Types.ObjectId, ref: 'Competition' }
+  competition: { type: Schema.Types.ObjectId, ref: 'Competition' },
 });
 
 export const Stage: Model<IStage> = model<IStage>('Stage', StageSchema);

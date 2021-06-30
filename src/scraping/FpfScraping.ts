@@ -9,7 +9,7 @@ class FpfScraping implements IFederationScraping {
   private fpfLeagueScraping: FpfLeagueScraping;
   private fpfTableScraping: FpfTableScraping;
 
-  constructor(lastYear: boolean = false) {
+  constructor(lastYear = false) {
     this.lastYear = lastYear;
 
     this.fpfLeagueScraping = new FpfLeagueScraping(this.lastYear);
@@ -20,6 +20,8 @@ class FpfScraping implements IFederationScraping {
     switch (competition.type) {
       case CompetitionType.LEAGUE:
         await this.runLeague(competition);
+        break;
+      default:
         break;
     }
   }

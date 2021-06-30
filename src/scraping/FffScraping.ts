@@ -11,7 +11,7 @@ class FffScraping implements IFederationScraping {
   private fffTableScraping: FffTableScraping;
   private fffEliminationScraping: FffEliminationScraping;
 
-  constructor(lastYear: boolean = false) {
+  constructor(lastYear = false) {
     this.lastYear = lastYear;
 
     this.fffLeagueScraping = new FffLeagueScraping(this.lastYear);
@@ -26,6 +26,8 @@ class FffScraping implements IFederationScraping {
         break;
       case CompetitionType.ELIMINATION:
         await this.runElimination(competition);
+        break;
+      default:
         break;
     }
   }

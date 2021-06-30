@@ -9,7 +9,7 @@ class FigcScraping implements IFederationScraping {
   private figcLeagueScraping: FigcLeagueScraping;
   private figcTableScraping: FigcTableScraping;
 
-  constructor(lastYear: boolean = false) {
+  constructor(lastYear = false) {
     this.lastYear = lastYear;
 
     this.figcLeagueScraping = new FigcLeagueScraping(this.lastYear);
@@ -20,6 +20,8 @@ class FigcScraping implements IFederationScraping {
     switch (competition.type) {
       case CompetitionType.LEAGUE:
         await this.runLeague(competition);
+        break;
+      default:
         break;
     }
   }

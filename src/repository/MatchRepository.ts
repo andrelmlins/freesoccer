@@ -10,7 +10,7 @@ class MatchRepository {
       throw Error('Round does not exist');
     }
 
-    const matches = round.matchs.sort((a, b) => (a.date > b.date ? 1 : b.date > a.date ? -1 : 0));
+    const matches = round.matchs.sort((a, b) => a.date.getTime() - b.date.getTime());
     return matches;
   }
 
@@ -27,11 +27,7 @@ class MatchRepository {
       {
         $project: {
           _id: 0,
-          round: {
-            number: '$number',
-            hash: '$hash',
-            //   url: { $concat: [Helpers.getUrl(req, '/api/rounds'), '/', '$hash'] }
-          },
+          round: { number: '$number', hash: '$hash' },
           date: '$matchs.date',
           stadium: '$matchs.stadium',
           location: '$matchs.location',

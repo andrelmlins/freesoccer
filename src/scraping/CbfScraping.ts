@@ -13,7 +13,7 @@ class CbfScraping implements IFederationScraping {
   private cbfTableScraping: CbfTableScraping;
   private cbfEliminationScraping: CbfEliminationScraping;
 
-  constructor(lastYear: boolean = false) {
+  constructor(lastYear = false) {
     this.lastYear = lastYear;
 
     this.cbfLeagueScraping = new CbfLeagueScraping(this.lastYear);
@@ -30,6 +30,8 @@ class CbfScraping implements IFederationScraping {
         break;
       case CompetitionType.ELIMINATION:
         await this.runElimination(competition);
+        break;
+      default:
         break;
     }
   }

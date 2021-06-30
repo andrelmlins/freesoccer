@@ -10,7 +10,7 @@ import { Table } from '@schemas/Table';
 import ItemTable from '@schemas/ItemTable';
 import TableRepository from '@repository/TableRepository';
 
-export default class FpfTableScraping {
+class FpfTableScraping {
   public lastYear: boolean;
   private axios: any;
   private tableRepository: TableRepository;
@@ -33,31 +33,34 @@ export default class FpfTableScraping {
   }
 
   public async runCompetition(competitionDefault: ICompetitionDefault) {
-    console.log('\t-> ' + competitionDefault.name);
+    console.log(`\t-> ${competitionDefault.name}`);
 
     let initial = 0;
     if (this.lastYear) initial = competitionDefault.years!.length - 1;
 
     for (let i = initial; i < competitionDefault.years!.length; i++) {
-      let year = competitionDefault.years![i];
-      let codeYear = year + (parseInt(year) + 1);
-      let url = competitionDefault.aux.urls[i];
+      const year = competitionDefault.years![i];
+      const codeYear = year + (Number(year) + 1);
+      const url = competitionDefault.aux.urls[i];
 
-      console.log('\t\t-> ' + year);
+      console.log(`\t\t-> ${year}`);
 
-      let competition = await Competition.findOne({ code: competitionDefault.code, year: year });
+      const competition = await Competition.findOne({
+        code: competitionDefault.code,
+        year,
+      });
 
-      let page = await this.axios.get(`${FpfConstants.URL_DEFAULT}/classificacao/${codeYear}/${url}`);
+      const page = await this.axios.get(`${FpfConstants.URL_DEFAULT}/classificacao/${codeYear}/${url}`);
 
-      let $ = cheerio.load(page.data);
-      let tableHtml = $('table#primeiraLiga tbody').children();
+      const $ = cheerio.load(page.data);
+      const tableHtml = $('table#primeiraLiga tbody').children();
 
-      let table = new Table();
+      const table = new Table();
       table.competition = competition!._id;
       table.itens = [];
 
       for (let j = 1; j < tableHtml.length; j++) {
-        let item = this.runItemTable(tableHtml.eq(j), j + 1);
+        const item = this.runItemTable(tableHtml.eq(j), j + 1);
         if (item) table.itens.push(item);
       }
 
@@ -66,19 +69,19 @@ export default class FpfTableScraping {
   }
 
   public runItemTable(tableHtml: any, position: number): ItemTable | null {
-    let data = tableHtml.children();
+    const data = tableHtml.children();
 
-    let item = new ItemTable();
+    const item = new ItemTable();
     item.position = position;
     item.name = data.eq(2).text().trim();
     item.flag = '';
-    item.points = parseInt(data.eq(19).text().trim());
-    item.matches = parseInt(data.eq(3).text().trim());
-    item.win = parseInt(data.eq(4).text().trim());
-    item.draw = parseInt(data.eq(5).text().trim());
-    item.lose = parseInt(data.eq(6).text().trim());
-    item.goalsScored = parseInt(data.eq(15).text().trim());
-    item.goalsAgainst = parseInt(data.eq(16).text().trim());
+    item.points = Number(data.eq(19).text().trim());
+    item.matches = Number(data.eq(3).text().trim());
+    item.win = Number(data.eq(4).text().trim());
+    item.draw = Number(data.eq(5).text().trim());
+    item.lose = Number(data.eq(6).text().trim());
+    item.goalsScored = Number(data.eq(15).text().trim());
+    item.goalsAgainst = Number(data.eq(16).text().trim());
     item.goalsDifference = item.goalsScored - item.goalsAgainst;
     item.yellowCard = undefined;
     item.redCard = undefined;
@@ -86,3 +89,5 @@ export default class FpfTableScraping {
     return item;
   }
 }
+
+export default FpfTableScraping;

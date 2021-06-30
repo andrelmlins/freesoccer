@@ -40,19 +40,19 @@ class RfefLeagueScraping extends ScrapingBasic {
     for (let i = initial; i < competitionDefault.years!.length; i++) {
       this.loadingCli.push(`Year ${competitionDefault.years![i]}`);
 
-      let year = (parseInt(competitionDefault.years![i]) - 1).toString();
+      const year = (Number(competitionDefault.years![i]) - 1).toString();
 
-      let competition = await this.createCompetition(competitionDefault, year);
+      const competition = await this.createCompetition(competitionDefault, year);
 
-      let $ = await this.getPageData(`${competitionDefault.aux.url}/resultados?t=${competitionDefault.years![i]}`);
-      let list = $('.postcontent').find('.content').children('.container-fluid');
+      const $ = await this.getPageData(`${competitionDefault.aux.url}/resultados?t=${competitionDefault.years![i]}`);
+      const list = $('.postcontent').find('.content').children('.container-fluid');
 
       for (let j = 0; j < list.length; j++) {
         if (list.eq(j).children('div').children().eq(0).text().trim().includes(competitionDefault.aux.name)) {
-          let rounds = list.eq(j).children('div').children().eq(1).children('div').children('ul').children();
+          const rounds = list.eq(j).children('div').children().eq(1).children('div').children('ul').children();
 
           for (let k = 0; k < rounds.length; k++) {
-            let roundResult = await this.runRound(rounds.eq(k), competition, competitionDefault.aux.url);
+            const roundResult = await this.runRound(rounds.eq(k), competition, competitionDefault.aux.url);
             competition.rounds.push(roundResult!._id);
           }
 
@@ -66,10 +66,10 @@ class RfefLeagueScraping extends ScrapingBasic {
     }
   }
 
-  public async runRound(roundHtml: any, competition: ICompetition, url: String): Promise<IRound | null> {
-    let route = roundHtml.children('a').attr('href');
+  public async runRound(roundHtml: any, competition: ICompetition, url: string): Promise<IRound | null> {
+    const route = roundHtml.children('a').attr('href');
 
-    let round = new Round();
+    const round = new Round();
     round.goals = 0;
     round.goalsHome = 0;
     round.goalsGuest = 0;
@@ -80,16 +80,16 @@ class RfefLeagueScraping extends ScrapingBasic {
 
     this.loadingCli.push(`Round ${round.number}`);
 
-    let $ = await this.getPageData(RfefConstants.URL_DEFAULT + url + '/' + route);
-    let data = $('.postcontent').find('.content').children('div');
-    let matchs = data.children('.view-content').children('table').children('tbody').children();
+    const $ = await this.getPageData(`${RfefConstants.URL_DEFAULT + url}/${route}`);
+    const data = $('.postcontent').find('.content').children('div');
+    const matchs = data.children('.view-content').children('table').children('tbody').children();
 
     let date = data.children('.attachment').find('.views-field-fechaJornada').children('span').text();
     date = date.trim().replace(')', '').replace('(', '');
     date = moment.utc(date, 'YYYY-MM-DD').format();
 
     for (let i = 0; i < matchs.length; i++) {
-      let matchResult = await this.runMatch(matchs.eq(i), date);
+      const matchResult = await this.runMatch(matchs.eq(i), date);
 
       if (matchResult.teamGuest.goals && matchResult.teamHome.goals) {
         round.goals += matchResult.teamGuest.goals + matchResult.teamHome.goals;
@@ -106,9 +106,9 @@ class RfefLeagueScraping extends ScrapingBasic {
   }
 
   public async runMatch(matchHtml: any, date: string): Promise<Match> {
-    let childrens = matchHtml.children();
+    const childrens = matchHtml.children();
 
-    let match = new Match();
+    const match = new Match();
     match.teamHome = new TeamResult();
     match.teamGuest = new TeamResult();
 
@@ -119,12 +119,12 @@ class RfefLeagueScraping extends ScrapingBasic {
     match.teamHome.initials = '';
     match.teamHome.name = childrens.eq(0).text().replace('SAD', '').trim();
     match.teamHome.flag = '';
-    match.teamHome.goals = parseInt(childrens.eq(1).text().trim());
+    match.teamHome.goals = Number(childrens.eq(1).text().trim());
 
     match.teamGuest.initials = '';
     match.teamGuest.name = childrens.eq(3).text().replace('SAD', '').trim();
     match.teamGuest.flag = '';
-    match.teamGuest.goals = parseInt(childrens.eq(2).text().trim());
+    match.teamGuest.goals = Number(childrens.eq(2).text().trim());
 
     return match;
   }

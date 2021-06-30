@@ -1,15 +1,15 @@
-import ICompetitionDefault from '@interfaces/ICompetitionDefault';
-
-export default class FaTableScraping {
+class FaTableScraping {
   public lastYear: boolean;
 
   constructor(lastYear: boolean) {
     this.lastYear = lastYear;
   }
 
-  public async run(competition: ICompetitionDefault) {
+  public async run() {
     console.log('-> FA TABLE LEAGUE SCRAPING');
 
-    //await this.runCompetition(competition)
+    // await this.runCompetition(competition)
   }
 }
+
+export default FaTableScraping;

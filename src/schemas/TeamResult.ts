@@ -1,7 +1,7 @@
 class TeamResult {
-  public name: string = '';
-  public initials: string = '';
-  public flag: string = '';
+  public name = '';
+  public initials = '';
+  public flag = '';
   public goals?: number = undefined;
   public goalsPenalty?: number = undefined;
 }

@@ -26,8 +26,8 @@ abstract class ScrapingBasic {
       }),
     });
 
-    const page = await axiosObject.get(this.getConstants().URL_DEFAULT + '/' + url);
-    let $ = cheerio.load(page.data);
+    const page = await axiosObject.get(`${this.getConstants().URL_DEFAULT}/${url}`);
+    const $ = cheerio.load(page.data);
 
     return $;
   }
@@ -48,7 +48,10 @@ abstract class ScrapingBasic {
   }
 
   public async createCompetition(competitionDefault: ICompetitionDefault, year: string): Promise<ICompetition> {
-    let competition = await Competition.findOne({ code: competitionDefault.code, year: year });
+    let competition = await Competition.findOne({
+      code: competitionDefault.code,
+      year,
+    });
     if (competition) {
       competition.rounds = [];
     } else {

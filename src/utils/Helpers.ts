@@ -4,13 +4,16 @@ import ICompetitionDefault from '@interfaces/ICompetitionDefault';
 import { ICompetition, Competition } from '@schemas/Competition';
 
 export default class Helpers {
-  public static getEnumKeyByEnumValue(myEnum: any, enumValue: String) {
-    let keys = Object.keys(myEnum).filter((x) => myEnum[x] == enumValue);
+  public static getEnumKeyByEnumValue(myEnum: any, enumValue: string) {
+    const keys = Object.keys(myEnum).filter((x) => myEnum[x] === enumValue);
     return keys.length > 0 ? keys[0] : null;
   }
 
   public static async createCompetition(competitionDefault: ICompetitionDefault, year: string, constants: any): Promise<ICompetition> {
-    let competition = await Competition.findOne({ code: competitionDefault.code, year: year });
+    let competition = await Competition.findOne({
+      code: competitionDefault.code,
+      year,
+    });
     if (competition) {
       competition.rounds = [];
     } else {
@@ -29,6 +32,6 @@ export default class Helpers {
   }
 
   public static getUrl(req: Request, url: string): string {
-    return req.protocol + '://' + req.get('host') + url;
+    return `${req.protocol}://${req.get('host')}${url}`;
   }
 }

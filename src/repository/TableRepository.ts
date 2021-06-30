@@ -60,10 +60,10 @@ class TableRepository {
   }
 
   public async save(table: ITable) {
-    let tableOld = await Table.findOne({ competition: table.competition });
+    const tableOld = await Table.findOne({ competition: table.competition });
 
     if (tableOld) {
-      let tableAux: any = table.toObject();
+      const tableAux: any = table.toObject();
       delete tableAux._id;
 
       await Table.updateOne({ competition: table.competition }, tableAux);

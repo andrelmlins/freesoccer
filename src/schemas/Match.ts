@@ -1,11 +1,15 @@
 import TeamResult from './TeamResult';
 
 class Match {
-  public date: string = '';
-  public stadium: string = '';
-  public location: string = '';
+  public date: Date;
+  public stadium = '';
+  public location = '';
   public teamHome: TeamResult = new TeamResult();
   public teamGuest: TeamResult = new TeamResult();
+
+  constructor() {
+    this.date = new Date();
+  }
 }
 
 export default Match;

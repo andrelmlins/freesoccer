@@ -10,7 +10,7 @@ import { Table } from '@schemas/Table';
 import ItemTable from '@schemas/ItemTable';
 import TableRepository from '@repository/TableRepository';
 
-export default class FigcTableScraping {
+class FigcTableScraping {
   public lastYear: boolean;
   private axios: any;
   private tableRepository: TableRepository;
@@ -33,32 +33,35 @@ export default class FigcTableScraping {
   }
 
   public async runCompetition(competitionDefault: ICompetitionDefault) {
-    console.log('\t-> ' + competitionDefault.name);
+    console.log(`\t-> ${competitionDefault.name}`);
 
     let initial = 0;
     if (this.lastYear) initial = competitionDefault.years!.length - 1;
 
     for (let i = initial; i < competitionDefault.years!.length; i++) {
-      console.log('\t\t-> ' + competitionDefault.years![i]);
+      console.log(`\t\t-> ${competitionDefault.years![i]}`);
 
-      let competition = await Competition.findOne({ code: competitionDefault.code, year: competitionDefault.years![i] });
+      const competition = await Competition.findOne({
+        code: competitionDefault.code,
+        year: competitionDefault.years![i],
+      });
 
-      let newYear = parseInt(competition!.year.substring(2, 4)) + 1 + '';
-      if (newYear.length == 1) newYear = '0' + newYear;
+      let newYear = `${Number(competition!.year.substring(2, 4)) + 1}`;
+      if (newYear.length === 1) newYear = `0${newYear}`;
 
-      let year = competition!.year + '-' + newYear;
+      const year = `${competition!.year}-${newYear}`;
 
-      let page = await this.axios.get(`${competitionDefault.aux.url}/classifica/${year}`);
+      const page = await this.axios.get(`${competitionDefault.aux.url}/classifica/${year}`);
 
-      let $ = cheerio.load(page.data);
-      let tableHtml = $('.competizione-classifica table tbody').children();
+      const $ = cheerio.load(page.data);
+      const tableHtml = $('.competizione-classifica table tbody').children();
 
-      let table = new Table();
+      const table = new Table();
       table.competition = competition!._id;
       table.itens = [];
 
       for (let j = 0; j < tableHtml.length; j++) {
-        let item = this.runItemTable(tableHtml.eq(j), j + 1);
+        const item = this.runItemTable(tableHtml.eq(j), j + 1);
         if (item) table.itens.push(item);
       }
 
@@ -67,20 +70,20 @@ export default class FigcTableScraping {
   }
 
   public runItemTable(tableHtml: any, position: number): ItemTable | null {
-    let data = tableHtml.children();
+    const data = tableHtml.children();
     data.eq(0).children('span').remove();
 
-    let item = new ItemTable();
+    const item = new ItemTable();
     item.position = position;
     item.name = data.eq(0).text().trim();
     item.flag = FigcConstants.URL_DEFAULT + data.eq(0).find('img').attr('src').trim();
-    item.points = parseInt(data.eq(1).text().trim());
-    item.matches = parseInt(data.eq(2).text().trim());
-    item.win = parseInt(data.eq(3).text().trim());
-    item.draw = parseInt(data.eq(4).text().trim());
-    item.lose = parseInt(data.eq(5).text().trim());
-    item.goalsScored = parseInt(data.eq(14).text().trim());
-    item.goalsAgainst = parseInt(data.eq(15).text().trim());
+    item.points = Number(data.eq(1).text().trim());
+    item.matches = Number(data.eq(2).text().trim());
+    item.win = Number(data.eq(3).text().trim());
+    item.draw = Number(data.eq(4).text().trim());
+    item.lose = Number(data.eq(5).text().trim());
+    item.goalsScored = Number(data.eq(14).text().trim());
+    item.goalsAgainst = Number(data.eq(15).text().trim());
     item.goalsDifference = item.goalsScored - item.goalsAgainst;
     item.yellowCard = undefined;
     item.redCard = undefined;
@@ -88,3 +91,5 @@ export default class FigcTableScraping {
     return item;
   }
 }
+
+export default FigcTableScraping;

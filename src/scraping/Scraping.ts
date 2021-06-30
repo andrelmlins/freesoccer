@@ -4,9 +4,9 @@ import CompetitionUtil from '@utils/CompetitionUtil';
 
 class Scraping {
   public lastYear: boolean;
-  public competition: String;
+  public competition: string;
 
-  constructor(competition: String, lastYear: boolean) {
+  constructor(competition: string, lastYear: boolean) {
     this.lastYear = lastYear;
     this.competition = competition;
   }

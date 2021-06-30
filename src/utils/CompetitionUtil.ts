@@ -20,7 +20,7 @@ import FaScraping from '@scraping/FaScraping';
 import ICompetitionDefault from '@interfaces/ICompetitionDefault';
 
 class CompetitionUtil {
-  public static getFederation(competition: String): any {
+  public static getFederation(competition: string): any {
     switch (competition) {
       case 'CBF':
         return { Constant: CbfConstants, Scraping: CbfScraping };
@@ -41,14 +41,14 @@ class CompetitionUtil {
     }
   }
 
-  public static getCompetition(competitions: Array<ICompetitionDefault>, code: String): ICompetitionDefault {
+  public static getCompetition(competitions: Array<ICompetitionDefault>, code: string): ICompetitionDefault {
     for (let i = 0; i < competitions.length; i++) {
-      if (competitions[i].code == code) return competitions[i];
+      if (competitions[i].code === code) return competitions[i];
     }
     throw new Error('Competition does not exist');
   }
 
-  public static async runScraping(competitionName: String, lastYear: Boolean, table: Boolean): Promise<void> {
+  public static async runScraping(competitionName: string, lastYear: boolean, table: boolean): Promise<void> {
     const competitionEnum = Helpers.getEnumKeyByEnumValue(CompetitionCode, competitionName);
 
     if (competitionEnum) {

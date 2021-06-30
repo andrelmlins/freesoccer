@@ -1,4 +1,4 @@
-import cron from 'cron';
+import cron from 'node-cron';
 
 import CbfConstants from '@constants/CbfConstants';
 import FffConstants from '@constants/FffConstants';
@@ -17,56 +17,43 @@ import DfbScraping from '@scraping/DfbScraping';
 import FaScraping from '@scraping/FaScraping';
 
 import ICompetitionDefault from '@interfaces/ICompetitionDefault';
-
 import CompetitionType from '@enums/CompetitionType';
 
-export default class CronJobs {
-  constructor() {}
-
+class CronJobs {
   public crons(): void {
-    new cron.CronJob(
-      '0 */15 * * * *',
-      async () => {
-        console.log('START CRAWLER YEAR CURRENT');
+    cron.schedule('0 */15 * * * *', async () => {
+      console.log('START CRAWLER YEAR CURRENT');
 
-        this.loopGeneric(CbfConstants.COMPETITIONS, new CbfScraping(true));
-        this.loopGeneric(DfbConstants.COMPETITIONS, new DfbScraping(true));
-        this.loopGeneric(FffConstants.COMPETITIONS, new FffScraping(true));
-        this.loopGeneric(FigcConstants.COMPETITIONS, new FigcScraping(true));
-        this.loopGeneric(FpfConstants.COMPETITIONS, new FpfScraping(true));
-        this.loopGeneric(RfefConstants.COMPETITIONS, new RfefScraping(true));
-        this.loopGeneric(FaConstants.COMPETITIONS, new FaScraping(true));
-      },
-      null,
-      true,
-      'America/Los_Angeles'
-    );
+      this.loopGeneric(CbfConstants.COMPETITIONS, new CbfScraping(true));
+      this.loopGeneric(DfbConstants.COMPETITIONS, new DfbScraping(true));
+      this.loopGeneric(FffConstants.COMPETITIONS, new FffScraping(true));
+      this.loopGeneric(FigcConstants.COMPETITIONS, new FigcScraping(true));
+      this.loopGeneric(FpfConstants.COMPETITIONS, new FpfScraping(true));
+      this.loopGeneric(RfefConstants.COMPETITIONS, new RfefScraping(true));
+      this.loopGeneric(FaConstants.COMPETITIONS, new FaScraping(true));
+    });
 
-    new cron.CronJob(
-      '0 0 */12 * * *',
-      async () => {
-        console.log('START CRAWLER');
+    cron.schedule('0 0 */12 * * *', async () => {
+      console.log('START CRAWLER');
 
-        this.loopGeneric(CbfConstants.COMPETITIONS, new CbfScraping(false));
-        this.loopGeneric(DfbConstants.COMPETITIONS, new DfbScraping(false));
-        this.loopGeneric(FffConstants.COMPETITIONS, new FffScraping(false));
-        this.loopGeneric(FigcConstants.COMPETITIONS, new FigcScraping(false));
-        this.loopGeneric(FpfConstants.COMPETITIONS, new FpfScraping(false));
-        this.loopGeneric(RfefConstants.COMPETITIONS, new RfefScraping(false));
-        this.loopGeneric(FaConstants.COMPETITIONS, new FaScraping(false));
-      },
-      null,
-      true,
-      'America/Los_Angeles'
-    );
+      this.loopGeneric(CbfConstants.COMPETITIONS, new CbfScraping(false));
+      this.loopGeneric(DfbConstants.COMPETITIONS, new DfbScraping(false));
+      this.loopGeneric(FffConstants.COMPETITIONS, new FffScraping(false));
+      this.loopGeneric(FigcConstants.COMPETITIONS, new FigcScraping(false));
+      this.loopGeneric(FpfConstants.COMPETITIONS, new FpfScraping(false));
+      this.loopGeneric(RfefConstants.COMPETITIONS, new RfefScraping(false));
+      this.loopGeneric(FaConstants.COMPETITIONS, new FaScraping(false));
+    });
   }
 
   private async loopGeneric(competitions: Array<ICompetitionDefault>, scraping: any) {
     for (let i = 0; i < competitions.length; i++) {
       await scraping.run(competitions[i]);
-      if (competitions[i].type == CompetitionType.LEAGUE) {
+      if (competitions[i].type === CompetitionType.LEAGUE) {
         await scraping.runTable(competitions[i]);
       }
     }
   }
 }
+
+export default CronJobs;

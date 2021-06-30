@@ -8,13 +8,13 @@ abstract class ScrapingBasicClient extends ScrapingBasic {
   protected async getPageDinamically(url: string, stop: string): Promise<any> {
     const browser = await puppeteer.launch({ headless: false });
     const page = await browser.newPage();
-    await page.goto(this.getConstants().URL_DEFAULT + '/' + url);
+    await page.goto(`${this.getConstants().URL_DEFAULT}/${url}`);
     await page.waitForSelector(stop);
 
-    let content = await page.content();
+    const content = await page.content();
     await browser.close();
 
-    let $ = cheerio.load(content);
+    const $ = cheerio.load(content);
     return $;
   }
 
@@ -23,14 +23,14 @@ abstract class ScrapingBasicClient extends ScrapingBasic {
 
     const browser = await puppeteer.launch({ headless: false });
     const page = await browser.newPage();
-    await page.goto(this.getConstants().URL_DEFAULT + '/' + url);
+    await page.goto(`${this.getConstants().URL_DEFAULT}/${url}`);
     // @ts-ignore
     await page.autoScroll(null, 100, 1000);
 
-    let content = await page.content();
+    const content = await page.content();
     await browser.close();
 
-    let $ = cheerio.load(content);
+    const $ = cheerio.load(content);
     return $;
   }
 }

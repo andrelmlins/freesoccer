@@ -9,7 +9,7 @@ class RfefScraping implements IFederationScraping {
   private rfefLeagueScraping: RfefLeagueScraping;
   private rfefTableScraping: RfefTableScraping;
 
-  constructor(lastYear: boolean = false) {
+  constructor(lastYear = false) {
     this.lastYear = lastYear;
 
     this.rfefLeagueScraping = new RfefLeagueScraping(this.lastYear);
@@ -20,6 +20,8 @@ class RfefScraping implements IFederationScraping {
     switch (competition.type) {
       case CompetitionType.LEAGUE:
         await this.runLeague(competition);
+        break;
+      default:
         break;
     }
   }

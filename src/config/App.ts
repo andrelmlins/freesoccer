@@ -31,7 +31,7 @@ class App {
 
     this.config();
 
-    this.app.use(express.static(path.join(__dirname + '../../../public')));
+    this.app.use(express.static(path.join(`${__dirname}../../../public`)));
 
     this.routes.routes(this.app);
     this.cronJobs.crons();
@@ -46,7 +46,10 @@ class App {
     if (usrMongo) {
       mongoose.connect(`mongodb://${usrMongo}:${pswMongo}@${ipMongo}/${baseMongo}`, { useUnifiedTopology: true, useNewUrlParser: true });
     } else {
-      mongoose.connect(`mongodb://${ipMongo}/${baseMongo}`, { useUnifiedTopology: true, useNewUrlParser: true });
+      mongoose.connect(`mongodb://${ipMongo}/${baseMongo}`, {
+        useUnifiedTopology: true,
+        useNewUrlParser: true,
+      });
     }
 
     this.app.use(json({ limit: '50mb' }));

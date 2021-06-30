@@ -11,7 +11,9 @@ class RoundController {
 
   public async all(req: Request, res: Response) {
     try {
-      res.send({ rounds: await this.roundRepository.all(req.params.competition as CompetitionCode, req.params.year) });
+      res.send({
+        rounds: await this.roundRepository.all(req.params.competition as CompetitionCode, req.params.year),
+      });
     } catch (error) {
       res.status(404).send({ error: true });
     }

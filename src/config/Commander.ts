@@ -23,7 +23,10 @@ class Commander {
     if (usrMongo) {
       mongoose.connect(`mongodb://${usrMongo}:${pswMongo}@${ipMongo}/${baseMongo}`, { useUnifiedTopology: true, useNewUrlParser: true });
     } else {
-      mongoose.connect(`mongodb://${ipMongo}/${baseMongo}`, { useUnifiedTopology: true, useNewUrlParser: true });
+      mongoose.connect(`mongodb://${ipMongo}/${baseMongo}`, {
+        useUnifiedTopology: true,
+        useNewUrlParser: true,
+      });
     }
   }
 
