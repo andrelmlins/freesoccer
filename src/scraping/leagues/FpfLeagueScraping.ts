@@ -116,7 +116,7 @@ class FpfLeagueScraping extends ScrapingBasic {
       date = `${date.split(', ')[1]} ${matchHtml.children('div').children().eq(0).children('.time').text().trim().replace('H', ':')}`;
     }
 
-    match.date = moment.utc(date, 'DD MMMM YYYY HH:mm').format();
+    match.date = moment.utc(date, 'DD MMMM YYYY HH:mm').toDate();
     match.stadium = '';
     match.location = '';
 

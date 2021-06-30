@@ -110,7 +110,7 @@ class FigcLeagueScraping extends ScrapingBasic {
     let location = data.eq(0).children('p').html().split('</span>')[1].split('<br>')[1].replace('Stadium: ', '').trim();
     location = location.split('(');
 
-    match.date = moment.utc(date, 'DD/MM/YYYY HH:mm').format();
+    match.date = moment.utc(date, 'DD/MM/YYYY HH:mm').toDate();
     match.stadium = location[0].trim();
     match.location = location[1] ? location[1].replace(')', '').trim() : '';
 

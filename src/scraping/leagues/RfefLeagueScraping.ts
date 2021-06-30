@@ -86,10 +86,9 @@ class RfefLeagueScraping extends ScrapingBasic {
 
     let date = data.children('.attachment').find('.views-field-fechaJornada').children('span').text();
     date = date.trim().replace(')', '').replace('(', '');
-    date = moment.utc(date, 'YYYY-MM-DD').format();
 
     for (let i = 0; i < matchs.length; i++) {
-      const matchResult = await this.runMatch(matchs.eq(i), date);
+      const matchResult = await this.runMatch(matchs.eq(i), moment.utc(date, 'YYYY-MM-DD').toDate());
 
       if (matchResult.teamGuest.goals && matchResult.teamHome.goals) {
         round.goals += matchResult.teamGuest.goals + matchResult.teamHome.goals;
@@ -105,7 +104,7 @@ class RfefLeagueScraping extends ScrapingBasic {
     return result;
   }
 
-  public async runMatch(matchHtml: any, date: string): Promise<Match> {
+  public async runMatch(matchHtml: any, date: Date): Promise<Match> {
     const childrens = matchHtml.children();
 
     const match = new Match();
