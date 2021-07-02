@@ -26,7 +26,6 @@ class RoundRepository {
             goalsHome: 1,
             goalsGuest: 1,
             hash: 1,
-            //   url: { $concat: [Helpers.getUrl(req, '/api/rounds'), '/', '$hash'] },
             matches: { $size: '$matchs' },
           },
         },
@@ -48,11 +47,6 @@ class RoundRepository {
           goalsGuest: 1,
           hash: 1,
           matches: { $size: '$matchs' },
-          //   url: { $concat: [Helpers.getUrl(req, req.url), '/', '$hash'] },
-          //   urls: {
-          //     matches: Helpers.getUrl(req, req.url) + '/matches',
-          //     statistics: Helpers.getUrl(req, req.url) + '/statistics'
-          //   }
         },
       },
     ]);

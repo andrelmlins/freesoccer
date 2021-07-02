@@ -1,6 +1,6 @@
 import loadingCli from 'loading-cli';
 
-export default class LoadingCli {
+class LoadingCli {
   private loading: any;
   private texts: string[];
 
@@ -32,3 +32,5 @@ export default class LoadingCli {
     this.loading.text = this.texts.join(' -> ');
   }
 }
+
+export default LoadingCli;

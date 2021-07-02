@@ -13,6 +13,7 @@ import CompetitionRepository from '@repository/CompetitionRepository';
 import RoundRepository from '@repository/RoundRepository';
 
 import ScrapingBasic from '../ScrapingBasic';
+import TextClear from '@utils/TextClear';
 
 class CbfLeagueScraping extends ScrapingBasic {
   private competitionRepository: CompetitionRepository;
@@ -34,17 +35,21 @@ class CbfLeagueScraping extends ScrapingBasic {
   }
 
   public async runCompetition(competitionDefault: ICompetitionDefault) {
-    let initial = 0;
-    if (this.lastYear) initial = competitionDefault.years!.length - 1;
+    const $ = await this.getPageData(competitionDefault.code);
+    const years = $('#years').children();
 
-    for (let i = initial; i < competitionDefault.years!.length; i++) {
-      this.loadingCli.push(`Year ${competitionDefault.years![i]}`);
+    let end = years.length;
+    if (this.lastYear) end = 1;
 
-      const competition = await this.createCompetition(competitionDefault, competitionDefault.years![i]);
-      const $ = await this.getPageData(`${competition.code}/${competition.year}`);
+    for (let i = 0; i < end; i++) {
+      const year = years.eq(i).text();
+      this.loadingCli.push(`Year ${year}`);
 
-      const section = $('.container section');
-      const rounds = section.children().eq(1).children('aside').children('div').children();
+      const competition = await this.createCompetition(competitionDefault, year);
+      const $page = await this.getPageData(`${competition.code}/${competition.year}`);
+
+      const section = $page('.aside-rodadas .swiper-wrapper');
+      const rounds = section.children();
 
       for (let j = 0; j < rounds.length; j++) {
         const roundResult = await this.runRound(rounds.eq(j), competition);
@@ -62,11 +67,10 @@ class CbfLeagueScraping extends ScrapingBasic {
     round.goals = 0;
     round.goalsHome = 0;
     round.goalsGuest = 0;
-    round.number = roundHtml.children('header').children('h3').text().replace('Rodada ', '');
+    round.number = TextClear.full(roundHtml.children('.aside-header').text().replace('Rodada ', ''));
     round.matchs = [];
     round.competition = competition._id;
-    round.hash = md5(competition.code + competition.year + round.number);
-
+    round.hash = md5(`${competition.code}${competition.year}${round.number}`);
     this.loadingCli.push(`Round ${round.number}`);
 
     const matchsHtml = roundHtml.find('.list-unstyled').children();
@@ -97,11 +101,14 @@ class CbfLeagueScraping extends ScrapingBasic {
 
     const result = matchHtml.find('.partida-horario').children('span').text().split(' x ');
     const location = matchHtml.find('.partida-desc').eq(1).text().trim().replace(' Como foi o jogo', '').split(' - ');
-    const date = matchHtml.find('.partida-desc').eq(0).text().trim().split(' - ')[0].split(',')[1].trim();
+    const dateDescription = matchHtml.find('.partida-desc').eq(0).text().trim().split(' - ')[0];
 
-    match.date = moment.utc(date, 'DD/MM/YYYY HH:mm').toDate();
-    match.stadium = location[0];
-    match.location = `${location[1]}/${location[2]}`;
+    if (!dateDescription.toLowerCase().includes('definir')) {
+      match.date = moment.utc(dateDescription.split(',')[1].trim(), 'DD/MM/YYYY HH:mm').toDate();
+    }
+
+    match.stadium = TextClear.full(location[0]);
+    match.location = TextClear.full(`${location[1]}/${location[2]}`);
 
     match.teamHome.initials = matchHtml.find('.time.pull-left').find('.time-sigla').text();
     match.teamHome.name = matchHtml.find('.time.pull-left').find('img').attr('alt');

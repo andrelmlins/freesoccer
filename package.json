@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc -p . && tscpaths -p tsconfig.json -s ./src -o ./dist",
     "start": "ts-node -r tsconfig-paths/register --transpile-only src/index.ts",
-    "scraping": "yarn build && node dist/config/Commander.js",
+    "scraping": "ts-node -r tsconfig-paths/register --transpile-only src/config/Commander.ts",
     "test": "jest --watch",
     "coverage": "jest --coverage",
     "lint": "eslint src"

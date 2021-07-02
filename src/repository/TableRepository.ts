@@ -10,16 +10,7 @@ class TableRepository {
       throw new Error('Competition does not exist');
     }
 
-    const table = await Table.aggregate([
-      { $match: { competition: competition._id } },
-      {
-        $project: {
-          _id: 0,
-          //   url: { $concat: [Helpers.getUrl(req, req.url)] },
-          positions: '$itens',
-        },
-      },
-    ]);
+    const table = await Table.aggregate([{ $match: { competition: competition._id } }, { $project: { _id: 0, positions: '$itens' } }]);
 
     return table[0];
   }
@@ -37,7 +28,6 @@ class TableRepository {
       {
         $project: {
           _id: 0,
-          //   url: { $concat: [Helpers.getUrl(req, req.url)] },
           position: '$itens.position',
           name: '$itens.name',
           flag: '$itens.flag',

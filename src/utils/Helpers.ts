@@ -1,9 +1,7 @@
-import { Request } from 'express';
-
 import ICompetitionDefault from '@interfaces/ICompetitionDefault';
 import { ICompetition, Competition } from '@schemas/Competition';
 
-export default class Helpers {
+class Helpers {
   public static getEnumKeyByEnumValue(myEnum: any, enumValue: string) {
     const keys = Object.keys(myEnum).filter((x) => myEnum[x] === enumValue);
     return keys.length > 0 ? keys[0] : null;
@@ -30,8 +28,6 @@ export default class Helpers {
 
     return competition;
   }
-
-  public static getUrl(req: Request, url: string): string {
-    return `${req.protocol}://${req.get('host')}${url}`;
-  }
 }
+
+export default Helpers;

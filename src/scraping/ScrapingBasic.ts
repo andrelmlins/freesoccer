@@ -35,16 +35,11 @@ abstract class ScrapingBasic {
   public async run(competition: ICompetitionDefault) {
     this.loadingCli.start();
     this.loadingCli.push(this.getTitle());
+    this.loadingCli.push(competition.name);
 
-    await this.runBasicCompetition(competition);
+    await this.runCompetition(competition);
 
     this.loadingCli.pop();
-  }
-
-  public async runBasicCompetition(competitionDefault: ICompetitionDefault) {
-    this.loadingCli.push(competitionDefault.name);
-
-    await this.runCompetition(competitionDefault);
   }
 
   public async createCompetition(competitionDefault: ICompetitionDefault, year: string): Promise<ICompetition> {
