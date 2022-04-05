@@ -31,7 +31,7 @@
     "jest": "^27.0.6",
     "loading-cli": "^1.1.0",
     "md5": "^2.3.0",
-    "moment": "^2.29.1",
+    "moment": "^2.29.2",
     "mongoose": "^6.0.4",
     "node-cron": "^3.0.0",
     "puppeteer": "^6.0.0",
