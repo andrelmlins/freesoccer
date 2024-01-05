@@ -21,7 +21,7 @@
   },
   "homepage": "https://www.apifreesoccer.com/",
   "dependencies": {
-    "axios": "^0.21.2",
+    "axios": "^1.6.4",
     "body-parser": "^1.19.0",
     "cheerio": "^1.0.0-rc.10",
     "commander": "^8.0.0",
