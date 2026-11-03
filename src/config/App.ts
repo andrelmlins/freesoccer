@@ -44,12 +44,9 @@ class App {
     const pswMongo = process.env.PSW_MONGO;
 
     if (usrMongo) {
-      mongoose.connect(`mongodb://${usrMongo}:${pswMongo}@${ipMongo}/${baseMongo}`, { useUnifiedTopology: true, useNewUrlParser: true });
+      mongoose.connect(`mongodb://${usrMongo}:${pswMongo}@${ipMongo}/${baseMongo}`);
     } else {
-      mongoose.connect(`mongodb://${ipMongo}/${baseMongo}`, {
-        useUnifiedTopology: true,
-        useNewUrlParser: true,
-      });
+      mongoose.connect(`mongodb://${ipMongo}/${baseMongo}`);
     }
 
     this.app.use(json({ limit: '50mb' }));
