@@ -61,7 +61,7 @@ class FaLeagueScraping extends ScrapingBasicClient {
         const rounds = $page('.fixtures').children();
 
         const roundsResult = await this.runRound(rounds, competition);
-        competition.rounds = roundsResult!;
+        competition.rounds = roundsResult!.map((round) => round._id);
 
         await this.competitionRepository.save(competition);
 

@@ -1,14 +1,13 @@
-import { Document, Schema, Model, model } from 'mongoose';
+import { Document, Schema, Model, Types, model } from 'mongoose';
 
 import Match from './Match';
-import { ICompetition } from './Competition';
 
 export interface IStage extends Document {
   hash: string;
   name: string;
   goals: number;
   matchs: Match[];
-  competition: ICompetition;
+  competition: Types.ObjectId;
 }
 
 export const StageSchema: Schema = new Schema({

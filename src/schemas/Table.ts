@@ -1,10 +1,9 @@
-import { Document, Schema, Model, model } from 'mongoose';
+import { Document, Schema, Model, Types, model } from 'mongoose';
 
-import { ICompetition } from './Competition';
 import ItemTable from './ItemTable';
 
 export interface ITable extends Document {
-  competition: ICompetition;
+  competition: Types.ObjectId;
   itens: Array<ItemTable>;
 }
 
