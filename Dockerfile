@@ -1,4 +1,4 @@
-FROM node:14-stretch-slim
+FROM node:22-bookworm-slim
 
 RUN yarn global add pm2
 
