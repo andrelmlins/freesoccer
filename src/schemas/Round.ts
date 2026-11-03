@@ -1,7 +1,6 @@
-import { Document, Schema, Model, model } from 'mongoose';
+import { Document, Schema, Model, Types, model } from 'mongoose';
 
 import Match from './Match';
-import { ICompetition } from './Competition';
 
 export interface IRound extends Document {
   hash: string;
@@ -10,7 +9,7 @@ export interface IRound extends Document {
   goalsHome: number;
   goalsGuest: number;
   matchs: Match[];
-  competition: ICompetition;
+  competition: Types.ObjectId;
 }
 
 export const RoundSchema: Schema = new Schema({
